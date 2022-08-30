@@ -1,7 +1,9 @@
 #include "../oserver_gui_demo.h"
-#include "menu_cb.h"
+#include "menu_handler.h"
 
-void settings_cb(lv_event_t *e)
+#include <stdio.h>
+
+void settings_handler(lv_obj_t * target)
 {
     printf("settings..\n");
 }

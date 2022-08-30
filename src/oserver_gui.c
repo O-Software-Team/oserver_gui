@@ -6,20 +6,13 @@
 #include "../../lvgl/src/misc/lv_color.h"
 #include "../../lvgl/src/font/lv_font.h"
 
-#include "menu_cb.h"
+#include "oserver_gui.h"
+#include "menu_handler.h"
 
 #include <inttypes.h>
 #include <stdio.h>
 
 #if LV_BUILD_EXAMPLES && LV_USE_FLEX
-/* platform-specific printf format for int32_t, usually "d" or "ld" */
-#define LV_PRId32 PRId32
-#define LV_PRIu32 PRIu32
-
-/* Product specific definitions */
-#define OCO_PAGE_MAX 9
-#define OCO_CANVAS_WIDTH 350
-#define OCO_CANVAS_HEIGHT 450
 
 LV_IMG_DECLARE(Background_Menu_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Devices_Yellow);
@@ -33,6 +26,7 @@ LV_IMG_DECLARE(Icon_Menu_Music_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Settings_Yellow);
 LV_IMG_DECLARE(grey_dot_alt);
 LV_IMG_DECLARE(teal_circle_selector);
+LV_IMG_DECLARE(Background);
 
 LV_FONT_DECLARE(lv_font_montserrat_20);
 LV_FONT_DECLARE(lv_font_montserrat_48);
@@ -52,31 +46,28 @@ const lv_img_dsc_t * icon_images[OCO_PAGE_MAX] = {
 static lv_obj_t * page_index[OCO_PAGE_MAX];
 
 menu_dispatch main_menu_names[OCO_PAGE_MAX] = {
-    {"Devices",     &device_cb},
-    {"O",           &o_cb},
-    {"Files",       &files_cb},
-    {"Email",       &email_cb},
-    {"Contacts",    &contacts_cb},
-    {"Calendar",    &calendar_cb},
-    {"Text",        &text_cb},
-    {"Music",       &music_cb},
-    {"Settings",    &settings_cb},
+    {.menu_name = "Devices",     .page_handler = &device_handler},
+    {.menu_name = "O",           .page_handler = &oserver_handler},
+    {.menu_name = "Files",       .page_handler = &files_handler},
+    {.menu_name = "Email",       .page_handler = &email_handler},
+    {.menu_name = "Contacts",    .page_handler = &contacts_handler},
+    {.menu_name = "Calendar",    .page_handler = &calendar_handler},
+    {.menu_name = "Text",        .page_handler = &text_handler},
+    {.menu_name = "Music",       .page_handler = &music_handler},
+    {.menu_name = "Settings",    .page_handler = &settings_handler},
 };
 
 uint16_t index_offset [OCO_PAGE_MAX] = {
     40, 24, 10, 5, 2, 5, 10, 24, 40,
 };
 
-static void click_selected_event_cb(lv_event_t *e)
+/* Top level menu number is passed in the user_data */
+static void click_dispatch_event_cb(lv_event_t *e)
 {
     lv_obj_t * target = lv_event_get_target(e);
     int index = lv_obj_get_user_data(target);
-
-    printf ("%s\n", main_menu_names[index].menu_name);
-    
-    printf (" Calling %s index[%d]\n", main_menu_names[index].menu_name, index);
-
-    main_menu_names[index].page_cb(e);
+    fprintf (" Launching %s at index[%d]\n", main_menu_names[index].menu_name, index);
+    main_menu_names[index].page_handler(target);
 }
 
 static void scroll_event_cb(lv_event_t * e)
@@ -136,10 +127,10 @@ static void scroll_event_cb(lv_event_t * e)
 void oserver_gui(void)
 {
     lv_obj_t * cont = lv_obj_create(lv_scr_act());
-    lv_obj_set_size(cont, OCO_CANVAS_WIDTH - 50, OCO_CANVAS_HEIGHT - 60);
+    lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
     lv_obj_center(cont);
 
-    lv_obj_set_style_bg_color(cont, lv_color_lighten(lv_color_black(), 42), 0);
+    lv_obj_set_style_bg_color(cont, lv_color_lighten(lv_color_black(), 0), 0);
     lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW);
     lv_obj_add_event_cb(cont, scroll_event_cb, LV_EVENT_SCROLL, NULL);
     lv_obj_set_style_clip_corner(cont, true, 0);
@@ -151,10 +142,9 @@ void oserver_gui(void)
     uint32_t i;
 
     lv_obj_t * image;
+    lv_obj_t * image_cover;
     lv_obj_t * icon;
     lv_obj_t * btn;
-
-    int index;
 
     lv_style_t image_style;
     lv_label_t * label;
@@ -166,28 +156,33 @@ void oserver_gui(void)
     lv_style_init(&btn_style);
 
     for(i = 0; i < OCO_PAGE_MAX; i++) {
-        index = i;
         /* This is the grey oval background */
         image = lv_img_create(cont);
-        lv_img_set_src(image, &Background_Menu_Yellow);
-        lv_obj_set_style_bg_img_opa(image, 0, &image_style);
+        lv_img_set_src(image, &Background);
+        lv_obj_align(image, LV_ALIGN_DEFAULT, 80, 10);
+        lv_obj_set_style_bg_img_opa(image, 100, &image_style);
+
+        image_cover = lv_img_create(image);
+        lv_img_set_src(image_cover, &Background_Menu_Yellow);
+        lv_obj_align(image_cover, LV_ALIGN_DEFAULT, 80, 10);
+        lv_obj_set_style_bg_img_opa(image_cover, 100, &image_style);
 
         /* Add opaque button used to click and select menu item */
-        btn = lv_btn_create(image);
+        btn = lv_btn_create(image_cover);
         lv_obj_set_size(btn, 150, 200);
-        lv_obj_align(btn, LV_ALIGN_DEFAULT, 50, 70);
+        lv_obj_align(btn, LV_ALIGN_DEFAULT, 60, 50);
         lv_obj_set_style_opa(btn, LV_OPA_0, 0);
-        lv_obj_add_event_cb(btn, click_selected_event_cb, LV_EVENT_LONG_PRESSED, 0);
+        lv_obj_add_event_cb(btn, click_dispatch_event_cb, LV_EVENT_LONG_PRESSED, lv_scr_act());
         lv_obj_set_user_data(btn, i);
 
         /* Add page icon */
-        icon = lv_img_create(image);
+        icon = lv_img_create(image_cover);
         lv_img_set_src(icon, icon_images[i]);
         lv_obj_align(icon, LV_ALIGN_CENTER, 0, -40);
 
         /* Add menu label name and its sequence number */
-        label = lv_label_create(image);
-        label_index = lv_label_create(image);
+        label = lv_label_create(image_cover);
+        label_index = lv_label_create(image_cover);
         lv_label_set_recolor(label_index, true);
         lv_label_set_recolor(label, true);
 

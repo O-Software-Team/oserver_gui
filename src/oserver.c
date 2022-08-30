@@ -1,7 +1,9 @@
 #include "../oserver_gui_demo.h"
-#include "menu_cb.h"
+#include "menu_handler.h"
 
-void o_cb(lv_event_t *e)
+#include <stdio.h>
+
+void oserver_handler(lv_obj_t * target)
 {
     printf("o..\n");
 }

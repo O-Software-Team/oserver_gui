@@ -17,6 +17,14 @@ extern "C" {
 /*********************
  *      DEFINES
  *********************/
+/* platform-specific printf format for int32_t, usually "d" or "ld" */
+#define LV_PRId32 PRId32
+#define LV_PRIu32 PRIu32
+
+/* Product specific definitions */
+#define OCO_PAGE_MAX 9
+#define OCO_CANVAS_WIDTH 350
+#define OCO_CANVAS_HEIGHT 450
 
 /**********************
  *      TYPEDEFS
