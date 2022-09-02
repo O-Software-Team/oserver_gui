@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void files_handler(lv_obj_t * target)
+void files_handler(lv_event_t * e)
 {
     printf("files..\n");
 }
