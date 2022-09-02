@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void settings_handler(lv_obj_t * target)
+void settings_handler(lv_event_t * target)
 {
     printf("settings..\n");
 }

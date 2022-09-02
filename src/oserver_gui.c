@@ -45,7 +45,7 @@ const lv_img_dsc_t * icon_images[OCO_PAGE_MAX] = {
 
 static lv_obj_t * page_index[OCO_PAGE_MAX];
 
-menu_dispatch main_menu_names[OCO_PAGE_MAX] = {
+menu_dispatch main_menu_dispatch[OCO_PAGE_MAX] = {
     {.menu_name = "Devices",     .page_handler = &device_handler},
     {.menu_name = "O",           .page_handler = &oserver_handler},
     {.menu_name = "Files",       .page_handler = &files_handler},
@@ -60,15 +60,6 @@ menu_dispatch main_menu_names[OCO_PAGE_MAX] = {
 uint16_t index_offset [OCO_PAGE_MAX] = {
     40, 24, 10, 5, 2, 5, 10, 24, 40,
 };
-
-/* Top level menu number is passed in the user_data */
-static void click_dispatch_event_cb(lv_event_t *e)
-{
-    lv_obj_t * target = lv_event_get_target(e);
-    int index = lv_obj_get_user_data(target);
-    fprintf (" Launching %s at index[%d]\n", main_menu_names[index].menu_name, index);
-    main_menu_names[index].page_handler(target);
-}
 
 static void scroll_event_cb(lv_event_t * e)
 {
@@ -172,8 +163,8 @@ void oserver_gui(void)
         lv_obj_set_size(btn, 150, 200);
         lv_obj_align(btn, LV_ALIGN_DEFAULT, 60, 50);
         lv_obj_set_style_opa(btn, LV_OPA_0, 0);
-        lv_obj_add_event_cb(btn, click_dispatch_event_cb, LV_EVENT_LONG_PRESSED, lv_scr_act());
-        lv_obj_set_user_data(btn, i);
+        lv_obj_add_event_cb(btn, main_menu_dispatch[i].page_handler, LV_EVENT_LONG_PRESSED, NULL);
+        lv_obj_set_user_data(btn, lv_scr_act());
 
         /* Add page icon */
         icon = lv_img_create(image_cover);
@@ -187,7 +178,7 @@ void oserver_gui(void)
         lv_label_set_recolor(label, true);
 
         /* Adjust color of the label name - can be localized */
-        lv_label_set_text(label, main_menu_names[i].menu_name);
+        lv_label_set_text(label, main_menu_dispatch[i].menu_name);
         lv_obj_set_style_text_color(label, lv_color_white(), 0);
 
         /* Adjust color and format of the page index */

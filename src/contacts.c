@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void contacts_handler(lv_obj_t * target)
+void contacts_handler(lv_event_t * target)
 {
     printf("contacts..\n");
 }

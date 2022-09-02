@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void oserver_handler(lv_obj_t * target)
+void oserver_handler(lv_event_t * target)
 {
     printf("o..\n");
 }

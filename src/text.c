@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void text_handler(lv_obj_t * target)
+void text_handler(lv_event_t * target)
 {
     printf("text..\n");
 }

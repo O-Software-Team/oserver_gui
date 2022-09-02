@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void email_handler(lv_obj_t * target)
+void email_handler(lv_event_t * target)
 {
     printf("email..\n");
 }

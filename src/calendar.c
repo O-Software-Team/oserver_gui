@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void calendar_handler(lv_obj_t * target)
+void calendar_handler(lv_event_t * target)
 {
     printf("calendar..\n");
 }

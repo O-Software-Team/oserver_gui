@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 
-void music_handler(lv_obj_t * target)
+void music_handler(lv_event_t * target)
 {
     printf("music..\n");
 }

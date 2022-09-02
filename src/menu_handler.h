@@ -29,15 +29,15 @@ typedef struct {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void device_handler(lv_obj_t *);
-void oserver_handler(lv_obj_t *);
-void files_handler(lv_obj_t *);
-void email_handler(lv_obj_t *);
-void contacts_handler(lv_obj_t *);
-void calendar_handler(lv_obj_t *);
-void text_handler(lv_obj_t *);
-void music_handler(lv_obj_t *);
-void settings_handler(lv_obj_t *);
+void device_handler(lv_event_t *);
+void oserver_handler(lv_event_t *);
+void files_handler(lv_event_t *);
+void email_handler(lv_event_t *);
+void contacts_handler(lv_event_t *);
+void calendar_handler(lv_event_t *);
+void text_handler(lv_event_t *);
+void music_handler(lv_event_t *);
+void settings_handler(lv_event_t *);
 
 /**********************
  *      MACROS
