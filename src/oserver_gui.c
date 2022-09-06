@@ -204,10 +204,7 @@ void oserver_gui(void)
         }
     }
     /*Update the canvas position manually for first*/
-    lv_event_send(cont, LV_EVENT_SCROLL, NULL);
-
-    /*Be sure the fist button is in the middle*/
-    lv_obj_scroll_to_view(lv_obj_get_child(cont, 0), LV_ANIM_OFF);
+    lv_obj_scroll_to_view(lv_obj_get_child(cont, 1), LV_ANIM_OFF);
 }
 
 #endif
