@@ -25,11 +25,7 @@ void contacts_handler(lv_event_t * e)
     lv_obj_align(image, LV_ALIGN_CENTER, 0, 0);
 
     lv_img_set_src(image, &Background);
+    lv_obj_fade_in(image, 1000, 0);
 
-    /* Add return to previous button */
-    lv_obj_t * btn = lv_btn_create(image);
-    lv_obj_set_size(btn, 50, 50);
-    lv_obj_align(btn, LV_ALIGN_DEFAULT, 30, 40);
-    lv_obj_add_event_cb(btn, click_return_cb, LV_EVENT_CLICKED, 0);
-    lv_obj_set_user_data(btn, cont);
+    render_back_button(image, back_button_cb);
 }

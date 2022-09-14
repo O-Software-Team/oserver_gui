@@ -18,13 +18,18 @@ extern "C" {
  *      DEFINES
  *********************/
 
+enum security {ADMIN = 0, FRIEND};
+
 /**********************
  *      TYPEDEFS
  **********************/
 typedef struct {
     char * menu_name;
     void (* page_handler)(lv_obj_t *);
-} menu_dispatch;
+    bool active;
+    enum security security_status;
+    lv_img_dsc_t * icon;
+} menu_item;
 
 /**********************
  * GLOBAL PROTOTYPES
@@ -38,6 +43,9 @@ void calendar_handler(lv_event_t *);
 void text_handler(lv_event_t *);
 void music_handler(lv_event_t *);
 void settings_handler(lv_event_t *);
+
+void render_back_button(lv_obj_t *, void (*)(lv_obj_t *));
+void back_button_cb(lv_event_t * e);
 
 /**********************
  *      MACROS

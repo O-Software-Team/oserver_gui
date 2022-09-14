@@ -45,19 +45,19 @@ const lv_img_dsc_t * icon_images[OCO_PAGE_MAX] = {
 
 static lv_obj_t * page_index[OCO_PAGE_MAX];
 
-menu_dispatch main_menu_dispatch[OCO_PAGE_MAX] = {
-    {.menu_name = "Devices",     .page_handler = &device_handler},
-    {.menu_name = "O",           .page_handler = &oserver_handler},
-    {.menu_name = "Files",       .page_handler = &files_handler},
-    {.menu_name = "Email",       .page_handler = &email_handler},
-    {.menu_name = "Contacts",    .page_handler = &contacts_handler},
-    {.menu_name = "Calendar",    .page_handler = &calendar_handler},
-    {.menu_name = "Text",        .page_handler = &text_handler},
-    {.menu_name = "Music",       .page_handler = &music_handler},
-    {.menu_name = "Settings",    .page_handler = &settings_handler},
+menu_item main_menu_dispatch[OCO_PAGE_MAX] = {
+    { .menu_name = "Devices",  .page_handler = &device_handler,   .active = true },
+    { .menu_name = "O",        .page_handler = &oserver_handler,  .active = true },
+    { .menu_name = "Files",    .page_handler = &files_handler,    .active = true },
+    { .menu_name = "Email",    .page_handler = &email_handler,    .active = true },
+    { .menu_name = "Contacts", .page_handler = &contacts_handler, .active = true },
+    { .menu_name = "Calendar", .page_handler = &calendar_handler, .active = true },
+    { .menu_name = "Text",     .page_handler = &text_handler,     .active = true },
+    { .menu_name = "Music",    .page_handler = &music_handler,    .active = true },
+    { .menu_name = "Settings", .page_handler = &settings_handler, .active = true },
 };
 
-uint16_t index_offset [OCO_PAGE_MAX] = {
+static uint16_t index_offset [OCO_PAGE_MAX] = {
     40, 24, 10, 5, 2, 5, 10, 24, 40,
 };
 
@@ -65,6 +65,7 @@ static void scroll_event_cb(lv_event_t * e)
 {
     lv_obj_t * cont = lv_event_get_target(e);
     lv_area_t cont_a;
+
     lv_obj_get_coords(cont, &cont_a);
     lv_coord_t cont_x_center = cont_a.x1 + lv_area_get_width(&cont_a) / 2;
     lv_coord_t cont_y_center = cont_a.y1 + lv_area_get_height(&cont_a) / 2;
@@ -117,6 +118,9 @@ static void scroll_event_cb(lv_event_t * e)
  */
 void oserver_gui(void)
 {
+    lv_obj_t * image;
+    lv_style_t image_style;
+
     lv_obj_t * cont = lv_obj_create(lv_scr_act());
     lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
     lv_obj_center(cont);
@@ -131,13 +135,11 @@ void oserver_gui(void)
 
     /* Create the main page base images */
     uint32_t i;
-
-    lv_obj_t * image;
     lv_obj_t * image_cover;
     lv_obj_t * icon;
     lv_obj_t * btn;
 
-    lv_style_t image_style;
+
     lv_label_t * label;
     lv_label_t * label_index;
     lv_style_t label_style;
@@ -150,13 +152,13 @@ void oserver_gui(void)
         /* This is the grey oval background */
         image = lv_img_create(cont);
         lv_img_set_src(image, &Background);
-        lv_obj_align(image, LV_ALIGN_DEFAULT, 80, 10);
-        lv_obj_set_style_bg_img_opa(image, 100, &image_style);
+        lv_obj_align(image, LV_ALIGN_TOP_MID, 0, 30);
+        lv_obj_set_style_opa(image, LV_OPA_0, 0);
 
         image_cover = lv_img_create(image);
         lv_img_set_src(image_cover, &Background_Menu_Yellow);
-        lv_obj_align(image_cover, LV_ALIGN_DEFAULT, 80, 10);
-        lv_obj_set_style_bg_img_opa(image_cover, 100, &image_style);
+        lv_obj_align(image_cover, LV_ALIGN_TOP_MID, 0, 30);
+        lv_obj_set_style_opa(image, LV_OPA_100, 0);
 
         /* Add opaque button used to click and select menu item */
         btn = lv_btn_create(image_cover);
@@ -204,7 +206,7 @@ void oserver_gui(void)
         }
     }
     /*Update the canvas position manually for first*/
-    lv_obj_scroll_to_view(lv_obj_get_child(cont, 1), LV_ANIM_OFF);
+    lv_obj_scroll_to_view(lv_obj_get_child(cont, 0), LV_ANIM_OFF);
 }
 
 #endif
