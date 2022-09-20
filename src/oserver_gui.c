@@ -114,6 +114,15 @@ static void scroll_event_cb(lv_event_t * e)
 }
 
 /**
+ * @brief Initialize menus
+ * 
+ */
+void oserver_init(void)
+{
+    printf ("Initialize ...\n");
+}
+
+/**
  * Oserver base menu definitions
  */
 void oserver_gui(void)
@@ -122,6 +131,7 @@ void oserver_gui(void)
     lv_style_t image_style;
 
     lv_obj_t * cont = lv_obj_create(lv_scr_act());
+    device_menu_vectors[MAIN_MENU_VEC] = cont;
     lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
     lv_obj_center(cont);
 

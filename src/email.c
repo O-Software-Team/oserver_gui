@@ -18,7 +18,7 @@ void email_handler(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     lv_obj_t * cont = lv_obj_create(lv_obj_get_user_data(target));
     lv_obj_t * image = lv_img_create(cont);
-    lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
+    lv_obj_set_size(cont, OCO_CANVAS_WIDTH -50, OCO_CANVAS_HEIGHT-100);
     lv_obj_center(cont);
     lv_obj_set_scroll_dir(cont, LV_DIR_NONE);
     lv_obj_set_scrollbar_mode(cont, LV_SCROLLBAR_MODE_OFF);

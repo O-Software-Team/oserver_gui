@@ -18,11 +18,14 @@ extern "C" {
  *      DEFINES
  *********************/
 
-enum security {ADMIN = 0, FRIEND};
+
+#define DEVICE_MENU_VEC_MAX 6
 
 /**********************
  *      TYPEDEFS
  **********************/
+enum security {ADMIN = 0, FRIEND};
+
 typedef struct {
     char * menu_name;
     void (* page_handler)(lv_obj_t *);
@@ -30,6 +33,14 @@ typedef struct {
     enum security security_status;
     lv_img_dsc_t * icon;
 } menu_item;
+
+enum device_index {
+    MAIN_MENU_VEC = 0,
+    DEVICE_HANDLER_VEC, // First Device menu 
+    DEVICE_FOUND_VEC,
+    DEVICE_CODE_VEC,
+    DEVICE_CONNECTED_VEC,
+};
 
 /**********************
  * GLOBAL PROTOTYPES
@@ -46,6 +57,8 @@ void settings_handler(lv_event_t *);
 
 void render_back_button(lv_obj_t *, void (*)(lv_obj_t *));
 void back_button_cb(lv_event_t * e);
+
+extern lv_obj_t * device_menu_vectors[];
 
 /**********************
  *      MACROS

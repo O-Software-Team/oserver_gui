@@ -39,6 +39,4 @@ void calendar_handler(lv_event_t * e)
     lv_obj_set_style_text_color(cal, lv_color_black(), 0);
     lv_obj_set_style_opa(cal, LV_OPA_30, 0);
 
-
-
 }
