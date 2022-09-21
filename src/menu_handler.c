@@ -4,4 +4,4 @@
 
 #include <stdio.h>
 
-lv_obj_t * device_menu_vectors[DEVICE_MENU_VEC_MAX];
+lv_obj_t * menu_dispatch_table[DEVICE_MENU_VEC_MAX];

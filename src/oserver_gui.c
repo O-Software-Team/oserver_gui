@@ -8,6 +8,7 @@
 
 #include "oserver_gui.h"
 #include "menu_handler.h"
+#include "utilities.h"
 
 #include <inttypes.h>
 #include <stdio.h>
@@ -120,6 +121,11 @@ static void scroll_event_cb(lv_event_t * e)
 void oserver_init(void)
 {
     printf ("Initialize ...\n");
+
+    /*
+     * Call the menu initialization routines
+     */
+
 }
 
 /**
@@ -131,7 +137,7 @@ void oserver_gui(void)
     lv_style_t image_style;
 
     lv_obj_t * cont = lv_obj_create(lv_scr_act());
-    device_menu_vectors[MAIN_MENU_VEC] = cont;
+    menu_dispatch_table[MAIN_MENU_VEC] = cont;
     lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
     lv_obj_center(cont);
 
@@ -217,6 +223,9 @@ void oserver_gui(void)
     }
     /*Update the canvas position manually for first*/
     lv_obj_scroll_to_view(lv_obj_get_child(cont, 0), LV_ANIM_OFF);
+
+    //lv_obj_add_flag(cont, LV_OBJ_FLAG_HIDDEN);
+    lv_obj_fade_in(cont, 2000, 10);
 }
 
 #endif

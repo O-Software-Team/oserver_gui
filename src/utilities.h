@@ -1,10 +1,10 @@
 /**
- * @file oserver_gui.h
+ * @file utilities.h
  *
  */
 
-#ifndef OSERVER_GUI_H
-#define OSERVER_GUI_H
+#ifndef UTILITIES_H
+#define UTILITIES_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -17,14 +17,6 @@ extern "C" {
 /*********************
  *      DEFINES
  *********************/
-/* platform-specific printf format for int32_t, usually "d" or "ld" */
-#define LV_PRId32 PRId32
-#define LV_PRIu32 PRIu32
-
-/* Product specific definitions */
-#define OCO_PAGE_MAX 9
-#define OCO_CANVAS_WIDTH 350
-#define OCO_CANVAS_HEIGHT 450
 
 /**********************
  *      TYPEDEFS
@@ -33,8 +25,8 @@ extern "C" {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-void oserver_gui(void);
-void oserver_init(void);
+
+void add_separator_line(lv_point_t, lv_point_t, lv_obj_t * );
 
 /**********************
  *      MACROS
@@ -44,4 +36,4 @@ void oserver_init(void);
 } /* extern "C" */
 #endif
 
-#endif /*OSERVER_GUI_H*/
+#endif /*UTILITIES_H*/

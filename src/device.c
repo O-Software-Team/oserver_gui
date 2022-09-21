@@ -1,6 +1,7 @@
 #include "../oserver_gui_demo.h"
 #include "oserver_gui.h"
 #include "menu_handler.h"
+#include "utilities.h"
 
 #include <stdio.h>
 
@@ -50,7 +51,7 @@ static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
 static menu_item devices_found_info[DEVICE_FOUND_MAX] = {
     {.menu_name = "Bob's iPhone",   .page_handler = &add_device_cb,  .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
     {.menu_name = "Bob's iPad",     .page_handler = &add_device_cb,  .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-    {.menu_name = "Bob's Macbook",  .page_handler = &add_device_cb, .active = false, .security_status = FRIEND,  .icon = &Icon_MacBook},
+    {.menu_name = "Bob's Macbook",  .page_handler = &add_device_cb, .active = false,  .security_status = FRIEND, .icon = &Icon_MacBook},
     {.menu_name = "Orna's iPad",    .page_handler = &add_device_cb,  .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
 };
 
@@ -59,107 +60,88 @@ lv_label_t * security_status;
 lv_label_t * label_index;
 
 extern enum device_menu_vector_index;
-extern lv_obj_t * device_menu_vectors[];
+// extern lv_obj_t * menu_dispatch_table[];
 
 static void add_device_cb(lv_event_t * e) { printf("Adding device...\n"); }
 
 static void device_selected_cb(lv_event_t * e) { printf("Selected device...\n"); }
 
-/* Generic routine to render a pixel wide horizontal line between two porint */
-void add_separator_line(lv_point_t beginning, lv_point_t end, lv_obj_t * parent)
-{
-    static lv_point_t line_points[2];
-
-    /*Create an array for the points of the line*/
-    line_points[0] = beginning;
-    line_points[1] = end;
-
-    /*Create style*/
-    static lv_style_t style_line;
-    lv_style_init(&style_line);
-    lv_style_set_line_width(&style_line, 1);
-    lv_style_set_line_color(&style_line, lv_palette_main(LV_PALETTE_GREY));
-    lv_style_set_line_rounded(&style_line, true);
-
-    /*Create a line and apply the new style*/
-    lv_obj_t * line1;
-    line1 = lv_line_create(parent);
-    /* These magic numbers add lines on each device entry in the 'right' place */
-    //static lv_point_t line_points[] = { {-30, 25}, {280, 25}};
-    lv_line_set_points(line1, line_points, 2);     /*Set the points*/
-    lv_obj_add_style(line1, &style_line, 0);
-    lv_obj_set_style_opa(line1, LV_OPA_40, 0);
-    lv_obj_align(line1, LV_ALIGN_TOP_LEFT, 0, 0);
-}
-
 /* After entering the code into the device this page displays */
 static void device_connected(lv_obj_t * cont, int which_device)
 {
     printf ("Device connected...\n");
-    // lv_obj_t * target = lv_event_get_target(e);
-    // lv_obj_t * cont = lv_obj_create(lv_obj_get_user_data(target));
+    //lv_obj_t * target = lv_event_get_target(e);
+    //lv_obj_t * cont = lv_obj_create(parent);
     lv_obj_t * image = lv_img_create(cont);
 
-    lv_obj_set_size(image, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
-    lv_obj_center(image);
-    lv_obj_set_scroll_dir(image, LV_DIR_VER);
-    lv_obj_set_scrollbar_mode(image, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_align(image, LV_ALIGN_DEFAULT, 0, 0);
+    lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
+    lv_obj_center(cont);
+    lv_obj_set_scroll_dir(cont, LV_DIR_VER);
+    lv_obj_set_scrollbar_mode(cont, LV_SCROLLBAR_MODE_OFF);
+
+    lv_obj_align(image, LV_ALIGN_CENTER, 0, 0);
 
     lv_img_set_src(image, &Background);
     lv_obj_fade_in(image, 1000, 0);
 
-    /* 'Cancel' button to cancel the security challenge process*/
+    render_back_button(image, back_button_cb);
+
+    /* The operation 'Cancel' button graphic */
     lv_obj_t * cancel = lv_label_create(image);
     lv_label_set_recolor(cancel, true);
     lv_label_set_text(cancel, "Cancel");
     lv_obj_set_style_text_color(cancel, lv_color_white(), 0);
-    lv_obj_align(cancel, LV_ALIGN_DEFAULT, 230, -4);
+    lv_obj_align(cancel, LV_ALIGN_TOP_MID, 110, 50);
 
-    /* 'Return' (back) button to previous button */
+    /* The operation 'Cancel' button */
     lv_obj_t * cancel_button = lv_btn_create(image);
-    lv_obj_set_size(cancel_button, 50, 50);
-    lv_obj_align(cancel_button, LV_ALIGN_DEFAULT, 230, -4);
+    lv_obj_set_size(cancel_button, 70, 30);
+    lv_obj_align(cancel_button, LV_ALIGN_TOP_MID, 110, 50);
     lv_obj_add_event_cb(cancel_button, back_button_cb, LV_EVENT_CLICKED, 0);
     lv_obj_set_user_data(cancel_button, image);
     lv_obj_set_style_opa(cancel_button, LV_OPA_0, LV_PART_MAIN);
 
-    render_back_button(image, back_button_cb);
-
     lv_obj_t * device_icon = lv_img_create(image);
     lv_img_set_src(device_icon, devices_found_info[which_device].icon);
-    lv_obj_set_style_opa(device_icon, LV_OPA_70, LV_PART_MAIN);
-    lv_obj_align(device_icon, LV_ALIGN_DEFAULT, 135, 30);
+    lv_obj_set_style_opa(device_icon, LV_OPA_80, LV_PART_MAIN);
+    lv_obj_align(device_icon, LV_ALIGN_TOP_MID, 0, 70);
 
     lv_obj_t * device_found = lv_label_create(image);
     lv_label_set_recolor(device_found, true);
     lv_label_set_text(device_found, devices_found_info[which_device].menu_name);
     lv_obj_set_style_text_color(device_found, lv_color_white(), 0);
-    lv_obj_align(device_found, LV_ALIGN_DEFAULT, 110, 90);
+    lv_obj_align(device_found, LV_ALIGN_TOP_MID, 0, 120);
 
     lv_obj_t * connected_label = lv_label_create(image);
     lv_label_set_recolor(connected_label, true);
     lv_label_set_text(connected_label, "Connected");
     lv_obj_set_style_text_color(connected_label, lv_color_white(), 0);
-    lv_obj_align(connected_label, LV_ALIGN_DEFAULT, 110, 110);
+    lv_obj_align(connected_label, LV_ALIGN_TOP_MID, 0, 140);
 
+    lv_point_t left = { 50, 185 };
+    lv_point_t right = { 340, 185 };
+    for (int i = 0; i <= 1; i++)
+    {
+        left.y = left.y + (i * 20);
+        right.y = right.y + (i * 20);
+        add_separator_line(left, right, image);
+    }
     lv_obj_t * admin_label = lv_label_create(image);
     lv_label_set_recolor(admin_label, true);
     lv_label_set_text(admin_label, "Administrator");
     lv_obj_set_style_text_color(admin_label, lv_color_white(), 0);
-    lv_obj_align(admin_label, LV_ALIGN_DEFAULT, 10, 180);
-
+    lv_obj_align(admin_label, LV_ALIGN_LEFT_MID, 50, -40);
     lv_obj_t * friend_label = lv_label_create(image);
     lv_label_set_recolor(friend_label, true);
     lv_label_set_text(friend_label, "Friend");
     lv_obj_set_style_text_color(friend_label, lv_color_white(), 0);
-    lv_obj_align(friend_label, LV_ALIGN_DEFAULT, 10, 250);
+    lv_obj_align(friend_label, LV_ALIGN_LEFT_MID, 50, 40);
 
     lv_obj_t * invite_label = lv_label_create(image);
     lv_label_set_recolor(invite_label, true);
     lv_label_set_text(invite_label, "Invite");
     lv_obj_set_style_text_color(invite_label, lv_color_white(), 0);
-    lv_obj_align(invite_label, LV_ALIGN_DEFAULT, 10, 320);
+    lv_obj_align(invite_label, LV_ALIGN_LEFT_MID, 50, 120);
 }
 
 static void my_timer(lv_timer_t * timer) {
@@ -234,7 +216,7 @@ void enter_code_handler(lv_event_t * e)
     render_back_button(image, back_button_cb);
 
     /* After an amount of time to simulate entering the code on candidate device - display the device */
-    lv_timer_t* sleeptimer = lv_timer_create(my_timer, 5000, cont);
+    lv_timer_t* sleeptimer = lv_timer_create(my_timer, 500, cont);
     lv_timer_set_repeat_count(sleeptimer, 1);
 
     printf ("waiting for user to enter code\n");
@@ -249,7 +231,7 @@ void found_devices_handler(lv_event_t * e)
     lv_obj_t * cont = lv_obj_create(lv_obj_get_user_data(target));
     /* Store the content of this page for later display */
 
-    device_menu_vectors[DEVICE_FOUND_VEC] = cont;
+    menu_dispatch_table[DEVICE_FOUND_VEC] = cont;
 
     lv_obj_t * image = lv_img_create(cont);
 
@@ -278,15 +260,15 @@ void found_devices_handler(lv_event_t * e)
     lv_label_set_text(list_name, "List of devices found");
     lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
 
-    lv_point_t left = {-30, 9};
-    lv_point_t right = {280, 9};
+    lv_point_t left = { -20, 0};
+    lv_point_t right = { 290, 0};
 
     //static lv_point_t line_points[] = { {-30, 10}, {280, 10}};
     /* Add devices entries as clickable buttons*/
     for (int i = 0; i < DEVICE_FOUND_MAX; i++)
     {
         device_found[i] = lv_img_create(cont);
-        //lv_obj_set_size(device_found[i], 330, 0);
+        lv_obj_set_size(device_found[i], 330, 80);
         lv_obj_align(device_found[i], LV_ALIGN_TOP_LEFT, -10, 60 + (55 * i));
 
         add_separator_line(left, right, device_found[i]);
@@ -294,8 +276,8 @@ void found_devices_handler(lv_event_t * e)
         /* Device icon image on the left */
         lv_obj_t * device_icon = lv_img_create(device_found[i]);
         lv_img_set_src(device_icon, devices_found_info[i].icon);
-        lv_obj_align(device_icon, LV_ALIGN_DEFAULT, 35, 10);
-        lv_obj_set_style_opa(device_icon, LV_OPA_70, LV_PART_MAIN);
+        lv_obj_align(device_icon, LV_ALIGN_CENTER, -130, -15);
+        lv_obj_set_style_opa(device_icon, LV_OPA_80, LV_PART_MAIN);
 
         /*this is the opaque button overlay of the device entry graphic*/
         found_btn[i] = lv_btn_create(device_found[i]);
@@ -308,7 +290,7 @@ void found_devices_handler(lv_event_t * e)
         /* The label text with the device name */
         label = lv_label_create(device_found[i]);
         lv_label_set_recolor(label, true);
-        lv_obj_align(label, LV_ALIGN_DEFAULT, 100, 10);
+        lv_obj_align(label, LV_ALIGN_DEFAULT, 100, 15);
         lv_label_set_text(label, devices_found_info[i].menu_name);
         lv_obj_set_style_text_color(label, lv_color_white(), 0);
 
@@ -326,7 +308,7 @@ void device_handler(lv_event_t * e)
     lv_obj_t * cont = lv_obj_create(lv_obj_get_user_data(target));
     
     /* Store the content of this page for later display */
-    device_menu_vectors[DEVICE_HANDLER_VEC] = cont;
+    menu_dispatch_table[DEVICE_HANDLER_VEC] = cont;
 
     lv_obj_t * image = lv_img_create(cont);
 
@@ -401,7 +383,7 @@ void device_handler(lv_event_t * e)
         lv_obj_t * device_icon = lv_img_create(device_index[i]);
         lv_img_set_src(device_icon, devices_active_info[i].icon);
         lv_obj_align(device_icon, LV_ALIGN_CENTER, -130, -15);
-        lv_obj_set_style_opa(device_icon, LV_OPA_70, LV_PART_MAIN);
+        lv_obj_set_style_opa(device_icon, LV_OPA_80, LV_PART_MAIN);
 
         /*this is the opaque button overlay of the device entry graphic*/
         device_btn[i] = lv_btn_create(device_index[i]);

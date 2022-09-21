@@ -18,7 +18,6 @@ extern "C" {
  *      DEFINES
  *********************/
 
-
 #define DEVICE_MENU_VEC_MAX 6
 
 /**********************
@@ -58,7 +57,7 @@ void settings_handler(lv_event_t *);
 void render_back_button(lv_obj_t *, void (*)(lv_obj_t *));
 void back_button_cb(lv_event_t * e);
 
-extern lv_obj_t * device_menu_vectors[];
+extern lv_obj_t * menu_dispatch_table[];
 
 /**********************
  *      MACROS

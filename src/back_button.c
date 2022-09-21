@@ -10,7 +10,7 @@ void back_button_cb(lv_event_t * e)
     lv_obj_t * cont = lv_obj_get_user_data(target);
     //lv_obj_fade_out(cont, 500, 0);
     lv_obj_add_flag(cont, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_clear_flag(device_menu_vectors[DEVICE_HANDLER_VEC], LV_OBJ_FLAG_HIDDEN);
+    lv_obj_clear_flag(menu_dispatch_table[DEVICE_HANDLER_VEC], LV_OBJ_FLAG_HIDDEN);
     //lv_obj_del_delayed(cont, 0);
 }
 
