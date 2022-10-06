@@ -39,6 +39,7 @@ extern "C" {
 #error "oserver GUI demo: Wrong lvgl version"
 #endif
 
+#define DEBUG 1
 /**********************
  *      TYPEDEFS
  **********************/

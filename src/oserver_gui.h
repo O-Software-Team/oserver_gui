@@ -23,8 +23,8 @@ extern "C" {
 
 /* Product specific definitions */
 #define OCO_PAGE_MAX 9
-#define OCO_CANVAS_WIDTH 350
-#define OCO_CANVAS_HEIGHT 450
+#define OCO_CANVAS_WIDTH 385 /* match MONITOR_HOR_RES */
+#define OCO_CANVAS_HEIGHT 510 /* match MONITOR_VER_RES */
 
 /**********************
  *      TYPEDEFS

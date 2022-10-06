@@ -10,11 +10,11 @@
  */
 void add_separator_line(lv_point_t beginning, lv_point_t end, lv_obj_t * parent)
 {
-    static lv_point_t line_points[2];
+    static lv_point_t lv_line_points[2];
 
     /*Create an array for the points of the line*/
-    line_points[0] = beginning;
-    line_points[1] = end;
+    lv_line_points[0] = beginning;
+    lv_line_points[1] = end;
 
     /*Create style*/
     static lv_style_t style_line;
@@ -26,8 +26,7 @@ void add_separator_line(lv_point_t beginning, lv_point_t end, lv_obj_t * parent)
     /*Create a line and apply the new style*/
     lv_obj_t * line1;
     line1 = lv_line_create(parent);
-    lv_line_set_points(line1, line_points, 2);     /*Set end points*/
+    lv_line_set_points(line1, lv_line_points, 2);     /*Set end points*/
     lv_obj_add_style(line1, &style_line, 0);
     lv_obj_set_style_opa(line1, LV_OPA_40, 0);
-    lv_obj_align(line1, LV_ALIGN_TOP_LEFT, 0, 0);
 }

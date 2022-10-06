@@ -47,33 +47,41 @@ const lv_img_dsc_t * icon_images[OCO_PAGE_MAX] = {
 static lv_obj_t * page_index[OCO_PAGE_MAX];
 
 menu_item main_menu_dispatch[OCO_PAGE_MAX] = {
-    { .menu_name = "Devices",  .page_handler = &device_handler,   .active = true },
-    { .menu_name = "O",        .page_handler = &oserver_handler,  .active = true },
-    { .menu_name = "Files",    .page_handler = &files_handler,    .active = true },
-    { .menu_name = "Email",    .page_handler = &email_handler,    .active = true },
-    { .menu_name = "Contacts", .page_handler = &contacts_handler, .active = true },
-    { .menu_name = "Calendar", .page_handler = &calendar_handler, .active = true },
-    { .menu_name = "Text",     .page_handler = &text_handler,     .active = true },
-    { .menu_name = "Music",    .page_handler = &music_handler,    .active = true },
-    { .menu_name = "Settings", .page_handler = &settings_handler, .active = true },
+    { .menu_name = "Devices",  .page_handler = &menu_dispatch,   .active = true },
+    { .menu_name = "O",        .page_handler = &menu_dispatch,  .active = true },
+    { .menu_name = "Files",    .page_handler = &menu_dispatch,    .active = true },
+    { .menu_name = "Email",    .page_handler = &menu_dispatch,    .active = true },
+    { .menu_name = "Contacts", .page_handler = &menu_dispatch, .active = true },
+    { .menu_name = "Calendar", .page_handler = &menu_dispatch, .active = true },
+    { .menu_name = "Text",     .page_handler = &menu_dispatch,     .active = true },
+    { .menu_name = "Music",    .page_handler = &menu_dispatch,    .active = true },
+    { .menu_name = "Settings", .page_handler = &menu_dispatch, .active = true },
 };
 
 static uint16_t index_offset [OCO_PAGE_MAX] = {
     40, 24, 10, 5, 2, 5, 10, 24, 40,
 };
 
-static void scroll_event_cb(lv_event_t * e)
-{
+static void main_scroll_event_cb(lv_event_t * e) {
+
+    /*
+     * If any one of the main pages get the scroll event
+     * run through all of them to move them in the lotus arc.
+     */
     lv_obj_t * cont = lv_event_get_target(e);
     lv_area_t cont_a;
+    uint32_t child_cnt;
 
     lv_obj_get_coords(cont, &cont_a);
     lv_coord_t cont_x_center = cont_a.x1 + lv_area_get_width(&cont_a) / 2;
     lv_coord_t cont_y_center = cont_a.y1 + lv_area_get_height(&cont_a) / 2;
     lv_coord_t r = lv_obj_get_height(cont) * 7 / 10;
-    uint32_t i;
-    uint32_t child_cnt = lv_obj_get_child_cnt(cont);
-    for(i = 0; i < child_cnt; i++) {
+
+    /*
+     * For each child page - translate and rotate to simulate lotus
+     */
+    child_cnt = lv_obj_get_child_cnt(cont);
+    for(uint32_t i = 0; i < child_cnt; i++) {
         lv_obj_t * child = lv_obj_get_child(cont, i);
         lv_area_t child_a;
         lv_obj_get_coords(child, &child_a);
@@ -86,103 +94,92 @@ static void scroll_event_cb(lv_event_t * e)
         /*Get the y of diff_x on a circle.*/
         lv_coord_t y;
         diff_x = LV_ABS(diff_x);
-        /*If diff_x is out of the circle use the last point of the circle (the radius)*/
+
+        /* If diff_x is out of the circle use the last point of the circle (the radius) */
         if(diff_x >= r) {
             y = r;
         }
         else {
             /*Use Pythagoras theorem to get y from radius and x*/
-            uint32_t x_sqr = r * r - diff_x * diff_x;
+            uint32_t x_sqr = r * r - diff_x * diff_x; /* PEMDAS */
             lv_sqrt_res_t res;
-            lv_sqrt(x_sqr, &res, 0x8000);   /*Use lvgl's built in sqrt root function*/
+            lv_sqrt(x_sqr, &res, 0x8000);   /* Use lvgl's sqrt root function */
             y = r - res.i;
         }
-        if (r > 0)
-            angle = lv_atan2(diff_x, r - diff_y) * 2;
+        angle = lv_atan2(diff_x, r - diff_y);
         x_track < 0 ? angle = -angle: angle;
+
         /*Translate the item by the calculated Y coordinate*/
-        lv_obj_set_style_translate_y(child, y/2, 0);
-        lv_obj_set_style_transform_angle(child, angle, 0);
+        lv_obj_set_style_translate_y(child, y * 0.5, 0);
+        lv_obj_set_style_transform_angle(child, angle * 3, 0);
         if (angle == 0) {
             lv_event_send(page_index[i], LV_EVENT_RELEASED, NULL);
         } else {
             lv_event_send(page_index[i], LV_EVENT_PRESSED, NULL);
         }
-        /*Use some opacity with larger translations*/
-        lv_opa_t opa = lv_map(y, 0, r, LV_OPA_TRANSP, LV_OPA_COVER);
+        /* Use some opacity with larger translations */
+        lv_opa_t opa = lv_map(y, 0, r, LV_OPA_TRANSP, LV_OPA_50);
         lv_obj_set_style_opa(child, LV_OPA_COVER - opa, 0);
     }
 }
 
-/**
- * @brief Initialize menus
- * 
- */
-void oserver_init(void)
-{
-    printf ("Initialize ...\n");
+void oserver_gui(void) {
 
-    /*
-     * Call the menu initialization routines
-     */
-
+    lv_disp_load_scr(menu_dispatch_table[MAIN_MENU_VEC]); // The top main menu
 }
 
 /**
- * Oserver base menu definitions
+ * @brief Initialize menus
+ *
  */
-void oserver_gui(void)
-{
-    lv_obj_t * image;
-    lv_style_t image_style;
+void main_menu_init(void) {
 
-    lv_obj_t * cont = lv_obj_create(lv_scr_act());
-    menu_dispatch_table[MAIN_MENU_VEC] = cont;
-    lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
-    lv_obj_center(cont);
+    lv_obj_t * main_page;
+    lv_obj_t * lotus_page;
 
-    lv_obj_set_style_bg_color(cont, lv_color_lighten(lv_color_black(), 0), 0);
-    lv_obj_set_flex_flow(cont, LV_FLEX_FLOW_ROW);
-    lv_obj_add_event_cb(cont, scroll_event_cb, LV_EVENT_SCROLL, NULL);
-    lv_obj_set_style_clip_corner(cont, true, 0);
-    lv_obj_set_scroll_dir(cont, LV_DIR_HOR);
-    lv_obj_set_scroll_snap_x(cont, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(cont, LV_SCROLLBAR_MODE_OFF);
-
-    /* Create the main page base images */
     uint32_t i;
     lv_obj_t * image_cover;
     lv_obj_t * icon;
     lv_obj_t * btn;
 
-
     lv_label_t * label;
     lv_label_t * label_index;
-    lv_style_t label_style;
-    lv_style_t btn_style;
-    lv_style_init(&label_style);
-    lv_style_init(&label_style);
-    lv_style_init(&btn_style);
+
+    /*
+     * On the main page, create the individual pages which will be lotus scrolled
+     */
+    lotus_page = lv_img_create(NULL);
+    menu_dispatch_table[MAIN_MENU_VEC] = lotus_page;
+    lv_obj_set_size(lotus_page, 385, 510); // Same as the simulator dislay
+
+    lv_obj_set_style_bg_color(lotus_page, lv_color_lighten(lv_color_black(), 50), 0);
+    lv_img_set_src(lotus_page, &Background);
+
+    lv_obj_add_event_cb(lotus_page, main_scroll_event_cb, LV_EVENT_SCROLL, NULL);
+
+    lv_obj_set_flex_flow(lotus_page, LV_FLEX_FLOW_ROW);
+    lv_obj_set_style_pad_column(lotus_page, 80, 0);
+
+
+    lv_obj_set_scroll_dir(lotus_page, LV_DIR_HOR);
+    lv_obj_set_scroll_snap_x(lotus_page, LV_SCROLL_SNAP_CENTER);
+    lv_obj_set_scrollbar_mode(lotus_page, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_align(lotus_page, LV_ALIGN_CENTER, 60, -150);
 
     for(i = 0; i < OCO_PAGE_MAX; i++) {
-        /* This is the grey oval background */
-        image = lv_img_create(cont);
-        lv_img_set_src(image, &Background);
-        lv_obj_align(image, LV_ALIGN_TOP_MID, 0, 30);
-        lv_obj_set_style_opa(image, LV_OPA_0, 0);
 
-        image_cover = lv_img_create(image);
+        image_cover = lv_img_create(lotus_page);
         lv_img_set_src(image_cover, &Background_Menu_Yellow);
-        lv_obj_align(image_cover, LV_ALIGN_TOP_MID, 0, 30);
-        lv_obj_set_style_opa(image, LV_OPA_100, 0);
+        lv_obj_set_style_opa(image_cover, LV_OPA_0, 0);
+        //lv_obj_align(image_cover, LV_ALIGN_CENTER, 60, -150);
+        lv_obj_set_style_pad_top(image_cover, 70, 0);
 
         /* Add opaque button used to click and select menu item */
         btn = lv_btn_create(image_cover);
-        lv_obj_set_size(btn, 150, 200);
-        lv_obj_align(btn, LV_ALIGN_DEFAULT, 60, 50);
+        lv_obj_set_size(btn, 230, 280);
         lv_obj_set_style_opa(btn, LV_OPA_0, 0);
         lv_obj_add_event_cb(btn, main_menu_dispatch[i].page_handler, LV_EVENT_LONG_PRESSED, NULL);
-        lv_obj_set_user_data(btn, lv_scr_act());
+        lv_obj_set_user_data(btn,i + 1);
 
         /* Add page icon */
         icon = lv_img_create(image_cover);
@@ -208,7 +205,8 @@ void oserver_gui(void)
         lv_obj_align(label_index, LV_ALIGN_CENTER, 0, 50);
 
         /* Add page index indicator and intialize pages to the first one in the sequence */
-        page_index[i] = lv_imgbtn_create(lv_scr_act());
+        page_index[i] = lv_imgbtn_create(lv_layer_top());
+        lv_obj_clear_flag(page_index[i], LV_OBJ_FLAG_CLICKABLE);
 
         /* Set up images for page index indicators */
         lv_imgbtn_set_src(page_index[i], LV_IMGBTN_STATE_RELEASED, &teal_circle_selector, NULL, NULL);
@@ -221,11 +219,18 @@ void oserver_gui(void)
             lv_event_send(page_index[i], LV_EVENT_RELEASED, NULL);
         }
     }
-    /*Update the canvas position manually for first*/
-    lv_obj_scroll_to_view(lv_obj_get_child(cont, 0), LV_ANIM_OFF);
+    /* Update the canvas position manually for first */
+    lv_obj_scroll_to_view(lv_obj_get_child(lotus_page, 0), LV_ANIM_OFF);
 
-    //lv_obj_add_flag(cont, LV_OBJ_FLAG_HIDDEN);
-    lv_obj_fade_in(cont, 2000, 10);
+    device_menu_setup();
+    oserver_menu_setup();
+    file_menu_setup();
+    email_menu_setup();
+    contacts_menu_setup();
+    calendar_menu_setup();
+    text_menu_setup();
+    music_menu_setup();
+    settings_menu_setup();
 }
 
 #endif

@@ -6,26 +6,23 @@
 
 LV_IMG_DECLARE(Background);
 
-static void click_return_cb(lv_event_t * e)
+void contacts_menu_setup(void)
 {
-    lv_obj_t * target = lv_event_get_target(e);
-    lv_obj_t * cont = lv_obj_get_user_data(target);
-    lv_obj_del(cont);
-}
+    lv_obj_t * contacts_page = lv_obj_create(NULL);
+    lv_obj_t * background = lv_img_create(contacts_page);
+    lv_img_set_src(background, &Background);
 
-void contacts_handler(lv_event_t * e)
-{
-    lv_obj_t * target = lv_event_get_target(e);
-    lv_obj_t * cont = lv_obj_create(lv_obj_get_user_data(target));
-    lv_obj_t * image = lv_img_create(cont);
-    lv_obj_set_size(cont, OCO_CANVAS_WIDTH, OCO_CANVAS_HEIGHT);
-    lv_obj_center(cont);
-    lv_obj_set_scroll_dir(cont, LV_DIR_NONE);
-    lv_obj_set_scrollbar_mode(cont, LV_SCROLLBAR_MODE_OFF);
-    lv_obj_align(image, LV_ALIGN_CENTER, 0, 0);
+    printf("CONTACTS MENU init...\n");
 
-    lv_img_set_src(image, &Background);
-    lv_obj_fade_in(image, 1000, 0);
+    menu_dispatch_table[CONTACTS_VEC] = contacts_page;
 
-    render_back_button(image, back_button_cb);
+    render_back_button(background, back_home_button_cb);
+    lv_obj_center(contacts_page);
+    lv_obj_set_style_bg_color(contacts_page, lv_color_lighten(lv_color_black(), 60), 0);
+    lv_obj_set_flex_flow(contacts_page, LV_FLEX_FLOW_ROW);
+    //lv_obj_add_event_cb(contacts_page, scroll_event_cb, LV_EVENT_SCROLL, NULL);
+    lv_obj_set_style_clip_corner(contacts_page, true, 3);
+    lv_obj_set_scroll_dir(contacts_page, LV_DIR_HOR);
+    lv_obj_set_scroll_snap_x(contacts_page, LV_SCROLL_SNAP_CENTER);
+    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
 }
