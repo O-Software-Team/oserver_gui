@@ -266,7 +266,7 @@ void main_menu_init(void) {
     email_menu_setup();
     contacts_menu_setup();
     calendar_menu_setup();
-    text_menu_setup();
+    txtmsg_menu_setup();
     music_menu_setup();
     settings_menu_setup();
 }
