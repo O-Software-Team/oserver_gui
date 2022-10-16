@@ -26,6 +26,49 @@ extern "C" {
 #define OCO_CANVAS_WIDTH 385 /* match MONITOR_HOR_RES */
 #define OCO_CANVAS_HEIGHT 510 /* match MONITOR_VER_RES */
 
+/* Include image resources */
+LV_IMG_DECLARE(Background);
+LV_IMG_DECLARE(Icon_Status_Active);
+LV_IMG_DECLARE(Icon_Status_Disable);
+LV_IMG_DECLARE(Icon_iPad);
+LV_IMG_DECLARE(Icon_MacBook);
+LV_IMG_DECLARE(Icon_iPhone);
+LV_IMG_DECLARE(Icon_WiFi_White);
+LV_IMG_DECLARE(Icon_Bluetooth_White);
+LV_IMG_DECLARE(Icon_NFC_White);
+LV_IMG_DECLARE(Icon_More_White);
+LV_IMG_DECLARE(Icon_Next_White);
+LV_IMG_DECLARE(Time);
+LV_IMG_DECLARE(Linez);
+
+/* Include font resources */
+LV_FONT_DECLARE(SaolDisplayRegularItalic_22);
+LV_FONT_DECLARE(NeueHaasDisplayLight_22);
+
+LV_FONT_DECLARE(SaolDisplayRegularItalic_24);
+LV_FONT_DECLARE(SaolDisplayRegularItalic_26);
+LV_FONT_DECLARE(NeueHaasDisplayLight_24);
+
+LV_FONT_DECLARE(SaolDisplayRegularItalic_32);
+LV_FONT_DECLARE(NeueHaasDisplayLight_32);
+
+LV_FONT_DECLARE(SaolDisplayRegularItalic_20);
+LV_FONT_DECLARE(NeueHaasDisplayLight_20);
+
+LV_FONT_DECLARE(SaolDisplayRegularItalic_48);
+LV_FONT_DECLARE(NeueHaasDisplayLight_48);
+
+LV_FONT_DECLARE(NeueHaasDisplayXThin_50); // For the 'security pin code'
+LV_FONT_DECLARE(NeueHaasDisplayXThin_52);
+
+LV_FONT_DECLARE(NeueHaasDisplayLight_18);
+
+LV_FONT_DECLARE(NeueHaasDisplayLight_16);
+
+LV_FONT_DECLARE(NeueHaasDisplayBold_16);
+LV_FONT_DECLARE(NeueHaasDisplayMediu_16);
+LV_FONT_DECLARE(NeueHaasDisplayRoman_16); // For the 'bold' device names
+
 /**********************
  *      TYPEDEFS
  **********************/

@@ -4,6 +4,9 @@
 
 LV_IMG_DECLARE(Icon_Back);
 
+/*
+ * 'Cancel' operation - go back home and clear any in-progress timers, etc.
+ */
 void back_home_button_cb(lv_event_t * e)
 {
     printf("Back to main - clearing present\n");
@@ -29,6 +32,10 @@ void back_button_cb(lv_event_t * e)
  */
 void render_back_button(lv_obj_t * parent, void (* page_handler)(lv_obj_t *))
 {
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_16);
+
     /* 'Back' button onscreen image */
     lv_obj_t * back_image = lv_imgbtn_create(parent);
     lv_imgbtn_set_src(back_image, LV_IMGBTN_STATE_RELEASED, &Icon_Back, NULL, NULL);
@@ -38,8 +45,9 @@ void render_back_button(lv_obj_t * parent, void (* page_handler)(lv_obj_t *))
     lv_obj_t * back_label = lv_label_create(parent);
     lv_label_set_recolor(back_label, true);
     lv_label_set_text(back_label, "Back");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(back_label, lv_color_white(), 0);
-    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 45, 23);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 24);
 
     /* 'Return' (back) button to previous button */
     lv_obj_t * back = lv_btn_create(parent);

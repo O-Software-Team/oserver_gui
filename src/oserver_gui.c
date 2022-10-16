@@ -47,15 +47,15 @@ const lv_img_dsc_t * icon_images[OCO_PAGE_MAX] = {
 static lv_obj_t * page_index[OCO_PAGE_MAX];
 
 menu_item main_menu_dispatch[OCO_PAGE_MAX] = {
-    { .menu_name = "Devices",  .page_handler = &menu_dispatch,   .active = true },
-    { .menu_name = "O",        .page_handler = &menu_dispatch,  .active = true },
-    { .menu_name = "Files",    .page_handler = &menu_dispatch,    .active = true },
-    { .menu_name = "Email",    .page_handler = &menu_dispatch,    .active = true },
-    { .menu_name = "Contacts", .page_handler = &menu_dispatch, .active = true },
-    { .menu_name = "Calendar", .page_handler = &menu_dispatch, .active = true },
-    { .menu_name = "Text",     .page_handler = &menu_dispatch,     .active = true },
-    { .menu_name = "Music",    .page_handler = &menu_dispatch,    .active = true },
-    { .menu_name = "Settings", .page_handler = &menu_dispatch, .active = true },
+    { .menu_pre = "De",       .menu_italic = "v",  .lx_offset = -20, .mx_offset = 0, .rx_offset = 26, .menu_post = "ices", .active = true },
+    { .menu_pre = "O",        .menu_italic = "\0", .lx_offset = 0,   .mx_offset = 0, .rx_offset = 20, .menu_post = "\0",   .active = true },
+    { .menu_pre = "Fil",      .menu_italic = "e",  .lx_offset = -15, .mx_offset = 2, .rx_offset = 13, .menu_post = "s",    .active = true },
+    { .menu_pre = "E",        .menu_italic = "m",  .lx_offset = -17, .mx_offset = 0, .rx_offset = 21, .menu_post = "ail",  .active = true },
+    { .menu_pre = "Conta",    .menu_italic = "c",  .lx_offset = -21, .mx_offset = 15,.rx_offset = 30, .menu_post = "ts",   .active = true },
+    { .menu_pre = "Cal",      .menu_italic = "e",  .lx_offset = -26, .mx_offset = -5, .rx_offset = 23, .menu_post = "ndar", .active = true },
+    { .menu_pre = "Te",       .menu_italic = "x",  .lx_offset = -16, .mx_offset = 3, .rx_offset = 14, .menu_post = "t",    .active = true },
+    { .menu_pre = "M",        .menu_italic = "u",  .lx_offset = -16, .mx_offset = 0, .rx_offset = 20, .menu_post = "sic",  .active = true },
+    { .menu_pre = "Settin",   .menu_italic = "g",  .lx_offset = -21, .mx_offset = 13, .rx_offset = 25, .menu_post = "s",    .active = true },
 };
 
 static uint16_t index_offset [OCO_PAGE_MAX] = {
@@ -142,8 +142,24 @@ void main_menu_init(void) {
     lv_obj_t * icon;
     lv_obj_t * btn;
 
+    lv_label_t * label_pre;
     lv_label_t * label;
+    lv_label_t * label_post;
+
     lv_label_t * label_index;
+
+    static lv_style_t label_style;
+    static lv_style_t italic_style;
+    static lv_style_t label_index_style;
+
+    lv_style_init(&label_style);
+    lv_style_init(&italic_style);
+    lv_style_init(&label_index_style);
+
+    lv_style_set_text_font(&label_style, &NeueHaasDisplayLight_24);
+    lv_style_set_text_font(&italic_style, &SaolDisplayRegularItalic_26);
+
+    lv_style_set_text_font(&label_index_style, &NeueHaasDisplayRoman_16);
 
     /*
      * On the main page, create the individual pages which will be lotus scrolled
@@ -187,21 +203,43 @@ void main_menu_init(void) {
         lv_obj_align(icon, LV_ALIGN_CENTER, 0, -40);
 
         /* Add menu label name and its sequence number */
+        label_pre = lv_label_create(image_cover);
         label = lv_label_create(image_cover);
+        label_post = lv_label_create(image_cover);
+
         label_index = lv_label_create(image_cover);
         lv_label_set_recolor(label_index, true);
-        lv_label_set_recolor(label, true);
+        lv_obj_add_style(label_index, &label_index_style, LV_PART_MAIN);
 
-        /* Adjust color of the label name - can be localized */
-        lv_label_set_text(label, main_menu_dispatch[i].menu_name);
+        /* Allow recoloring and add the font style to each part of the label */
+        lv_label_set_recolor(label_pre, true);
+        lv_obj_add_style(label_pre, &label_style, LV_PART_MAIN);
+
+        lv_label_set_recolor(label, true);
+        lv_obj_add_style(label, &italic_style, LV_PART_MAIN);
+
+        lv_label_set_recolor(label_post, true);
+        lv_obj_add_style(label_post, &label_style, LV_PART_MAIN);
+        
+        /* Add the text and color to the label */
+        lv_label_set_text(label_pre, main_menu_dispatch[i].menu_pre);
+        lv_obj_set_style_text_color(label_pre, lv_color_white(), 0);
+
+        lv_label_set_text(label, main_menu_dispatch[i].menu_italic);
         lv_obj_set_style_text_color(label, lv_color_white(), 0);
+
+        lv_label_set_text(label_post, main_menu_dispatch[i].menu_post);
+        lv_obj_set_style_text_color(label_post, lv_color_white(), 0);
 
         /* Adjust color and format of the page index */
         lv_label_set_text_fmt(label_index, "0%d", i + 1);
         lv_obj_set_style_text_color(label_index, lv_palette_main(LV_PALETTE_GREY), 0);
 
         /* Align texts on the screen as needed */
-        lv_obj_align(label, LV_ALIGN_CENTER, 0, 25);
+        lv_obj_align(label_pre, LV_ALIGN_CENTER, main_menu_dispatch[i].lx_offset, 25);
+        lv_obj_align(label, LV_ALIGN_CENTER, main_menu_dispatch[i].mx_offset, 24);
+        lv_obj_align(label_post, LV_ALIGN_CENTER, main_menu_dispatch[i].rx_offset, 25);
+
         lv_obj_align(label_index, LV_ALIGN_CENTER, 0, 50);
 
         /* Add page index indicator and intialize pages to the first one in the sequence */

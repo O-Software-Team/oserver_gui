@@ -26,7 +26,7 @@ extern "C" {
  * GLOBAL PROTOTYPES
  **********************/
 
-void add_separator_line(lv_point_t, lv_point_t, lv_obj_t * );
+void add_separator_line(lv_point_t *, lv_obj_t * );
 
 /**********************
  *      MACROS
