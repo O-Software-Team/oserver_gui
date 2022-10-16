@@ -27,7 +27,9 @@ LV_IMG_DECLARE(Icon_Status_Active);
 LV_IMG_DECLARE(Icon_Status_Disable);
 
 /* Standard list control iconography declared below */
-LV_IMG_DECLARE(Icon_Email_Filter_White);
+LV_IMG_DECLARE(Icon_Filter_Button);
+LV_IMG_DECLARE(Icon_List_Item_Divider);
+
 LV_IMG_DECLARE(Icon_Email_Unread_Yellow);
 LV_IMG_DECLARE(Icon_More_White);
 LV_IMG_DECLARE(Icon_Next_White);
@@ -112,7 +114,7 @@ void email_list_init(lv_obj_t * email_page) {
 
     /* 'Filter' button to filter the email messages */
     lv_obj_t * plus_image = lv_img_create(image);
-    lv_img_set_src(plus_image, &Icon_Email_Filter_White);
+    lv_img_set_src(plus_image, &Icon_Filter_Button);
     lv_obj_align(plus_image, LV_ALIGN_TOP_MID, 140, 23);
 
     // lv_obj_t * add = lv_btn_create(image);
@@ -121,6 +123,8 @@ void email_list_init(lv_obj_t * email_page) {
     // //lv_obj_add_event_cb(add, found_devices_handler, LV_EVENT_CLICKED, 0);
     // //lv_obj_set_user_data(add, device_page);
     // lv_obj_set_style_opa(add, LV_OPA_0, LV_PART_MAIN);
+
+//{ .menu_pre = "De",       .menu_italic = "v",  .lx_offset = -20, .mx_offset = 0, .rx_offset = 26, .menu_post = "ices", .active = true },
 
     /* Add the Page header at the top */
     lv_label_t * page_header = lv_label_create(image);
