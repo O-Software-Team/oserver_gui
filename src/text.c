@@ -27,6 +27,7 @@ LV_IMG_DECLARE(Icon_Status_Active);
 LV_IMG_DECLARE(Icon_Status_Disable);
 
 /* Standard list control iconography declared below */
+LV_IMG_DECLARE(Icon_Filter_Button);
 LV_IMG_DECLARE(Icon_Text_Filter_White);
 LV_IMG_DECLARE(Icon_Text_Unread_Yellow);
 LV_IMG_DECLARE(Icon_More_White);
@@ -111,10 +112,12 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
     render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the email messages */
-    lv_obj_t * plus_image = lv_img_create(image);
-    lv_img_set_src(plus_image, &Icon_Text_Filter_White);
-    lv_obj_align(plus_image, LV_ALIGN_TOP_MID, 140, 23);
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_img_set_zoom(filter_image, 160);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 110, 18);
 
+    // Use the following to create a button -- save for later
     // lv_obj_t * add = lv_btn_create(image);
     // lv_obj_set_size(add, 50, 50);
     // lv_obj_align(add, LV_ALIGN_TOP_MID, 140, 15);

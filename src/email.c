@@ -113,16 +113,18 @@ void email_list_init(lv_obj_t * email_page) {
     render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the email messages */
-    lv_obj_t * plus_image = lv_img_create(image);
-    lv_img_set_src(plus_image, &Icon_Filter_Button);
-    lv_obj_align(plus_image, LV_ALIGN_TOP_MID, 140, 23);
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_img_set_zoom(filter_image, 160);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 110, 18);
 
-    // lv_obj_t * add = lv_btn_create(image);
-    // lv_obj_set_size(add, 50, 50);
-    // lv_obj_align(add, LV_ALIGN_TOP_MID, 140, 15);
-    // //lv_obj_add_event_cb(add, found_devices_handler, LV_EVENT_CLICKED, 0);
-    // //lv_obj_set_user_data(add, device_page);
-    // lv_obj_set_style_opa(add, LV_OPA_0, LV_PART_MAIN);
+    // Use the following to create a button -- save for later
+    // lv_obj_t * filter_image = lv_btn_create(image);
+    // lv_obj_set_size(filter_image, 50, 50);
+    // lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 140, 15);
+    // //lv_obj_add_event_cb(filter_image, found_devices_handler, LV_EVENT_CLICKED, 0);
+    // //lv_obj_set_user_data(filter_image, device_page);
+    // lv_obj_set_style_opa(filter_image, LV_OPA_0, LV_PART_MAIN);
 
 //{ .menu_pre = "De",       .menu_italic = "v",  .lx_offset = -20, .mx_offset = 0, .rx_offset = 26, .menu_post = "ices", .active = true },
 
