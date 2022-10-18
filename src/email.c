@@ -5,8 +5,8 @@
 
 #include <stdio.h>
 
-#define EMAIL_LIST_MAX 5
-#define EMAIL_FOUND_MAX 5
+#define EMAIL_LIST_MAX 7
+#define EMAIL_FOUND_MAX 7
 
 #define LV_FONT_MONTSERRAT_44 1
 
@@ -74,18 +74,17 @@ static email_item email_list[EMAIL_LIST_MAX] = {
         .email_status = &Icon_Email_Unread_Yellow,
         .email_message = "Blah-blah-blah... BANANA!",
     },
-
     {
         .email_id = 2,
-        .email_from = "Bob's Big Boy",
-        .email_subject = "Burgers? You bet!",
-        .email_status = &Icon_Status_Disable,
+        .email_from = "Yoyodyne Propulsion",
+        .email_subject = "Oscillation overthruster designs",
+        .email_status = &Icon_Email_Unread_Yellow,
         .email_message = "Blah-blah-blah... BANANA!",
     },
     {
         .email_id = 3,
-        .email_from = "Site Inspire",
-        .email_subject = "Site Inspire x Week 16",
+        .email_from = "Bob's Big Boy",
+        .email_subject = "Burgers? You bet!",
         .email_status = &Icon_Status_Disable,
         .email_message = "Blah-blah-blah... BANANA!",
     },
@@ -93,6 +92,20 @@ static email_item email_list[EMAIL_LIST_MAX] = {
         .email_id = 4,
         .email_from = "Dr Emilio Lizardo",
         .email_subject = "RE: Get the oscillation overthruster!",
+        .email_status = &Icon_Status_Disable,
+        .email_message = "Blah-blah-blah... BANANA!",
+    },
+    {
+        .email_id = 5,
+        .email_from = "Site Inspire",
+        .email_subject = "Site Inspire x Week 16",
+        .email_status = &Icon_Status_Disable,
+        .email_message = "Blah-blah-blah... BANANA!",
+    },
+    {
+        .email_id = 6,
+        .email_from = "John Ya Ya",
+        .email_subject = "Where is Professor Hikita?",
         .email_status = &Icon_Status_Disable,
         .email_message = "Blah-blah-blah... BANANA!",
     },
