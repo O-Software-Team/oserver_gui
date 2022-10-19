@@ -9,7 +9,7 @@ LV_IMG_DECLARE(Icon_Back);
  */
 void back_home_button_cb(lv_event_t * e)
 {
-    printf("Back to main - clearing present\n");
+    //printf("Back to main - clearing present\n");
     lv_obj_t * target = lv_event_get_target(e);
     lv_obj_t * parent = lv_obj_get_user_data(target);
     lv_obj_fade_in(lv_layer_top(), 0, 0);
@@ -19,7 +19,7 @@ void back_home_button_cb(lv_event_t * e)
 
 void back_button_cb(lv_event_t * e)
 {
-    printf("Back to main - sending SCROLL\n");
+    //printf("Back to main - sending SCROLL\n");
     lv_obj_t * target = lv_event_get_target(e);
     lv_obj_t * cont = lv_obj_get_user_data(target);
 
