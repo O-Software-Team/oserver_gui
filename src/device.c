@@ -8,8 +8,6 @@
 #define DEVICE_PAGE_MAX 6
 #define DEVICE_FOUND_MAX 4
 
-#define LV_FONT_MONTSERRAT_44 1
-
 /*forward*/
 static void add_device_cb(lv_event_t *);
 static void my_timer(lv_timer_t *);
@@ -228,11 +226,11 @@ void device_code_init(lv_obj_t * device_page)
     lv_style_init(&code_style);
     lv_obj_t * code = lv_label_create(image);
     lv_label_set_recolor(code, true);
-    lv_style_set_text_font(&code_style, &NeueHaasDisplayXThin_52);
+    lv_style_set_text_font(&code_style, &NeueHaasDisplayXThin_100);
     lv_label_set_text(code, "603537");
     lv_obj_set_style_text_color(code, lv_palette_main(LV_PALETTE_GREY), 0);
     lv_obj_add_style(code, &code_style, LV_PART_MAIN);
-    lv_obj_align(code, LV_ALIGN_DEFAULT, 120, 200);
+    lv_obj_align(code, LV_ALIGN_DEFAULT, 100, 200);
     
     /* Tell them what to do with the displayed code */
     lv_obj_t * instructions = lv_label_create(image);
@@ -257,7 +255,7 @@ void devices_found_init(lv_obj_t * device_page) {
 
     static lv_style_t page_header_style;
     lv_style_init(&page_header_style);
-    lv_style_set_text_font(&page_header_style, &NeueHaasDisplayLight_16);
+    lv_style_set_text_font(&page_header_style, &NeueHaasDisplayLight_18);
 
     /* Add the Page header at the top*/
     lv_label_t * page_header = lv_label_create(image);
@@ -270,7 +268,7 @@ void devices_found_init(lv_obj_t * device_page) {
     /* Add the item List heading*/
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 60);
+    lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 85);
     lv_label_set_text(list_name, "List of devices found");
     lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
 
@@ -286,7 +284,7 @@ void devices_found_init(lv_obj_t * device_page) {
     /* Add devices entries as clickable buttons*/
     for (int i = 0; i < DEVICE_FOUND_MAX; i++)
     {
-        offset =  100 + (60 * i);
+        offset =  121 + (60 * i);
         entry_separator[i] = lv_img_create(image);
         lv_img_set_src(entry_separator[i], &Linez);
         lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
@@ -330,12 +328,12 @@ void device_trusted_init(lv_obj_t * device_page) {
 
     static lv_style_t page_header_style;
     lv_style_init(&page_header_style);
-    lv_style_set_text_font(&page_header_style, &NeueHaasDisplayLight_16);
+    lv_style_set_text_font(&page_header_style, &NeueHaasDisplayRoman_20);
 
-    /* 'Add' button to add device */
-    lv_obj_t * plus_image = lv_img_create(image);
-    lv_img_set_src(plus_image, &Icon_More_White);
-    lv_obj_align(plus_image, LV_ALIGN_TOP_MID, 140, 23);
+    lv_obj_t * grey_halo = lv_img_create(image);
+    lv_img_set_src(grey_halo, &GreyHalo);
+    lv_img_set_zoom(grey_halo, 200);
+    lv_obj_align(grey_halo, LV_ALIGN_TOP_MID, 130, 9);
 
     lv_obj_t * add = lv_btn_create(image);
     lv_obj_set_size(add, 50, 50);
@@ -355,24 +353,24 @@ void device_trusted_init(lv_obj_t * device_page) {
     /* Add the item List heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, 25, 60);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, 25, 85);
     lv_label_set_text(list_name, "List of devices");
     lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
 
     /* The WiFi indicator */
     lv_obj_t * wifi_symbol = lv_img_create(image);
     lv_img_set_src(wifi_symbol, &Icon_WiFi_White);
-    lv_obj_align(wifi_symbol, LV_ALIGN_DEFAULT, 275, 60);
+    lv_obj_align(wifi_symbol, LV_ALIGN_DEFAULT, 290, 64);
 
     /* The Bluetooth indicator */
     lv_obj_t * bt_symbol = lv_img_create(image);
     lv_img_set_src(bt_symbol, &Icon_Bluetooth_White);
-    lv_obj_align(bt_symbol, LV_ALIGN_DEFAULT, 295, 60);
+    lv_obj_align(bt_symbol, LV_ALIGN_DEFAULT, 310, 64);
 
     /* The NFC indicator */
     lv_obj_t * nfc_symbol = lv_img_create(image);
     lv_img_set_src(nfc_symbol, &Icon_NFC_White);
-    lv_obj_align(nfc_symbol, LV_ALIGN_DEFAULT, 315, 60);
+    lv_obj_align(nfc_symbol, LV_ALIGN_DEFAULT, 330, 64);
     lv_obj_set_style_opa(nfc_symbol, LV_OPA_40, LV_PART_MAIN);
 
     lv_coord_t offset = 0;
@@ -390,7 +388,7 @@ void device_trusted_init(lv_obj_t * device_page) {
     /* Add (simulated) devices entries as clickable buttons*/
     for (int i = 0; i < DEVICE_PAGE_MAX; i++)
     {
-            offset =  100 + (60 * i);
+            offset =  121 + (60 * i);
 
             entry_separator[i] = lv_img_create(image);
             lv_img_set_src(entry_separator[i], &Linez);

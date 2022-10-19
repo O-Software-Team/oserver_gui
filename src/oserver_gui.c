@@ -47,15 +47,15 @@ const lv_img_dsc_t * icon_images[OCO_PAGE_MAX] = {
 static lv_obj_t * page_index[OCO_PAGE_MAX];
 
 menu_item main_menu_dispatch[OCO_PAGE_MAX] = {
-    { .menu_pre = "De",       .menu_italic = "v",  .lx_offset = -20, .mx_offset = 0, .rx_offset = 26, .menu_post = "ices", .active = true },
-    { .menu_pre = "O",        .menu_italic = "\0", .lx_offset = 0,   .mx_offset = 0, .rx_offset = 20, .menu_post = "\0",   .active = true },
-    { .menu_pre = "Fil",      .menu_italic = "e",  .lx_offset = -15, .mx_offset = 2, .rx_offset = 13, .menu_post = "s",    .active = true },
-    { .menu_pre = "E",        .menu_italic = "m",  .lx_offset = -17, .mx_offset = 0, .rx_offset = 21, .menu_post = "ail",  .active = true },
-    { .menu_pre = "Conta",    .menu_italic = "c",  .lx_offset = -21, .mx_offset = 15,.rx_offset = 30, .menu_post = "ts",   .active = true },
-    { .menu_pre = "Cal",      .menu_italic = "e",  .lx_offset = -26, .mx_offset = -5, .rx_offset = 23, .menu_post = "ndar", .active = true },
-    { .menu_pre = "Te",       .menu_italic = "x",  .lx_offset = -16, .mx_offset = 3, .rx_offset = 14, .menu_post = "t",    .active = true },
-    { .menu_pre = "M",        .menu_italic = "u",  .lx_offset = -16, .mx_offset = 0, .rx_offset = 20, .menu_post = "sic",  .active = true },
-    { .menu_pre = "Settin",   .menu_italic = "g",  .lx_offset = -21, .mx_offset = 13, .rx_offset = 25, .menu_post = "s",    .active = true },
+    { .menu_pre = "De",     .menu_italic = "v",  .lx = -20, .mx = 0,  .rx = 26, .menu_post = "ices", .menu_vec = DEVICE_VEC,   .active = true },
+    { .menu_pre = "O",      .menu_italic = "\0", .lx = 0,   .mx = 0,  .rx = 20, .menu_post = "\0",   .menu_vec = OSERVER_VEC,  .active = true },
+    { .menu_pre = "Fil",    .menu_italic = "e",  .lx = -15, .mx = 2,  .rx = 13, .menu_post = "s",    .menu_vec = FILES_VEC,    .active = true },
+    { .menu_pre = "E",      .menu_italic = "m",  .lx = -17, .mx = 0,  .rx = 21, .menu_post = "ail",  .menu_vec = EMAIL_VEC,    .active = true },
+    { .menu_pre = "Conta",  .menu_italic = "c",  .lx = -21, .mx = 15, .rx = 30, .menu_post = "ts",   .menu_vec = CONTACTS_VEC, .active = true },
+    { .menu_pre = "Cal",    .menu_italic = "e",  .lx = -26, .mx = -5, .rx = 23, .menu_post = "ndar", .menu_vec = CALENDAR_VEC, .active = true },
+    { .menu_pre = "Te",     .menu_italic = "x",  .lx = -16, .mx = 3,  .rx = 14, .menu_post = "t",    .menu_vec = TEXT_VEC,     .active = true },
+    { .menu_pre = "M",      .menu_italic = "u",  .lx = -16, .mx = 0,  .rx = 20, .menu_post = "sic",  .menu_vec = MUSIC_VEC,    .active = true },
+    { .menu_pre = "Settin", .menu_italic = "g",  .lx = -21, .mx = 13, .rx = 25, .menu_post = "s",    .menu_vec = SETTINGS_VEC, .active = true },
 };
 
 static uint16_t index_offset [OCO_PAGE_MAX] = {
@@ -195,7 +195,7 @@ void main_menu_init(void) {
         lv_obj_set_size(btn, 230, 280);
         lv_obj_set_style_opa(btn, LV_OPA_0, 0);
         lv_obj_add_event_cb(btn, &menu_dispatch, LV_EVENT_LONG_PRESSED, NULL);
-        lv_obj_set_user_data(btn,i + 1);
+        lv_obj_set_user_data(btn, main_menu_dispatch[i].menu_vec);
 
         /* Add page icon */
         icon = lv_img_create(image_cover);
@@ -236,9 +236,9 @@ void main_menu_init(void) {
         lv_obj_set_style_text_color(label_index, lv_palette_main(LV_PALETTE_GREY), 0);
 
         /* Align texts on the screen as needed */
-        lv_obj_align(label_pre, LV_ALIGN_CENTER, main_menu_dispatch[i].lx_offset, 25);
-        lv_obj_align(label, LV_ALIGN_CENTER, main_menu_dispatch[i].mx_offset, 24);
-        lv_obj_align(label_post, LV_ALIGN_CENTER, main_menu_dispatch[i].rx_offset, 25);
+        lv_obj_align(label_pre, LV_ALIGN_CENTER, main_menu_dispatch[i].lx, 25);
+        lv_obj_align(label, LV_ALIGN_CENTER, main_menu_dispatch[i].mx, 24);
+        lv_obj_align(label_post, LV_ALIGN_CENTER, main_menu_dispatch[i].rx, 25);
 
         lv_obj_align(label_index, LV_ALIGN_CENTER, 0, 50);
 

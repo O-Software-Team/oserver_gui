@@ -32,21 +32,7 @@ extern "C" {
 /**********************
  *      TYPEDEFS
  **********************/
-enum security {ADMIN = 0, FRIEND};
-
-typedef struct {
-    char * menu_pre;
-    char * menu_italic;
-    int lx_offset;
-    int mx_offset;
-    int rx_offset;
-    char * menu_post;
-    void (* page_handler)(lv_obj_t *);
-    bool active;
-    bool onboard;
-    enum security security_status;
-    lv_img_dsc_t * icon;
-} menu_item;
+enum security {ADMIN = 0, FRIEND,};
 
 enum menu_vector_index {
     MAIN_MENU_VEC = 0,
@@ -60,6 +46,21 @@ enum menu_vector_index {
     MUSIC_VEC,
     SETTINGS_VEC,
 };
+
+typedef struct {
+    char * menu_pre;
+    char * menu_italic;
+    int menu_vec;
+    int lx;
+    int mx;
+    int rx;
+    char * menu_post;
+    void (* page_handler)(lv_obj_t *);
+    bool active;
+    bool onboard;
+    enum security security_status;
+    lv_img_dsc_t * icon;
+} menu_item;
 
 /**********************
  * GLOBAL PROTOTYPES

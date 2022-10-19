@@ -40,6 +40,8 @@ LV_IMG_DECLARE(Icon_More_White);
 LV_IMG_DECLARE(Icon_Next_White);
 LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
+LV_IMG_DECLARE(GreyHalo);
+LV_IMG_DECLARE(Icon_Filter_Button);
 
 /* Include font resources */
 LV_FONT_DECLARE(SaolDisplayRegularItalic_22);
@@ -54,14 +56,20 @@ LV_FONT_DECLARE(NeueHaasDisplayLight_32);
 
 LV_FONT_DECLARE(SaolDisplayRegularItalic_20);
 LV_FONT_DECLARE(NeueHaasDisplayLight_20);
+LV_FONT_DECLARE(NeueHaasDisplayRoman_20);
 
 LV_FONT_DECLARE(SaolDisplayRegularItalic_48);
 LV_FONT_DECLARE(NeueHaasDisplayLight_48);
 
 LV_FONT_DECLARE(NeueHaasDisplayXThin_50); // For the 'security pin code'
 LV_FONT_DECLARE(NeueHaasDisplayXThin_52);
+LV_FONT_DECLARE(NeueHaasDisplayXThin_58);
+LV_FONT_DECLARE(NeueHaasDisplayXThin_100);
+LV_FONT_DECLARE(NeueHaasDisplayXThin_150); // Percent transfer screen
+
 
 LV_FONT_DECLARE(NeueHaasDisplayLight_18);
+LV_FONT_DECLARE(NeueHaasDisplayRoman_18);
 
 LV_FONT_DECLARE(NeueHaasDisplayLight_16);
 
