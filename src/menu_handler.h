@@ -32,9 +32,7 @@ extern "C" {
 /**********************
  *      TYPEDEFS
  **********************/
-<<<<<<< HEAD
-enum security {ADMIN = 0, FRIEND,};
-=======
+// enum security {ADMIN = 0, FRIEND,};
 typedef struct {
     char * menu_pre;
     char * menu_italic;
@@ -67,20 +65,19 @@ typedef struct {
 
 enum security {ADMIN = 0, FRIEND};
 
-typedef struct {
-    char * menu_pre;
-    char * menu_italic;
-    int lx_offset;
-    int mx_offset;
-    int rx_offset;
-    char * menu_post;
-    void (* page_handler)(lv_obj_t *);
-    bool active;
-    bool onboard;
-    enum security security_status;
-    lv_img_dsc_t * icon;
-} menu_item;
->>>>>>> 8f22cec56b18c473a52cfc1023d34276fa1e88d9
+// typedef struct {
+//     char * menu_pre;
+//     char * menu_italic;
+//     int lx_offset;
+//     int mx_offset;
+//     int rx_offset;
+//     char * menu_post;
+//     void (* page_handler)(lv_obj_t *);
+//     bool active;
+//     bool onboard;
+//     enum security security_status;
+//     lv_img_dsc_t * icon;
+// } menu_item;
 
 enum menu_vector_index {
     MAIN_MENU_VEC = 0,
