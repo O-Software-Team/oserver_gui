@@ -85,12 +85,16 @@ void device_connected_init(lv_obj_t * device_page) {
     lv_style_set_text_font(&security_selection_style, &NeueHaasDisplayLight_18);
     lv_style_set_text_font(&header_style, &NeueHaasDisplayLight_22);
     lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
-    /*
-     * This adds the 'connected device' screen to the devices scroll list
-     */
+
+#if ALL_SCROLL
     lv_obj_t * image = lv_img_create(device_page);
     lv_img_set_src(image, &Background);
+#else
+    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_center(image);
 
+#endif // ALL_SCROLL
     render_back_button(image, back_button_cb);
 
     /* The 'Cancel' button graphic */
@@ -197,12 +201,15 @@ void device_code_init(lv_obj_t * device_page)
     lv_style_init(&cancel_style);
     lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
 
-    /*
-     * This adds the 'devices found' screen to the devices scroll list
-     */
+#if ALL_SCROLL
     lv_obj_t * image = lv_img_create(device_page);
     lv_img_set_src(image, &Background);
+#else
+    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_center(image);
 
+#endif // ALL_SCROLL
     render_back_button(image, back_button_cb);
 
     /* 'Cancel' button to cancel the security challenge process*/
@@ -226,11 +233,11 @@ void device_code_init(lv_obj_t * device_page)
     lv_style_init(&code_style);
     lv_obj_t * code = lv_label_create(image);
     lv_label_set_recolor(code, true);
-    lv_style_set_text_font(&code_style, &NeueHaasDisplayXThin_100);
+    lv_style_set_text_font(&code_style, &NeueHaasDisplayXThin_80);
     lv_label_set_text(code, "603537");
     lv_obj_set_style_text_color(code, lv_palette_main(LV_PALETTE_GREY), 0);
     lv_obj_add_style(code, &code_style, LV_PART_MAIN);
-    lv_obj_align(code, LV_ALIGN_DEFAULT, 100, 200);
+    lv_obj_align(code, LV_ALIGN_DEFAULT, 60, 180);
     
     /* Tell them what to do with the displayed code */
     lv_obj_t * instructions = lv_label_create(image);
@@ -245,12 +252,15 @@ void device_code_init(lv_obj_t * device_page)
 /* After selecting the '+' (add device) button on the devices page list more devices in the area */
 void devices_found_init(lv_obj_t * device_page) {
 
-    /*
-     * This adds the 'devices found' screen to the devices scroll list
-     */
+#if ALL_SCROLL
     lv_obj_t * image = lv_img_create(device_page);
     lv_img_set_src(image, &Background);
+#else
+    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_center(image);
 
+#endif // ALL_SCROLL
     render_back_button(image, back_button_cb);
 
     static lv_style_t page_header_style;
@@ -321,9 +331,15 @@ void devices_found_init(lv_obj_t * device_page) {
 
 void device_trusted_init(lv_obj_t * device_page) {
 
+#if ALL_SCROLL
     lv_obj_t * image = lv_img_create(device_page);
     lv_img_set_src(image, &Background);
+#else
+    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_center(image);
 
+#endif // ALL_SCROLL
     render_back_button(image, back_home_button_cb);
 
     static lv_style_t page_header_style;
@@ -433,15 +449,14 @@ void device_trusted_init(lv_obj_t * device_page) {
 /* The init routine for` the 'root' page and it's children pages */
 void device_menu_setup(void)
 {
-    printf("DEVICE MENU init...\n");
-
+    printf("DEVICE MENU setup...\n");
+#if ALL_SCROLL
     lv_obj_t * device_page = lv_obj_create(NULL);
     menu_dispatch_table[DEVICE_VEC] = device_page;
 
     lv_obj_center(device_page);
     lv_obj_set_style_bg_color(device_page, lv_color_lighten(lv_color_black(), 60), 0);
     lv_obj_set_flex_flow(device_page, LV_FLEX_FLOW_ROW);
-    //lv_obj_add_event_cb(device_page, scroll_event_cb, LV_EVENT_SCROLL, NULL);
     lv_obj_set_style_clip_corner(device_page, true, 3);
     lv_obj_set_scroll_dir(device_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(device_page, LV_SCROLL_SNAP_CENTER);
@@ -460,4 +475,30 @@ void device_menu_setup(void)
 
     /* SUB_SCREEN 3: Setup display for the new 'trusted' device */
     device_connected_init(device_page);
+#else
+    lv_obj_t * lotus_root_page = lv_img_create(NULL);
+    menu_dispatch_table[DEVICE_VEC] = lotus_root_page;
+
+    lv_obj_set_size(lotus_root_page, 385, 510); // Same as the simulator dislay
+    lv_obj_set_style_bg_color(lotus_root_page, lv_color_lighten(lv_color_black(), 50), 0);
+    lv_img_set_src(lotus_root_page, &Background);
+    lv_obj_set_flex_flow(lotus_root_page, LV_FLEX_FLOW_ROW);
+    lv_obj_set_scroll_dir(lotus_root_page, LV_DIR_HOR);
+    lv_obj_set_scroll_snap_x(lotus_root_page, LV_SCROLL_SNAP_CENTER);
+    lv_obj_set_scrollbar_mode(lotus_root_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+
+    /* Store the content of this page for later display */
+
+    /* SUB-SCREEN 1: Create already connected (trusted) devices page add it to parent */
+    device_trusted_init(lotus_root_page);
+
+    /* SUB-SCREEN 2: Devices found in the area listed here */
+    devices_found_init(lotus_root_page);
+
+    /* SUB-SCREEN 3: Display code for connection to selected device */
+    device_code_init(lotus_root_page);
+
+    /* SUB_SCREEN 4: Setup display for the new 'trusted' device */
+    device_connected_init(lotus_root_page);
+#endif // ALL_SCROLL
 }

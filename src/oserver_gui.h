@@ -64,9 +64,12 @@ LV_FONT_DECLARE(NeueHaasDisplayLight_48);
 LV_FONT_DECLARE(NeueHaasDisplayXThin_50); // For the 'security pin code'
 LV_FONT_DECLARE(NeueHaasDisplayXThin_52);
 LV_FONT_DECLARE(NeueHaasDisplayXThin_58);
+LV_FONT_DECLARE(NeueHaasDisplayXThin_80);
 LV_FONT_DECLARE(NeueHaasDisplayXThin_100);
 LV_FONT_DECLARE(NeueHaasDisplayXThin_150); // Percent transfer screen
-
+LV_FONT_DECLARE(NeueHaasDisplayXXThin_150); // Percent transfer screen
+LV_FONT_DECLARE(NeueHaasDisplayXXThin_170); // Percent transfer screen
+LV_FONT_DECLARE(NeueHaasDisplayXXThin_200); // Percent transfer screen
 
 LV_FONT_DECLARE(NeueHaasDisplayLight_18);
 LV_FONT_DECLARE(NeueHaasDisplayRoman_18);

@@ -57,12 +57,14 @@ void transfer_progress_init(lv_obj_t * device_page)
     lv_style_init(&cancel_style);
     lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
 
-    /*
-     * This adds the 'devices found' screen to the devices scroll list
-     */
+#if ALL_SCROLL
     lv_obj_t * image = lv_img_create(device_page);
     lv_img_set_src(image, &Background);
-
+#else
+    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_center(image);
+#endif // ALL_SCROLL
     lv_obj_t * total_transfer = lv_label_create(image);
     lv_label_set_recolor(total_transfer, true);
     lv_label_set_text(total_transfer, "Total Transfer");
@@ -74,12 +76,13 @@ void transfer_progress_init(lv_obj_t * device_page)
     lv_style_init(&percent_style);
     lv_obj_t * percent = lv_label_create(image);
     lv_label_set_recolor(percent, true);
-    lv_style_set_text_font(&percent_style, &NeueHaasDisplayXThin_150);
+    lv_style_set_text_font(&percent_style, &NeueHaasDisplayXXThin_150);
 
     lv_label_set_text(percent, "3");
     lv_obj_set_style_text_color(percent, lv_palette_main(LV_PALETTE_GREY), 0);
     lv_obj_add_style(percent, &percent_style, LV_PART_MAIN);
     lv_obj_align(percent, LV_ALIGN_DEFAULT, 150, 155);
+    lv_obj_set_style_text_color(percent, lv_color_white(), 0);
 
     /* The smaller font percent symbol */
     static lv_style_t percent_symbol_style;
@@ -91,14 +94,14 @@ void transfer_progress_init(lv_obj_t * device_page)
     lv_label_set_text(percent_symbol, "%");
     lv_obj_set_style_text_color(percent_symbol, lv_palette_main(LV_PALETTE_GREY), 0);
     lv_obj_add_style(percent_symbol, &percent_symbol_style, LV_PART_MAIN);
-    lv_obj_align(percent_symbol, LV_ALIGN_DEFAULT, 240, 210);
+    lv_obj_align(percent_symbol, LV_ALIGN_DEFAULT, 240, 200);
     
     /* Tell them what to do with the displayed code */
     lv_obj_t * remaining = lv_label_create(image);
     lv_label_set_recolor(remaining, true);
     lv_label_set_text(remaining, "4 min remaining");
     lv_obj_set_style_text_color(remaining, lv_palette_main(LV_PALETTE_GREY), 0);
-    lv_obj_align(remaining, LV_ALIGN_DEFAULT, 130, 290);
+    lv_obj_align(remaining, LV_ALIGN_DEFAULT, 130, 300);
 }
 
 /* Set up the screen that selectes what data to be transfered; Email, Contact, Calendar, etc. */
@@ -119,11 +122,15 @@ void total_control_item_init(lv_obj_t * device_page) {
     lv_style_set_text_font(&security_selection_style, &NeueHaasDisplayLight_18);
     lv_style_set_text_font(&header_style, &NeueHaasDisplayLight_22);
     lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
-    /*
-     * This adds the 'connected device' screen to the devices scroll list
-     */
+
+#if ALL_SCROLL
     lv_obj_t * image = lv_img_create(device_page);
     lv_img_set_src(image, &Background);
+#else
+    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_center(image);
+#endif // ALL_SCROLL
 
     render_back_button(image, back_button_cb);
 
@@ -248,9 +255,14 @@ void total_control_item_init(lv_obj_t * device_page) {
 
 void devices_connected_init(lv_obj_t * device_page) {
 
+#if ALL_SCROLL
     lv_obj_t * image = lv_img_create(device_page);
     lv_img_set_src(image, &Background);
-
+#else
+    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_center(image);
+#endif // ALL_SCROLL
     render_back_button(image, back_home_button_cb);
 
     static lv_style_t page_header_style;
@@ -343,18 +355,17 @@ void devices_connected_init(lv_obj_t * device_page) {
     }
 }
 
-void oserver_menu_setup(void)
-{
+void oserver_menu_setup(void) {
+
+    printf("OSERVER MENU setup...\n");
+
+#if ALL_SCROLL
     lv_obj_t * oserver_page = lv_obj_create(NULL);
-
-    printf("OSERVER MENU init...\n");
-
     menu_dispatch_table[OSERVER_VEC] = oserver_page;
 
     lv_obj_center(oserver_page);
     lv_obj_set_style_bg_color(oserver_page, lv_color_lighten(lv_color_black(), 60), 0);
     lv_obj_set_flex_flow(oserver_page, LV_FLEX_FLOW_ROW);
-    //lv_obj_add_event_cb(device_page, scroll_event_cb, LV_EVENT_SCROLL, NULL);
     lv_obj_set_style_clip_corner(oserver_page, true, 3);
     lv_obj_set_scroll_dir(oserver_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(oserver_page, LV_SCROLL_SNAP_CENTER);
@@ -370,6 +381,28 @@ void oserver_menu_setup(void)
 
     /* SUB-SCREEN 2: Once selected and started the total-control transfer progress is displayed by percent. */
     transfer_progress_init(oserver_page);
+#else
+    lv_obj_t * lotus_root_page = lv_img_create(NULL);
+    menu_dispatch_table[OSERVER_VEC] = lotus_root_page;
 
+    lv_obj_set_size(lotus_root_page, 385, 510); // Same as the simulator dislay
+    lv_obj_set_style_bg_color(lotus_root_page, lv_color_lighten(lv_color_black(), 50), 0);
+    lv_img_set_src(lotus_root_page, &Background);
+    lv_obj_set_flex_flow(lotus_root_page, LV_FLEX_FLOW_ROW);
+    lv_obj_set_scroll_dir(lotus_root_page, LV_DIR_HOR);
+    lv_obj_set_scroll_snap_x(lotus_root_page, LV_SCROLL_SNAP_CENTER);
+    lv_obj_set_scrollbar_mode(lotus_root_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+
+    /* Store the content of this page for later display */
+
+    /* SUB-SCREEN 0: Create already connected (trusted) devices page add it to parent */
+    devices_connected_init(lotus_root_page);
+
+    /* SUB-SCREEN 1: The items from the selected device to be transferred and secured with total-control */
+    total_control_item_init(lotus_root_page);
+
+    /* SUB-SCREEN 2: Once selected and started the total-control transfer progress is displayed by percent. */
+    transfer_progress_init(lotus_root_page);
+#endif // ALL_SCROLL
     
 }
