@@ -7,7 +7,7 @@
 
 #define EMAIL_LIST_MAX 7
 #define EMAIL_FOUND_MAX 7
-#define EMAIL_MESSAGE_ID 4;
+#define EMAIL_MESSAGE_ID 4
 
 #define LV_FONT_MONTSERRAT_44 1
 
@@ -98,7 +98,7 @@ static email_item email_list[EMAIL_LIST_MAX] = {
         .email_from = "Dr Emilio Lizardo",
         .email_subject = "RE: Get the oscillation overthruster!",
         .email_status = &Icon_Status_Disable,
-        .email_message = "Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... BANANA!",
+        .email_message = "Some giant string of text here. Will need to post some sort of Some giant string of text here. Will need to post some sort of Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... BANANA!",
     },
     {
         .email_id = 5,
@@ -226,28 +226,29 @@ void email_message_view(lv_obj_t * email_message_page) {
 
     render_back_button(image, back_home_button_cb);
 
-    /* Email message SUBJECT field */
+    /* Email SUBJECT field */
     email_subject = lv_label_create(image);
     lv_label_set_recolor(email_subject, true);
     lv_obj_align(email_subject, LV_ALIGN_TOP_LEFT, LIST_CONTENT_ITEM, EMAIL_MESSAGE_SUBJECT);
-    lv_label_set_text(email_subject, email_list[4].email_subject);
+    lv_label_set_text(email_subject, email_list[EMAIL_MESSAGE_ID].email_subject);
     lv_obj_set_style_text_color(email_subject, lv_color_white(), 0);
 
-    /* Email message MESSAGE field */
+    /* Email MESSAGE field */
     email_message = lv_textarea_create(image);
-    // lv_label_set_recolor(email_subject, true);
     lv_obj_align(email_message, LV_ALIGN_TOP_LEFT, LIST_CONTENT_ITEM, EMAIL_MESSAGE_CONTENT);
-    lv_textarea_add_text(email_message, email_list[4].email_message);
-    // lv_label_set_text(email_message, email_list[4].email_message);
-
-    // lv_style_set_outline_width(email_message, 0);
-    // lv_style_set_outline_color(email_message, lv_palette_main(LV_PALETTE_BLUE));
-    // lv_style_set_outline_pad(email_message, 0);
-    // lv_obj_set_style_outline_width(email_message, 0, LV_PART_MAIN);
-    lv_obj_set_style_outline_color(email_message, lv_palette_main(LV_PALETTE_BLUE), LV_PART_MAIN);
-
-    lv_obj_set_style_text_color(email_message, lv_palette_main(LV_PALETTE_GREY), 0);
+    lv_obj_set_style_height(email_message, 280, LV_PART_MAIN);
+    lv_obj_set_style_width(email_message, 298, LV_PART_MAIN);
+    lv_obj_set_style_border_width(email_message, 0, LV_PART_MAIN);
     lv_obj_set_style_bg_opa(email_message, 0, LV_PART_MAIN);
+
+    lv_textarea_add_text(email_message, email_list[EMAIL_MESSAGE_ID].email_message);
+    lv_obj_set_style_text_color(email_message, lv_palette_main(LV_PALETTE_GREY), 0);
+    lv_obj_set_style_text_line_space(email_message, 10, LV_PART_MAIN);
+
+    lv_obj_set_style_pad_top(email_message, 0, LV_PART_MAIN);
+    lv_obj_set_style_pad_right(email_message, 8, LV_PART_MAIN);
+    lv_obj_set_style_pad_bottom(email_message, 0, LV_PART_MAIN);
+    lv_obj_set_style_pad_left(email_message, 0, LV_PART_MAIN);
 }
 
 void email_menu_setup(void)
