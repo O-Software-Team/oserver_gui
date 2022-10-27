@@ -42,6 +42,9 @@ LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
 LV_IMG_DECLARE(GreyHalo);
 LV_IMG_DECLARE(Icon_Filter_Button);
+LV_IMG_DECLARE(Progress);
+LV_IMG_DECLARE(Icon_Grey_Outline_Button);
+LV_IMG_DECLARE(Icon_Close_White);
 
 /* Include font resources */
 LV_FONT_DECLARE(SaolDisplayRegularItalic_22);
@@ -67,6 +70,7 @@ LV_FONT_DECLARE(NeueHaasDisplayXThin_58);
 LV_FONT_DECLARE(NeueHaasDisplayXThin_80);
 LV_FONT_DECLARE(NeueHaasDisplayXThin_100);
 LV_FONT_DECLARE(NeueHaasDisplayXThin_150); // Percent transfer screen
+LV_FONT_DECLARE(NeueHaasDisplayXXThin_100); // Percent transfer screen
 LV_FONT_DECLARE(NeueHaasDisplayXXThin_150); // Percent transfer screen
 LV_FONT_DECLARE(NeueHaasDisplayXXThin_170); // Percent transfer screen
 LV_FONT_DECLARE(NeueHaasDisplayXXThin_200); // Percent transfer screen
