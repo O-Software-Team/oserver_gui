@@ -5,17 +5,40 @@
 
 #include <stdio.h>
 
+/* Email list and message ID variables */
 #define EMAIL_LIST_MAX 7
 #define EMAIL_FOUND_MAX 7
-#define EMAIL_MESSAGE_ID 4
+#define EMAIL_MESSAGE_ID 0
+
+/* Email Message alignment for Subject and Message fields */
+#define EMAIL_MESSAGE_PAD_LEFT 30
+#define EMAIL_MESSAGE_SUBJECT 120
+#define EMAIL_MESSAGE_CONTENT 180
+#define EMAIL_MESSAGE_LINE_SPACING 5.5
+
+/*** BEG -- Font definitions from Figma ***/
+/* EMAIL SUBJECT :: styleName: P1 - Neue - 32 px;
+font-family: Neue Haas Grotesk Display Pro;
+font-size: 32px;
+font-weight: 400;
+line-height: 32px;
+letter-spacing: 0em;
+text-align: left;
+*/
+
+/* EMAIL MESSAGE :: styleName: P2 - Neue - 24px;
+font-family: Neue Haas Grotesk Display Pro;
+font-size: 24px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0em;
+text-align: left;
+*/
+/*** END ***/
 
 #define LV_FONT_MONTSERRAT_44 1
 
 #define FONT_SIZE_WORKS 0 // Until it's figured out
-
-/* Email Message alignment for Subject and Message fields */
-#define EMAIL_MESSAGE_SUBJECT 120
-#define EMAIL_MESSAGE_CONTENT 180
 
 /* Main screen alignment settings to ensure consistency across app screens */
 #define LIST_LEFT_ALIGNED 25
@@ -47,6 +70,16 @@ LV_IMG_DECLARE(Time);
 
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
+
+// static lv_style_t subject_line;
+// lv_style_init(&subject_line);
+// lv_style_set_text_font(&subject_line, &NeueHaasDisplayLight_22);
+
+// static lv_style_t cancel_style;
+// lv_style_init(&cancel_style);
+
+// lv_style_set_text_font(&security_selection_style, &NeueHaasDisplayLight_18);
+// lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
 
 /* global static */
 // static lv_obj_t * trusted_device_list[EMAIL_PAGE_MAX];
@@ -229,21 +262,24 @@ void email_message_view(lv_obj_t * email_message_page) {
     /* Email SUBJECT field */
     email_subject = lv_label_create(image);
     lv_label_set_recolor(email_subject, true);
-    lv_obj_align(email_subject, LV_ALIGN_TOP_LEFT, LIST_CONTENT_ITEM, EMAIL_MESSAGE_SUBJECT);
+    lv_obj_align(email_subject, LV_ALIGN_TOP_LEFT, EMAIL_MESSAGE_PAD_LEFT, EMAIL_MESSAGE_SUBJECT);
+    lv_obj_set_style_width(email_subject, 322, LV_PART_MAIN);
     lv_label_set_text(email_subject, email_list[EMAIL_MESSAGE_ID].email_subject);
     lv_obj_set_style_text_color(email_subject, lv_color_white(), 0);
+    lv_obj_set_style_text_font(email_subject, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
     /* Email MESSAGE field */
     email_message = lv_textarea_create(image);
-    lv_obj_align(email_message, LV_ALIGN_TOP_LEFT, LIST_CONTENT_ITEM, EMAIL_MESSAGE_CONTENT);
+    lv_obj_align(email_message, LV_ALIGN_TOP_LEFT, EMAIL_MESSAGE_PAD_LEFT, EMAIL_MESSAGE_CONTENT);
     lv_obj_set_style_height(email_message, 280, LV_PART_MAIN);
     lv_obj_set_style_width(email_message, 298, LV_PART_MAIN);
     lv_obj_set_style_border_width(email_message, 0, LV_PART_MAIN);
     lv_obj_set_style_bg_opa(email_message, 0, LV_PART_MAIN);
 
     lv_textarea_add_text(email_message, email_list[EMAIL_MESSAGE_ID].email_message);
-    lv_obj_set_style_text_color(email_message, lv_palette_main(LV_PALETTE_GREY), 0);
-    lv_obj_set_style_text_line_space(email_message, 10, LV_PART_MAIN);
+    lv_obj_set_style_text_color(email_message, lv_color_hex(0xADB1A2), 0);
+    lv_obj_set_style_text_line_space(email_message, EMAIL_MESSAGE_LINE_SPACING, LV_PART_MAIN);
+    lv_obj_set_style_text_font(email_message, &NeueHaasDisplayLight_22, LV_PART_MAIN);
 
     lv_obj_set_style_pad_top(email_message, 0, LV_PART_MAIN);
     lv_obj_set_style_pad_right(email_message, 8, LV_PART_MAIN);
