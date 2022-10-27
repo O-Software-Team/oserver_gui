@@ -10,6 +10,7 @@
 LV_IMG_DECLARE(Background);
 
 static lv_obj_t * trusted_device_btn_list[DEVICE_PAGE_MAX];
+static lv_timer_t * sleeptimer;
 
 static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
     {.menu_pre = "Kevin's iPhone",   .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
@@ -38,74 +39,151 @@ static void total_control_cb(lv_event_t * e) {
      */
     lv_obj_t * target = lv_event_get_target(e);
     lv_obj_t * oserver_page = lv_obj_get_user_data(target);
-    lv_obj_scroll_to_view(lv_obj_get_child(oserver_page, 0), LV_ANIM_ON);
+    lv_obj_scroll_to_view(lv_obj_get_child(oserver_page, 1), LV_ANIM_ON);
+}
+
+/*
+ * Used on the total transfer percent complete screen
+ */
+static lv_obj_t * percent;
+
+static void update_percent(lv_timer_t * percent_timer) {
+    static int percent_done = 0;
+    lv_obj_t * oserver_page = percent_timer->user_data;
+    if(percent_done++ < 100) {
+        lv_label_set_text_fmt(percent, "%i", percent_done);
+    }
 }
 
 static void switch_event_handler(lv_event_t * e)
 {
     lv_event_code_t code = lv_event_get_code(e);
     lv_obj_t * obj = lv_event_get_target(e);
+
     if(code == LV_EVENT_VALUE_CHANGED) {
         LV_LOG_USER("State: %s\n", lv_obj_has_state(obj, LV_STATE_CHECKED) ? "On" : "Off");
+        if(lv_obj_has_state(obj, LV_STATE_CHECKED)) {
+            lv_obj_t * oserver_page = lv_obj_get_user_data(obj);
+            lv_obj_scroll_to_view(lv_obj_get_child(oserver_page, 2), LV_ANIM_ON);
+
+            sleeptimer = lv_timer_create(update_percent, 200, oserver_page);
+            lv_timer_set_repeat_count(sleeptimer, 100);
+        }
     }
 }
 
 /* When a device is selected to be enquire about a trust relationship, this code page displays */
-void transfer_progress_init(lv_obj_t * device_page)
+void transfer_progress_init(lv_obj_t * oserver_page)
 {
-    static lv_style_t cancel_style;
-    lv_style_init(&cancel_style);
-    lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
+    int percent_done = 0;
+    int time_remaining = 12;
+
+    static lv_style_t heading_style;
+    lv_style_init(&heading_style);
+    lv_style_set_text_font(&heading_style, &NeueHaasDisplayRoman_20);
+
+    static lv_style_t min_remain_style;
+    lv_style_init(&min_remain_style);
+    lv_style_set_text_font(&min_remain_style, &NeueHaasDisplayRoman_20);
 
 #if ALL_SCROLL
-    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_t * image = lv_img_create(oserver_page);
     lv_img_set_src(image, &Background);
 #else
-    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_t * image = lv_img_create(oserver_page);
     lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
     lv_obj_center(image);
 #endif // ALL_SCROLL
+
+    /*
+     * The top middle grey circled cancel button with 'X'
+     */
+    lv_obj_t * grey_outline = lv_img_create(image);
+    lv_img_set_src(grey_outline, &Icon_Grey_Outline_Button);
+    lv_obj_align(grey_outline, LV_ALIGN_TOP_MID, 0, 30);
+
+    lv_obj_t * cancel = lv_img_create(image);
+    lv_img_set_src(cancel, &Icon_Close_White);
+    lv_obj_align(cancel, LV_ALIGN_TOP_MID, 0, 40);
+
+    /* The 'Cancel' button */
+    lv_obj_t * cancel_button = lv_btn_create(image);
+    lv_obj_set_size(cancel_button, 70, 50);
+    lv_obj_align(cancel_button, LV_ALIGN_TOP_MID, 0, 30);
+    lv_obj_add_event_cb(cancel_button, back_home_button_cb, LV_EVENT_CLICKED, 0);
+    lv_obj_set_user_data(cancel_button, lv_obj_get_parent(image));
+    lv_obj_set_style_opa(cancel_button, LV_OPA_0, LV_PART_MAIN);
+
+    /*
+     * The yellow progress page accent
+     */
+    lv_obj_t * progress = lv_img_create(image);
+    lv_img_set_src(progress, &Progress);
+    lv_obj_center(progress);
+
     lv_obj_t * total_transfer = lv_label_create(image);
-    lv_label_set_recolor(total_transfer, true);
     lv_label_set_text(total_transfer, "Total Transfer");
-    lv_obj_set_style_text_color(total_transfer, lv_palette_main(LV_PALETTE_GREY), 0);
-    lv_obj_align(total_transfer, LV_ALIGN_DEFAULT, 140, 120);
+    lv_label_set_recolor(total_transfer, true);
+    lv_obj_set_style_text_color(total_transfer, lv_color_lighten(lv_color_black(), 99), 0);
+    lv_obj_add_style(total_transfer, &heading_style, LV_PART_MAIN);
+    lv_obj_align(total_transfer, LV_ALIGN_DEFAULT, 140, 140);
+
+    lv_obj_t * percent_container = lv_img_create(image);
+    lv_obj_align(percent_container, LV_ALIGN_CENTER, 10, 0);
+    lv_obj_set_flex_flow(percent_container, LV_FLEX_FLOW_ROW);
+    lv_obj_set_style_pad_column(percent_container, 10, 0);
 
     /* The percent progress */
     static lv_style_t percent_style;
     lv_style_init(&percent_style);
-    lv_obj_t * percent = lv_label_create(image);
-    lv_label_set_recolor(percent, true);
-    lv_style_set_text_font(&percent_style, &NeueHaasDisplayXXThin_150);
+    // persent is a global for now
+    percent = lv_label_create(percent_container);
+    lv_style_set_text_font(&percent_style, &NeueHaasDisplayXXThin_100);
 
-    lv_label_set_text(percent, "3");
-    lv_obj_set_style_text_color(percent, lv_palette_main(LV_PALETTE_GREY), 0);
+    lv_label_set_text_fmt(percent, "%d", percent_done);
+    lv_obj_set_style_text_color(percent, lv_color_lighten(lv_color_black(), 98), 0);
     lv_obj_add_style(percent, &percent_style, LV_PART_MAIN);
-    lv_obj_align(percent, LV_ALIGN_DEFAULT, 150, 155);
+    lv_obj_align(percent, LV_ALIGN_CENTER, 0, 0);
     lv_obj_set_style_text_color(percent, lv_color_white(), 0);
 
     /* The smaller font percent symbol */
     static lv_style_t percent_symbol_style;
     lv_style_init(&percent_symbol_style);
-    lv_obj_t * percent_symbol = lv_label_create(image);
-    lv_label_set_recolor(percent_symbol, true);
+    lv_obj_t * percent_symbol = lv_label_create(percent_container);
     lv_style_set_text_font(&percent_symbol_style, &NeueHaasDisplayXThin_58);
 
     lv_label_set_text(percent_symbol, "%");
     lv_obj_set_style_text_color(percent_symbol, lv_palette_main(LV_PALETTE_GREY), 0);
     lv_obj_add_style(percent_symbol, &percent_symbol_style, LV_PART_MAIN);
-    lv_obj_align(percent_symbol, LV_ALIGN_DEFAULT, 240, 200);
+    lv_obj_align(percent_symbol, LV_ALIGN_DEFAULT, 0, 50);
     
     /* Tell them what to do with the displayed code */
     lv_obj_t * remaining = lv_label_create(image);
     lv_label_set_recolor(remaining, true);
-    lv_label_set_text(remaining, "4 min remaining");
-    lv_obj_set_style_text_color(remaining, lv_palette_main(LV_PALETTE_GREY), 0);
-    lv_obj_align(remaining, LV_ALIGN_DEFAULT, 130, 300);
+    lv_label_set_text_fmt(remaining, "%d  min remaining", time_remaining);
+    lv_obj_set_style_text_color(remaining, lv_color_lighten(lv_color_black(), 99), 0);
+    lv_obj_add_style(remaining, &min_remain_style, LV_PART_MAIN);
+    lv_obj_align(remaining, LV_ALIGN_DEFAULT, 130, 330);
+
+    /* Click herer to 'run in background' text */
+    lv_obj_t * background = lv_label_create(image);
+    lv_label_set_recolor(background, true);
+    lv_label_set_text(background, "        Run in\nBackground");
+    lv_obj_set_style_text_color(background, lv_color_darken(lv_color_white(), 80), 0);
+    lv_obj_add_style(background, &min_remain_style, LV_PART_MAIN);
+    lv_obj_align(background, LV_ALIGN_BOTTOM_MID, 10, -50);
+
+    /* Click here to run the transfer in background */
+    lv_obj_t * background_button = lv_btn_create(image);
+    lv_obj_set_size(background_button, 110, 60);
+    lv_obj_align(background_button, LV_ALIGN_BOTTOM_MID, 10, -40);
+    lv_obj_add_event_cb(background_button, back_home_button_cb, LV_EVENT_CLICKED, 0);
+    lv_obj_set_user_data(background_button, lv_obj_get_parent(image));
+    lv_obj_set_style_opa(background_button, LV_OPA_0, LV_PART_MAIN);
 }
 
 /* Set up the screen that selectes what data to be transfered; Email, Contact, Calendar, etc. */
-void total_control_item_init(lv_obj_t * device_page) {
+void total_control_item_init(lv_obj_t * oserver_page) {
 
     int which_device = 1; // Meanwhile, for the show, magic
     lv_obj_t * entry_separator[4];
@@ -124,10 +202,10 @@ void total_control_item_init(lv_obj_t * device_page) {
     lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
 
 #if ALL_SCROLL
-    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_t * image = lv_img_create(oserver_page);
     lv_img_set_src(image, &Background);
 #else
-    lv_obj_t * image = lv_img_create(device_page);
+    lv_obj_t * image = lv_img_create(oserver_page);
     lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
     lv_obj_center(image);
 #endif // ALL_SCROLL
@@ -169,13 +247,13 @@ void total_control_item_init(lv_obj_t * device_page) {
     lv_img_set_src(entry_separator[0], &Linez);
     lv_obj_align(entry_separator[0], LV_ALIGN_DEFAULT, 25, 130);
 
-    lv_obj_t * admin_label = lv_label_create(image);
-    lv_label_set_recolor(admin_label, true);
-    lv_label_set_text(admin_label, "Emails");
-    lv_obj_set_style_text_color(admin_label, lv_color_white(), 0);
+    lv_obj_t * email_label = lv_label_create(image);
+    lv_label_set_recolor(email_label, true);
+    lv_label_set_text(email_label, "Emails");
+    lv_obj_set_style_text_color(email_label, lv_color_white(), 0);
 
-    lv_obj_add_style(admin_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(admin_label, LV_ALIGN_LEFT_MID, 50, -90);
+    lv_obj_add_style(email_label, &security_selection_style, LV_PART_MAIN);
+    lv_obj_align(email_label, LV_ALIGN_LEFT_MID, 50, -90);
 
     /*Create a switch to add 'Emails' to list of total-control */
     lv_obj_t * sw1 = lv_switch_create(image);
@@ -185,18 +263,19 @@ void total_control_item_init(lv_obj_t * device_page) {
     lv_obj_set_style_bg_color(sw1, lv_color_lighten(lv_color_black(), 60), 0);
     lv_obj_set_style_border_color(sw1, lv_color_white(), 0);
     lv_obj_set_style_border_width(sw1, 1, 0);
+    lv_obj_set_user_data(sw1, oserver_page);
     lv_obj_add_event_cb(sw1, switch_event_handler, LV_EVENT_ALL, NULL);
 
     entry_separator[1] = lv_img_create(image);
     lv_img_set_src(entry_separator[1], &Linez);
     lv_obj_align(entry_separator[1], LV_ALIGN_DEFAULT, 25, 205);
 
-    lv_obj_t * friend_label = lv_label_create(image);
-    lv_label_set_recolor(friend_label, true);
-    lv_label_set_text(friend_label, "Contacts");
-    lv_obj_set_style_text_color(friend_label, lv_color_white(), 0);
-    lv_obj_add_style(friend_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(friend_label, LV_ALIGN_LEFT_MID, 50, -10);
+    lv_obj_t * contacts_label = lv_label_create(image);
+    lv_label_set_recolor(contacts_label, true);
+    lv_label_set_text(contacts_label, "Contacts");
+    lv_obj_set_style_text_color(contacts_label, lv_color_white(), 0);
+    lv_obj_add_style(contacts_label, &security_selection_style, LV_PART_MAIN);
+    lv_obj_align(contacts_label, LV_ALIGN_LEFT_MID, 50, -10);
 
     /*Create a switch to add 'Contacts' to list of total-control */
     lv_obj_t * sw2 = lv_switch_create(image);
@@ -208,20 +287,21 @@ void total_control_item_init(lv_obj_t * device_page) {
     
     lv_obj_set_style_border_color(sw2, lv_color_white(), 0);
     lv_obj_set_style_border_width(sw2, 1, 0);
+    lv_obj_set_user_data(sw2, oserver_page);
     lv_obj_add_event_cb(sw2, switch_event_handler, LV_EVENT_ALL, NULL);
 
     entry_separator[2] = lv_img_create(image);
     lv_img_set_src(entry_separator[2], &Linez);
     lv_obj_align(entry_separator[2], LV_ALIGN_DEFAULT, 25, 280);
 
-    lv_obj_t * invite_label = lv_label_create(image);
-    lv_label_set_recolor(invite_label, true);
-    lv_label_set_text(invite_label, "Text");
-    lv_obj_set_style_text_color(invite_label, lv_color_white(), 0);
-    lv_obj_add_style(invite_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(invite_label, LV_ALIGN_LEFT_MID, 50, 70);
+    lv_obj_t * text_label = lv_label_create(image);
+    lv_label_set_recolor(text_label, true);
+    lv_label_set_text(text_label, "Text");
+    lv_obj_set_style_text_color(text_label, lv_color_white(), 0);
+    lv_obj_add_style(text_label, &security_selection_style, LV_PART_MAIN);
+    lv_obj_align(text_label, LV_ALIGN_LEFT_MID, 50, 70);
 
-        /*Create a switch to add 'Contacts' to list of total-control */
+    /*Create a switch to add 'Text' to list of total-control */
     lv_obj_t * sw3 = lv_switch_create(image);
     lv_obj_align(sw3, LV_ALIGN_CENTER, 120, 66);
     lv_obj_set_size(sw3, 45, 25);
@@ -229,20 +309,21 @@ void total_control_item_init(lv_obj_t * device_page) {
     lv_obj_set_style_bg_color(sw3, lv_color_lighten(lv_color_black(), 60), 0);
     lv_obj_set_style_border_color(sw3, lv_color_lighten(lv_color_white(), 30), 0);
     lv_obj_set_style_border_width(sw3, 1, 0);
+    lv_obj_set_user_data(sw3, oserver_page);
     lv_obj_add_event_cb(sw3, switch_event_handler, LV_EVENT_ALL, NULL);
 
     entry_separator[3] = lv_img_create(image);
     lv_img_set_src(entry_separator[3], &Linez);
     lv_obj_align(entry_separator[3], LV_ALIGN_DEFAULT, 25, 360);
 
-    lv_obj_t * contacts_label = lv_label_create(image);
-    lv_label_set_recolor(contacts_label, true);
-    lv_label_set_text(contacts_label, "Contacts");
-    lv_obj_set_style_text_color(contacts_label, lv_color_white(), 0);
-    lv_obj_add_style(contacts_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(contacts_label, LV_ALIGN_LEFT_MID, 50, 155);
+    lv_obj_t * calendar_label = lv_label_create(image);
+    lv_label_set_recolor(calendar_label, true);
+    lv_label_set_text(calendar_label, "Calendar");
+    lv_obj_set_style_text_color(calendar_label, lv_color_white(), 0);
+    lv_obj_add_style(calendar_label, &security_selection_style, LV_PART_MAIN);
+    lv_obj_align(calendar_label, LV_ALIGN_LEFT_MID, 50, 155);
 
-        /*Create a switch to add 'Contacts' to list of total-control */
+    /*Create a switch to add 'Calendar' to list of total-control */
     lv_obj_t * sw4 = lv_switch_create(image);
     lv_obj_align(sw4, LV_ALIGN_CENTER, 120, 155);
     lv_obj_set_size(sw4, 45, 25);
@@ -250,6 +331,7 @@ void total_control_item_init(lv_obj_t * device_page) {
     lv_obj_set_style_bg_color(sw4, lv_color_lighten(lv_color_black(), 60), 0);
     lv_obj_set_style_border_color(sw4, lv_color_lighten(lv_color_white(), 30), 0);
     lv_obj_set_style_border_width(sw4, 1, 0);
+    lv_obj_set_user_data(sw4, oserver_page);
     lv_obj_add_event_cb(sw4, switch_event_handler, LV_EVENT_ALL, NULL);
 }
 
