@@ -8,13 +8,18 @@
 /* Email list and message ID variables */
 #define EMAIL_LIST_MAX 7
 #define EMAIL_FOUND_MAX 7
-#define EMAIL_MESSAGE_ID 0
+#define EMAIL_MESSAGE_ID 4
 
 /* Email Message alignment for Subject and Message fields */
+#define MESSAGE_TEXTAREA_HEIGHT 290
+#define MESSAGE_TEXTAREA_WIDTH 332
 #define EMAIL_MESSAGE_PAD_LEFT 30
 #define EMAIL_MESSAGE_SUBJECT 120
-#define EMAIL_MESSAGE_CONTENT 180
+#define EMAIL_MESSAGE_CONTENT 186
 #define EMAIL_MESSAGE_LINE_SPACING 5.5
+
+/* Message content attributes */
+#define MESSAGE_CONTENT_COLOR 0xADB1A2
 
 /*** BEG -- Font definitions from Figma ***/
 /* EMAIL SUBJECT :: styleName: P1 - Neue - 32 px;
@@ -131,7 +136,7 @@ static email_item email_list[EMAIL_LIST_MAX] = {
         .email_from = "Dr Emilio Lizardo",
         .email_subject = "RE: Get the oscillation overthruster!",
         .email_status = &Icon_Status_Disable,
-        .email_message = "Some giant string of text here. Will need to post some sort of Some giant string of text here. Will need to post some sort of Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... BANANA!",
+        .email_message = "Some giant string of text here. Will need to post some sort of Some giant string of text HERE.\n\nWill need to post some sort of Some giant string of text here. Will need to post some SORT OF\n\nlatin/gobbledeegook here... blah-blah-blah... Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... Some giant string of text HERE.\n\nWill need to post some sort of latin/gobbledeegook here... blah-blah-blah... BANANA!",
     },
     {
         .email_id = 5,
@@ -254,37 +259,40 @@ void email_list_init(lv_obj_t * email_page) {
 }
 
 void email_message_view(lv_obj_t * email_message_page) {
+    /* Main page definition */
     lv_obj_t * image = lv_img_create(email_message_page);
     lv_img_set_src(image, &Background);
 
+    /* Back button */
     render_back_button(image, back_home_button_cb);
 
     /* Email SUBJECT field */
     email_subject = lv_label_create(image);
     lv_label_set_recolor(email_subject, true);
     lv_obj_align(email_subject, LV_ALIGN_TOP_LEFT, EMAIL_MESSAGE_PAD_LEFT, EMAIL_MESSAGE_SUBJECT);
-    lv_obj_set_style_width(email_subject, 322, LV_PART_MAIN);
+    lv_obj_set_style_width(email_subject, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
     lv_label_set_text(email_subject, email_list[EMAIL_MESSAGE_ID].email_subject);
     lv_obj_set_style_text_color(email_subject, lv_color_white(), 0);
     lv_obj_set_style_text_font(email_subject, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
     /* Email MESSAGE field */
     email_message = lv_textarea_create(image);
+    lv_obj_set_scrollbar_mode(email_message, LV_SCROLLBAR_MODE_OFF);
     lv_obj_align(email_message, LV_ALIGN_TOP_LEFT, EMAIL_MESSAGE_PAD_LEFT, EMAIL_MESSAGE_CONTENT);
-    lv_obj_set_style_height(email_message, 280, LV_PART_MAIN);
-    lv_obj_set_style_width(email_message, 298, LV_PART_MAIN);
+    lv_obj_set_style_height(email_message, MESSAGE_TEXTAREA_HEIGHT, LV_PART_MAIN);
+    lv_obj_set_style_width(email_message, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
     lv_obj_set_style_border_width(email_message, 0, LV_PART_MAIN);
     lv_obj_set_style_bg_opa(email_message, 0, LV_PART_MAIN);
 
     lv_textarea_add_text(email_message, email_list[EMAIL_MESSAGE_ID].email_message);
-    lv_obj_set_style_text_color(email_message, lv_color_hex(0xADB1A2), 0);
+    lv_obj_set_style_text_color(email_message, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_set_style_text_line_space(email_message, EMAIL_MESSAGE_LINE_SPACING, LV_PART_MAIN);
     lv_obj_set_style_text_font(email_message, &NeueHaasDisplayLight_22, LV_PART_MAIN);
 
-    lv_obj_set_style_pad_top(email_message, 0, LV_PART_MAIN);
-    lv_obj_set_style_pad_right(email_message, 8, LV_PART_MAIN);
-    lv_obj_set_style_pad_bottom(email_message, 0, LV_PART_MAIN);
-    lv_obj_set_style_pad_left(email_message, 0, LV_PART_MAIN);
+    lv_obj_set_style_pad_all(email_message, 0, LV_PART_MAIN);
+
+    /* Message TEXTAREA opacity gradation overlay */
+    
 }
 
 void email_menu_setup(void)
