@@ -199,21 +199,23 @@ void email_list_init(lv_obj_t * email_page) {
     lv_label_set_text(list_name, "All emails");
     lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
 
-    /* The WiFi indicator */
-    lv_obj_t * wifi_symbol = lv_img_create(image);
-    lv_img_set_src(wifi_symbol, &Icon_WiFi_White);
-    lv_obj_align(wifi_symbol, LV_ALIGN_DEFAULT, 275, 60);
 
-    /* The Bluetooth indicator */
-    lv_obj_t * bt_symbol = lv_img_create(image);
-    lv_img_set_src(bt_symbol, &Icon_Bluetooth_White);
-    lv_obj_align(bt_symbol, LV_ALIGN_DEFAULT, 295, 60);
+    // *** Blocking all of this our because the Figma view does not contain these elements ***
+    // /* The WiFi indicator */
+    // lv_obj_t * wifi_symbol = lv_img_create(image);
+    // lv_img_set_src(wifi_symbol, &Icon_WiFi_White);
+    // lv_obj_align(wifi_symbol, LV_ALIGN_DEFAULT, 275, 60);
 
-    /* The NFC indicator */
-    lv_obj_t * nfc_symbol = lv_img_create(image);
-    lv_img_set_src(nfc_symbol, &Icon_NFC_White);
-    lv_obj_align(nfc_symbol, LV_ALIGN_DEFAULT, 315, 60);
-    lv_obj_set_style_opa(nfc_symbol, LV_OPA_40, LV_PART_MAIN);
+    // /* The Bluetooth indicator */
+    // lv_obj_t * bt_symbol = lv_img_create(image);
+    // lv_img_set_src(bt_symbol, &Icon_Bluetooth_White);
+    // lv_obj_align(bt_symbol, LV_ALIGN_DEFAULT, 295, 60);
+
+    // /* The NFC indicator */
+    // lv_obj_t * nfc_symbol = lv_img_create(image);
+    // lv_img_set_src(nfc_symbol, &Icon_NFC_White);
+    // lv_obj_align(nfc_symbol, LV_ALIGN_DEFAULT, 315, 60);
+    // lv_obj_set_style_opa(nfc_symbol, LV_OPA_40, LV_PART_MAIN);
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
