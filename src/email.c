@@ -8,7 +8,7 @@
 /* Email list and message ID variables */
 #define EMAIL_LIST_MAX 7
 #define EMAIL_FOUND_MAX 7
-#define EMAIL_MESSAGE_ID 4
+#define EMAIL_MESSAGE_ID 0
 
 /* Email Message alignment for Subject and Message fields */
 #define MESSAGE_TEXTAREA_HEIGHT 290
@@ -108,12 +108,12 @@ static email_item email_list[EMAIL_LIST_MAX] = {
         .email_from = "Guillaume Jaulerry",
         .email_subject = "Call: O Team Meeting",
         .email_status = &Icon_Email_Unread_Yellow,
-        .email_message = "Some giant string of text here. Will need to post some sort of latin/gobbledeegook here...",
+        .email_message = "Some string of senseless content here...\n\nWe will need to create some sort of latin gobbledeegook here...\n\nBlah-blah-blah... BANANA!",
     },
     {
         .email_id = 1,
         .email_from = "O Company",
-        .email_subject = "Call: O Team Meeting",
+        .email_subject = "RE: Call: O Team Meeting",
         .email_status = &Icon_Email_Unread_Yellow,
         .email_message = "Blah-blah-blah... BANANA!",
     },
@@ -292,7 +292,7 @@ void email_message_view(lv_obj_t * email_message_page) {
     lv_obj_set_style_pad_all(email_message, 0, LV_PART_MAIN);
 
     /* Message TEXTAREA opacity gradation overlay */
-    
+
 }
 
 void email_menu_setup(void)
