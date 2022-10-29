@@ -188,6 +188,7 @@ void email_list_init(lv_obj_t * email_page) {
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 60);
     lv_label_set_text(list_name, "All emails");
     lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
@@ -201,7 +202,7 @@ void email_list_init(lv_obj_t * email_page) {
         right.y = right.y + offset;
         // add_separator_line(left, right, image);
 
-        offset =  -135 + (60 * i);
+        offset =  -125 + (70 * i);
 
         /* This is the opaque button overlay so you can Click-To-View the drill-down view of the item */
         // trusted_email_btn_list[i] = lv_btn_create(image);
@@ -219,17 +220,16 @@ void email_list_init(lv_obj_t * email_page) {
         /* Email message FROM field */
         email_from = lv_label_create(image);
         lv_label_set_recolor(email_from, true);
-        lv_obj_align(email_from, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 10);
+        lv_obj_align(email_from, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
         lv_label_set_text(email_from, email_list[i].email_from);
 
         lv_obj_set_style_text_color(email_from, lv_color_white(), 0);
-        lv_obj_set_style_text_line_space(email_from, EMAIL_SUBJECT_LINE_SPACING, LV_PART_MAIN);
         lv_obj_set_style_text_font(email_from, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Email message SUBJECT field */
         email_subject = lv_label_create(image);
         lv_label_set_recolor(email_subject, true);
-        lv_obj_align(email_subject, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 10);
+        lv_obj_align(email_subject, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
         lv_label_set_text(email_subject, email_list[i].email_subject);
         lv_obj_set_style_text_color(email_subject, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
         lv_obj_set_style_text_line_space(email_subject, EMAIL_MESSAGE_LINE_SPACING, LV_PART_MAIN);
