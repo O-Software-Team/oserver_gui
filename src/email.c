@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Email list and message ID variables */
-#define EMAIL_LIST_MAX 7
+#define EMAIL_LIST_MAX 5
 #define EMAIL_FOUND_MAX 7
 #define EMAIL_MESSAGE_ID 0
 
@@ -16,13 +16,32 @@
 #define EMAIL_MESSAGE_PAD_LEFT 30
 #define EMAIL_MESSAGE_SUBJECT 120
 #define EMAIL_MESSAGE_CONTENT 186
+#define EMAIL_SUBJECT_LINE_SPACING 5.5
 #define EMAIL_MESSAGE_LINE_SPACING 5.5
 
 /* Message content attributes */
 #define MESSAGE_CONTENT_COLOR 0xADB1A2
 
 /*** BEG -- Font definitions from Figma ***/
-/* EMAIL SUBJECT :: styleName: P1 - Neue - 32 px;
+/* EMAIL LIST - FROM :: styleName: P2 - Neue - 24px;
+font-family: Neue Haas Grotesk Display Pro;
+font-size: 24px;
+font-weight: 400;
+line-height: 24px;
+letter-spacing: 0em;
+text-align: center;
+*/
+
+/* EMAIL LIST - SUBJECT :: styleName: P3 - Neue - 20px;
+font-family: Neue Haas Grotesk Display Pro;
+font-size: 20px;
+font-weight: 400;
+line-height: 20px;
+letter-spacing: 0em;
+text-align: left;
+*/
+
+/* EMAIL VIEW - SUBJECT :: styleName: P1 - Neue - 32 px;
 font-family: Neue Haas Grotesk Display Pro;
 font-size: 32px;
 font-weight: 400;
@@ -31,7 +50,7 @@ letter-spacing: 0em;
 text-align: left;
 */
 
-/* EMAIL MESSAGE :: styleName: P2 - Neue - 24px;
+/* EMAIL VIEW - MESSAGE :: styleName: P2 - Neue - 24px;
 font-family: Neue Haas Grotesk Display Pro;
 font-size: 24px;
 font-weight: 400;
@@ -68,39 +87,10 @@ LV_IMG_DECLARE(Icon_More_White);
 LV_IMG_DECLARE(Icon_Next_White);
 LV_IMG_DECLARE(Time);
 
-/* Physical component iconography like computer, phone, or tablet declared here */
-// LV_IMG_DECLARE(Icon_iPad);
-// LV_IMG_DECLARE(Icon_MacBook);
-// LV_IMG_DECLARE(Icon_iPhone);
-
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
-// static lv_style_t subject_line;
-// lv_style_init(&subject_line);
-// lv_style_set_text_font(&subject_line, &NeueHaasDisplayLight_22);
-
-// static lv_style_t cancel_style;
-// lv_style_init(&cancel_style);
-
-// lv_style_set_text_font(&security_selection_style, &NeueHaasDisplayLight_18);
-// lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
-
-/* global static */
-// static lv_obj_t * trusted_device_list[EMAIL_PAGE_MAX];
 static lv_obj_t * email_messages[EMAIL_LIST_MAX];
-
-// static lv_obj_t * trusted_device_btn_list[EMAIL_PAGE_MAX];
-// static lv_obj_t * found_btn[EMAIL_FOUND_MAX];
-
-// static menu_item devices_active_info[EMAIL_PAGE_MAX] = {
-//     {.menu_name = "Kevin's iPhone",   .page_handler = &add_device_cb,  .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
-//     {.menu_name = "Mark's iPad",      .page_handler = &add_device_cb,  .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-//     {.menu_name = "Alice's Macbook",  .page_handler = &add_device_cb,  .active = false, .security_status = FRIEND, .icon = &Icon_MacBook},
-//     {.menu_name = "Ted's iPad",       .page_handler = &add_device_cb,  .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
-//     {.menu_name = "Office iPad",      .page_handler = &add_device_cb,  .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-//     {.menu_name = "Mary's iPhone",    .page_handler = &add_device_cb,  .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
-// };
 
 static email_item email_list[EMAIL_LIST_MAX] = {
     {
@@ -197,25 +187,7 @@ void email_list_init(lv_obj_t * email_page) {
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 60);
     lv_label_set_text(list_name, "All emails");
-    lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
-
-
-    // *** Blocking all of this our because the Figma view does not contain these elements ***
-    // /* The WiFi indicator */
-    // lv_obj_t * wifi_symbol = lv_img_create(image);
-    // lv_img_set_src(wifi_symbol, &Icon_WiFi_White);
-    // lv_obj_align(wifi_symbol, LV_ALIGN_DEFAULT, 275, 60);
-
-    // /* The Bluetooth indicator */
-    // lv_obj_t * bt_symbol = lv_img_create(image);
-    // lv_img_set_src(bt_symbol, &Icon_Bluetooth_White);
-    // lv_obj_align(bt_symbol, LV_ALIGN_DEFAULT, 295, 60);
-
-    // /* The NFC indicator */
-    // lv_obj_t * nfc_symbol = lv_img_create(image);
-    // lv_img_set_src(nfc_symbol, &Icon_NFC_White);
-    // lv_obj_align(nfc_symbol, LV_ALIGN_DEFAULT, 315, 60);
-    // lv_obj_set_style_opa(nfc_symbol, LV_OPA_40, LV_PART_MAIN);
+    lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
@@ -249,14 +221,20 @@ void email_list_init(lv_obj_t * email_page) {
         lv_label_set_recolor(email_from, true);
         lv_obj_align(email_from, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 10);
         lv_label_set_text(email_from, email_list[i].email_from);
+
         lv_obj_set_style_text_color(email_from, lv_color_white(), 0);
+        lv_obj_set_style_text_line_space(email_from, EMAIL_SUBJECT_LINE_SPACING, LV_PART_MAIN);
+        lv_obj_set_style_text_font(email_from, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Email message SUBJECT field */
         email_subject = lv_label_create(image);
         lv_label_set_recolor(email_subject, true);
         lv_obj_align(email_subject, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 10);
         lv_label_set_text(email_subject, email_list[i].email_subject);
-        lv_obj_set_style_text_color(email_subject, lv_palette_main(LV_PALETTE_GREY), 0);
+        lv_obj_set_style_text_color(email_subject, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+        lv_obj_set_style_text_line_space(email_subject, EMAIL_MESSAGE_LINE_SPACING, LV_PART_MAIN);
+        lv_obj_set_style_text_font(email_subject, &NeueHaasDisplayLight_20, LV_PART_MAIN);
+
     }
 }
 
