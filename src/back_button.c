@@ -9,21 +9,22 @@ LV_IMG_DECLARE(Icon_Back);
  */
 void back_home_button_cb(lv_event_t * e)
 {
-    //printf("Back to main - clearing present\n");
     lv_obj_t * target = lv_event_get_target(e);
     lv_obj_t * parent = lv_obj_get_user_data(target);
     lv_obj_fade_in(lv_layer_top(), 0, 0);
+    lv_img_set_src(parent, &Background);
     lv_obj_scroll_to_view(lv_obj_get_child(parent, 0), LV_ANIM_OFF);
     lv_disp_load_scr(menu_dispatch_table[MAIN_MENU_VEC]);
 }
 
 void back_button_cb(lv_event_t * e)
 {
-    //printf("Back to main - sending SCROLL\n");
     lv_obj_t * target = lv_event_get_target(e);
-    lv_obj_t * cont = lv_obj_get_user_data(target);
-
-//    lv_event_send(cont, LV_EVENT_SCROLL, NULL);
+    lv_obj_t * page = lv_obj_get_user_data(target);
+    int my_index = lv_obj_get_index(page);
+    lv_obj_t * parent = lv_obj_get_parent(page);
+    lv_img_set_src(parent, &Background);
+    lv_obj_scroll_to_view(lv_obj_get_child(parent, my_index - 1), LV_ANIM_ON);
 }
 
 /* 
@@ -54,6 +55,6 @@ void render_back_button(lv_obj_t * parent, void (* page_handler)(lv_obj_t *))
     lv_obj_set_size(back, 50, 50);
     lv_obj_align(back, LV_ALIGN_DEFAULT, 30, 10);
     lv_obj_add_event_cb(back, page_handler, LV_EVENT_CLICKED, 0);
-    lv_obj_set_user_data(back, lv_obj_get_parent(parent));
+    lv_obj_set_user_data(back, parent);
     lv_obj_set_style_opa(back, LV_OPA_0, LV_PART_MAIN);
 }

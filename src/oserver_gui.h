@@ -45,6 +45,23 @@ LV_IMG_DECLARE(Icon_Filter_Button);
 LV_IMG_DECLARE(Progress);
 LV_IMG_DECLARE(Icon_Grey_Outline_Button);
 LV_IMG_DECLARE(Icon_Close_White);
+LV_IMG_DECLARE(Music_Player_White);
+
+/*
+ * Album covers for the 'Music' player
+ */
+LV_IMG_DECLARE(Background);
+LV_IMG_DECLARE(ABBA_SOS);
+LV_IMG_DECLARE(ABBA_SOS_LARGE);
+
+LV_IMG_DECLARE(BACK_IN_BLACK);
+LV_IMG_DECLARE(BACK_IN_BLACK_LARGE);
+
+LV_IMG_DECLARE(ALICIA_KEYS);
+LV_IMG_DECLARE(ALICIA_KEYS_LARGE);
+
+LV_IMG_DECLARE(AMY_WINEHOUSE);
+LV_IMG_DECLARE(AMY_WINEHOUSE_LARGE);
 
 /* Include font resources */
 LV_FONT_DECLARE(SaolDisplayRegularItalic_22);
