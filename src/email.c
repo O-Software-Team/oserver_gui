@@ -68,6 +68,9 @@ text-align: left;
 #define LIST_LEFT_ALIGNED 25
 #define LIST_CONTENT_ITEM 50
 
+/* Main HEADING iconography */
+LV_IMG_DECLARE(Email_App_Heading_Title);
+
 /* Main background and radio controls declared below */
 LV_IMG_DECLARE(Background);
 LV_IMG_DECLARE(Icon_WiFi_White);
@@ -177,10 +180,11 @@ void email_list_init(lv_obj_t * email_page) {
 
     /* Add the Page header at the top */
     lv_label_t * page_header = lv_label_create(image);
-    lv_label_set_recolor(page_header, true);
+    // lv_label_set_recolor(page_header, true);
+    lv_img_set_src(page_header, &Email_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 23);
-    lv_label_set_text(page_header, "Email");
-    lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
+    // lv_label_set_text(page_header, "Email");
+    // lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
 
     /* Add the email list heading */
     lv_label_t * list_name = lv_label_create(image);
