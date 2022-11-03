@@ -38,6 +38,7 @@ LV_IMG_DECLARE(Icon_Bluetooth_White);
 LV_IMG_DECLARE(Icon_NFC_White);
 LV_IMG_DECLARE(Icon_More_White);
 LV_IMG_DECLARE(Icon_Next_White);
+LV_IMG_DECLARE(Icon_List_Item_Divider);
 LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
 LV_IMG_DECLARE(GreyHalo);
@@ -46,6 +47,14 @@ LV_IMG_DECLARE(Progress);
 LV_IMG_DECLARE(Icon_Grey_Outline_Button);
 LV_IMG_DECLARE(Icon_Close_White);
 LV_IMG_DECLARE(Music_Player_White);
+LV_IMG_DECLARE(Music_Player_Play);
+LV_IMG_DECLARE(Music_Player_Pause);
+LV_IMG_DECLARE(Music_App_Heading_Playlists);
+LV_IMG_DECLARE(Music_App_Heading_Title);
+LV_IMG_DECLARE(Email_App_Heading_Title);
+LV_IMG_DECLARE(Files_App_Heading_Title);
+LV_IMG_DECLARE(Devices_App_Heading_Title);
+LV_IMG_DECLARE(Text_App_Heading_Title);
 
 /*
  * Album covers for the 'Music' player
