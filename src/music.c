@@ -76,7 +76,7 @@ void music_list_init(lv_obj_t * music_page) {
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 85);
-    lv_label_set_text(list_name, "Sort by Alphabetical");
+    lv_label_set_text(list_name, "Alphabetical Order");
     lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
 
     lv_coord_t offset = 0;
@@ -88,6 +88,7 @@ void music_list_init(lv_obj_t * music_page) {
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
+
     /* Add devices entries as clickable buttons*/
     for (int i = 0; i < MUSIC_ALBUMS_MAX; i++)
     {
@@ -140,11 +141,39 @@ void music_player_init(lv_obj_t * music_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
+        static lv_style_t current_song_style;
+    lv_style_init(&current_song_style);
+
     lv_obj_t * album_icon = lv_img_create(image);
     lv_img_set_src(album_icon, &ALICIA_KEYS_LARGE/*music_album_list[2].icon*/); // Alicia Keys
     lv_obj_align(album_icon, LV_ALIGN_TOP_MID, 0, 100);
 
     lv_obj_set_style_opa(album_icon, LV_OPA_COVER, LV_PART_MAIN);
+
+    lv_obj_t * progress = lv_img_create(image);
+    lv_img_set_src(progress, &Progress);
+    lv_obj_align(progress, LV_ALIGN_TOP_MID, 0, 10);
+
+    lv_obj_t * pause = lv_img_create(image);
+    lv_img_set_src(pause, &Pause);
+    lv_obj_align(pause, LV_ALIGN_TOP_MID, 0, 300);
+
+        lv_obj_t * rwnd = lv_img_create(image);
+    lv_img_set_src(rwnd, &RWND);
+    lv_obj_align(rwnd, LV_ALIGN_TOP_MID, -85, 325);
+
+        lv_obj_t * ffwd = lv_img_create(image);
+    lv_img_set_src(ffwd, &FFWD);
+    lv_obj_align(ffwd, LV_ALIGN_TOP_MID, 85, 325);
+
+        lv_obj_t * current_song = lv_label_create(image);
+    lv_label_set_long_mode(current_song, LV_LABEL_LONG_SCROLL_CIRCULAR);     /*Circular scroll*/
+    lv_obj_set_width(current_song, 200);
+    lv_label_set_text(current_song, "How Come You Don't Call Me");
+    lv_obj_align(current_song, LV_ALIGN_TOP_MID, 0, 240);
+    lv_style_set_text_font(&current_song_style, &NeueHaasDisplayRoman_18);
+    lv_obj_add_style(current_song, &current_song_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(current_song, lv_color_lighten(lv_color_black(), 80), 0);
 
     /* The label text with the album name */
     lv_obj_t * album_label = lv_label_create(image);
