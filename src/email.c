@@ -10,7 +10,7 @@
 #define EMAIL_FOUND_MAX 7
 #define EMAIL_MESSAGE_ID 0
 
-/* Email Message alignment for Subject and Message fields */
+/* Email Message alignment for From, Subject, Full Message, and Item separator lines */
 #define MESSAGE_TEXTAREA_HEIGHT 290
 #define MESSAGE_TEXTAREA_WIDTH 332
 #define EMAIL_MESSAGE_PAD_LEFT 30
@@ -18,6 +18,9 @@
 #define EMAIL_MESSAGE_CONTENT 186
 #define EMAIL_SUBJECT_LINE_SPACING 5.5
 #define EMAIL_MESSAGE_LINE_SPACING 5.5
+#define LIST_LEFT_ALIGNED 25
+#define LIST_SEPARATOR 30
+#define LIST_CONTENT_ITEM 50
 
 /* Message content attributes */
 #define MESSAGE_CONTENT_COLOR 0xADB1A2
@@ -63,11 +66,6 @@ text-align: left;
 #define LV_FONT_MONTSERRAT_44 1
 
 #define FONT_SIZE_WORKS 0 // Until it's figured out
-
-/* Main screen alignment settings to ensure consistency across app screens */
-#define LIST_LEFT_ALIGNED 25
-#define LIST_SEPARATOR 30
-#define LIST_CONTENT_ITEM 50
 
 /* Main background and radio controls declared below */
 LV_IMG_DECLARE(Background);
@@ -189,7 +187,7 @@ void email_list_init(lv_obj_t * email_page) {
     /* Add the email list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 110);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 60);
     lv_label_set_text(list_name, "All emails");
     lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -209,7 +207,6 @@ void email_list_init(lv_obj_t * email_page) {
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[EMAIL_LIST_MAX];
-
 
     /* Add (simulated) devices entries as clickable buttons*/
     for (int i = 0; i < EMAIL_LIST_MAX; i++)

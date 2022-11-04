@@ -57,7 +57,7 @@ typedef struct {
     int txtmsg_id;
     char * txtmsg_message;
     char * txtmsg_from;
-    char * txtmsg_subject;
+    char * txtmsg_summary;
     // void (* page_handler)(lv_obj_t *);
     lv_img_dsc_t * txtmsg_status;
     // bool active;
