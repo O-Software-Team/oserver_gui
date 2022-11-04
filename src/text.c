@@ -144,9 +144,10 @@ lv_label_t * txtmsg_from;
 lv_label_t * txtmsg_summary;
 lv_label_t * txtmsg_status;
 lv_label_t * txtmsg_message;
+lv_label_t * text_detail_from;
+lv_obj_t * text_detail_message;
 lv_obj_t * top_of_list_items;
 lv_obj_t * spacer;
-// lv_label_t * label_index;
 
 /* The following function populates the main screen with read and unread text messages */
 void txtmsg_list_init(lv_obj_t * txtmsg_page) {
@@ -156,29 +157,20 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
 
     render_back_button(image, back_home_button_cb);
 
-    /* 'Filter' button to filter the email messages */
+    /* 'Filter' button to filter the text messages */
     lv_obj_t * filter_image = lv_img_create(image);
     lv_img_set_src(filter_image, &Icon_Filter_Button);
-    // lv_img_set_zoom(filter_image, 160);
     lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 32);
-
-    // Use the following to create a button -- save for later
-    // lv_obj_t * add = lv_btn_create(image);
-    // lv_obj_set_size(add, 50, 50);
-    // lv_obj_align(add, LV_ALIGN_TOP_MID, 140, 15);
-    // //lv_obj_add_event_cb(add, found_devices_handler, LV_EVENT_CLICKED, 0);
-    // //lv_obj_set_user_data(add, device_page);
-    // lv_obj_set_style_opa(add, LV_OPA_0, LV_PART_MAIN);
 
     /* Add the Page header at the top */
     lv_obj_t * page_header = lv_img_create(image);
     lv_img_set_src(page_header, &Text_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 50);
 
-    /* Add the email list heading */
+    /* Add the text message list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 114);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
     lv_label_set_text(list_name, "On Bob's MacBook");
     lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -191,11 +183,10 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
-    // lv_coord_t offset;
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[TXTMSG_LIST_MAX];
 
-    /* Add (simulated) devices entries as clickable buttons*/
+    /* Add (simulated) text messages as clickable buttons*/
     for (int i = 0; i < TXTMSG_LIST_MAX; i++)
     {
 
@@ -203,14 +194,6 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
         right.y = right.y + offset;
 
         offset =  -64 + (92 * i);
-        // offset =  -135 + (60 * i);
-
-        /* This is the opaque button overlay so you can Click-To-View the drill-down view of the item */
-        // trusted_txtmsg_btn_list[i] = lv_btn_create(image);
-        // lv_obj_set_size(trusted_txtmsg_btn_list[i], 330, 50);
-        // lv_obj_align(trusted_txtmsg_btn_list[i], LV_ALIGN_CENTER, 0, offset);
-        // lv_obj_set_style_opa(trusted_txtmsg_btn_list[i], LV_OPA_0, LV_PART_MAIN);
-        // lv_obj_add_event_cb(trusted_txtmsg_btn_list[i], txtmsg_selected_cb, LV_EVENT_CLICKED, 0);
 
         /* Text message READ/UNREAD icon on the left */
         lv_obj_t * txtmsg_icon = lv_img_create(image);
@@ -241,6 +224,43 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
     }
 }
 
+void text_message_view(lv_obj_t * text_message_page) {
+    /* Main page definition */
+    lv_obj_t * image = lv_img_create(text_message_page);
+    lv_img_set_src(image, &Background);
+
+    /* Back button */
+    render_back_button(image, back_home_button_cb);
+
+    /* Text FROM field */
+    text_detail_from = lv_label_create(image);
+    lv_label_set_recolor(text_detail_from, true);
+    lv_obj_align(text_detail_from, LV_ALIGN_TOP_LEFT, TEXT_MESSAGE_PAD_LEFT, TEXT_MESSAGE_SUBJECT);
+    lv_obj_set_style_width(text_detail_from, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
+    lv_label_set_text(text_detail_from, txtmsg_list[TXTMSG_MESSAGE_ID].txtmsg_from);
+    lv_obj_set_style_text_color(text_detail_from, lv_color_white(), 0);
+    lv_obj_set_style_text_font(text_detail_from, &NeueHaasDisplayLight_32, LV_PART_MAIN);
+
+    /* Text MESSAGE field */
+    text_detail_message = lv_textarea_create(image);
+    lv_obj_set_scrollbar_mode(text_detail_message, LV_SCROLLBAR_MODE_OFF);
+    lv_obj_align(text_detail_message, LV_ALIGN_TOP_LEFT, TEXT_MESSAGE_PAD_LEFT, TEXT_MESSAGE_CONTENT);
+    lv_obj_set_style_height(text_detail_message, MESSAGE_TEXTAREA_HEIGHT, LV_PART_MAIN);
+    lv_obj_set_style_width(text_detail_message, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
+    lv_obj_set_style_border_width(text_detail_message, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_opa(text_detail_message, 0, LV_PART_MAIN);
+
+    lv_textarea_add_text(text_detail_message, txtmsg_list[TXTMSG_MESSAGE_ID].txtmsg_message);
+    lv_obj_set_style_text_color(text_detail_message, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_line_space(text_detail_message, TEXT_MESSAGE_LINE_SPACING, LV_PART_MAIN);
+    lv_obj_set_style_text_font(text_detail_message, &NeueHaasDisplayLight_22, LV_PART_MAIN);
+
+    lv_obj_set_style_pad_all(text_detail_message, 0, LV_PART_MAIN);
+
+    /* Message TEXTAREA opacity gradation overlay */
+
+}
+
 void txtmsg_menu_setup(void)
 {
 
@@ -260,5 +280,8 @@ void txtmsg_menu_setup(void)
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
     txtmsg_list_init(txtmsg_page);
+
+    /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
+    text_message_view(txtmsg_page);
 
 }

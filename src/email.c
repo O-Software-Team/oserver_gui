@@ -167,16 +167,7 @@ void email_list_init(lv_obj_t * email_page) {
     /* 'Filter' button to filter the email messages */
     lv_obj_t * filter_image = lv_img_create(image);
     lv_img_set_src(filter_image, &Icon_Filter_Button);
-    // lv_img_set_zoom(filter_image, 160);
     lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 32);
-
-    // Use the following to create a button -- save for later
-    // lv_obj_t * filter_image = lv_btn_create(image);
-    // lv_obj_set_size(filter_image, 50, 50);
-    // lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 140, 15);
-    // //lv_obj_add_event_cb(filter_image, found_devices_handler, LV_EVENT_CLICKED, 0);
-    // //lv_obj_set_user_data(filter_image, device_page);
-    // lv_obj_set_style_opa(filter_image, LV_OPA_0, LV_PART_MAIN);
 
     /* Add the Page header using iconography at the top */
     lv_obj_t * page_header = lv_img_create(image);
@@ -187,7 +178,7 @@ void email_list_init(lv_obj_t * email_page) {
     /* Add the email list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 60);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
     lv_label_set_text(list_name, "All emails");
     lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -197,18 +188,12 @@ void email_list_init(lv_obj_t * email_page) {
     lv_img_set_src(top_of_list_items, &Linez);
     lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
 
-    // spacer = lv_img_create(image);
-    // lv_img_set_src(spacer, &Icon_List_Item_Divider);
-    // lv_obj_align(spacer, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 160);
-    // lv_obj_set_style_bg_opa(spacer, 0, LV_PART_MAIN);
-    // lv_obj_set_style_height(spacer, 20, LV_PART_MAIN);
-
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[EMAIL_LIST_MAX];
 
-    /* Add (simulated) devices entries as clickable buttons*/
+    /* Add (simulated) email messages as clickable buttons*/
     for (int i = 0; i < EMAIL_LIST_MAX; i++)
     {
 
@@ -217,25 +202,16 @@ void email_list_init(lv_obj_t * email_page) {
 
         offset =  -64 + (92 * i);
 
-        /* This is the opaque button overlay so you can Click-To-View the drill-down view of the item */
-        // trusted_email_btn_list[i] = lv_btn_create(image);
-        // lv_obj_set_size(trusted_email_btn_list[i], 330, 50);
-        // lv_obj_align(trusted_email_btn_list[i], LV_ALIGN_CENTER, 0, offset);
-        // lv_obj_set_style_opa(trusted_email_btn_list[i], LV_OPA_0, LV_PART_MAIN);
-        // lv_obj_add_event_cb(trusted_email_btn_list[i], email_selected_cb, LV_EVENT_CLICKED, 0);
-
         /* Email message READ/UNREAD icon on the left */
         lv_obj_t * email_icon = lv_img_create(image);
         lv_img_set_src(email_icon, email_list[i].email_status);
         lv_obj_align(email_icon, LV_ALIGN_LEFT_MID, LIST_LEFT_ALIGNED, offset);
-        // lv_obj_set_style_opa(email_icon, LV_OPA_70, LV_PART_MAIN);
 
         /* Email message FROM field */
         email_from = lv_label_create(image);
         lv_label_set_recolor(email_from, true);
         lv_obj_align(email_from, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
         lv_label_set_text(email_from, email_list[i].email_from);
-
         lv_obj_set_style_text_color(email_from, lv_color_white(), 0);
         lv_obj_set_style_text_font(email_from, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -252,7 +228,6 @@ void email_list_init(lv_obj_t * email_page) {
         list_item_separator[i] = lv_img_create(image);
         lv_img_set_src(list_item_separator[i], &Linez);
         lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
-
     }
 }
 
