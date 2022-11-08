@@ -161,6 +161,15 @@ void main_menu_init(void) {
 
     lv_style_set_text_font(&label_index_style, &NeueHaasDisplayRoman_16);
 
+    lv_disp_t * display = lv_obj_get_disp(lv_scr_act());
+
+    lv_theme_t * th = lv_theme_default_init(display,
+                                        lv_color_black(), lv_color_white(),
+                                        true,
+                                        &SaolDisplayRegularItalic_26);
+
+    lv_disp_set_theme(display, th);
+
     /*
      * On the main page, create the individual pages which will be lotus scrolled
      */

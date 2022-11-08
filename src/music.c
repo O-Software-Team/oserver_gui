@@ -171,7 +171,8 @@ void music_player_init(lv_obj_t * music_page) {
     lv_obj_set_width(current_song, 200);
     lv_label_set_text(current_song, "How Come You Don't Call Me");
     lv_obj_align(current_song, LV_ALIGN_TOP_MID, 0, 240);
-    lv_style_set_text_font(&current_song_style, &NeueHaasDisplayRoman_18);
+    lv_style_set_text_font(&current_song_style, &NeueHaasDisplayRoman_18
+    );
     lv_obj_add_style(current_song, &current_song_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(current_song, lv_color_lighten(lv_color_black(), 80), 0);
 

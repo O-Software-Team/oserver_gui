@@ -152,8 +152,8 @@ lv_label_t * email_from;
 lv_label_t * email_subject;
 lv_label_t * email_status;
 lv_label_t * email_message;
-lv_obj_t * top_of_list_items;
-lv_obj_t * spacer;
+static lv_obj_t * top_of_list_items;
+static lv_obj_t * spacer;
 // lv_label_t * label_index;
 
 /* The following function populates the main screen with read and unread emails */

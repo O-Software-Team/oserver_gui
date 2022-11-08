@@ -306,7 +306,6 @@ void total_control_item_init(lv_obj_t * oserver_page) {
     lv_obj_align(sw3, LV_ALIGN_CENTER, 120, 66);
     lv_obj_set_size(sw3, 45, 25);
     lv_obj_set_style_opa(sw3, LV_OPA_20, 0);
-    lv_obj_set_style_bg_color(sw3, lv_color_lighten(lv_color_black(), 60), 0);
     lv_obj_set_style_border_color(sw3, lv_color_lighten(lv_color_white(), 30), 0);
     lv_obj_set_style_border_width(sw3, 1, 0);
     lv_obj_set_user_data(sw3, oserver_page);
@@ -328,11 +327,11 @@ void total_control_item_init(lv_obj_t * oserver_page) {
     lv_obj_align(sw4, LV_ALIGN_CENTER, 120, 155);
     lv_obj_set_size(sw4, 45, 25);
     lv_obj_set_style_opa(sw4, LV_OPA_20, 0);
-    lv_obj_set_style_bg_color(sw4, lv_color_lighten(lv_color_black(), 60), 0);
-    lv_obj_set_style_border_color(sw4, lv_color_lighten(lv_color_white(), 30), 0);
+    lv_obj_set_style_border_color(sw4, lv_color_lighten(lv_color_white(), 90), LV_PART_KNOB);
+    lv_obj_set_style_border_color(sw4, lv_color_lighten(lv_color_white(), 35), 0);
     lv_obj_set_style_border_width(sw4, 1, 0);
     lv_obj_set_user_data(sw4, oserver_page);
-    lv_obj_add_event_cb(sw4, switch_event_handler, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(sw4, NULL, LV_EVENT_ALL, NULL);
 }
 
 void devices_connected_init(lv_obj_t * device_page) {
