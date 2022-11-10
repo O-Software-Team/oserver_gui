@@ -6,13 +6,16 @@
 #include <stdio.h>
 
 /* Email list and message ID variables */
-#define EMAIL_LIST_MAX 3
+#define EMAIL_LIST_MAX 4
 #define EMAIL_FOUND_MAX 7
 #define EMAIL_MESSAGE_ID 0
 
 /* Email Message alignment for From, Subject, Full Message, and Item separator lines */
 #define MESSAGE_TEXTAREA_HEIGHT 290
 #define MESSAGE_TEXTAREA_WIDTH 332
+#define MESSAGE_TEXTAREA_MASK_WIDTH 332
+#define MESSAGE_TEXTAREA_MASK_HEIGHT 100
+
 #define EMAIL_MESSAGE_PAD_LEFT 30
 #define EMAIL_MESSAGE_SUBJECT 120
 #define EMAIL_MESSAGE_CONTENT 186
@@ -112,24 +115,24 @@ static email_item email_list[EMAIL_LIST_MAX] = {
     },
     {
         .email_id = 2,
-        .email_from = "Yoyodyne Propulsion",
+        .email_from = "Yoyodyne Propulsion Systems Inc.",
         .email_subject = "Oscillation overthruster designs",
         .email_status = &Icon_Email_Unread_Yellow,
         .email_message = "Blah-blah-blah... BANANA!",
     },
     {
         .email_id = 3,
-        .email_from = "Bob's Big Boy",
-        .email_subject = "Burgers? You bet!",
-        .email_status = &Icon_Status_Disable,
-        .email_message = "Blah-blah-blah... BANANA!",
-    },
-    {
-        .email_id = 4,
         .email_from = "Dr Emilio Lizardo",
         .email_subject = "RE: Get the oscillation overthruster!",
         .email_status = &Icon_Status_Disable,
         .email_message = "Some giant string of text here. Will need to post some sort of Some giant string of text HERE.\n\nWill need to post some sort of Some giant string of text here. Will need to post some SORT OF\n\nlatin/gobbledeegook here... blah-blah-blah... Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... Some giant string of text HERE.\n\nWill need to post some sort of latin/gobbledeegook here... blah-blah-blah... BANANA!",
+    },
+    {
+        .email_id = 4,
+        .email_from = "Bob's Big Boy",
+        .email_subject = "Burgers? You bet!",
+        .email_status = &Icon_Status_Disable,
+        .email_message = "Blah-blah-blah... BANANA!",
     },
     {
         .email_id = 5,
@@ -147,20 +150,40 @@ static email_item email_list[EMAIL_LIST_MAX] = {
     },
 };
 
+/* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+const char * from_string;
+const int * from_count;
+const char * subject_string;
+const int * subject_count;
+const char * message_string;
+const int * message_count;
+
+/* Set variables for all the message content fields: ID, FROM, SUBJECT, MESSAGE */
 lv_label_t * email_id;
+// lv_obj_t * email_from;
 lv_label_t * email_from;
+// lv_obj_t * email_subject;
 lv_label_t * email_subject;
 lv_label_t * email_status;
 lv_label_t * email_message;
-static lv_obj_t * top_of_list_items;
-static lv_obj_t * spacer;
+lv_obj_t * top_of_list_items;
+lv_obj_t * spacer;
 // lv_label_t * label_index;
 
 /* The following function populates the main screen with read and unread emails */
 void email_list_init(lv_obj_t * email_page) {
 
     lv_obj_t * image = lv_img_create(email_page);
+
     lv_img_set_src(image, &Background);
+
+
+
+    // static lv_style_t style_ta;
+    // lv_style_copy(&style_ta, lv_ta_get_style(ta, LV_TA_STYLE_BG));
+    // style_ta.body.main_color = style_ta.body.grad_color = lv_color_black();
+    // lv_ta_set_style(ta,LV_TA_STYLE_BG,&style_ta);
+
 
     render_back_button(image, back_home_button_cb);
 
@@ -202,6 +225,18 @@ void email_list_init(lv_obj_t * email_page) {
 
         offset =  -64 + (92 * i);
 
+        /* Calculate if the FROM field is greater than or equal to 25 characters */
+        from_string = email_list[i].email_from;
+        from_count = strlen(from_string);
+
+        /* Calculate if the SUBJECT field is greater than or equal to 37 characters */
+        subject_string = email_list[i].email_subject;
+        subject_count = strlen(subject_string);
+
+        /* Calculate if the MESSAGE field is greater than or equal to 37 characters */
+        message_string = email_list[i].email_message;
+        message_count = strlen(message_string);
+
         /* Email message READ/UNREAD icon on the left */
         lv_obj_t * email_icon = lv_img_create(image);
         lv_img_set_src(email_icon, email_list[i].email_status);
@@ -210,16 +245,34 @@ void email_list_init(lv_obj_t * email_page) {
         /* Email message FROM field */
         email_from = lv_label_create(image);
         lv_label_set_recolor(email_from, true);
+
+        /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+        if(from_count >= 25) {
+            lv_label_set_text(email_from, email_list[i].email_from);
+            lv_label_cut_text(email_from,23,from_count);
+            lv_label_ins_text(email_from,25,"...");
+        } else {
+            lv_label_set_text(email_from, email_list[i].email_from);
+        }
+
         lv_obj_align(email_from, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
-        lv_label_set_text(email_from, email_list[i].email_from);
         lv_obj_set_style_text_color(email_from, lv_color_white(), 0);
         lv_obj_set_style_text_font(email_from, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Email message SUBJECT field */
         email_subject = lv_label_create(image);
         lv_label_set_recolor(email_subject, true);
+
+        /* Calculate and then truncate if the SUBJECT field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
+        if(subject_count >= 37) {
+            lv_label_set_text(email_subject, email_list[i].email_subject);
+            lv_label_cut_text(email_subject,35,subject_count);
+            lv_label_ins_text(email_subject,37,"...");
+        } else {
+            lv_label_set_text(email_subject, email_list[i].email_subject);
+        }
+
         lv_obj_align(email_subject, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        lv_label_set_text(email_subject, email_list[i].email_subject);
         lv_obj_set_style_text_color(email_subject, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
         lv_obj_set_style_text_line_space(email_subject, EMAIL_MESSAGE_LINE_SPACING, LV_PART_MAIN);
         lv_obj_set_style_text_font(email_subject, &NeueHaasDisplayLight_20, LV_PART_MAIN);
@@ -239,12 +292,25 @@ void email_message_view(lv_obj_t * email_message_page) {
     /* Back button */
     render_back_button(image, back_home_button_cb);
 
+    /* Calculate if the SUBJECT field is greater than or equal to 37 characters */
+    subject_string = email_list[EMAIL_MESSAGE_ID].email_subject;
+    subject_count = strlen(subject_string);
+
     /* Email SUBJECT field */
     email_subject = lv_label_create(image);
     lv_label_set_recolor(email_subject, true);
+
+    /* Calculate and then truncate if the SUBJECT field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
+    if(subject_count >= 37) {
+        lv_label_set_text(email_subject, email_list[EMAIL_MESSAGE_ID].email_subject);
+        lv_label_cut_text(email_subject,35,subject_count);
+        lv_label_ins_text(email_subject,37,"...");
+    } else {
+        lv_label_set_text(email_subject, email_list[EMAIL_MESSAGE_ID].email_subject);
+    }
+
     lv_obj_align(email_subject, LV_ALIGN_TOP_LEFT, EMAIL_MESSAGE_PAD_LEFT, EMAIL_MESSAGE_SUBJECT);
     lv_obj_set_style_width(email_subject, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
-    lv_label_set_text(email_subject, email_list[EMAIL_MESSAGE_ID].email_subject);
     lv_obj_set_style_text_color(email_subject, lv_color_white(), 0);
     lv_obj_set_style_text_font(email_subject, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
