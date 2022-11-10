@@ -13,6 +13,9 @@
 /* Text Message alignment for From, Truncated Message, Full Message, and Item separator lines */
 #define MESSAGE_TEXTAREA_HEIGHT 290
 #define MESSAGE_TEXTAREA_WIDTH 332
+#define MESSAGE_TEXTAREA_MASK_WIDTH 332
+#define MESSAGE_TEXTAREA_MASK_HEIGHT 100
+
 #define TEXT_MESSAGE_PAD_LEFT 30
 #define TEXT_MESSAGE_SUBJECT 120
 #define TEXT_MESSAGE_CONTENT 186
@@ -139,6 +142,14 @@ static txtmsg_item txtmsg_list[TXTMSG_LIST_MAX] = {
     },
 };
 
+/* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+const char * from_string;
+int from_count;
+const char * summary_string;
+int summary_count;
+const char * message_string;
+int message_count;
+
 lv_label_t * txtmsg_id;
 lv_label_t * txtmsg_from;
 lv_label_t * txtmsg_summary;
@@ -180,7 +191,6 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
     lv_img_set_src(top_of_list_items, &Linez);
     lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
 
-
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
@@ -195,6 +205,18 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
 
         offset =  -64 + (92 * i);
 
+        /* Calculate if the FROM field is greater than or equal to 25 characters */
+        from_string = txtmsg_list[i].txtmsg_from;
+        from_count = strlen(from_string);
+
+        /* Calculate if the SUMMARY field is greater than or equal to 37 characters */
+        summary_string = txtmsg_list[i].txtmsg_summary;
+        summary_count = strlen(summary_string);
+
+        /* Calculate if the MESSAGE field is greater than or equal to 37 characters */
+        message_string = txtmsg_list[i].txtmsg_message;
+        message_count = strlen(message_string);
+
         /* Text message READ/UNREAD icon on the left */
         lv_obj_t * txtmsg_icon = lv_img_create(image);
         lv_img_set_src(txtmsg_icon, txtmsg_list[i].txtmsg_status);
@@ -203,16 +225,34 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
         /* Text message FROM field */
         txtmsg_from = lv_label_create(image);
         lv_label_set_recolor(txtmsg_from, true);
+
+        /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+        if(from_count >= 25) {
+            lv_label_set_text(txtmsg_from, txtmsg_list[i].txtmsg_from);
+            lv_label_cut_text(txtmsg_from,23,from_count);
+            lv_label_ins_text(txtmsg_from,25,"...");
+        } else {
+            lv_label_set_text(txtmsg_from, txtmsg_list[i].txtmsg_from);
+        }
+
         lv_obj_align(txtmsg_from, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
-        lv_label_set_text(txtmsg_from, txtmsg_list[i].txtmsg_from);
         lv_obj_set_style_text_color(txtmsg_from, lv_color_white(), 0);
         lv_obj_set_style_text_font(txtmsg_from, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Text message SUMMARY field */
         txtmsg_summary = lv_label_create(image);
         lv_label_set_recolor(txtmsg_summary, true);
+
+        /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
+        if(summary_count >= 37) {
+            lv_label_set_text(txtmsg_summary, txtmsg_list[i].txtmsg_summary);
+            lv_label_cut_text(txtmsg_summary,35,summary_count);
+            lv_label_ins_text(txtmsg_summary,37,"...");
+        } else {
+            lv_label_set_text(txtmsg_summary, txtmsg_list[i].txtmsg_summary);
+        }
+
         lv_obj_align(txtmsg_summary, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        lv_label_set_text(txtmsg_summary, txtmsg_list[i].txtmsg_summary);
         lv_obj_set_style_text_color(txtmsg_summary, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
         lv_obj_set_style_text_line_space(txtmsg_summary, TEXT_MESSAGE_LINE_SPACING, LV_PART_MAIN);
         lv_obj_set_style_text_font(txtmsg_summary, &NeueHaasDisplayLight_20, LV_PART_MAIN);
@@ -232,12 +272,25 @@ void text_message_view(lv_obj_t * text_message_page) {
     /* Back button */
     render_back_button(image, back_home_button_cb);
 
+    /* Calculate if the FROM field is greater than or equal to 25 characters */
+    from_string = txtmsg_list[TXTMSG_MESSAGE_ID].txtmsg_from;
+    from_count = strlen(from_string);
+
     /* Text FROM field */
     text_detail_from = lv_label_create(image);
     lv_label_set_recolor(text_detail_from, true);
+
+    /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+    if(from_count >= 25) {
+        lv_label_set_text(text_detail_from, txtmsg_list[TXTMSG_MESSAGE_ID].txtmsg_from);
+        lv_label_cut_text(txtmsg_from,23,from_count);
+        lv_label_ins_text(txtmsg_from,25,"...");
+    } else {
+        lv_label_set_text(text_detail_from, txtmsg_list[TXTMSG_MESSAGE_ID].txtmsg_from);
+    }
+
     lv_obj_align(text_detail_from, LV_ALIGN_TOP_LEFT, TEXT_MESSAGE_PAD_LEFT, TEXT_MESSAGE_SUBJECT);
     lv_obj_set_style_width(text_detail_from, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
-    lv_label_set_text(text_detail_from, txtmsg_list[TXTMSG_MESSAGE_ID].txtmsg_from);
     lv_obj_set_style_text_color(text_detail_from, lv_color_white(), 0);
     lv_obj_set_style_text_font(text_detail_from, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 

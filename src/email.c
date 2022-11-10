@@ -152,11 +152,11 @@ static email_item email_list[EMAIL_LIST_MAX] = {
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 const char * from_string;
-const int * from_count;
+int from_count;
 const char * subject_string;
-const int * subject_count;
+int subject_count;
 const char * message_string;
-const int * message_count;
+int message_count;
 
 /* Set variables for all the message content fields: ID, FROM, SUBJECT, MESSAGE */
 lv_label_t * email_id;
