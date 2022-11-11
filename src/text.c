@@ -28,6 +28,13 @@
 /* Message content attributes */
 #define MESSAGE_CONTENT_COLOR 0xADB1A2
 
+/* Bottom of viewport attributes */
+#define OVERLAY_WIDTH 345
+#define OVERLAY_HEIGHT 70
+#define OVERLAY_POS_LEFT 20
+#define OVERLAY_POS_FROM_TOP 440
+#define OVERLAY_COLOR 0x0F0F0F
+
 /*** BEG -- Font definitions from Figma ***/
 /* EMAIL LIST - FROM :: styleName: P2 - Neue - 24px;
 font-family: Neue Haas Grotesk Display Pro;
@@ -150,6 +157,7 @@ int summary_count;
 const char * message_string;
 int message_count;
 
+/* Set variables for all the message content fields: ID, FROM, SUBJECT, MESSAGE */
 lv_label_t * txtmsg_id;
 lv_label_t * txtmsg_from;
 lv_label_t * txtmsg_summary;
@@ -197,8 +205,7 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
     lv_obj_t * list_item_separator[TXTMSG_LIST_MAX];
 
     /* Add (simulated) text messages as clickable buttons*/
-    for (int i = 0; i < TXTMSG_LIST_MAX; i++)
-    {
+    for (int i = 0; i < TXTMSG_LIST_MAX; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
@@ -262,6 +269,17 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
         lv_img_set_src(list_item_separator[i], &Linez);
         lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
+
+    /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
+    lv_obj_t * my_rect = lv_obj_create(image);
+    lv_obj_set_size(my_rect, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+    lv_obj_set_pos(my_rect, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
+    lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(my_rect, LV_GRAD_DIR_VER, 0);
+    lv_obj_set_style_bg_grad_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_opa(my_rect, 164, 0);
+    lv_obj_set_style_bg_grad_stop(my_rect, 255, LV_PART_MAIN);
 }
 
 void text_message_view(lv_obj_t * text_message_page) {
@@ -310,8 +328,16 @@ void text_message_view(lv_obj_t * text_message_page) {
 
     lv_obj_set_style_pad_all(text_detail_message, 0, LV_PART_MAIN);
 
-    /* Message TEXTAREA opacity gradation overlay */
-
+    /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
+    lv_obj_t * my_rect = lv_obj_create(image);
+    lv_obj_set_size(my_rect, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+    lv_obj_set_pos(my_rect, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
+    lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(my_rect, LV_GRAD_DIR_VER, 0);
+    lv_obj_set_style_bg_grad_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_opa(my_rect, 164, 0);
+    lv_obj_set_style_bg_grad_stop(my_rect, 255, LV_PART_MAIN);
 }
 
 void txtmsg_menu_setup(void)

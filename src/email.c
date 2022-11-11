@@ -28,6 +28,13 @@
 /* Message content attributes */
 #define MESSAGE_CONTENT_COLOR 0xADB1A2
 
+/* Bottom of viewport attributes */
+#define OVERLAY_WIDTH 345
+#define OVERLAY_HEIGHT 70
+#define OVERLAY_POS_LEFT 20
+#define OVERLAY_POS_FROM_TOP 440
+#define OVERLAY_COLOR 0x0F0F0F
+
 /*** BEG -- Font definitions from Figma ***/
 /* EMAIL LIST - FROM :: styleName: P2 - Neue - 24px;
 font-family: Neue Haas Grotesk Display Pro;
@@ -160,30 +167,17 @@ int message_count;
 
 /* Set variables for all the message content fields: ID, FROM, SUBJECT, MESSAGE */
 lv_label_t * email_id;
-// lv_obj_t * email_from;
 lv_label_t * email_from;
-// lv_obj_t * email_subject;
 lv_label_t * email_subject;
 lv_label_t * email_status;
 lv_label_t * email_message;
 lv_obj_t * top_of_list_items;
 lv_obj_t * spacer;
-// lv_label_t * label_index;
 
 /* The following function populates the main screen with read and unread emails */
 void email_list_init(lv_obj_t * email_page) {
-
     lv_obj_t * image = lv_img_create(email_page);
-
     lv_img_set_src(image, &Background);
-
-
-
-    // static lv_style_t style_ta;
-    // lv_style_copy(&style_ta, lv_ta_get_style(ta, LV_TA_STYLE_BG));
-    // style_ta.body.main_color = style_ta.body.grad_color = lv_color_black();
-    // lv_ta_set_style(ta,LV_TA_STYLE_BG,&style_ta);
-
 
     render_back_button(image, back_home_button_cb);
 
@@ -217,8 +211,7 @@ void email_list_init(lv_obj_t * email_page) {
     lv_obj_t * list_item_separator[EMAIL_LIST_MAX];
 
     /* Add (simulated) email messages as clickable buttons*/
-    for (int i = 0; i < EMAIL_LIST_MAX; i++)
-    {
+    for (int i = 0; i < EMAIL_LIST_MAX; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
@@ -266,8 +259,8 @@ void email_list_init(lv_obj_t * email_page) {
         /* Calculate and then truncate if the SUBJECT field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
         if(subject_count >= 37) {
             lv_label_set_text(email_subject, email_list[i].email_subject);
-            lv_label_cut_text(email_subject,35,subject_count);
-            lv_label_ins_text(email_subject,37,"...");
+            lv_label_cut_text(email_subject, 35, subject_count);
+            lv_label_ins_text(email_subject, 37, "...");
         } else {
             lv_label_set_text(email_subject, email_list[i].email_subject);
         }
@@ -282,6 +275,17 @@ void email_list_init(lv_obj_t * email_page) {
         lv_img_set_src(list_item_separator[i], &Linez);
         lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
+
+    /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
+    lv_obj_t * my_rect = lv_obj_create(image);
+    lv_obj_set_size(my_rect, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+    lv_obj_set_pos(my_rect, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
+    lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(my_rect, LV_GRAD_DIR_VER, 0);
+    lv_obj_set_style_bg_grad_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_opa(my_rect, 164, 0);
+    lv_obj_set_style_bg_grad_stop(my_rect, 255, LV_PART_MAIN);
 }
 
 void email_message_view(lv_obj_t * email_message_page) {
@@ -330,8 +334,16 @@ void email_message_view(lv_obj_t * email_message_page) {
 
     lv_obj_set_style_pad_all(email_message, 0, LV_PART_MAIN);
 
-    /* Message TEXTAREA opacity gradation overlay */
-
+    /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
+    lv_obj_t * my_rect = lv_obj_create(image);
+    lv_obj_set_size(my_rect, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+    lv_obj_set_pos(my_rect, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
+    lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(my_rect, LV_GRAD_DIR_VER, 0);
+    lv_obj_set_style_bg_grad_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_opa(my_rect, 164, 0);
+    lv_obj_set_style_bg_grad_stop(my_rect, 255, LV_PART_MAIN);
 }
 
 void email_menu_setup(void)
