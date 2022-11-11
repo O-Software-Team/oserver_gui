@@ -271,15 +271,15 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
     }
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
-    lv_obj_t * my_rect = lv_obj_create(image);
-    lv_obj_set_size(my_rect, OVERLAY_WIDTH, OVERLAY_HEIGHT);
-    lv_obj_set_pos(my_rect, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
-    lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN);
-    lv_obj_set_style_bg_grad_dir(my_rect, LV_GRAD_DIR_VER, 0);
-    lv_obj_set_style_bg_grad_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
-    lv_obj_set_style_bg_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
-    lv_obj_set_style_bg_opa(my_rect, 164, 0);
-    lv_obj_set_style_bg_grad_stop(my_rect, 255, LV_PART_MAIN);
+    lv_obj_t * bottom_viewport_overlay = lv_obj_create(image);
+    lv_obj_set_size(bottom_viewport_overlay, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+    lv_obj_set_pos(bottom_viewport_overlay, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
+    lv_obj_set_style_border_width(bottom_viewport_overlay, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(bottom_viewport_overlay, LV_GRAD_DIR_VER, 0);
+    lv_obj_set_style_bg_grad_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_opa(bottom_viewport_overlay, 164, 0);
+    lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
 }
 
 void text_message_view(lv_obj_t * text_message_page) {
@@ -329,15 +329,15 @@ void text_message_view(lv_obj_t * text_message_page) {
     lv_obj_set_style_pad_all(text_detail_message, 0, LV_PART_MAIN);
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
-    lv_obj_t * my_rect = lv_obj_create(image);
-    lv_obj_set_size(my_rect, OVERLAY_WIDTH, OVERLAY_HEIGHT);
-    lv_obj_set_pos(my_rect, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
-    lv_obj_set_style_border_width(my_rect, 0, LV_PART_MAIN);
-    lv_obj_set_style_bg_grad_dir(my_rect, LV_GRAD_DIR_VER, 0);
-    lv_obj_set_style_bg_grad_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
-    lv_obj_set_style_bg_color(my_rect, lv_color_hex(OVERLAY_COLOR), 0);
-    lv_obj_set_style_bg_opa(my_rect, 164, 0);
-    lv_obj_set_style_bg_grad_stop(my_rect, 255, LV_PART_MAIN);
+    lv_obj_t * bottom_viewport_overlay = lv_obj_create(image);
+    lv_obj_set_size(bottom_viewport_overlay, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+    lv_obj_set_pos(bottom_viewport_overlay, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
+    lv_obj_set_style_border_width(bottom_viewport_overlay, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(bottom_viewport_overlay, LV_GRAD_DIR_VER, 0);
+    lv_obj_set_style_bg_grad_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_opa(bottom_viewport_overlay, 164, 0);
+    lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
 }
 
 void txtmsg_menu_setup(void)
