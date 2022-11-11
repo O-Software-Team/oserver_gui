@@ -170,7 +170,6 @@ lv_obj_t * spacer;
 
 /* The following function populates the main screen with read and unread text messages */
 void txtmsg_list_init(lv_obj_t * txtmsg_page) {
-
     lv_obj_t * image = lv_img_create(txtmsg_page);
     lv_img_set_src(image, &Background);
 
@@ -179,12 +178,12 @@ void txtmsg_list_init(lv_obj_t * txtmsg_page) {
     /* 'Filter' button to filter the text messages */
     lv_obj_t * filter_image = lv_img_create(image);
     lv_img_set_src(filter_image, &Icon_Filter_Button);
-    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 32);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
 
     /* Add the Page header at the top */
     lv_obj_t * page_header = lv_img_create(image);
     lv_img_set_src(page_header, &Text_App_Heading_Title);
-    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 50);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the text message list heading */
     lv_label_t * list_name = lv_label_create(image);

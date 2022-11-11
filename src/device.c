@@ -8,6 +8,12 @@
 #define DEVICE_PAGE_MAX 6
 #define DEVICE_FOUND_MAX 4
 
+/* Main HEADING iconography */
+LV_IMG_DECLARE(Devices_App_Heading_Title);
+
+/* Message content attributes */
+#define MESSAGE_CONTENT_COLOR 0xADB1A2
+
 /*forward*/
 static void add_device_cb(lv_event_t *);
 static void my_timer(lv_timer_t *);
@@ -268,19 +274,16 @@ void devices_found_init(lv_obj_t * device_page) {
     lv_style_set_text_font(&page_header_style, &NeueHaasDisplayLight_18);
 
     /* Add the Page header at the top*/
-    lv_label_t * page_header = lv_label_create(image);
-    lv_label_set_recolor(page_header, true);
-    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 24);
-    lv_obj_add_style(page_header, &page_header_style, LV_PART_MAIN);
-    lv_label_set_text(page_header, "Devices");
-    lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &Devices_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the item List heading*/
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 85);
     lv_label_set_text(list_name, "List of devices found");
-    lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
+    lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
 
     lv_coord_t offset = 0;
     lv_obj_t * entry_separator[DEVICE_PAGE_MAX];
@@ -359,19 +362,16 @@ void device_trusted_init(lv_obj_t * device_page) {
     lv_obj_set_style_opa(add, LV_OPA_0, LV_PART_MAIN);
 
     /* Add the Page header at the top */
-    lv_label_t * page_header = lv_label_create(image);
-    lv_label_set_recolor(page_header, true);
-    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 23);
-    lv_obj_add_style(page_header, &page_header_style, LV_PART_MAIN);
-    lv_label_set_text(page_header, "Devices");
-    lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &Devices_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the item List heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, 25, 85);
     lv_label_set_text(list_name, "List of devices");
-    lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
+    lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
 
     /* The WiFi indicator */
     lv_obj_t * wifi_symbol = lv_img_create(image);
