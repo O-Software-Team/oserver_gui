@@ -55,6 +55,10 @@ LV_IMG_DECLARE(Email_App_Heading_Title);
 LV_IMG_DECLARE(Files_App_Heading_Title);
 LV_IMG_DECLARE(Devices_App_Heading_Title);
 LV_IMG_DECLARE(Text_App_Heading_Title);
+LV_IMG_DECLARE(Calendar_App_Heading_Title);
+LV_IMG_DECLARE(Contacts_App_Heading_Title);
+LV_IMG_DECLARE(O_App_Heading_Title);
+LV_IMG_DECLARE(Settings_App_Heading_Title);
 
 /*
  * Album covers for the 'Music' player

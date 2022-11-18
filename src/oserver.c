@@ -5,9 +5,41 @@
 
 #include <stdio.h>
 
+/* O App list and item ID variables */
 #define DEVICE_PAGE_MAX 4
 #define DEVICE_FOUND_MAX 4
+
+/* O App alignment for elements and Item separator lines */
+#define LIST_ITEM_TEXTAREA_HEIGHT 290
+#define LIST_ITEM_TEXTAREA_WIDTH 332
+#define LIST_ITEM_TEXTAREA_MASK_WIDTH 332
+#define LIST_ITEM_TEXTAREA_MASK_HEIGHT 100
+
+#define LIST_ITEM_PAD_LEFT 30
+#define LIST_ITEM_SUBJECT 120
+#define LIST_ITEM_CONTENT 186
+#define LIST_ITEM_LINE_SPACING 5.5
+#define LIST_ITEM_LINE_SPACING 5.5
+#define LIST_LEFT_ALIGNED 25
+#define LIST_SEPARATOR 30
+#define LIST_CONTENT_ITEM 50
+
+/* Element content attributes */
+#define MAIN_CONTENT_COLOR 0xADB1A2
+
+/* Bottom of viewport attributes */
+#define OVERLAY_WIDTH 345
+#define OVERLAY_HEIGHT 70
+#define OVERLAY_POS_LEFT 20
+#define OVERLAY_POS_FROM_TOP 440
+#define OVERLAY_COLOR 0x0F0F0F
+
 LV_IMG_DECLARE(Background);
+
+/* Main HEADING iconography */
+LV_IMG_DECLARE(O_App_Heading_Title);
+
+lv_obj_t * top_of_list_items;
 
 static lv_obj_t * trusted_device_btn_list[DEVICE_PAGE_MAX];
 static lv_timer_t * sleeptimer;
@@ -344,41 +376,38 @@ void devices_connected_init(lv_obj_t * device_page) {
     lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
     lv_obj_center(image);
 #endif // ALL_SCROLL
+
     render_back_button(image, back_home_button_cb);
 
-    static lv_style_t page_header_style;
-    lv_style_init(&page_header_style);
-    lv_style_set_text_font(&page_header_style, &NeueHaasDisplayRoman_20);
+    /* 'Filter' button to filter the Device items */
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
 
-    lv_obj_t * grey_halo = lv_img_create(image);
-    lv_img_set_src(grey_halo, &Icon_Filter_Button);
-    lv_obj_align(grey_halo, LV_ALIGN_TOP_MID, 130, 9);
-    lv_img_set_zoom(grey_halo, 200);
+    /* Add the Page header using iconography at the top */
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &O_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    lv_obj_t * add = lv_btn_create(image);
-    lv_obj_set_size(add, 50, 50);
-    lv_obj_align(add, LV_ALIGN_TOP_MID, 140, 15);
-    lv_obj_add_event_cb(add, total_control_cb, LV_EVENT_CLICKED, 0);
-    lv_obj_set_user_data(add, device_page);
-    lv_obj_set_style_opa(add, LV_OPA_0, LV_PART_MAIN);
-
-    /* Add the Page header at the top */
-    lv_label_t * page_header = lv_label_create(image);
-    lv_label_set_recolor(page_header, true);
-    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 23);
-    lv_obj_add_style(page_header, &page_header_style, LV_PART_MAIN);
-    lv_label_set_text(page_header, "O");
-    lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
-
-    /* Add the item List heading */
+    /* Add the devices connected list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, 25, 85);
-    lv_label_set_text(list_name, "Devices Connected");
-    lv_obj_add_style(list_name, &page_header_style, LV_PART_MAIN);
-    lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
+    lv_label_set_text(list_name, "Devices connected");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(MAIN_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
+    // Add a list item separator line above the list item text
+    top_of_list_items = lv_img_create(image);
+    lv_img_set_src(top_of_list_items, &Linez);
+    lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
+
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
+    lv_obj_t * list_item_separator[DEVICE_PAGE_MAX];
+
+    // Dan's items for list separator, etc
     lv_obj_t * entry_separator[DEVICE_PAGE_MAX];
     lv_obj_t * page_icon_list[DEVICE_PAGE_MAX];
     lv_obj_t * label_name[DEVICE_PAGE_MAX];
@@ -434,6 +463,18 @@ void devices_connected_init(lv_obj_t * device_page) {
             lv_img_set_src(status_active_icon[i], devices_active_info[i].active ? &Icon_Status_Active: &Icon_Status_Disable);
             lv_obj_align(status_active_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
     }
+
+    /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
+    lv_obj_t * bottom_viewport_overlay = lv_obj_create(image);
+    lv_obj_set_size(bottom_viewport_overlay, OVERLAY_WIDTH, OVERLAY_HEIGHT);
+    lv_obj_set_pos(bottom_viewport_overlay, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
+    lv_obj_set_style_border_width(bottom_viewport_overlay, 0, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_dir(bottom_viewport_overlay, LV_GRAD_DIR_VER, 0);
+    lv_obj_set_style_bg_grad_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
+    lv_obj_set_style_bg_opa(bottom_viewport_overlay, 164, 0);
+lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
+
 }
 
 void oserver_menu_setup(void) {
