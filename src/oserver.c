@@ -430,7 +430,7 @@ void devices_connected_init(lv_obj_t * device_page) {
 
         offset =  -64 + (92 * i);
 
-        /* Calculate if the FROM field is greater than or equal to 25 characters */
+        /* Using this to calculate if the DEVICE NAME field is greater than or equal to 23 characters */
         device_name_string = devices_active_info[i].menu_pre;
         device_name_count = strlen(device_name_string);
 
