@@ -199,7 +199,7 @@ void email_list_init(lv_obj_t * email_page) {
     lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-    // Add a list item separator line above the list item text
+    // Add a list item separator line above the list item set
     top_of_list_items = lv_img_create(image);
     lv_img_set_src(top_of_list_items, &Linez);
     lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
@@ -269,7 +269,7 @@ void email_list_init(lv_obj_t * email_page) {
         lv_obj_set_style_text_line_space(email_subject, EMAIL_MESSAGE_LINE_SPACING, LV_PART_MAIN);
         lv_obj_set_style_text_font(email_subject, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
-        // Add a list item separator line above the list item text
+        // Add a list item separator line at the end of the list item
         list_item_separator[i] = lv_img_create(image);
         lv_img_set_src(list_item_separator[i], &Linez);
         lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);

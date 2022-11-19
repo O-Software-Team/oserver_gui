@@ -18,11 +18,10 @@
 #define LIST_ITEM_PAD_LEFT 30
 #define LIST_ITEM_SUBJECT 120
 #define LIST_ITEM_CONTENT 186
-#define LIST_ITEM_LINE_SPACING 5.5
-#define LIST_ITEM_LINE_SPACING 5.5
+#define LIST_ITEM_LINE_SPACING 14.5
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
-#define LIST_CONTENT_ITEM 50
+#define LIST_CONTENT_ITEM 90
 
 /* Element content attributes */
 #define MAIN_CONTENT_COLOR 0xADB1A2
@@ -39,15 +38,18 @@ LV_IMG_DECLARE(Background);
 /* Main HEADING iconography */
 LV_IMG_DECLARE(O_App_Heading_Title);
 
+/* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+const char * device_name_string;
+int device_name_count;
 lv_obj_t * top_of_list_items;
 
 static lv_obj_t * trusted_device_btn_list[DEVICE_PAGE_MAX];
 static lv_timer_t * sleeptimer;
 
 static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
-    {.menu_pre = "Kevin's iPhone",   .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
+    {.menu_pre = "Kevin's Work iPhone",   .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
     {.menu_pre = "Mark's iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-    {.menu_pre = "Alice's Macbook",  .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_MacBook},
+    {.menu_pre = "Alice's Macbook: Personal",  .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_MacBook},
     {.menu_pre = "Ted's iPad",       .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPad},
     {.menu_pre = "Office iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
     {.menu_pre = "Mary's iPhone",    .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
@@ -397,7 +399,7 @@ void devices_connected_init(lv_obj_t * device_page) {
     lv_obj_set_style_text_color(list_name, lv_color_hex(MAIN_CONTENT_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-    // Add a list item separator line above the list item text
+    // Add a list item separator line above the list item set
     top_of_list_items = lv_img_create(image);
     lv_img_set_src(top_of_list_items, &Linez);
     lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
@@ -415,53 +417,112 @@ void devices_connected_init(lv_obj_t * device_page) {
     lv_obj_t * status_active_icon[DEVICE_PAGE_MAX];
 
     int page_index = 0;
-    static lv_style_t status_style;
-    lv_style_init(&status_style);
-    static lv_style_t name_style;
-    lv_style_init(&name_style);
+    // static lv_style_t status_style;
+    // lv_style_init(&status_style);
+    // static lv_style_t name_style;
+    // lv_style_init(&name_style);
 
     /* Add (simulated) devices entries as clickable buttons*/
     for (int i = 0; i < DEVICE_PAGE_MAX; i++)
     {
-            offset =  121 + (60 * i);
+        left.y = left.y + offset;
+        right.y = right.y + offset;
 
-            entry_separator[i] = lv_img_create(image);
-            lv_img_set_src(entry_separator[i], &Linez);
-            lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
+        offset =  -64 + (92 * i);
 
-            /* Device icon image on the left */
-            page_icon_list[i] = lv_img_create(image);
-            lv_img_set_src(page_icon_list[i], devices_active_info[i].icon);
-            lv_obj_align(page_icon_list[i], LV_ALIGN_CENTER, -130, offset - 225);
-            lv_obj_set_style_opa(page_icon_list[i], LV_OPA_70, LV_PART_MAIN);
+        /* Calculate if the FROM field is greater than or equal to 25 characters */
+        device_name_string = devices_active_info[i].menu_pre;
+        device_name_count = strlen(device_name_string);
 
-            /*this is the opaque button overlay of the device entry graphic*/
-            trusted_device_btn_list[i] = lv_btn_create(image);
-            lv_obj_set_size(trusted_device_btn_list[i], 330, 50);
-            lv_obj_align(trusted_device_btn_list[i], LV_ALIGN_CENTER, 0, offset - 225);
-            lv_obj_set_style_opa(trusted_device_btn_list[i], LV_OPA_0, LV_PART_MAIN);
-            lv_obj_add_event_cb(trusted_device_btn_list[i], device_selected_cb, LV_EVENT_CLICKED, 0);
+        /* Device icon image on the left */
+        page_icon_list[i] = lv_img_create(image);
+        lv_img_set_src(page_icon_list[i], devices_active_info[i].icon);
+        lv_obj_align(page_icon_list[i], LV_ALIGN_CENTER, -140, offset);
 
-            /* The label text with the device name */
-            label_name[i] = lv_label_create(image);
-            lv_label_set_recolor(label_name[i], true);
-            lv_obj_align(label_name[i], LV_ALIGN_DEFAULT, 120, offset - 10 + 25);
+        // /* Opaque button overlay of the device entry graphic */
+        // trusted_device_btn_list[i] = lv_btn_create(image);
+        // // lv_obj_set_size(trusted_device_btn_list[i], 330, 50);
+        // lv_obj_align(trusted_device_btn_list[i], LV_ALIGN_CENTER, 0, offset - 225);
+        // // lv_obj_set_style_opa(trusted_device_btn_list[i], LV_OPA_0, LV_PART_MAIN);
+        // lv_obj_add_event_cb(trusted_device_btn_list[i], device_selected_cb, LV_EVENT_CLICKED, 0);
+
+        /* The label text with the device name */
+        label_name[i] = lv_label_create(image);
+        lv_label_set_recolor(label_name[i], true);
+
+        /* Calculate and then truncate if the DEVICE NAME field is greater than or equal to 23 characters; then insert an ellipsis in place of the long string */
+        if(device_name_count >= 23) {
             lv_label_set_text(label_name[i], devices_active_info[i].menu_pre);
-            lv_style_set_text_font(&name_style, &NeueHaasDisplayRoman_16);
-            lv_obj_add_style(label_name[i], &name_style, LV_PART_MAIN);
-            lv_obj_set_style_text_color(label_name[i], lv_color_white(), 0);
+            lv_label_cut_text(label_name[i],21,device_name_count);
+            lv_label_ins_text(label_name[i],23,"...");
+        } else {
+            lv_label_set_text(label_name[i], devices_active_info[i].menu_pre);
+        }
 
-            security_status[i] = lv_label_create(image);
-            lv_label_set_recolor(security_status[i], true);
-            lv_obj_align(security_status[i], LV_ALIGN_DEFAULT, 120, offset + 10 + 25);
-            lv_label_set_text(security_status[i], devices_active_info[i].security_status == ADMIN ? "Admin":"Friend");
-            lv_style_set_text_font(&status_style, &NeueHaasDisplayLight_16);
-            lv_obj_add_style(security_status[i], &status_style, LV_PART_MAIN);
-            lv_obj_set_style_text_color(security_status[i], lv_palette_main(LV_PALETTE_GREY), 0);
+        lv_obj_align(label_name[i], LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - LIST_ITEM_LINE_SPACING);
+        lv_obj_set_style_text_color(label_name[i], lv_color_white(), 0);
+        lv_obj_set_style_text_font(label_name[i], &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-            status_active_icon[i] = lv_img_create(image);
-            lv_img_set_src(status_active_icon[i], devices_active_info[i].active ? &Icon_Status_Active: &Icon_Status_Disable);
-            lv_obj_align(status_active_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
+        /* The SECURITY STATUS text string */
+        security_status[i] = lv_label_create(image);
+        lv_label_set_recolor(security_status[i], true);
+        lv_obj_align(security_status[i], LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + LIST_ITEM_LINE_SPACING);
+        lv_label_set_text(security_status[i], devices_active_info[i].security_status == ADMIN ? "Admin":"Friend");
+        lv_obj_set_style_text_color(security_status[i], lv_color_hex(MAIN_CONTENT_COLOR), 0);
+        lv_obj_set_style_text_font(security_status[i], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+        /* The DEVICE CONNECTION STATUS iconography */
+        status_active_icon[i] = lv_img_create(image);
+        lv_img_set_src(status_active_icon[i], devices_active_info[i].active ? &Icon_Status_Active: &Icon_Status_Disable);
+        lv_obj_align(status_active_icon[i], LV_ALIGN_CENTER, 155, offset);
+
+/*  DAN'S CODE BEGINS HERE */
+
+        // entry_separator[i] = lv_img_create(image);
+        // lv_img_set_src(entry_separator[i], &Linez);
+        // lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
+
+        /* Device icon image on the left */
+        // page_icon_list[i] = lv_img_create(image);
+        // lv_img_set_src(page_icon_list[i], devices_active_info[i].icon);
+        // lv_obj_align(page_icon_list[i], LV_ALIGN_CENTER, -130, offset - 225);
+        // lv_obj_set_style_opa(page_icon_list[i], LV_OPA_70, LV_PART_MAIN);
+
+        /*this is the opaque button overlay of the device entry graphic*/
+        // trusted_device_btn_list[i] = lv_btn_create(image);
+        // lv_obj_set_size(trusted_device_btn_list[i], 330, 50);
+        // lv_obj_align(trusted_device_btn_list[i], LV_ALIGN_CENTER, 0, offset - 225);
+        // lv_obj_set_style_opa(trusted_device_btn_list[i], LV_OPA_0, LV_PART_MAIN);
+        // lv_obj_add_event_cb(trusted_device_btn_list[i], device_selected_cb, LV_EVENT_CLICKED, 0);
+
+        /* The label text with the device name */
+        // label_name[i] = lv_label_create(image);
+        // lv_label_set_recolor(label_name[i], true);
+        // lv_obj_align(label_name[i], LV_ALIGN_DEFAULT, 120, offset - 10 + 25);
+        // lv_label_set_text(label_name[i], devices_active_info[i].menu_pre);
+        // lv_style_set_text_font(&name_style, &NeueHaasDisplayRoman_16);
+        // lv_obj_add_style(label_name[i], &name_style, LV_PART_MAIN);
+        // lv_obj_set_style_text_color(label_name[i], lv_color_white(), 0);
+
+        // security_status[i] = lv_label_create(image);
+        // lv_label_set_recolor(security_status[i], true);
+        // lv_obj_align(security_status[i], LV_ALIGN_DEFAULT, 120, offset + 10 + 25);
+        // lv_label_set_text(security_status[i], devices_active_info[i].security_status == ADMIN ? "Admin":"Friend");
+        // lv_style_set_text_font(&status_style, &NeueHaasDisplayLight_16);
+        // lv_obj_add_style(security_status[i], &status_style, LV_PART_MAIN);
+        // lv_obj_set_style_text_color(security_status[i], lv_palette_main(LV_PALETTE_GREY), 0);
+
+        // status_active_icon[i] = lv_img_create(image);
+        // lv_img_set_src(status_active_icon[i], devices_active_info[i].active ? &Icon_Status_Active: &Icon_Status_Disable);
+        // lv_obj_align(status_active_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
+
+/* DAN'S CODE ENDS HERE */
+
+        // Add a list item separator line at the end of the list item
+        list_item_separator[i] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[i], &Linez);
+        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+
     }
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
@@ -473,7 +534,7 @@ void devices_connected_init(lv_obj_t * device_page) {
     lv_obj_set_style_bg_grad_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
     lv_obj_set_style_bg_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
     lv_obj_set_style_bg_opa(bottom_viewport_overlay, 164, 0);
-lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
+    lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
 
 }
 
