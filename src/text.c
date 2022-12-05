@@ -150,12 +150,12 @@ static txtmsg_item txtmsg_list[TXTMSG_LIST_MAX] = {
 };
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-const char * from_string;
-int from_count;
+static const char * from_string;
+static int from_count;
 const char * summary_string;
 int summary_count;
-const char * message_string;
-int message_count;
+static const char * message_string;
+static int message_count;
 
 /* Set variables for all the message content fields: ID, FROM, SUBJECT, MESSAGE */
 lv_label_t * txtmsg_id;
@@ -165,8 +165,8 @@ lv_label_t * txtmsg_status;
 lv_label_t * txtmsg_message;
 lv_label_t * text_detail_from;
 lv_obj_t * text_detail_message;
-lv_obj_t * top_of_list_items;
-lv_obj_t * spacer;
+static lv_obj_t * top_of_list_items;
+static lv_obj_t * spacer;
 
 /* The following function populates the main screen with read and unread text messages */
 void txtmsg_list_init(lv_obj_t * txtmsg_page) {
