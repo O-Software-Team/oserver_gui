@@ -111,6 +111,6 @@ void calendar_init(lv_obj_t * calendar_page) {
     highlighted_days[2].day = 24;
 
     lv_calendar_set_highlighted_dates(calendar, highlighted_days, 3);
-    lv_calendar_header_arrow_create(calendar);
+    // DAF lv_calendar_header_arrow_create(calendar);
     lv_calendar_set_showed_date(calendar, t->tm_year + 1900, t->tm_mon + 1);
 }

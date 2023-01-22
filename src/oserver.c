@@ -102,7 +102,7 @@ static void switch_event_handler(lv_event_t * e)
             lv_obj_t * oserver_page = lv_obj_get_user_data(obj);
             lv_obj_scroll_to_view(lv_obj_get_child(oserver_page, 2), LV_ANIM_ON);
 
-            sleeptimer = lv_timer_create(update_percent, 200, oserver_page);
+            sleeptimer = lv_timer_create(update_percent, 700, oserver_page);
             lv_timer_set_repeat_count(sleeptimer, 100);
         }
     }
@@ -446,8 +446,8 @@ void devices_connected_init(lv_obj_t * device_page) {
 #ifndef DAN_CODE
         /* Opaque button overlay of the device entry graphic */
         trusted_device_btn_list[i] = lv_btn_create(image);
-        lv_obj_set_size(trusted_device_btn_list[i], 330, 50);
-        lv_obj_align(trusted_device_btn_list[i], LV_ALIGN_CENTER, 0, offset - 225);
+        lv_obj_set_size(trusted_device_btn_list[i], 330, 70);
+        lv_obj_align(trusted_device_btn_list[i], LV_ALIGN_CENTER, 0, offset);
         lv_obj_set_style_opa(trusted_device_btn_list[i], LV_OPA_0, LV_PART_MAIN);
         lv_obj_add_event_cb(trusted_device_btn_list[i], device_selected_cb, LV_EVENT_CLICKED, 0);
 #endif // DAN_CODE
