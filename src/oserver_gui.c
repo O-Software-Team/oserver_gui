@@ -124,8 +124,7 @@ static void main_scroll_event_cb(lv_event_t * e) {
 }
 
 void oserver_gui(void) {
-
-    lv_disp_load_scr(menu_dispatch_table[MAIN_MENU_VEC]); // The top main menu
+    lv_scr_load_anim(menu_dispatch_table[MAIN_MENU_VEC], LV_SCR_LOAD_ANIM_FADE_IN, 1000, 8000, false);
 }
 
 /**

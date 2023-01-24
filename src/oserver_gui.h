@@ -59,6 +59,7 @@ LV_IMG_DECLARE(Calendar_App_Heading_Title);
 LV_IMG_DECLARE(Contacts_App_Heading_Title);
 LV_IMG_DECLARE(O_App_Heading_Title);
 LV_IMG_DECLARE(Settings_App_Heading_Title);
+LV_IMG_DECLARE(Logo); // Metalic boot screen logo
 
 /*
  * Album covers for the 'Music' player

@@ -111,6 +111,8 @@ typedef struct {
  * GLOBAL PROTOTYPES
  **********************/
 
+void home_screen_setup(void);
+
 void device_menu_setup(void);
 void oserver_menu_setup(void);
 void file_menu_setup(void);
