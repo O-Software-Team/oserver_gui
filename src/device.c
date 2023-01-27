@@ -14,15 +14,19 @@ LV_IMG_DECLARE(Devices_App_Heading_Title);
 /* Message content attributes */
 #define MESSAGE_CONTENT_COLOR 0xADB1A2
 
-/*forward*/
+/* forward */
 static void add_device_cb(lv_event_t *);
 static void my_timer(lv_timer_t *);
+static void pin_timer(lv_timer_t *);
 
 /* global static */
 static lv_obj_t * trusted_device_list[DEVICE_PAGE_MAX];
 static lv_obj_t * device_found[DEVICE_FOUND_MAX];
 static lv_obj_t * trusted_device_btn_list[DEVICE_PAGE_MAX];
-static lv_timer_t * sleeptimer;
+static lv_timer_t * pause_before_onboard;
+static lv_timer_t * pause_before_set_pins;
+
+static lv_obj_t * roller_digits[5];  // GLOBAL alert
 
 static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
     {.menu_pre = "Kevin's iPhone",   .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
@@ -60,17 +64,44 @@ static void enter_code_handler(lv_event_t * e) {
     lv_obj_t * device_page = lv_obj_get_user_data(target);
     lv_obj_scroll_to_view(lv_obj_get_child(device_page, 2), LV_ANIM_ON);
 
-    /* After an amount of time to simulate entering the code on
+    /*
+     * Short delay and fill in a set of PIN numbers
+     */
+    pause_before_set_pins = lv_timer_create(pin_timer, 1000, roller_digits);
+    lv_timer_set_repeat_count(pause_before_set_pins, 1);
+
+    /*
+     * After an amount of time to simulate entering the code on
      * candidate device - scroll to or display the device
      */
-    sleeptimer = lv_timer_create(my_timer, 3500, device_page);
-    lv_timer_set_repeat_count(sleeptimer, 1);
+    pause_before_onboard = lv_timer_create(my_timer, 7000, device_page);
+    lv_timer_set_repeat_count(pause_before_onboard, 1);
 }
 
 static void device_selected_cb(lv_event_t * e) { printf("Selected device...\n"); }
 
 static void display_connected_device(lv_obj_t * cont, int which_device) {
 	printf ("devices %d connected\n", which_device);
+}
+
+static void display_new_pin(lv_obj_t * array_of_rollers[]) {
+    // NOTE: digits is a five (5) digit array of numbers going to display '94689'
+     lv_roller_set_selected(array_of_rollers[0], 8, LV_ANIM_ON);
+     lv_roller_set_selected(array_of_rollers[1], 3, LV_ANIM_ON);
+     lv_roller_set_selected(array_of_rollers[2], 5, LV_ANIM_ON);
+     lv_roller_set_selected(array_of_rollers[3], 7, LV_ANIM_ON);
+     lv_roller_set_selected(array_of_rollers[4], 9, LV_ANIM_ON);
+}
+
+static void event_handler(lv_event_t * e)
+{
+    lv_event_code_t code = lv_event_get_code(e);
+    lv_obj_t * obj = lv_event_get_target(e);
+    if(code == LV_EVENT_VALUE_CHANGED) {
+        char buf[32];
+        lv_roller_get_selected_str(obj, buf, sizeof(buf));
+        LV_LOG_USER("Selected value: %s", buf);
+    }
 }
 
 /* Set up the screen that shows the new trusted device connected */
@@ -200,6 +231,13 @@ static void my_timer(lv_timer_t * timer) {
     display_connected_device(device_page, 2);
 }
 
+// Simulate person entering the code on candidate device - gives a delay
+static void pin_timer(lv_timer_t * timer) {
+    /* User data is the previous event that got the code here */
+    lv_obj_t ** roller_array = timer->user_data;
+    display_new_pin(roller_array);
+}
+
 /* When a device is selected to be enquire about a trust relationship, this code page displays */
 void device_code_init(lv_obj_t * device_page)
 {
@@ -235,22 +273,92 @@ void device_code_init(lv_obj_t * device_page)
     lv_obj_set_style_opa(cancel_button, LV_OPA_0, LV_PART_MAIN);
 
     /* Display the code */
-    static lv_style_t code_style;
-    lv_style_init(&code_style);
-    lv_obj_t * code = lv_label_create(image);
-    lv_label_set_recolor(code, true);
-    lv_style_set_text_font(&code_style, &NeueHaasDisplayXThin_80);
-    lv_label_set_text(code, "603537");
-    lv_obj_set_style_text_color(code, lv_palette_main(LV_PALETTE_GREY), 0);
-    lv_obj_add_style(code, &code_style, LV_PART_MAIN);
-    lv_obj_align(code, LV_ALIGN_DEFAULT, 60, 180);
-    
+
+    /*A style to make the selected option larger*/
+    static lv_style_t style_sel;
+    lv_style_init(&style_sel);
+    lv_style_set_text_font(&style_sel, &NeueHaasDisplayXXThin_100);
+    lv_style_set_anim_time(&style_sel, 1000);
+
+    lv_style_set_bg_opa(&style_sel, LV_OPA_TRANSP);
+
+    const char * opts = "1\n2\n3\n4\n5\n6\n7\n8\n9\n0";
+
+    // NOTE: roller[1-5] are global values in this source module
+    roller_digits[0] = lv_roller_create(image);
+    lv_obj_set_style_bg_opa(roller_digits[0], LV_OPA_TRANSP, LV_PART_SELECTED);
+    lv_obj_set_style_border_width(roller_digits[0], 0, 0);
+    lv_obj_set_style_text_color(roller_digits[0], lv_color_white(), 0);
+    lv_obj_set_size(roller_digits[0], lv_pct(18), LV_SIZE_CONTENT);
+
+    lv_roller_set_options(roller_digits[0], opts, LV_ROLLER_MODE_NORMAL);
+    lv_roller_set_visible_row_count(roller_digits[0], 3);
+    lv_obj_add_style(roller_digits[0], &style_sel, LV_PART_MAIN);
+    lv_obj_align(roller_digits[0], LV_ALIGN_CENTER, -110, 0);
+    lv_obj_add_event_cb(roller_digits[0], event_handler, LV_EVENT_ALL, NULL);
+    lv_roller_set_selected(roller_digits[0], 9, LV_ANIM_ON);
+
+    /*A roller on the left with left aligned text, and custom width*/
+    roller_digits[1] = lv_roller_create(image);
+    lv_obj_set_style_bg_opa(roller_digits[1], LV_OPA_TRANSP, LV_PART_SELECTED);
+    lv_obj_set_style_border_width(roller_digits[1], 0, 0);
+    lv_obj_set_style_text_color(roller_digits[1], lv_color_white(), 0);
+    lv_obj_set_size(roller_digits[1], lv_pct(18), LV_SIZE_CONTENT);
+
+    lv_roller_set_options(roller_digits[1], opts, LV_ROLLER_MODE_NORMAL);
+    lv_roller_set_visible_row_count(roller_digits[1], 3);
+    lv_obj_add_style(roller_digits[1], &style_sel, LV_PART_MAIN);
+    lv_obj_align(roller_digits[1], LV_ALIGN_CENTER, -55, 0);
+    lv_obj_add_event_cb(roller_digits[1], event_handler, LV_EVENT_ALL, NULL);
+    lv_roller_set_selected(roller_digits[1], 9, LV_ANIM_ON);
+
+    /*A roller on the middle with center aligned text, and auto (default) width*/
+    roller_digits[2] = lv_roller_create(image);
+    lv_obj_set_style_bg_opa(roller_digits[2], LV_OPA_TRANSP, LV_PART_SELECTED);
+    lv_obj_set_style_border_width(roller_digits[2], 0, 0);
+    lv_obj_set_style_text_color(roller_digits[2], lv_color_white(), 0);
+    lv_obj_set_size(roller_digits[2], lv_pct(18), LV_SIZE_CONTENT);
+
+    lv_roller_set_options(roller_digits[2], opts, LV_ROLLER_MODE_NORMAL);
+    lv_roller_set_visible_row_count(roller_digits[2], 3);
+    lv_obj_add_style(roller_digits[2], &style_sel, LV_PART_MAIN);
+    lv_obj_align(roller_digits[2], LV_ALIGN_CENTER, 0, 0);
+    lv_obj_add_event_cb(roller_digits[2], event_handler, LV_EVENT_ALL, NULL);
+    lv_roller_set_selected(roller_digits[2], 9, LV_ANIM_ON);
+
+    /*A roller on the right with right aligned text, and custom width*/
+    roller_digits[3] = lv_roller_create(image);
+    lv_obj_set_style_bg_opa(roller_digits[3], LV_OPA_TRANSP, LV_PART_SELECTED);
+    lv_obj_set_style_border_width(roller_digits[3], 0, 0);
+    lv_obj_set_style_text_color(roller_digits[3], lv_color_white(), 0);
+    lv_obj_set_size(roller_digits[3], lv_pct(18), LV_SIZE_CONTENT);
+
+    lv_roller_set_options(roller_digits[3], opts, LV_ROLLER_MODE_NORMAL);
+    lv_roller_set_visible_row_count(roller_digits[3], 3);
+    lv_obj_add_style(roller_digits[3], &style_sel, LV_PART_MAIN);
+    lv_obj_align(roller_digits[3], LV_ALIGN_CENTER, 55, 0);
+    lv_obj_add_event_cb(roller_digits[3], event_handler, LV_EVENT_ALL, NULL);
+    lv_roller_set_selected(roller_digits[3], 9, LV_ANIM_ON);
+
+    roller_digits[4] = lv_roller_create(image);
+    lv_obj_set_style_bg_opa(roller_digits[4], LV_OPA_TRANSP, LV_PART_SELECTED);
+    lv_obj_set_style_border_width(roller_digits[4], 0, 0);
+    lv_obj_set_style_text_color(roller_digits[4], lv_color_white(), 0);
+    lv_obj_set_size(roller_digits[4], lv_pct(18), LV_SIZE_CONTENT);
+
+    lv_roller_set_options(roller_digits[4], opts, LV_ROLLER_MODE_NORMAL);
+    lv_roller_set_visible_row_count(roller_digits[4], 3);
+    lv_obj_add_style(roller_digits[4], &style_sel, LV_PART_MAIN);
+    lv_obj_align(roller_digits[4], LV_ALIGN_CENTER, 110, 0);
+    lv_obj_add_event_cb(roller_digits[4], event_handler, LV_EVENT_ALL, NULL);
+    lv_roller_set_selected(roller_digits[4], 9, LV_ANIM_ON);
+
     /* Tell them what to do with the displayed code */
     lv_obj_t * instructions = lv_label_create(image);
     lv_label_set_recolor(instructions, true);
     lv_label_set_text(instructions, "Enter this code\n on your device");
     lv_obj_set_style_text_color(instructions, lv_palette_main(LV_PALETTE_GREY), 0);
-    lv_obj_align(instructions, LV_ALIGN_DEFAULT, 140, 290);
+    lv_obj_align(instructions, LV_ALIGN_DEFAULT, 140, 300);
 
     render_back_button(image, back_button_cb);
 }
