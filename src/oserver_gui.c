@@ -278,6 +278,9 @@ void main_menu_init(void) {
     txtmsg_menu_setup();
     music_menu_setup();
     settings_menu_setup();
+    // Home screen is the default date and time with progress of system screen
+    // Mouse movement will display it and mouse click will enter menus.
+    home_screen_setup();
 }
 
 #endif

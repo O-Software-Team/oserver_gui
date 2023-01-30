@@ -15,7 +15,7 @@ void display_boot_screen(void)
     printf("BOOT SCREEN ...\n");
 
     LV_ASSERT(boot_screen == NULL);
-    boot_screen = lv_img_create(lv_scr_act());  // Assigned to GLOBAL
+    boot_screen = lv_img_create(NULL);  // Assigned to GLOBAL
 
     lv_obj_set_size(boot_screen, 385, 510); // Same as the simulator dislay
     lv_img_set_src(boot_screen, &Background);
@@ -29,5 +29,6 @@ void display_boot_screen(void)
     lv_img_set_src(boot_screen_symbol, &Logo);
     lv_obj_align(boot_screen_symbol, LV_ALIGN_TOP_MID, 0, 190);
 
-    lv_obj_fade_in(boot_screen, 1000, 3000);
+    lv_scr_load_anim(boot_screen, LV_SCR_LOAD_ANIM_FADE_IN, 500, 0, false);
+    lv_obj_fade_out(boot_screen, 700, 3000);
 }
