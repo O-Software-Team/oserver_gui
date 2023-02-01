@@ -11,9 +11,6 @@
 /* Main HEADING iconography */
 LV_IMG_DECLARE(Devices_App_Heading_Title);
 
-/* Message content attributes */
-#define MESSAGE_CONTENT_COLOR 0xADB1A2
-
 /* forward */
 static void add_device_cb(lv_event_t *);
 static void my_timer(lv_timer_t *);

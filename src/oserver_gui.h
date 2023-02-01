@@ -26,6 +26,8 @@ extern "C" {
 #define OCO_CANVAS_WIDTH 385 /* match MONITOR_HOR_RES */
 #define OCO_CANVAS_HEIGHT 510 /* match MONITOR_VER_RES */
 
+#define MESSAGE_CONTENT_COLOR 0xADB1A2
+
 /* Include image resources */
 LV_IMG_DECLARE(Background);
 LV_IMG_DECLARE(Icon_Status_Active);
@@ -58,6 +60,7 @@ LV_IMG_DECLARE(Text_App_Heading_Title);
 LV_IMG_DECLARE(Calendar_App_Heading_Title);
 LV_IMG_DECLARE(Contacts_App_Heading_Title);
 LV_IMG_DECLARE(O_App_Heading_Title);
+LV_IMG_DECLARE(Page_Dot);
 LV_IMG_DECLARE(Settings_App_Heading_Title);
 LV_IMG_DECLARE(Logo); // Metalic boot screen logo
 
