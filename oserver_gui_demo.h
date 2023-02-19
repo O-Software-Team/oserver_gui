@@ -47,7 +47,8 @@ extern "C" {
 /**********************
  * GLOBAL PROTOTYPES
  **********************/
-
+void display_home_screen(void);
+void display_boot_screen(void);
 
 /**********************
  *      MACROS
