@@ -25,7 +25,7 @@ void calendar_menu_setup(void)
     lv_obj_set_flex_flow(calendar_page, LV_FLEX_FLOW_ROW);
     lv_obj_set_style_clip_corner(calendar_page, true, 3);
     lv_obj_set_scroll_dir(calendar_page, LV_DIR_HOR);
-    lv_obj_set_scroll_snap_x(calendar_page, LV_SCROLL_SNAP_CENTER);
+    lv_obj_set_scroll_snap_x(calendar_page, LV_SCROLL_SNAP_CENTER)
     lv_obj_set_scrollbar_mode(calendar_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
 
     /* Store the content of this page for later display */
@@ -83,9 +83,9 @@ void calendar_init(lv_obj_t * calendar_page) {
     t = localtime(&T);
 
     lv_obj_t  * calendar = lv_calendar_create(image);
-    lv_obj_set_style_bg_opa(calendar, LV_OPA_TRANSP, 0);
-    lv_obj_set_style_border_color(calendar, lv_color_black(), 0);
+    lv_obj_set_style_bg_opa(calendar, LV_OPA_TRANSP, LV_PART_SELECTED);
     lv_obj_set_style_text_color(calendar, lv_color_white(), 0);
+    lv_obj_set_style_border_width(calendar, 0, 0);
 
     lv_obj_set_size(calendar, 300, 420);
     lv_obj_align(calendar, LV_ALIGN_CENTER, 0, 10);

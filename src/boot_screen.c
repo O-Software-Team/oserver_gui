@@ -22,6 +22,7 @@ void display_boot_screen(void)
 
     // Immediately turn off the page index circles.
     lv_obj_fade_out(lv_layer_top(), 0, 0);
+
     /*
      * The 'O' metalic symbol
      */

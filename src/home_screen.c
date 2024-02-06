@@ -136,7 +136,7 @@ void display_date(lv_obj_t * parent)
     lv_roller_set_options(hours_high, opts, LV_ROLLER_MODE_NORMAL);
     lv_roller_set_visible_row_count(hours_high, 4);
     lv_obj_add_style(hours_high, &style_sel, LV_PART_MAIN);
-    lv_obj_align(hours_high, LV_ALIGN_CENTER, -40, -60);
+    lv_obj_align(hours_high, LV_ALIGN_CENTER, -55, -60);
     //lv_obj_add_event_cb(hours_high, event_handler, LV_EVENT_ALL, NULL);
     lv_roller_set_selected(hours_high, 10, LV_ANIM_ON);
 
@@ -151,7 +151,7 @@ void display_date(lv_obj_t * parent)
     lv_roller_set_options(hours_low, opts, LV_ROLLER_MODE_NORMAL);
     lv_roller_set_visible_row_count(hours_low, 4);
     lv_obj_add_style(hours_low, &style_sel, LV_PART_MAIN);
-    lv_obj_align(hours_low, LV_ALIGN_CENTER, 40, -60);
+    lv_obj_align(hours_low, LV_ALIGN_CENTER, 30, -60);
     //lv_obj_add_event_cb(hours_low, event_handler, LV_EVENT_ALL, NULL);
     lv_roller_set_selected(hours_low, 10, LV_ANIM_ON);
 
@@ -167,7 +167,7 @@ void display_date(lv_obj_t * parent)
     lv_roller_set_options(mins_high, opts, LV_ROLLER_MODE_NORMAL);
     lv_roller_set_visible_row_count(mins_high, 4);
     lv_obj_add_style(mins_high, &style_sel, LV_PART_MAIN);
-    lv_obj_align(mins_high, LV_ALIGN_CENTER, -40, 60);
+    lv_obj_align(mins_high, LV_ALIGN_CENTER, -55, 60);
     //lv_obj_add_event_cb(mins_high, event_handler, LV_EVENT_ALL, NULL);
     lv_roller_set_selected(mins_high, 10, LV_ANIM_ON);
 
@@ -183,7 +183,7 @@ void display_date(lv_obj_t * parent)
     lv_roller_set_options(mins_low, opts, LV_ROLLER_MODE_NORMAL);
     lv_roller_set_visible_row_count(mins_low, 4);
     lv_obj_add_style(mins_low, &style_sel, LV_PART_MAIN);
-    lv_obj_align(mins_low, LV_ALIGN_CENTER, 40, 60);
+    lv_obj_align(mins_low, LV_ALIGN_CENTER, 30, 60);
     //lv_obj_add_event_cb(mins_low, event_handler, LV_EVENT_ALL, NULL);
     lv_roller_set_selected(mins_low, 10, LV_ANIM_ON);
 
