@@ -1,0 +1,26 @@
+{
+    "0001": {
+        "name":"Bob's iPhone",
+        "state":0,
+        "security_status":"friend",
+        "icon":"iphone"
+    },
+    "0002": {
+        "name":"Bob's iPad",
+        "state":1,
+        "security_status":"admin",
+        "icon":"ipad"
+    },
+    "0003": {
+        "name":"Bob's Macbook",
+        "state":0,
+        "security_status":"friend",
+        "icon":"macbook"
+    },
+    "0004": {
+        "name":"Orna's iPad",
+        "state":0,
+        "security_status":"friend",
+        "icon":"ipad"
+    }
+}

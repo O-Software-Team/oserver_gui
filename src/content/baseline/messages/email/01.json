@@ -1,0 +1,50 @@
+{
+    "status_codes": {
+        "0":"read",
+        "1":"unread",
+        "2":"important",
+        "3":"flagged"
+    },
+    "0001": {
+        "from":"Guillaume Jaulerry",
+        "subject":"Call: O Team Meeting",
+        "status":0,
+        "message":"Some string of senseless content here...\n\nWe will need to create some sort of latin gobbledeegook here...\n\nBlah-blah-blah... BANANA!"
+    },
+    "0002": {
+        "from":"O Company",
+        "subject":"RE: Call: O Team Meeting",
+        "status":0,
+        "message":"Blah-blah-blah... BANANA!"
+    },
+    "0003": {
+        "from":"Yoyodyne Propulsion Systems Inc.",
+        "subject":"Oscillation overthruster designs",
+        "status":0,
+        "message":"Blah-blah-blah... BANANA!"
+    },
+    "0004": {
+        "from":"Dr Emilio Lizardo",
+        "subject":"RE: Get the oscillation overthruster!",
+        "status":1,
+        "message":"Some giant string of text here. Will need to post some sort of Some giant string of text HERE.\n\nWill need to post some sort of Some giant string of text here. Will need to post some SORT OF\n\nlatin/gobbledeegook here... blah-blah-blah... Some giant string of text here. Will need to post some sort of latin/gobbledeegook here... blah-blah-blah... Some giant string of text HERE.\n\nWill need to post some sort of latin/gobbledeegook here... blah-blah-blah... BANANA!"
+    },
+    "0005": {
+        "from":"Bob's Big Boy",
+        "subject":"Burgers? You bet!",
+        "status":1,
+        "message":"Blah-blah-blah... BANANA!"
+    },
+    "0006": {
+        "from":"Site Inspire",
+        "subject":"Site Inspire x Week 16",
+        "status":1,
+        "message":"Blah-blah-blah... BANANA!"
+    },
+    "0007": {
+        "from":"John Ya Ya",
+        "subject":"Where is Professor Hikita?",
+        "status":1,
+        "message":"Blah-blah-blah... BANANA!"
+    }
+}

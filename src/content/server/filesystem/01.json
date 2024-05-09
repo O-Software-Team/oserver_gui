@@ -1,0 +1,333 @@
+{
+	"base": {
+		"name":"images",
+		"type":"directory",
+		"total":"155976"
+	},
+	"files": {
+		"0001": {
+			"perms":"drwxr-xr-x@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"directory",
+			"size":"2368",
+			"modified":"May 18  2023",
+			"name":"."
+		},
+		"0002": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"150630",
+			"modified":"May 18 2023",
+			"name":"ABBA_SOS.c"
+		},
+		"0003": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"578874",
+			"modified":"May 18 2023",
+			"name":"ABBA_SOS_LARGE.c"
+		},
+		"0004": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"147396",
+			"modified":"May 18 2023",
+			"name":"ALICIA_KEYS.c"
+		},
+		"0005": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"572472",
+			"modified":"May 18 2023",
+			"name":"ALICIA_KEYS_LARGE.c"
+		},
+		"0006": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"147408",
+			"modified":"May 18 2023",
+			"name":"AMY_WINEHOUSE.c"
+		},
+		"0007": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"572484",
+			"modified":"May 18 2023",
+			"name":"AMY_WINEHOUSE_LARGE.c"
+		},
+		"0008": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"147408",
+			"modified":"May 18 2023",
+			"name":"BACK_IN_BLACK.c"
+		},
+		"0009": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"572484",
+			"modified":"May 18 2023",
+			"name":"BACK_IN_BLACK_LARGE.c"
+		},
+		"0010": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"14181094",
+			"modified":"May 18 2023",
+			"name":"Background.c"
+		},
+		"0011": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"5859621",
+			"modified":"May 18 2023",
+			"name":"Background_Menu_Yellow.c"
+		},
+		"0012": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"119022",
+			"modified":"May 18 2023",
+			"name":"Calendar_App_Heading_Title.c"
+		},
+		"0013": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"105342",
+			"modified":"May 18 2023",
+			"name":"Contacts_App_Heading_Title.c"
+		},
+		"0014": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"106704",
+			"modified":"May 18 2023",
+			"name":"Devices_App_Heading_Title.c"
+		},
+		"0015": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"72491",
+			"modified":"May 18 2023",
+			"name":"Email_App_Heading_Title.c"
+		},
+		"0016": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"55313",
+			"modified":"May 18 2023",
+			"name":"FFWD.c"
+		},
+		"0017": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"57443",
+			"modified":"May 18 2023",
+			"name":"Files_App_Heading_Title.c"
+		},
+		"0018": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"222798",
+			"modified":"May 18 2023",
+			"name":"GreyHalo.c"
+		},
+		"0019": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"16882",
+			"modified":"May 18 2023",
+			"name":"Icon_Back.c"
+		},
+		"0020": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"42869",
+			"modified":"May 18 2023",
+			"name":"Icon_Bluetooth_White.c"
+		},
+		"0021": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"42845",
+			"modified":"May 18 2023",
+			"name":"Icon_Close_White.c"
+		},
+		"0022": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"42887",
+			"modified":"May 18 2023",
+			"name":"Icon_Email_Filter_White.c"
+		},
+		"0023": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"5834",
+			"modified":"May 18 2023",
+			"name":"Icon_Email_Unread_Yellow.c"
+		},
+		"0024": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"16954",
+			"modified":"May 18 2023",
+			"name":"Icon_Email_View_White.c"
+		},
+		"0025": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"222858",
+			"modified":"May 18 2023",
+			"name":"Icon_Filter_Button.c"
+		},
+		"0026": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"222894",
+			"modified":"May 18 2023",
+			"name":"Icon_Grey_Outline_Button.c"
+		},
+		"0027": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"24317",
+			"modified":"May 18 2023",
+			"name":"Icon_List_Item_Divider.c"
+		},
+		"0028": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"116646",
+			"modified":"May 18 2023",
+			"name":"Icon_MacBook.c"
+		},
+		"0029": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"370548",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_Calendar_Yellow.c"
+		},
+		"0030": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"353454",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_Contact_Yellow.c"
+		},
+		"0031": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"433855",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_Devices_Yellow.c"
+		},
+		"0032": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"353442",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_Files_Yellow.c"
+		},
+		"0033": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"250116",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_Mail_Yellow.c"
+		},
+		"0034": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"364962",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_Music_Yellow.c"
+		},
+		"0035": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"462858",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_O_Yellow.c"
+		},
+		"0036": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"325152",
+			"modified":"May 18 2023",
+			"name":"Icon_Menu_Settings_Yellow.c"
+		}
+	}
+}

@@ -1,0 +1,279 @@
+{
+	"base": {
+		"name":"fonts",
+		"type":"directory",
+		"total":"67656"
+	},
+	"files": {
+		"0074": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"121574",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayBold_16.c"
+		},
+		"0075": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"104479",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayLight_16.c"
+		},
+		"0076": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"49245",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayLight_18.c"
+		},
+		"0077": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"141041",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayLight_20.c"
+		},
+		"0078": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"158275",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayLight_22.c"
+		},
+		"0079": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"185359",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayLight_24.c"
+		},
+		"0080": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"284276",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayLight_32.c"
+		},
+		"0081": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"184246",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayLight_48.c"
+		},
+		"0082": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"116832",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayMediu_16.c"
+		},
+		"0083": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"108385",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayRoman_16.c"
+		},
+		"0084": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"124975",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayRoman_18.c"
+		},
+		"0085": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"146581",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayRoman_20.c"
+		},
+		"0086": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"2157631",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXThin_100.c"
+		},
+		"0087": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"4743984",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXThin_150.c"
+		},
+		"0088": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"539842",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXThin_48.c"
+		},
+		"0089": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"583078",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXThin_50.c"
+		},
+		"0090": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"625347",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXThin_52.c"
+		},
+		"0091": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"779946",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXThin_58.c"
+		},
+		"0092": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"1371212",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXThin_80.c"
+		},
+		"0093": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"2152419",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXXThin_100.c"
+		},
+		"0094": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"4659185",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXXThin_150.c"
+		},
+		"0095": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"5901120",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXXThin_170.c"
+		},
+		"0096": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"8138181",
+			"modified":"May 18 2023",
+			"name":"NeueHaasDisplayXXThin_200.c"
+		},
+		"0097": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"64868",
+			"modified":"May 18 2023",
+			"name":"SaolDisplayReguIarItalic_20.c"
+		},
+		"0098": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"71138",
+			"modified":"May 18 2023",
+			"name":"SaolDisplayRegularItalic_22.c"
+		},
+		"0099": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"80747",
+			"modified":"May 18 2023",
+			"name":"SaolDisplayRegularItalic_24.c"
+		},
+		"0100": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"254684",
+			"modified":"May 18 2023",
+			"name":"SaolDisplayRegularItalic_26.c"
+		},
+		"0101": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"362759",
+			"modified":"May 18 2023",
+			"name":"SaolDisplayRegularItalic_32.c"
+		},
+		"0102": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"230516",
+			"modified":"May 18 2023",
+			"name":"SaolDisplayRegularItalic_48.c"
+		},
+		"0103": {
+			"perms":"-rw-r--r--@",
+			"owner":"steveglaiser",
+			"group":"staff",
+			"type":"file",
+			"size":"140015",
+			"modified":"May 18 2023",
+			"name":"SaolLightItalic.c"
+		}
+	}
+}
