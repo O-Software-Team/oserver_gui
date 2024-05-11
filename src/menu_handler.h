@@ -63,6 +63,26 @@ typedef struct {
     // bool active;
 } txtmsg_item;
 
+typedef struct {
+    char * menu_pre;
+    char * menu_italic;
+    int lx_offset;
+    int mx_offset;
+    int rx_offset;
+    int contact_id;
+    char * contact_fname;
+    char * contact_lname;
+    char * contact_name;
+    char * contact_phone;
+    char * contact_email;
+    char * contact_phone;
+    char * contact_address;
+    char * contact_notes;
+    // void (* page_handler)(lv_obj_t *);
+    // lv_img_dsc_t * txtmsg_status;
+    // bool active;
+} contacts_item;
+
 enum security {ADMIN = 0, FRIEND};
 
 // typedef struct {
