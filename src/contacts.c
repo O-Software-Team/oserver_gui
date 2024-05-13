@@ -282,10 +282,10 @@ void contacts_menu_setup(void)
     lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
-    txtmsg_list_init(contacts_page);
+    contacts_list_init(contacts_page);
 
     /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
-    text_message_view(contacts_page);
+    contacts_view(contacts_page);
 
 /*
     lv_obj_t * contacts_page = lv_obj_create(NULL);
