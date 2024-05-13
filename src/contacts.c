@@ -93,22 +93,22 @@ static contacts_item contacts_list[CONTACT_LIST_MAX] = {
         .contact_fname = "Guillaume",
         .contact_lname = "Jaulerry",
         .contact_name = "Guillaume Jaulerry",
-        .contact_h_phone = "+33 764 281599",
+        .contact_p_phone = "+33 764 281599",
         .contact_m_phone = "",
         .contact_w_phone = "+1 732-555-1212",
-        .contact_h_email = "gjaulerry@ominiserver.com",
+        .contact_p_email = "gjaulerry@ominiserver.com",
         .contact_w_email = "gjaulerry@yoyodyne.ai",
-        .contact_h_address = "",
+        .contact_p_address = "",
         .contact_w_address = "",
         .contact_notes = "Some string of senseless content here...\n\nWe will need to create some sort of latin gobbledeegook here...\n\nBlah-blah-blah... BANANA!",
         .contact_status = &Icon_Unread_Yellow,
-    }
-}
+    },
+};
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * from_string;
 static int from_count;
-const char * summary_string;
+// const char * summary_string;
 int summary_count;
 static const char * notes_string;
 static int notes_count;
@@ -118,9 +118,9 @@ lv_label_t * ctcitem_id;
 lv_label_t * ctcitem_name;
 lv_label_t * ctcitem_notes;
 lv_label_t * ctcitem_status;
-lv_label_t * txtmsg_message;
+// lv_label_t * txtmsg_message;
 lv_label_t * contact_detail_from;
-lv_obj_t * text_detail_message;
+// lv_obj_t * text_detail_message;
 static lv_obj_t * top_of_list_items;
 static lv_obj_t * spacer;
 
@@ -168,33 +168,33 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
         offset =  -64 + (92 * i);
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
-        from_string = contacts_list[i].ctcitem_name;
+        from_string = contacts_list[i].contact_name;
         from_count = strlen(from_string);
 
         /* Calculate if the SUMMARY field is greater than or equal to 37 characters */
-        // summary_string = contacts_list[i].ctcitem_name;
+        // summary_string = contacts_list[i].contact_name;
         // summary_count = strlen(summary_string);
 
-        /* Calculate if the MESSAGE field is greater than or equal to 37 characters */
+        /* Calculate if the NOTES field is greater than or equal to 37 characters */
         notes_string = contacts_list[i].contact_notes;
         notes_count = strlen(notes_string);
 
-        /* Text message READ/UNREAD icon on the left */
+        /* Contact FAV/NOT_FAV icon on the left */
         // lv_obj_t * txtmsg_icon = lv_img_create(image);
         // lv_img_set_src(txtmsg_icon, contacts_list[i].ctcitem_status);
         // lv_obj_align(txtmsg_icon, LV_ALIGN_LEFT_MID, LIST_LEFT_ALIGNED, offset);
 
-        /* Text message FROM field */
+        /* Contact NAME field */
         ctcitem_name = lv_label_create(image);
         lv_label_set_recolor(ctcitem_name, true);
 
         /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
         if(from_count >= 25) {
-            lv_label_set_text(ctcitem_name, contacts_list[i].ctcitem_name);
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
             lv_label_cut_text(ctcitem_name,23,from_count);
             lv_label_ins_text(ctcitem_name,25,"...");
         } else {
-            lv_label_set_text(ctcitem_name, contacts_list[i].ctcitem_name);
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
         }
 
         lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
@@ -207,11 +207,11 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
 
         /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
         if(summary_count >= 37) {
-            lv_label_set_text(ctcitem_name, contacts_list[i].ctcitem_name);
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
             lv_label_cut_text(ctcitem_name,35,summary_count);
             lv_label_ins_text(ctcitem_name,37,"...");
         } else {
-            lv_label_set_text(ctcitem_name, contacts_list[i].ctcitem_name);
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
         }
 
         lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
@@ -237,7 +237,7 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
 }
 
-void text_message_view(lv_obj_t * contacts_page) {
+void contacts_view(lv_obj_t * contacts_page) {
     /* Main page definition */
     lv_obj_t * image = lv_img_create(contacts_page);
     lv_img_set_src(image, &Background);
@@ -246,7 +246,7 @@ void text_message_view(lv_obj_t * contacts_page) {
     render_back_button(image, back_home_button_cb);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
-    from_string = contacts_list[CONTACT_ID].ctcitem_name;
+    from_string = contacts_list[CONTACT_ID].contact_name;
     from_count = strlen(from_string);
 
     /* Text FROM field */
@@ -255,11 +255,11 @@ void text_message_view(lv_obj_t * contacts_page) {
 
     /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
     if(from_count >= 25) {
-        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].ctcitem_name);
+        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
         lv_label_cut_text(ctcitem_name,23,from_count);
         lv_label_ins_text(ctcitem_name,25,"...");
     } else {
-        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].ctcitem_name);
+        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
     }
 
 }

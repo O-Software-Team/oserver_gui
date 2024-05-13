@@ -81,9 +81,9 @@ typedef struct {
     char * contact_p_address;
     char * contact_w_address;
     char * contact_notes;
-    char * contact_status;
+    // char * contact_status;
     // void (* page_handler)(lv_obj_t *);
-    // lv_img_dsc_t * txtmsg_status;
+    lv_img_dsc_t * contact_status;
     // bool active;
 } contacts_item;
 
