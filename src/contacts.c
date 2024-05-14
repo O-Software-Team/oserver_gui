@@ -67,14 +67,14 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
 /* global static */
-static lv_obj_t * contact_list[CONTACT_LIST_MAX];
+// static lv_obj_t * contact_list[CONTACT_LIST_MAX];
 
 // static lv_obj_t * trusted_device_btn_list[CONTACT_PAGE_MAX];
 // static lv_obj_t * found_btn[CONTACT_FOUND_MAX];
 
-static contacts_item contacts_list[CONTACT_LIST_MAX] = {
+static contacts_item contacts_list[] = {
     {
-        .contact_id = 0,
+        .contact_id = "0001",
         .contact_fname = "Guillaume",
         .contact_lname = "Jaulerry",
         .contact_name = "Guillaume Jaulerry",
@@ -89,24 +89,30 @@ static contacts_item contacts_list[CONTACT_LIST_MAX] = {
         .contact_status = &Icon_Unread_Yellow,
     },
     {
-        .contact_id = 1,
-        .contact_fname = "Guillaume",
-        .contact_lname = "Jaulerry",
-        .contact_name = "Guillaume Jaulerry",
+        .contact_id = "0002",
+        .contact_fname = "Buckaroo",
+        .contact_lname = "Banzai",
+        .contact_name = "Buckaroo Banzai",
         .contact_p_phone = "+33 764 281599",
         .contact_m_phone = "",
-        .contact_w_phone = "+1 732-555-1212",
-        .contact_p_email = "gjaulerry@ominiserver.com",
-        .contact_w_email = "gjaulerry@yoyodyne.ai",
+        .contact_w_phone = "+1 650-555-0201",
+        .contact_p_email = "Buckaroo+Banzai@gmail.com",
+        .contact_w_email = "gjaulerry@banzai_institue.org",
         .contact_p_address = "",
         .contact_w_address = "",
-        .contact_notes = "Some string of senseless content here...\n\nWe will need to create some sort of latin gobbledeegook here...\n\nBlah-blah-blah... BANANA!",
+        .contact_notes = "Notes",
         .contact_status = &Icon_Unread_Yellow,
+    },
+    {
+        .contact_id = "end",
+        .contact_notes = "TAP HERE\nTo import\nyour Contacts",
     },
 };
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-static int total_contact_items;
+static int total_contact_items = 1;
+static int j;
+static int ttl_items;
 static const char * from_string;
 static int from_count;
 static const char * notes_string;
@@ -121,7 +127,7 @@ lv_label_t * ctcitem_notes;
 lv_label_t * ctcitem_status;
 lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
-static lv_obj_t * spacer;
+// static lv_obj_t * spacer;
 // lv_label_t * txtmsg_message;
 // lv_obj_t * text_detail_message;
 
@@ -160,8 +166,21 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[CONTACT_LIST_MAX];
 
-    total_contact_items = contacts_list;
-    printf("%s",total_contact_items);
+    printf("Calculate contact records...\n");
+    for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
+        total_contact_items += ttl_items;
+        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_list[ttl_items].contact_id);
+    }
+
+    printf("Building each Contact record for display\n");
+    for(j = 0; j < total_contact_items; j++) {
+        if(contacts_list[j].contact_id == "end") {
+            printf("item: %d -- contact_notes: %s\n",j,contacts_list[j].contact_notes);
+            break;
+        } else {
+            printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
+        }
+    }
 
     /* Add (simulated) text messages as clickable buttons*/
     for (int i = 0; i < CONTACT_LIST_MAX; i++) {

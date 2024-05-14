@@ -69,7 +69,7 @@ typedef struct {
     int lx_offset;
     int mx_offset;
     int rx_offset;
-    int contact_id;
+    char * contact_id;
     char * contact_fname;
     char * contact_lname;
     char * contact_name;
