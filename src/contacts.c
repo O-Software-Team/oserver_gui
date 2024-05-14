@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
-#define CONTACT_LIST_MAX 2
+#define CONTACT_LIST_MAX 3
 // #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0
 
@@ -25,7 +25,7 @@
 #define LIST_SEPARATOR 30
 #define LIST_CONTENT_ITEM 50
 
-/* Message content attributes */
+/* Contact content attributes */
 #define CONTACT_CONTENT_COLOR 0xADB1A2
 
 /* Bottom of viewport attributes */
@@ -72,15 +72,7 @@ LV_FONT_DECLARE(lv_font_montserrat_44);
 // static lv_obj_t * trusted_device_btn_list[CONTACT_PAGE_MAX];
 // static lv_obj_t * found_btn[CONTACT_FOUND_MAX];
 
-// Open the CSV file
-// ifstream file("./content/inc/contacts/03.csv");
-
-// if (!file.is_open()) {
-    // cerr << "Error opening file!" << endl;
-    // return 1;
-// }
-
-
+/* Create and initialize the Contacts list */
 static contacts_item contacts_list[] = {
     {
         .contact_id = "0001",
@@ -288,31 +280,38 @@ static contacts_item contacts_list[] = {
     },
 };
 
-/* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+/* Set variables to determine total number of Contacts list members */
 static int total_contact_items = 1;
-static int j;
 static int ttl_items;
-static const char * from_string;
-static int from_count;
+
+/* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+static const char * name_string;
+static int name_count;
+static const char * email_string;
+static int email_count;
+static const char * phone_string;
+static int phone_count;
+static const char * address_string;
+static int address_count;
 static const char * notes_string;
 static int notes_count;
-// const char * summary_string;
-// int summary_count;
 
-/* Set variables for all the message content fields: ID, FROM, SUBJECT, MESSAGE */
-lv_label_t * ctcitem_id;
-lv_label_t * ctcitem_name;
-lv_label_t * ctcitem_notes;
-lv_label_t * ctcitem_status;
+/* Set variables for all the contacts content fields: ID, NAME, EMAIL, PHONE, etc */
+lv_label_t * contact_id;
+lv_label_t * contact_name;
+lv_label_t * contact_p_email;
+lv_label_t * contact_m_phone;
+lv_label_t * contact_w_address;
+lv_label_t * contact_status;
+lv_label_t * contact_notes;
 lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
 // static lv_obj_t * spacer;
-// lv_label_t * txtmsg_message;
 // lv_obj_t * text_detail_message;
 
-/* The following function populates the main screen with read and unread text messages */
-void contacts_list_init(lv_obj_t * ctcitem_page) {
-    lv_obj_t * image = lv_img_create(ctcitem_page);
+/* The following function populates the main screen with full list of contacts */
+void contacts_list_init(lv_obj_t * contacts_page) {
+    lv_obj_t * image = lv_img_create(contacts_page);
     lv_img_set_src(image, &Background);
 
     render_back_button(image, back_home_button_cb);
@@ -331,8 +330,8 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
-    lv_label_set_text(list_name, "On Bob's MacBook");
-    lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_label_set_text(list_name, "Bob's Contacts");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     // Add a list item separator line above the list item text
@@ -353,7 +352,7 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     printf("\nTotal Records: %d\n\n",total_contact_items);
 
     printf("Building each Contact record for display\n");
-    for(j = 0; j < total_contact_items; j++) {
+    for(int j = 0; j < total_contact_items; j++) {
         if(contacts_list[j].contact_id == "end") {
             printf("item: %d -- contact_notes: %s\n",j,contacts_list[j].contact_notes);
             break;
@@ -362,7 +361,9 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
         }
     }
 
-    /* Add (simulated) text messages as clickable buttons*/
+    printf("CONTACT_LIST_MAX: %d\n",CONTACT_LIST_MAX);
+
+    /* Add (simulated) contacts as clickable buttons*/
     for (int i = 0; i < CONTACT_LIST_MAX; i++) {
 
         left.y = left.y + offset;
@@ -375,10 +376,6 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
         /* Calculate if the FROM field is greater than or equal to 25 characters */
         from_string = contacts_list[i].contact_name;
         from_count = strlen(from_string);
-
-        /* Calculate if the SUMMARY field is greater than or equal to 37 characters */
-        // summary_string = contacts_list[i].contact_name;
-        // summary_count = strlen(summary_string);
 
         /* Calculate if the NOTES field is greater than or equal to 37 characters */
         notes_string = contacts_list[i].contact_notes;
@@ -420,7 +417,7 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
         } */
 
         lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        lv_obj_set_style_text_color(ctcitem_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+        lv_obj_set_style_text_color(ctcitem_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
         lv_obj_set_style_text_line_space(ctcitem_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
         lv_obj_set_style_text_font(ctcitem_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
