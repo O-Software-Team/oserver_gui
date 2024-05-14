@@ -4,6 +4,11 @@
 #include "utilities.h"
 
 #include <stdio.h>
+#include <fstream>
+#include <iostream>
+#include <sstream>
+
+using namespace std;
 
 /* Contact list and contact ID variables */
 #define CONTACT_LIST_MAX 2
