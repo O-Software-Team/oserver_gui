@@ -176,11 +176,12 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[CONTACT_LIST_MAX];
 
-    printf("Calculate contact records...\n");
+    printf("\nCalculate contact records...\n");
     for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
-        total_contact_items += ttl_items;
+        total_contact_items = ttl_items+1;
         printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_list[ttl_items].contact_id);
     }
+    printf("\nTotal Records: %d\n\n",total_contact_items);
 
     printf("Building each Contact record for display\n");
     for(j = 0; j < total_contact_items; j++) {
