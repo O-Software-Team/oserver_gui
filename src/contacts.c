@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
-#define CONTACT_LIST_MAX 25
+#define CONTACT_LIST_MAX 2
 #define CONTACT_FOUND_MAX 25
 #define CONTACT_ID 0
 
@@ -282,9 +282,11 @@ void contacts_menu_setup(void)
     lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
+    printf("CONTACTS LIST init...\n");
     contacts_list_init(contacts_page);
 
     /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
+    printf("CONTACTS VIEW launch...\n");
     contacts_view(contacts_page);
 
 /*
