@@ -350,6 +350,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     }
     printf("\nTotal Records: %d\n\n",total_contact_items);
 
+    printf("\nTEST\n");
+
     printf("Building each Contact record for display\n");
     for(int j = 0; j < total_contact_items; j++) {
         if(contacts_list[j].contact_id == "end") {
@@ -359,8 +361,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
         }
     }
-
-    printf("CONTACT_LIST_MAX: %d\n",CONTACT_LIST_MAX);
 
     /* Add (simulated) contacts as clickable buttons*/
     for (int i = 0; i < total_contact_items; i++) {
