@@ -7,7 +7,7 @@
 
 /* Contact list and contact ID variables */
 #define CONTACT_LIST_MAX 2
-#define CONTACT_FOUND_MAX 25
+// #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
@@ -160,8 +160,8 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[CONTACT_LIST_MAX];
 
-    total_contact_items = vec.back().contacts_list;
-    printf("%s",total_contact_items.contact_id);
+    total_contact_items = contacts_list;
+    printf("%s",total_contact_items);
 
     /* Add (simulated) text messages as clickable buttons*/
     for (int i = 0; i < CONTACT_LIST_MAX; i++) {
@@ -294,24 +294,5 @@ void contacts_menu_setup(void)
     /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
     printf("CONTACTS VIEW launch...\n");
     contacts_view(contacts_page);
-
-/*
-    lv_obj_t * contacts_page = lv_obj_create(NULL);
-    lv_obj_t * background = lv_img_create(contacts_page);
-    lv_img_set_src(background, &Background);
-
-
-    menu_dispatch_table[CONTACTS_VEC] = contacts_page;
-
-    render_back_button(background, back_home_button_cb);
-    lv_obj_center(contacts_page);
-    lv_obj_set_style_bg_color(contacts_page, lv_color_lighten(lv_color_black(), 60), 0);
-    lv_obj_set_flex_flow(contacts_page, LV_FLEX_FLOW_ROW);
-    //lv_obj_add_event_cb(contacts_page, scroll_event_cb, LV_EVENT_SCROLL, NULL);
-    lv_obj_set_style_clip_corner(contacts_page, true, 3);
-    lv_obj_set_scroll_dir(contacts_page, LV_DIR_HOR);
-    lv_obj_set_scroll_snap_x(contacts_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
-*/
 
 }
