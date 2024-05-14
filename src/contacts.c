@@ -7,7 +7,6 @@
 
 /* Contact list and contact ID variables */
 #define CONTACT_LIST_MAX 3
-// #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
@@ -364,7 +363,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     printf("CONTACT_LIST_MAX: %d\n",CONTACT_LIST_MAX);
 
     /* Add (simulated) contacts as clickable buttons*/
-    for (int i = 0; i < CONTACT_LIST_MAX; i++) {
+    for (int i = 0; i < total_contact_items; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
