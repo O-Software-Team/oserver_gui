@@ -106,6 +106,7 @@ static contacts_item contacts_list[CONTACT_LIST_MAX] = {
 };
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+static int total_contact_items;
 static const char * from_string;
 static int from_count;
 static const char * notes_string;
@@ -159,6 +160,9 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[CONTACT_LIST_MAX];
 
+    total_contact_items = vec.back().contacts_list;
+    printf("%s",total_contact_items.contact_id);
+
     /* Add (simulated) text messages as clickable buttons*/
     for (int i = 0; i < CONTACT_LIST_MAX; i++) {
 
@@ -166,6 +170,8 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
         right.y = right.y + offset;
 
         offset =  -64 + (92 * i);
+
+        /* Get the total count of records in the contacts_list struct
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
         from_string = contacts_list[i].contact_name;
