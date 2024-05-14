@@ -4,11 +4,6 @@
 #include "utilities.h"
 
 #include <stdio.h>
-#include <fstream>
-#include <iostream>
-#include <sstream>
-
-using namespace std;
 
 /* Contact list and contact ID variables */
 #define CONTACT_LIST_MAX 2
@@ -78,12 +73,12 @@ LV_FONT_DECLARE(lv_font_montserrat_44);
 // static lv_obj_t * found_btn[CONTACT_FOUND_MAX];
 
 // Open the CSV file
-ifstream file("./content/inc/contacts/03.csv");
+// ifstream file("./content/inc/contacts/03.csv");
 
-if (!file.is_open()) {
-    cerr << "Error opening file!" << endl;
-    return 1;
-}
+// if (!file.is_open()) {
+    // cerr << "Error opening file!" << endl;
+    // return 1;
+// }
 
 
 static contacts_item contacts_list[] = {
