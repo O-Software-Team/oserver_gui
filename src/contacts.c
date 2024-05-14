@@ -77,6 +77,15 @@ LV_FONT_DECLARE(lv_font_montserrat_44);
 // static lv_obj_t * trusted_device_btn_list[CONTACT_PAGE_MAX];
 // static lv_obj_t * found_btn[CONTACT_FOUND_MAX];
 
+// Open the CSV file
+ifstream file("./content/inc/contacts/03.csv");
+
+if (!file.is_open()) {
+    cerr << "Error opening file!" << endl;
+    return 1;
+}
+
+
 static contacts_item contacts_list[] = {
     {
         .contact_id = "0001",
@@ -117,6 +126,66 @@ static contacts_item contacts_list[] = {
         .contact_m_phone = "650.555.0203",
         .contact_w_address = "757 Kingman Ave, Santa Monica, CA 90402",
         .contact_notes = "Organization Name, Banzai Institute, Organization Title, Theoretical Assistant, Organization Department, Asset Mgmt"
+    },
+    {
+        .contact_id = "0005",
+        .contact_name = "Rawhide",
+        .contact_fname = "Rawhide",
+        .contact_lname = "",
+        .contact_p_email = "Rawhide@gmail.com",
+        .contact_m_phone = "650.555.0204",
+        .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
+    },
+    {
+        .contact_id = "0006",
+        .contact_name = "Perfect Tommy",
+        .contact_fname = "Perfect",
+        .contact_lname = "Tommy",
+        .contact_p_email = "Perfect+Tommy@gmail.com",
+        .contact_m_phone = "650.555.0205",
+        .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
+    },
+    {
+        .contact_id = "0007",
+        .contact_name = "New Jersey",
+        .contact_fname = "New",
+        .contact_lname = "Jersey",
+        .contact_p_email = "New+Jersey@gmail.com",
+        .contact_m_phone = "650.555.0206",
+        .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
+    },
+    {
+        .contact_id = "0008",
+        .contact_name = "Reno Nevada",
+        .contact_fname = "Reno",
+        .contact_lname = "Nevada",
+        .contact_p_email = "Reno+Nevada@gmail.com",
+        .contact_m_phone = "650.555.0207",
+        .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
+    },
+    {
+        .contact_id = "0009",
+        .contact_name = "The Swede",
+        .contact_fname = "Swede",
+        .contact_lname = "",
+        .contact_p_email = "Swede@gmail.com",
+        .contact_m_phone = "650.555.0214",
+        .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
+    },
+    {
+        .contact_id = "0010",
+        .contact_name = "Scooter Lindley",
+        .contact_fname = "Scooter",
+        .contact_lname = "Lindley",
+        .contact_p_email = "Scooter+Lindley@gmail.com",
+        .contact_m_phone = "650.555.0209",
+        .contact_w_address = "2010 El Camino Real, San Mateo, CA 94403",
+        .contact_notes = "Organization Name, Blue Blaze Irregulars, Organization Title, Team Member, Organization Department, "
     },
     {
         .contact_id = "end",
