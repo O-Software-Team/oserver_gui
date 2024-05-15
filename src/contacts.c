@@ -364,8 +364,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         /* Get the total count of records in the contacts_list struct
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
-        from_string = contacts_list[i].contact_name;
-        from_count = strlen(from_string);
+        name_string = contacts_list[i].contact_name;
+        name_count = strlen(name_string);
 
         /* Calculate if the NOTES field is greater than or equal to 37 characters */
         // notes_string = contacts_list[i].contact_notes;
@@ -438,8 +438,8 @@ void contacts_view(lv_obj_t * contacts_page) {
     render_back_button(image, back_home_button_cb);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
-    from_string = contacts_list[CONTACT_ID].contact_name;
-    from_count = strlen(from_string);
+    name_string = contacts_list[CONTACT_ID].contact_name;
+    name_count = strlen(name_string);
 
     /* Text FROM field */
     contact_detail_from = lv_label_create(image);
