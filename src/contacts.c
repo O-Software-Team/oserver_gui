@@ -66,7 +66,7 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
 /* global static */
-// static lv_obj_t * contact_list[CONTACT_LIST_MAX];
+static lv_obj_t * contact_list[];
 
 // static lv_obj_t * trusted_device_btn_list[CONTACT_PAGE_MAX];
 // static lv_obj_t * found_btn[CONTACT_FOUND_MAX];
