@@ -27,6 +27,7 @@ extern "C" {
 #define OCO_CANVAS_HEIGHT 510 /* match MONITOR_VER_RES */
 
 #define MESSAGE_CONTENT_COLOR 0xADB1A2
+#define CONTACT_CONTENT_COLOR 0xADB1A2
 
 /* Include image resources */
 LV_IMG_DECLARE(Background);
