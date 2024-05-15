@@ -442,16 +442,16 @@ void contacts_view(lv_obj_t * contacts_page) {
     name_count = strlen(name_string);
 
     /* Text FROM field */
-    contact_detail_from = lv_label_create(image);
-    lv_label_set_recolor(contact_detail_from, true);
+    contact_name = lv_label_create(image);
+    lv_label_set_recolor(contact_name, true);
 
     /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
     if(name_count >= 25) {
-        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
+        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
         lv_label_cut_text(contact_name,23,name_count);
         lv_label_ins_text(contact_name,25,"...");
     } else {
-        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
+        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
     }
 
 }
