@@ -361,9 +361,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         }
     }
 
-
     /* Add (simulated) contacts as clickable buttons*/
-    for (int i = 0; i < CONTACT_LIST_MAX; i++) {
+    for (int i = 0; i < total_contact_items; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
