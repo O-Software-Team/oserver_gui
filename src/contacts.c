@@ -350,7 +350,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     }
     printf("\nTotal Records: %d\n\n",total_contact_items);
 
-    printf("\nTEST\n");
+    // printf("\nTEST\n");
 
     printf("Building each Contact record for display\n");
     for(int j = 0; j < total_contact_items; j++) {
