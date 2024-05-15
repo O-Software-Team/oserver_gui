@@ -377,8 +377,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         name_count = strlen(name_string);
 
         /* Calculate if the NOTES field is greater than or equal to 37 characters */
-        notes_string = contacts_list[i].contact_notes;
+/*        notes_string = contacts_list[i].contact_notes;
         notes_count = strlen(notes_string);
+*/
 
         /* Contact FAV/NOT_FAV icon on the left */
         // lv_obj_t * txtmsg_icon = lv_img_create(image);
@@ -413,7 +414,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             lv_label_ins_text(contact_name,37,"...");
         } else {
             lv_label_set_text(contact_name, contacts_list[i].contact_name);
-        } */
+        }
+*/
 
         lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
         lv_obj_set_style_text_color(contact_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
