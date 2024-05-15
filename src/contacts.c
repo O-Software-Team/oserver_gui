@@ -427,6 +427,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_set_style_bg_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
     lv_obj_set_style_bg_opa(bottom_viewport_overlay, 164, 0);
     lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
+
 }
 
 void contacts_view(lv_obj_t * contacts_page) {
