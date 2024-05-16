@@ -472,7 +472,7 @@ void contacts_menu_setup(void)
     lv_obj_set_style_clip_corner(contacts_page, true, 3);
     lv_obj_set_scroll_dir(contacts_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(contacts_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_ON);
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
     printf("CONTACTS LIST init...\n");
