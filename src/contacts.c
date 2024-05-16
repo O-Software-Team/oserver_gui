@@ -369,7 +369,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
         offset =  -64 + (92 * i);
 
-        /* Get the total count of records in the contacts_list struct
+        /* Get the total count of records in the contacts_list struct */
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
         from_string = contacts_list[i].contact_name;
