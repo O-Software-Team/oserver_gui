@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
-#define CONTACT_LIST_MAX 3
+#define CONTACT_LIST_MAX 2
 // #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0
 
@@ -285,33 +285,30 @@ static int total_contact_items = 1;
 static int ttl_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-static const char * name_string;
-static int name_count;
-static const char * email_string;
-static int email_count;
-static const char * phone_string;
-static int phone_count;
-static const char * address_string;
-static int address_count;
+static const char * from_string;
+static int from_count;
 static const char * notes_string;
 static int notes_count;
+// const char * summary_string;
+// int summary_count;
 
 /* Set variables for all the contacts content fields: ID, NAME, EMAIL, PHONE, etc */
-lv_label_t * contact_id;
-lv_label_t * contact_name;
-lv_label_t * contact_p_email;
-lv_label_t * contact_m_phone;
-lv_label_t * contact_w_address;
-lv_label_t * contact_status;
-lv_label_t * contact_notes;
+lv_label_t * ctcitem_id;
+lv_label_t * ctcitem_name;
+lv_label_t * ctcitem_notes;
+lv_label_t * ctcitem_p_email;
+lv_label_t * ctcitem_m_phone;
+lv_label_t * ctcitem_w_address;
+lv_label_t * ctcitem_status;
 lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
 // static lv_obj_t * spacer;
+// lv_label_t * txtmsg_message;
 // lv_obj_t * text_detail_message;
 
 /* The following function populates the main screen with full list of contacts */
-void contacts_list_init(lv_obj_t * contacts_page) {
-    lv_obj_t * image = lv_img_create(contacts_page);
+void contacts_list_init(lv_obj_t * ctcitem_page) {
+    lv_obj_t * image = lv_img_create(ctcitem_page);
     lv_img_set_src(image, &Background);
 
     render_back_button(image, back_home_button_cb);
@@ -325,6 +322,14 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_t * page_header = lv_img_create(image);
     lv_img_set_src(page_header, &Contacts_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the text message list heading */
+    lv_label_t * list_name = lv_label_create(image);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
+    lv_label_set_text(list_name, "On Bob's MacBook");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     // Add a list item separator line above the list item text
     top_of_list_items = lv_img_create(image);
@@ -354,7 +359,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     }
 
     /* Add (simulated) contacts as clickable buttons*/
-    for (int i = 0; i < total_contact_items; i++) {
+    for (int i = 0; i < CONTACT_LIST_MAX; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
@@ -364,12 +369,12 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         /* Get the total count of records in the contacts_list struct */
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
-        name_string = contacts_list[i].contact_name;
-        name_count = strlen(name_string);
+        from_string = contacts_list[i].contact_name;
+        from_count = strlen(from_string);
 
         /* Calculate if the NOTES field is greater than or equal to 37 characters */
-        // notes_string = contacts_list[i].contact_notes;
-        // notes_count = strlen(notes_string);
+        notes_string = contacts_list[i].contact_notes;
+        notes_count = strlen(notes_string);
 
         /* Contact FAV/NOT_FAV icon on the left */
         // lv_obj_t * txtmsg_icon = lv_img_create(image);
@@ -377,39 +382,39 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         // lv_obj_align(txtmsg_icon, LV_ALIGN_LEFT_MID, LIST_LEFT_ALIGNED, offset);
 
         /* Contact NAME field */
-        contact_name = lv_label_create(image);
-        lv_label_set_recolor(contact_name, true);
+        ctcitem_name = lv_label_create(image);
+        lv_label_set_recolor(ctcitem_name, true);
 
         /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(name_count >= 25) {
-            lv_label_set_text(contact_name, contacts_list[i].contact_name);
-            lv_label_cut_text(contact_name,23,name_count);
-            lv_label_ins_text(contact_name,25,"...");
+        if(from_count >= 25) {
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+            lv_label_cut_text(ctcitem_name,23,from_count);
+            lv_label_ins_text(ctcitem_name,25,"...");
         } else {
-            lv_label_set_text(contact_name, contacts_list[i].contact_name);
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
         }
 
-        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
-        lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
+        lv_obj_set_style_text_color(ctcitem_name, lv_color_white(), 0);
+        lv_obj_set_style_text_font(ctcitem_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Text message SUMMARY field */
-        contact_name = lv_label_create(image);
-        lv_label_set_recolor(contact_name, true);
+        ctcitem_name = lv_label_create(image);
+        lv_label_set_recolor(ctcitem_name, true);
 
         /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
-        // if(summary_count >= 37) {
-            // lv_label_set_text(contact_name, contacts_list[i].contact_name);
-            // lv_label_cut_text(contact_name,35,summary_count);
-            // lv_label_ins_text(contact_name,37,"...");
-        // } else {
-            // lv_label_set_text(contact_name, contacts_list[i].contact_name);
-        // }
+/*        if(summary_count >= 37) {
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+            lv_label_cut_text(ctcitem_name,35,summary_count);
+            lv_label_ins_text(ctcitem_name,37,"...");
+        } else {
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+        } */
 
-        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        lv_obj_set_style_text_color(contact_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
-        lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
-        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
+        lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
+        lv_obj_set_style_text_color(ctcitem_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+        lv_obj_set_style_text_line_space(ctcitem_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
+        lv_obj_set_style_text_font(ctcitem_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
         // Add a list item separator line above the list item text
         list_item_separator[i] = lv_img_create(image);
@@ -427,7 +432,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_set_style_bg_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
     lv_obj_set_style_bg_opa(bottom_viewport_overlay, 164, 0);
     lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
-
 }
 
 void contacts_view(lv_obj_t * contacts_page) {
@@ -439,20 +443,20 @@ void contacts_view(lv_obj_t * contacts_page) {
     render_back_button(image, back_home_button_cb);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
-    name_string = contacts_list[CONTACT_ID].contact_name;
-    name_count = strlen(name_string);
+    from_string = contacts_list[CONTACT_ID].contact_name;
+    from_count = strlen(from_string);
 
     /* Text FROM field */
-    contact_name = lv_label_create(image);
-    lv_label_set_recolor(contact_name, true);
+    contact_detail_from = lv_label_create(image);
+    lv_label_set_recolor(contact_detail_from, true);
 
     /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-    if(name_count >= 25) {
-        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
-        lv_label_cut_text(contact_name,23,name_count);
-        lv_label_ins_text(contact_name,25,"...");
+    if(from_count >= 25) {
+        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
+        lv_label_cut_text(ctcitem_name,23,from_count);
+        lv_label_ins_text(ctcitem_name,25,"...");
     } else {
-        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
+        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
     }
 
 }
@@ -472,7 +476,7 @@ void contacts_menu_setup(void)
     lv_obj_set_style_clip_corner(contacts_page, true, 3);
     lv_obj_set_scroll_dir(contacts_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(contacts_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_ON);
+    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
     printf("CONTACTS LIST init...\n");
