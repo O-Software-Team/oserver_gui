@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
-#define CONTACT_LIST_MAX 3
+#define CONTACT_LIST_MAX 2
 // #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0
 
@@ -331,7 +331,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
     lv_label_set_text(list_name, "Bob's Contacts");
-    lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     // Add a list item separator line above the list item text
@@ -415,7 +415,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         } */
 
         lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        lv_obj_set_style_text_color(ctcitem_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
+        lv_obj_set_style_text_color(ctcitem_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
         lv_obj_set_style_text_line_space(ctcitem_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
         lv_obj_set_style_text_font(ctcitem_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
