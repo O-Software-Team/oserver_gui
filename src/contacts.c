@@ -326,6 +326,15 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_img_set_src(page_header, &Contacts_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
+
+    /* Add the text message list heading */
+    lv_label_t * list_name = lv_label_create(image);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
+    lv_label_set_text(list_name, "Bob's Contacts");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
     // Add a list item separator line above the list item text
     top_of_list_items = lv_img_create(image);
     lv_img_set_src(top_of_list_items, &Linez);
@@ -361,11 +370,11 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
         offset =  -64 + (92 * i);
 
-        /* Get the total count of records in the contacts_list struct */
+        /* Get the total count of records in the contacts_list struct
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
-        name_string = contacts_list[i].contact_name;
-        name_count = strlen(name_string);
+        from_string = contacts_list[i].contact_name;
+        from_count = strlen(from_string);
 
         /* Calculate if the NOTES field is greater than or equal to 37 characters */
         // notes_string = contacts_list[i].contact_notes;
@@ -438,8 +447,8 @@ void contacts_view(lv_obj_t * contacts_page) {
     render_back_button(image, back_home_button_cb);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
-    name_string = contacts_list[CONTACT_ID].contact_name;
-    name_count = strlen(name_string);
+    from_string = contacts_list[CONTACT_ID].contact_name;
+    from_count = strlen(from_string);
 
     /* Text FROM field */
     contact_detail_from = lv_label_create(image);
