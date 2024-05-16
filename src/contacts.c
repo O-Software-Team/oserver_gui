@@ -326,7 +326,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_img_set_src(page_header, &Contacts_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-
     /* Add the text message list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
@@ -363,7 +362,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     }
 
     /* Add (simulated) contacts as clickable buttons*/
-    for (int i = 0; i < total_contact_items; i++) {
+    for (int i = 0; i < CONTACT_LIST_MAX; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
@@ -377,8 +376,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         from_count = strlen(from_string);
 
         /* Calculate if the NOTES field is greater than or equal to 37 characters */
-        // notes_string = contacts_list[i].contact_notes;
-        // notes_count = strlen(notes_string);
+        notes_string = contacts_list[i].contact_notes;
+        notes_count = strlen(notes_string);
 
         /* Contact FAV/NOT_FAV icon on the left */
         // lv_obj_t * txtmsg_icon = lv_img_create(image);
@@ -407,13 +406,13 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         lv_label_set_recolor(ctcitem_name, true);
 
         /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
-        // if(summary_count >= 37) {
-            // lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-            // lv_label_cut_text(ctcitem_name,35,summary_count);
-            // lv_label_ins_text(ctcitem_name,37,"...");
-        // } else {
-            // lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-        // }
+/*        if(summary_count >= 37) {
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+            lv_label_cut_text(ctcitem_name,35,summary_count);
+            lv_label_ins_text(ctcitem_name,37,"...");
+        } else {
+            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+        } */
 
         lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
         lv_obj_set_style_text_color(ctcitem_name, lv_color_hex(CONTACT_CONTENT_COLOR), 0);
