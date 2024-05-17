@@ -200,7 +200,7 @@ void home_screen_setup(void)
     printf("HOME SCREEN setup...\n");
     home_screen = lv_img_create(NULL);  // Assigned to GLOBAL
 
-    lv_obj_set_size(home_screen, 385, 510); // Same as the simulator dislay
+    lv_obj_set_size(home_screen, 385, 510); // Same as the simulator display
     lv_obj_set_style_bg_color(home_screen, lv_color_lighten(lv_color_black(), 50), 0);
     lv_img_set_src(home_screen, &Background);
     lv_obj_set_flex_flow(home_screen, LV_FLEX_FLOW_ROW);
@@ -215,14 +215,14 @@ void home_screen_setup(void)
 
 /*
  * This is the home screen it is used to display the time and various device status
- * After a background task is lanched or the menu activity stops - this screen will be displayed
+ * After a background task is launched or the menu activity stops - this screen will be displayed
  * for a *predetermined* (XXX needs definition) amount of time, then the screen will fade to black.
  * Touch screen or other "haptic input" will display this screen until "swiped away" to enter menus.
  */
 void display_home_screen(void)
 {
     lv_obj_t * image = lv_img_create(home_screen); // GLOBAL screen object for home screen
-    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
+    lv_obj_set_size(image, 385, 510); // Same as the simulator display
     lv_obj_center(image);
     /*
      * The top middle grey circled cancel button with 'X'
