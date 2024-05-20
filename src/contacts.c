@@ -296,10 +296,10 @@ static int address_count;
 static const char * notes_string;
 static int notes_count;
 
-static const char * from_string;
-static int from_count;
-static const char * notes_string;
-static int notes_count;
+// static const char * from_string;
+// static int from_count;
+// static const char * notes_string;
+// static int notes_count;
 // const char * summary_string;
 // int summary_count;
 
