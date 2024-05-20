@@ -295,6 +295,7 @@ static const char * address_string;
 static int address_count;
 static const char * notes_string;
 static int notes_count;
+
 static const char * from_string;
 static int from_count;
 static const char * notes_string;
@@ -388,8 +389,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         /* Get the total count of records in the contacts_list struct */
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
-        from_string = contacts_list[i].contact_name;
-        from_count = strlen(from_string);
+        name_string = contacts_list[i].contact_name;
+        name_count = strlen(name_string);
 
         /* Calculate if the NOTES field is greater than or equal to 37 characters */
         notes_string = contacts_list[i].contact_notes;
@@ -405,9 +406,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         lv_label_set_recolor(ctcitem_name, true);
 
         /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(from_count >= 25) {
+        if(name_count >= 25) {
             lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-            lv_label_cut_text(ctcitem_name,23,from_count);
+            lv_label_cut_text(ctcitem_name,23,name_count);
             lv_label_ins_text(ctcitem_name,25,"...");
         } else {
             lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
@@ -462,17 +463,17 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     render_back_button(image, back_home_button_cb);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
-    from_string = contacts_list[CONTACT_ID].contact_name;
-    from_count = strlen(from_string);
+    name_string = contacts_list[CONTACT_ID].contact_name;
+    name_count = strlen(name_string);
 
     /* Text FROM field */
     contact_detail_from = lv_label_create(image);
     lv_label_set_recolor(contact_detail_from, true);
 
     /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-    if(from_count >= 25) {
+    if(name_count >= 25) {
         lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
-        lv_label_cut_text(ctcitem_name,23,from_count);
+        lv_label_cut_text(ctcitem_name,23,name_count);
         lv_label_ins_text(ctcitem_name,25,"...");
     } else {
         lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
