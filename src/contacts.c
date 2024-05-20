@@ -305,14 +305,6 @@ lv_label_t * contact_w_address;
 lv_label_t * contact_status;
 lv_label_t * contact_notes;
 
-// lv_label_t * ctcitem_id;
-lv_label_t * ctcitem_name;
-// lv_label_t * ctcitem_notes;
-// lv_label_t * ctcitem_p_email;
-// lv_label_t * ctcitem_m_phone;
-// lv_label_t * ctcitem_w_address;
-// lv_label_t * ctcitem_status;
-
 lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
 // static lv_obj_t * spacer;
