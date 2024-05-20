@@ -287,6 +287,14 @@ static int ttl_items;
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * name_string;
 static int name_count;
+static const char * email_string;
+static int email_count;
+static const char * phone_string;
+static int phone_count;
+static const char * address_string;
+static int address_count;
+static const char * notes_string;
+static int notes_count;
 static const char * from_string;
 static int from_count;
 static const char * notes_string;
