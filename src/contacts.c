@@ -285,6 +285,8 @@ static int total_contact_items = 1;
 static int ttl_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+static const char * name_string;
+static int name_count;
 static const char * from_string;
 static int from_count;
 static const char * notes_string;
