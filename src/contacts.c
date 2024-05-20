@@ -326,8 +326,9 @@ static lv_obj_t * top_of_list_items;
 // lv_obj_t * text_detail_message;
 
 /* The following function populates the main screen with full list of contacts */
-void contacts_list_init(lv_obj_t * ctcitem_page) {
-    lv_obj_t * image = lv_img_create(ctcitem_page);
+// void contacts_list_init(lv_obj_t * ) {
+void contacts_list_init(lv_obj_t * contacts_page) {
+    lv_obj_t * image = lv_img_create(contacts_page);
     lv_img_set_src(image, &Background);
 
     render_back_button(image, back_home_button_cb);
@@ -453,9 +454,10 @@ void contacts_list_init(lv_obj_t * ctcitem_page) {
     lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
 }
 
-void contacts_view(lv_obj_t * contacts_page) {
+// void contacts_view(lv_obj_t * contacts_page) {
+void contacts_view(lv_obj_t * contacts_view_page) {
     /* Main page definition */
-    lv_obj_t * image = lv_img_create(contacts_page);
+    lv_obj_t * image = lv_img_create(contacts_view_page);
     lv_img_set_src(image, &Background);
 
     /* Back button */
