@@ -296,13 +296,6 @@ static int address_count;
 static const char * notes_string;
 static int notes_count;
 
-// static const char * from_string;
-// static int from_count;
-// static const char * notes_string;
-// static int notes_count;
-// const char * summary_string;
-// int summary_count;
-
 /* Set variables for all the contacts content fields: ID, NAME, EMAIL, PHONE, etc */
 lv_label_t * contact_id;
 lv_label_t * contact_name;
@@ -312,13 +305,13 @@ lv_label_t * contact_w_address;
 lv_label_t * contact_status;
 lv_label_t * contact_notes;
 
-lv_label_t * ctcitem_id;
+// lv_label_t * ctcitem_id;
 lv_label_t * ctcitem_name;
-lv_label_t * ctcitem_notes;
-lv_label_t * ctcitem_p_email;
-lv_label_t * ctcitem_m_phone;
-lv_label_t * ctcitem_w_address;
-lv_label_t * ctcitem_status;
+// lv_label_t * ctcitem_notes;
+// lv_label_t * ctcitem_p_email;
+// lv_label_t * ctcitem_m_phone;
+// lv_label_t * ctcitem_w_address;
+// lv_label_t * ctcitem_status;
 
 lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
@@ -402,25 +395,25 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         // lv_obj_align(txtmsg_icon, LV_ALIGN_LEFT_MID, LIST_LEFT_ALIGNED, offset);
 
         /* Contact NAME field */
-        ctcitem_name = lv_label_create(image);
-        lv_label_set_recolor(ctcitem_name, true);
+        contact_name = lv_label_create(image);
+        lv_label_set_recolor(contact_name, true);
 
         /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
         if(name_count >= 25) {
-            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-            lv_label_cut_text(ctcitem_name,23,name_count);
-            lv_label_ins_text(ctcitem_name,25,"...");
+            lv_label_set_text(contact_name, contacts_list[i].contact_name);
+            lv_label_cut_text(contact_name,23,name_count);
+            lv_label_ins_text(contact_name,25,"...");
         } else {
-            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+            lv_label_set_text(contact_name, contacts_list[i].contact_name);
         }
 
-        lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
-        lv_obj_set_style_text_color(ctcitem_name, lv_color_white(), 0);
-        lv_obj_set_style_text_font(ctcitem_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
+        lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
+        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Text message SUMMARY field */
-        ctcitem_name = lv_label_create(image);
-        lv_label_set_recolor(ctcitem_name, true);
+        contact_name = lv_label_create(image);
+        lv_label_set_recolor(contact_name, true);
 
         /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
 /*        if(summary_count >= 37) {
@@ -431,10 +424,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
         } */
 
-        lv_obj_align(ctcitem_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        lv_obj_set_style_text_color(ctcitem_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
-        lv_obj_set_style_text_line_space(ctcitem_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
-        lv_obj_set_style_text_font(ctcitem_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
+        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
+        lv_obj_set_style_text_color(contact_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+        lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
+        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
         // Add a list item separator line above the list item text
         list_item_separator[i] = lv_img_create(image);
@@ -473,8 +466,8 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
     if(name_count >= 25) {
         lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
-        lv_label_cut_text(ctcitem_name,23,name_count);
-        lv_label_ins_text(ctcitem_name,25,"...");
+        lv_label_cut_text(contact_name,23,name_count);
+        lv_label_ins_text(contact_name,25,"...");
     } else {
         lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
     }
