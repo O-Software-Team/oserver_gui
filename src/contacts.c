@@ -8,7 +8,7 @@
 /* Contact list and contact ID variables */
 #define CONTACT_LIST_MAX 2
 // #define CONTACT_FOUND_MAX 0
-#define CONTACT_ID 0
+#define CONTACT_ID 0001
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
 #define CONTACT_HEIGHT 290
@@ -326,7 +326,6 @@ static lv_obj_t * top_of_list_items;
 // lv_obj_t * text_detail_message;
 
 /* The following function populates the main screen with full list of contacts */
-// void contacts_list_init(lv_obj_t * ) {
 void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_t * image = lv_img_create(contacts_page);
     lv_img_set_src(image, &Background);
@@ -454,7 +453,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
 }
 
-// void contacts_view(lv_obj_t * contacts_page) {
 void contacts_view(lv_obj_t * contacts_view_page) {
     /* Main page definition */
     lv_obj_t * image = lv_img_create(contacts_view_page);
