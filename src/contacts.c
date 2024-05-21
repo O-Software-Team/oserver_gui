@@ -422,9 +422,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
         // Add a list item separator line above the list item text
-        // list_item_separator[i] = lv_img_create(image);
-        // lv_img_set_src(list_item_separator[i], &Linez);
-        // lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        list_item_separator[i] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[i], &Linez);
+        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
