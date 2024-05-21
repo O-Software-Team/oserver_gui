@@ -336,8 +336,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     }
 
     /* Set the MAX_RECORDS variable here */
-    CONTACT_LIST_MAX = total_contact_items;
-    printf("CONTACT_LIST_MAX = ",total_contact_items);
+    // CONTACT_LIST_MAX = total_contact_items;
+    // printf("CONTACT_LIST_MAX = ",total_contact_items);
 
     render_back_button(image, back_home_button_cb);
 
@@ -367,10 +367,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
-    lv_obj_t * list_item_separator[CONTACT_LIST_MAX];
+    lv_obj_t * list_item_separator[total_contact_items];
 
     /* Add (simulated) contacts as clickable buttons*/
-    for (int i = 0; i < CONTACT_LIST_MAX; i++) {
+    for (int i = 0; i < total_contact_items; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
