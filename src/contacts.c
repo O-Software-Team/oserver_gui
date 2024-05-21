@@ -363,7 +363,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
-    // lv_obj_t * list_item_separator[total_contact_items];
+    lv_obj_t * list_item_separator[total_contact_items];
 
     /* Add (simulated) contacts as clickable buttons*/
     for (int i = 0; i < total_contact_items; i++) {
