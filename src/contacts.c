@@ -19,7 +19,7 @@
 #define CONTACT_PAD_LEFT 30
 #define CONTACT_NOTES 120
 #define CONTACT_CONTENT 186
-#define CONTACT_LINE_SPACING 5.5
+#define CONTACT_LINE_SPACING 1.5
 
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
@@ -335,10 +335,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         }
     }
 
-    /* Set the MAX_RECORDS variable here */
-    // CONTACT_LIST_MAX = total_contact_items;
-    // printf("CONTACT_LIST_MAX = ",total_contact_items);
-
     render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the text messages */
@@ -360,14 +356,14 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     // Add a list item separator line above the list item text
-    top_of_list_items = lv_img_create(image);
-    lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
+    // top_of_list_items = lv_img_create(image);
+    // lv_img_set_src(top_of_list_items, &Linez);
+    // lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
-    lv_obj_t * list_item_separator[total_contact_items];
+    // lv_obj_t * list_item_separator[total_contact_items];
 
     /* Add (simulated) contacts as clickable buttons*/
     for (int i = 0; i < total_contact_items; i++) {
@@ -376,8 +372,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         right.y = right.y + offset;
 
         offset =  -64 + (92 * i);
-
-        /* Get the total count of records in the contacts_list struct */
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
         name_string = contacts_list[i].contact_name;
