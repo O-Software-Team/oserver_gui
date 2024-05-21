@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
-#define CONTACT_LIST_MAX 2
+#define CONTACT_LIST_MAX 7
 // #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0001
 
