@@ -410,8 +410,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Text message SUMMARY field */
-        contact_name = lv_label_create(image);
-        lv_label_set_recolor(contact_name, true);
+        // contact_name = lv_label_create(image);
+        // lv_label_set_recolor(contact_name, true);
 
         /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
 /*        if(summary_count >= 37) {
@@ -428,9 +428,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
         // Add a list item separator line above the list item text
-        list_item_separator[i] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        // list_item_separator[i] = lv_img_create(image);
+        // lv_img_set_src(list_item_separator[i], &Linez);
+        // lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
