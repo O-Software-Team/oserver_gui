@@ -23,7 +23,7 @@
 
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
-#define LIST_CONTENT_ITEM 50
+#define LIST_CONTENT_ITEM 25
 
 /* Contact content attributes */
 #define CONTACT_CONTENT_COLOR 0xADB1A2
@@ -401,7 +401,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
         lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 16);
         lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-        lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
         /* Text message SUMMARY field */
