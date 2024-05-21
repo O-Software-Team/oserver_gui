@@ -22,8 +22,8 @@
 #define CONTACT_LINE_SPACING 5.5
 
 #define LIST_LEFT_ALIGNED 25
-#define LIST_SEPARATOR 15
-#define LIST_CONTENT_ITEM 25
+#define LIST_SEPARATOR 5
+#define LIST_CONTENT_ITEM 16
 
 /* Contact content attributes */
 #define CONTACT_CONTENT_COLOR 0xADB1A2
