@@ -11,15 +11,15 @@
 #define CONTACT_ID 0001
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
-#define CONTACT_HEIGHT 190
+#define CONTACT_HEIGHT 290
 #define CONTACT_WIDTH 332
 #define CONTACT_MASK_WIDTH 332
-#define CONTACT_MASK_HEIGHT 400
+#define CONTACT_MASK_HEIGHT 100
 
 #define CONTACT_PAD_LEFT 30
 #define CONTACT_NOTES 120
 #define CONTACT_CONTENT 186
-#define CONTACT_LINE_SPACING 1.5
+#define CONTACT_LINE_SPACING 5.5
 
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
@@ -30,7 +30,7 @@
 
 /* Bottom of viewport attributes */
 #define OVERLAY_WIDTH 345
-#define OVERLAY_HEIGHT 70
+#define OVERLAY_HEIGHT 35
 #define OVERLAY_POS_LEFT 20
 #define OVERLAY_POS_FROM_TOP 440
 #define OVERLAY_COLOR 0x0F0F0F
