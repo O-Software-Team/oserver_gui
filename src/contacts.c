@@ -6,15 +6,15 @@
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
-#define CONTACT_LIST_MAX 7
+// #define CONTACT_LIST_MAX 7
 // #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0001
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
-#define CONTACT_HEIGHT 290
+#define CONTACT_HEIGHT 190
 #define CONTACT_WIDTH 332
 #define CONTACT_MASK_WIDTH 332
-#define CONTACT_MASK_HEIGHT 100
+#define CONTACT_MASK_HEIGHT 400
 
 #define CONTACT_PAD_LEFT 30
 #define CONTACT_NOTES 120
