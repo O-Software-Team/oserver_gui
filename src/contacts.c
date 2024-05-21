@@ -11,14 +11,14 @@
 #define CONTACT_ID 0001
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
-#define CONTACT_HEIGHT 74
+#define CONTACT_HEIGHT 400
 #define CONTACT_WIDTH 332
 #define CONTACT_MASK_WIDTH 332
-#define CONTACT_MASK_HEIGHT 90
+#define CONTACT_MASK_HEIGHT 100
 
 #define CONTACT_PAD_LEFT 30
 #define CONTACT_NOTES 120
-#define CONTACT_CONTENT 90
+#define CONTACT_CONTENT 186
 #define CONTACT_LINE_SPACING 5.5
 
 #define LIST_LEFT_ALIGNED 25
