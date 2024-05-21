@@ -19,7 +19,7 @@
 #define CONTACT_PAD_LEFT 30
 #define CONTACT_NOTES 120
 #define CONTACT_CONTENT 186
-#define CONTACT_LINE_SPACING 1.5
+#define CONTACT_LINE_SPACING 5.5
 
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
@@ -399,9 +399,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             lv_label_set_text(contact_name, contacts_list[i].contact_name);
         }
 
-        // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
-        // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-        // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 15);
+        lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
+        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Text message SUMMARY field */
         // contact_name = lv_label_create(image);
@@ -416,10 +416,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
         } */
 
-        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        lv_obj_set_style_text_color(contact_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
-        lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
-        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
+        // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
+        // lv_obj_set_style_text_color(contact_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+        // lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
+        // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
         // Add a list item separator line above the list item text
         // list_item_separator[i] = lv_img_create(image);
