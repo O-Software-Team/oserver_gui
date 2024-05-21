@@ -23,7 +23,7 @@
 
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
-#define LIST_CONTENT_ITEM 50
+#define LIST_CONTENT_ITEM 30
 
 /* Contact content attributes */
 #define CONTACT_CONTENT_COLOR 0xADB1A2
@@ -399,7 +399,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             lv_label_set_text(contact_name, contacts_list[i].contact_name);
         }
 
-        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 12);
+        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 16);
         lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
@@ -424,7 +424,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         // Add a list item separator line above the list item text
         list_item_separator[i] = lv_img_create(image);
         lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
+        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 16);
     }
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
