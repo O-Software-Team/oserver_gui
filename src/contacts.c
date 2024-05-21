@@ -424,7 +424,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         // Add a list item separator line above the list item text
         list_item_separator[i] = lv_img_create(image);
         lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 14);
+        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 24);
     }
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
