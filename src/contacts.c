@@ -316,6 +316,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_t * image = lv_img_create(contacts_page);
     lv_img_set_src(image, &Background);
 
+    /* Calculate total records contact records */
     printf("\nCalculate contact records...\n");
     for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
         total_contact_items = ttl_items+1;
@@ -323,6 +324,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     }
     printf("\nTotal Records: %d\n\n",total_contact_items);
 
+    /* Build the Contact record list for display */
     printf("Building each Contact record for display\n");
     for(int j = 0; j < total_contact_items; j++) {
         if(contacts_list[j].contact_id == "end") {
@@ -332,6 +334,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
         }
     }
+
+    /* Set the MAX_RECORDS variable here */
+    CONTACT_LIST_MAX = total_contact_items;
+    printf("CONTACT_LIST_MAX = ",total_contact_items);
 
     render_back_button(image, back_home_button_cb);
 
