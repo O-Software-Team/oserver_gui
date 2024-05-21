@@ -313,6 +313,23 @@ static lv_obj_t * top_of_list_items;
 
 /* The following function populates the main screen with full list of contacts */
 void contacts_list_init(lv_obj_t * contacts_page) {
+    printf("\nCalculate contact records...\n");
+    for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
+        total_contact_items = ttl_items+1;
+        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_list[ttl_items].contact_id);
+    }
+    printf("\nTotal Records: %d\n\n",total_contact_items);
+
+    printf("Building each Contact record for display\n");
+    for(int j = 0; j < total_contact_items; j++) {
+        if(contacts_list[j].contact_id == "end") {
+            printf("item: %d -- contact_notes: %s\n",j,contacts_list[j].contact_notes);
+            break;
+        } else {
+            printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
+        }
+    }
+
     lv_obj_t * image = lv_img_create(contacts_page);
     lv_img_set_src(image, &Background);
 
@@ -346,25 +363,8 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[CONTACT_LIST_MAX];
 
-    printf("\nCalculate contact records...\n");
-    for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
-        total_contact_items = ttl_items+1;
-        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_list[ttl_items].contact_id);
-    }
-    printf("\nTotal Records: %d\n\n",total_contact_items);
-
-    printf("Building each Contact record for display\n");
-    for(int j = 0; j < total_contact_items; j++) {
-        if(contacts_list[j].contact_id == "end") {
-            printf("item: %d -- contact_notes: %s\n",j,contacts_list[j].contact_notes);
-            break;
-        } else {
-            printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
-        }
-    }
-
     /* Add (simulated) contacts as clickable buttons*/
-    for (int i = 0; i < CONTACT_LIST_MAX; i++) {
+    for (int i = 0; i < total_contact_items; i++) {
 
         left.y = left.y + offset;
         right.y = right.y + offset;
