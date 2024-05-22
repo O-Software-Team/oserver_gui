@@ -12,10 +12,6 @@
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
 #define CONTACT_PAD_LEFT 30
-#define LV_ALIGN_TOP_LEFT 0
-#define LV_ALIGN_TOP_MID 0
-#define LV_ALIGN_LEFT_MID 0
-
 // #define CONTACT_HEIGHT 290
 // #define CONTACT_WIDTH 332
 // #define CONTACT_MASK_WIDTH 332
