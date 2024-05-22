@@ -415,7 +415,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
 
         /* ORIGINAL */
-        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 16);
+        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
         lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
