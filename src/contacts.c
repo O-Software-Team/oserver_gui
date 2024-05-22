@@ -356,17 +356,17 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the text message list heading - NOT NEEDED FOR THIS APP */
-    // lv_label_t * list_name = lv_label_create(image);
-    // lv_label_set_recolor(list_name, true);
-    // lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
-    // lv_label_set_text(list_name, "Bob's Contacts");
-    // lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
-    // lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_label_t * list_name = lv_label_create(image);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
+    lv_label_set_text(list_name, "Favorites");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-    // Add a list item separator line above the list item text
-    // top_of_list_items = lv_img_create(image);
-    // lv_img_set_src(top_of_list_items, &Linez);
-    // lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
+    // Add a list item separator line below the list item header
+    top_of_list_items = lv_img_create(image);
+    lv_img_set_src(top_of_list_items, &Linez);
+    lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
