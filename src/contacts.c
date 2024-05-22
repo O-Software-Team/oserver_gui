@@ -379,7 +379,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         left.y = left.y + offset;
         right.y = right.y + offset;
 
-        offset =  -40 + (78 * i);
+        offset =  -40 + (72 * i);
 
         /* Calculate if the FROM field is greater than or equal to 25 characters */
         name_string = contacts_list[i].contact_name;
