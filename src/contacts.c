@@ -11,15 +11,23 @@
 #define CONTACT_ID 0001
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
-#define CONTACT_HEIGHT 290
-#define CONTACT_WIDTH 332
-#define CONTACT_MASK_WIDTH 332
-#define CONTACT_MASK_HEIGHT 290
-
 #define CONTACT_PAD_LEFT 30
-#define CONTACT_NOTES 120
-#define CONTACT_CONTENT 186
-#define CONTACT_LINE_SPACING 5.5
+// #define CONTACT_HEIGHT 290
+// #define CONTACT_WIDTH 332
+// #define CONTACT_MASK_WIDTH 332
+// #define CONTACT_MASK_HEIGHT 290
+
+/* USE THESE AS REFERENCE */
+#define EMAIL_MESSAGE_SUBJECT 120
+#define EMAIL_MESSAGE_CONTENT 186
+#define EMAIL_MESSAGE_LINE_SPACING 5.5
+
+
+#define CONTACT_NAME_WIDTH 332
+#define CONTACT_NAME 120
+// #define CONTACT_NOTES 120
+// #define CONTACT_CONTENT 186
+// #define CONTACT_LINE_SPACING 5.5
 
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
@@ -399,9 +407,17 @@ void contacts_list_init(lv_obj_t * contacts_page) {
             lv_label_set_text(contact_name, contacts_list[i].contact_name);
         }
 
-        lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 16);
+        /* Contact Name field */
+        lv_obj_align(contact_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, CONTACT_NAME);
+        lv_obj_set_style_width(contact_name, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
         lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
+        lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_32, LV_PART_MAIN);
+
+
+        /* ORIGINAL */
+        // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - 16);
+        // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
+        // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
         /* Text message SUMMARY field */
         // contact_name = lv_label_create(image);
