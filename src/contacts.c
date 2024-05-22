@@ -409,7 +409,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
         /* Contact Name field */
         lv_obj_align(contact_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, CONTACT_NAME);
-        lv_obj_set_style_width(contact_name, MESSAGE_TEXTAREA_WIDTH, LV_PART_MAIN);
+        lv_obj_set_style_width(contact_name, CONTACT_NAME_WIDTH, LV_PART_MAIN);
         lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
