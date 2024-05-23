@@ -90,6 +90,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Buckaroo+Banzai@gmail.com",
         .contact_m_phone = "650.555.0201",
         .contact_w_address = "757 Kingman Ave, Santa Monica, CA 90402",
+        .contact_company_name = "Banzai Institute",
         .contact_notes = "Organization Name, Banzai Institute, Organization Title, CEO, Organization Department, "
     },
     {
@@ -100,6 +101,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Emilio+Lizardo@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_company_name = "Yoyodyne Propulsion Systems",
         .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, Doctor, Organization Department, Overthruster Design",
     },
     {
@@ -110,6 +112,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Toichi+Hikita@gmail.com",
         .contact_m_phone = "650.555.0202",
         .contact_w_address = "757 Kingman Ave, Santa Monica, CA 90402",
+        .contact_company_name = "Banzai Institute",
         .contact_notes = "Organization Name, Banzai Institute, Organization Title, Chairman, Organization Department, Research and Development",
     },
     {
@@ -120,6 +123,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Penny+Priddy@gmail.com",
         .contact_m_phone = "650.555.0203",
         .contact_w_address = "757 Kingman Ave, Santa Monica, CA 90402",
+        .contact_company_name = "Banzai Institute",
         .contact_notes = "Organization Name, Banzai Institute, Organization Title, Theoretical Assistant, Organization Department, Asset Mgmt"
     },
     {
@@ -130,6 +134,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Rawhide@gmail.com",
         .contact_m_phone = "650.555.0204",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_company_name = "Hong Kong Cavaliers",
         .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
     },
     {
@@ -140,6 +145,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Perfect+Tommy@gmail.com",
         .contact_m_phone = "650.555.0205",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_company_name = "Hong Kong Cavaliers",
         .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
     },
     {
@@ -150,6 +156,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "New+Jersey@gmail.com",
         .contact_m_phone = "650.555.0206",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_company_name = "Hong Kong Cavaliers",
         .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
     },
     {
@@ -160,6 +167,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Reno+Nevada@gmail.com",
         .contact_m_phone = "650.555.0207",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_company_name = "Hong Kong Cavaliers",
         .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
     },
     {
@@ -170,6 +178,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Swede@gmail.com",
         .contact_m_phone = "650.555.0214",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
+        .contact_company_name = "Hong Kong Cavaliers",
         .contact_notes = "Organization Name, Hong Kong Cavaliers, Organization Title, Musician, Organization Department, "
     },
     {
@@ -180,6 +189,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Scooter+Lindley@gmail.com",
         .contact_m_phone = "650.555.0209",
         .contact_w_address = "2010 El Camino Real, San Mateo, CA 94403",
+        .contact_company_name = "Blue Blaze Irregulars",
         .contact_notes = "Organization Name, Blue Blaze Irregulars, Organization Title, Team Member, Organization Department, "
     },
     {
@@ -190,6 +200,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Pinky+Carruthers@gmail.com",
         .contact_m_phone = "650.555.0210",
         .contact_w_address = "2010 El Camino Real, San Mateo, CA 94403",
+        .contact_company_name = "Blue Blaze Irregulars",
         .contact_notes = "Organization Name, Blue Blaze Irregulars, Organization Title, Team Member, Organization Department, "
     },
     {
@@ -200,6 +211,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Billy+Travers@gmail.com",
         .contact_m_phone = "650.555.0211",
         .contact_w_address = "2010 El Camino Real, San Mateo, CA 94403",
+        .contact_company_name = "Blue Blaze Irregulars",
         .contact_notes = "Organization Name, Blue Blaze Irregulars, Organization Title, Team Member, Organization Department, "
     },
     {
@@ -210,6 +222,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Masado+Banzai@gmail.com",
         .contact_m_phone = "650.555.0212",
         .contact_w_address = "500 W University Ave, El Paso, TX 79968",
+        .contact_company_name = "UT El Paso",
         .contact_notes = "Organization Name, UT El Paso, Organization Title, Scientist, Organization Department, "
     },
     {
@@ -220,6 +233,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "Sandra+Banzai@gmail.com",
         .contact_m_phone = "650.555.0213",
         .contact_w_address = "500 W University Ave, El Paso, TX 79968",
+        .contact_company_name = "UT El Paso",
         .contact_notes = "Organization Name, UT El Paso, Organization Title, Scientist, Organization Department, "
     },
     {
@@ -230,6 +244,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "John+Whorfin@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_company_name = "Yoyodyne Propulsion Systems",
         .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
     },
     {
@@ -240,6 +255,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "John+Parker@gmail.com",
         .contact_m_phone = "650.555.0208",
         .contact_w_address = "Planet 10, Redwood City, CA 94063",
+        .contact_company_name = "Planet 10",
         .contact_notes = "Organization Name, Planet 10, Organization Title, Pilot, Organization Department, Lectroid Flight Team"
     },
     {
@@ -250,6 +266,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "John+O'Connor@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_company_name = "Yoyodyne Propulsion Systems",
         .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, Lord, Organization Department, Lectroid Commander"
     },
     {
@@ -260,6 +277,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "John+Emdall@gmail.com",
         .contact_m_phone = "650.555.0208",
         .contact_w_address = "Planet 10, Redwood City, CA 94063",
+        .contact_company_name = "Planet 10",
         .contact_notes = "Organization Name, Planet 10, Organization Title, Chief, Organization Department, Black Lectroids"
     },
     {
@@ -270,6 +288,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "John+Bigboote@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_company_name = "Yoyodyne Propulsion Systems",
         .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
     },
     {
@@ -280,6 +299,7 @@ static contacts_item contacts_list[] = {
         .contact_p_email = "John+Wright@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_company_name = "Yoyodyne Propulsion Systems",
         .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
     },
     {
@@ -297,10 +317,12 @@ static const char * name_string;
 static int name_count;
 static const char * email_string;
 static int email_count;
-static const char * phone_string;
-static int phone_count;
-static const char * address_string;
-static int address_count;
+static const char * mobile_string;
+static int mobile_count;
+// static const char * address_string;
+// static int address_count;
+static const char * company_string;
+static int company_count;
 static const char * notes_string;
 static int notes_count;
 
@@ -311,6 +333,7 @@ lv_label_t * contact_p_email;
 lv_label_t * contact_m_phone;
 lv_label_t * contact_w_address;
 lv_label_t * contact_status;
+lv_label_t * contact_company_name;
 lv_label_t * contact_notes;
 
 lv_label_t * contact_detail_from;
@@ -379,19 +402,15 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
         offset =  -48 + (62 * i);
 
-        /* Calculate if the FROM field is greater than or equal to 25 characters */
+        /* Calculate if the NAME field is greater than or equal to 25 characters */
         name_string = contacts_list[i].contact_name;
         name_count = strlen(name_string);
-
-        /* Calculate if the NOTES field is greater than or equal to 37 characters */
-        notes_string = contacts_list[i].contact_notes;
-        notes_count = strlen(notes_string);
 
         /* Contact NAME field */
         contact_name = lv_label_create(image);
         lv_label_set_recolor(contact_name, true);
 
-        /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+        /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
         if(name_count >= 37) {
             lv_label_set_text(contact_name, contacts_list[i].contact_name);
             lv_label_cut_text(contact_name,35,name_count);
@@ -431,23 +450,67 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Back button */
     render_back_button(image, back_home_button_cb);
 
-    /* Calculate if the FROM field is greater than or equal to 25 characters */
-    name_string = contacts_list[CONTACT_ID].contact_name;
+    offset =  -48 + (62 * i);
+
+    /* Calculate if the NAME field is greater than or equal to 25 characters */
+    name_string = contacts_list[i].contact_name;
     name_count = strlen(name_string);
 
-    /* Text FROM field */
-    contact_detail_from = lv_label_create(image);
-    lv_label_set_recolor(contact_detail_from, true);
+    /* Contact NAME field */
+    contact_name = lv_label_create(image);
+    lv_label_set_recolor(contact_name, true);
 
-    /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-    if(name_count >= 25) {
-        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
-        lv_label_cut_text(contact_name,23,name_count);
-        lv_label_ins_text(contact_name,25,"...");
+    /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+    if(name_count >= 37) {
+        lv_label_set_text(contact_name, contacts_list[i].contact_name);
+        lv_label_cut_text(contact_name,35,name_count);
+        lv_label_ins_text(contact_name,37,"...");
     } else {
-        lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
+        lv_label_set_text(contact_name, contacts_list[i].contact_name);
     }
 
+    /* Contact Name field */
+    lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
+    lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
+    lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+    /* Add a list item separator line below the list item text */
+    list_item_separator[i] = lv_img_create(image);
+    lv_img_set_src(list_item_separator[i], &Linez);
+    lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
+
+    /* Calculate if the FROM field is greater than or equal to 25 characters */
+    // name_string = contacts_list[CONTACT_ID].contact_name;
+    // name_count = strlen(name_string);
+
+    /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+    // if(name_count >= 37) {
+    //     lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
+    //     lv_label_cut_text(contact_name,35,name_count);
+    //     lv_label_ins_text(contact_name,37,"...");
+    // } else {
+    //     lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
+    // }
+
+    /* Text FROM field */
+    // contact_detail_from = lv_label_create(image);
+    // lv_label_set_recolor(contact_detail_from, true);
+
+    /* Calculate if the MOBILE field is greater than or equal to 37 characters */
+    mobile_string = contacts_list[i].contact_m_phone;
+    mobile_count = strlen(mobile_string);
+
+    /* Calculate if the EMAIL field is greater than or equal to 37 characters */
+    email_string = contacts_list[i].contact_p_email;
+    email_count = strlen(email_string);
+
+    /* Calculate if the COMPANY field is greater than or equal to 37 characters */
+    company_string = contacts_list[i].contact_company_name;
+    company_count = strlen(company_string);
+
+    /* Calculate if the NOTES field is greater than or equal to 37 characters */
+    notes_string = contacts_list[i].contact_notes;
+    notes_count = strlen(notes_string);
 
     /* Contact FAV/NOT_FAV icon on the left */
     // lv_obj_t * txtmsg_icon = lv_img_create(image);

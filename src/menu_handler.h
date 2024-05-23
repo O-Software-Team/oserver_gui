@@ -80,6 +80,7 @@ typedef struct {
     char * contact_w_email;
     char * contact_p_address;
     char * contact_w_address;
+    char * contact_company_name;
     char * contact_notes;
     // char * contact_status;
     // void (* page_handler)(lv_obj_t *);
