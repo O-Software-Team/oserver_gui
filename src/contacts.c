@@ -315,9 +315,6 @@ lv_label_t * contact_notes;
 
 lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
-// static lv_obj_t * spacer;
-// lv_label_t * txtmsg_message;
-// lv_obj_t * text_detail_message;
 
 /* The following function populates the main screen with full list of contacts */
 void contacts_list_init(lv_obj_t * contacts_page) {
@@ -390,11 +387,6 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         notes_string = contacts_list[i].contact_notes;
         notes_count = strlen(notes_string);
 
-        /* Contact FAV/NOT_FAV icon on the left */
-        // lv_obj_t * txtmsg_icon = lv_img_create(image);
-        // lv_img_set_src(txtmsg_icon, contacts_list[i].ctcitem_status);
-        // lv_obj_align(txtmsg_icon, LV_ALIGN_LEFT_MID, LIST_LEFT_ALIGNED, offset);
-
         /* Contact NAME field */
         contact_name = lv_label_create(image);
         lv_label_set_recolor(contact_name, true);
@@ -409,36 +401,11 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         }
 
         /* Contact Name field */
-        // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, CONTACT_NAME);
-        // lv_obj_set_style_width(contact_name, CONTACT_NAME_WIDTH, LV_PART_MAIN);
-        // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-        // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_32, LV_PART_MAIN);
-
-
-        /* ORIGINAL */
         lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
         lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-        /* Text message SUMMARY field */
-        // contact_name = lv_label_create(image);
-        // lv_label_set_recolor(contact_name, true);
-
-        /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
-/*        if(summary_count >= 37) {
-            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-            lv_label_cut_text(ctcitem_name,35,summary_count);
-            lv_label_ins_text(ctcitem_name,37,"...");
-        } else {
-            lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-        } */
-
-        // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-        // lv_obj_set_style_text_color(contact_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
-        // lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
-        // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
-
-        // Add a list item separator line below the list item text
+        /* Add a list item separator line below the list item text */
         list_item_separator[i] = lv_img_create(image);
         lv_img_set_src(list_item_separator[i], &Linez);
         lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
@@ -480,6 +447,30 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     } else {
         lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
     }
+
+
+    /* Contact FAV/NOT_FAV icon on the left */
+    // lv_obj_t * txtmsg_icon = lv_img_create(image);
+    // lv_img_set_src(txtmsg_icon, contacts_list[i].ctcitem_status);
+    // lv_obj_align(txtmsg_icon, LV_ALIGN_LEFT_MID, LIST_LEFT_ALIGNED, offset);
+
+    /* Text message SUMMARY field */
+    // contact_name = lv_label_create(image);
+    // lv_label_set_recolor(contact_name, true);
+
+    /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
+    // if(summary_count >= 37) {
+    //     lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+    //     lv_label_cut_text(ctcitem_name,35,summary_count);
+    //     lv_label_ins_text(ctcitem_name,37,"...");
+    // } else {
+    //     lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
+    // } 
+
+    // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
+    // lv_obj_set_style_text_color(contact_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    // lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
+    // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
 }
 
