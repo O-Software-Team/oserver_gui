@@ -475,14 +475,14 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     }
 
     /* Contact Name field */
-    lv_obj_align(contact_name, LV_ALIGN_LEFT_TOP, CONTACT_PAD_LEFT, offset - 16);
+    lv_obj_align(contact_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, offset - 16);
     lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* Add a list item separator line below the list item text */
     list_item_separator[CONTACT_ID] = lv_img_create(image);
     lv_img_set_src(list_item_separator[CONTACT_ID], &Linez);
-    lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_TOP, LIST_SEPARATOR, offset + 12);
+    lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, offset + 12);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
     // name_string = contacts_list[CONTACT_ID].contact_name;
