@@ -324,7 +324,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_t * image = lv_img_create(contacts_page);
     lv_img_set_src(image, &Background);
 
-    /* Calculate total records contact records */
+    /* Calculate total Contact records */
     printf("\nCalculate contact records...\n");
     for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
         total_contact_items = ttl_items+1;
@@ -364,9 +364,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     // Add a list item separator line below the list item header
-    top_of_list_items = lv_img_create(image);
-    lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 140);
+    list_item_separator[i] = lv_img_create(image);
+    lv_img_set_src(list_item_separator[i], &Linez);
+    lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, 16);
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
@@ -376,6 +376,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     /* Add (simulated) contacts as clickable buttons*/
     for (int i = 0; i < total_contact_items; i++) {
 
+        /* TODO :: find out why these next two lines are even here at all */
         left.y = left.y + offset;
         right.y = right.y + offset;
 
@@ -437,7 +438,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         // lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
         // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
-        // Add a list item separator line above the list item text
+        // Add a list item separator line below the list item text
         list_item_separator[i] = lv_img_create(image);
         lv_img_set_src(list_item_separator[i], &Linez);
         lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
