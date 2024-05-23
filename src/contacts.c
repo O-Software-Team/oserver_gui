@@ -450,6 +450,11 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Back button */
     render_back_button(image, back_home_button_cb);
 
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
+    lv_coord_t offset = 0;
+    lv_obj_t * list_item_separator[total_contact_items];
+
     offset =  -48 + (62 * i);
 
     /* Calculate if the NAME field is greater than or equal to 25 characters */
