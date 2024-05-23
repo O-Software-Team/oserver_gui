@@ -455,6 +455,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_coord_t offset = 0;
     lv_obj_t * list_item_separator[total_contact_items];
 
+    i = 0;
     offset =  -48 + (62 * i);
 
     /* Calculate if the NAME field is greater than or equal to 25 characters */
