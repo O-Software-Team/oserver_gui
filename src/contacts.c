@@ -459,7 +459,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     offset =  -48 + (62 * i);
 
     /* Calculate if the NAME field is greater than or equal to 25 characters */
-    name_string = contacts_list[i].contact_name;
+    name_string = contacts_list[CONTACT_ID].contact_name;
     name_count = strlen(name_string);
 
     /* Contact NAME field */
@@ -468,11 +468,11 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
     if(name_count >= 37) {
-        lv_label_set_text(contact_name, contacts_list[i].contact_name);
+        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
         lv_label_cut_text(contact_name,35,name_count);
         lv_label_ins_text(contact_name,37,"...");
     } else {
-        lv_label_set_text(contact_name, contacts_list[i].contact_name);
+        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
     }
 
     /* Contact Name field */
@@ -481,9 +481,9 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* Add a list item separator line below the list item text */
-    list_item_separator[i] = lv_img_create(image);
-    lv_img_set_src(list_item_separator[i], &Linez);
-    lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
+    list_item_separator[CONTACT_ID] = lv_img_create(image);
+    lv_img_set_src(list_item_separator[CONTACT_ID], &Linez);
+    lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
     // name_string = contacts_list[CONTACT_ID].contact_name;
@@ -503,19 +503,19 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     // lv_label_set_recolor(contact_detail_from, true);
 
     /* Calculate if the MOBILE field is greater than or equal to 37 characters */
-    mobile_string = contacts_list[i].contact_m_phone;
+    mobile_string = contacts_list[CONTACT_ID].contact_m_phone;
     mobile_count = strlen(mobile_string);
 
     /* Calculate if the EMAIL field is greater than or equal to 37 characters */
-    email_string = contacts_list[i].contact_p_email;
+    email_string = contacts_list[CONTACT_ID].contact_p_email;
     email_count = strlen(email_string);
 
     /* Calculate if the COMPANY field is greater than or equal to 37 characters */
-    company_string = contacts_list[i].contact_company_name;
+    company_string = contacts_list[CONTACT_ID].contact_company_name;
     company_count = strlen(company_string);
 
     /* Calculate if the NOTES field is greater than or equal to 37 characters */
-    notes_string = contacts_list[i].contact_notes;
+    notes_string = contacts_list[CONTACT_ID].contact_notes;
     notes_count = strlen(notes_string);
 
     /* Contact FAV/NOT_FAV icon on the left */
