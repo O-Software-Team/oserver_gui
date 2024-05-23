@@ -366,7 +366,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     // Add a list item separator line below the list item header
     top_of_list_items = lv_img_create(image);
     lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, 150);
+    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -20);
 
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
