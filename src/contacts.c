@@ -491,7 +491,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_label_set_recolor(heading_mobile, true);
     lv_label_set_text(heading_mobile, "Mobile");
     lv_obj_align(heading_mobile, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -50);
-    lv_obj_set_style_text_color(heading_mobile, CONTACT_SUBDUED_COLOR, 0);
+    lv_obj_set_style_text_color(heading_mobile, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(heading_mobile, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
     /* Contact Mobile Number field */
