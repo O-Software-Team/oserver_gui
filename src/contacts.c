@@ -465,11 +465,11 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     contact_name = lv_label_create(image);
     lv_label_set_recolor(contact_name, true);
 
-    /* Calculate and then truncate if the NAME field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
-    if(name_count >= 37) {
+    /* Calculate and then truncate if the NAME field is greater than or equal to 27 characters; then insert an ellipsis in place of the long string */
+    if(name_count >= 27) {
         lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
-        lv_label_cut_text(contact_name,35,name_count);
-        lv_label_ins_text(contact_name,37,"...");
+        lv_label_cut_text(contact_name,25,name_count);
+        lv_label_ins_text(contact_name,27,"...");
     } else {
         lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
     }
@@ -485,13 +485,13 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     contact_m_phone = lv_label_create(image);
     lv_label_set_recolor(contact_m_phone, true);
 
-    lv_obj_align(contact_m_phone, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -110);
+    lv_obj_align(contact_m_phone, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -90);
     lv_obj_set_style_text_color(contact_m_phone, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_m_phone, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
 
     /* EMAIL FIELD HERE */
-    /* Calculate if the EMAIL field is greater than or equal to 37 characters */
+    /* Calculate if the EMAIL field is greater than or equal to 27 characters */
     email_string = contacts_list[CONTACT_ID].contact_p_email;
     email_count = strlen(email_string);
 
@@ -499,23 +499,23 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     contact_p_email = lv_label_create(image);
     lv_label_set_recolor(contact_p_email, true);
 
-    /* Calculate and then truncate if the EMAIL field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
-    if(email_count >= 37) {
+    /* Calculate and then truncate if the EMAIL field is greater than or equal to 27 characters; then insert an ellipsis in place of the long string */
+    if(email_count >= 27) {
         lv_label_set_text(contact_p_email, contacts_list[CONTACT_ID].contact_p_email);
-        lv_label_cut_text(contact_p_email,35,email_count);
-        lv_label_ins_text(contact_p_email,37,"...");
+        lv_label_cut_text(contact_p_email,25,email_count);
+        lv_label_ins_text(contact_p_email,27,"...");
     } else {
         lv_label_set_text(contact_p_email, contacts_list[CONTACT_ID].contact_p_email);
     }
 
     /* Contact Email field */
-    lv_obj_align(contact_p_email, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -110);
+    lv_obj_align(contact_p_email, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -70);
     lv_obj_set_style_text_color(contact_p_email, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_p_email, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
 
     /* COMPANY NAME FIELD HERE */
-    /* Calculate if the COMPANY field is greater than or equal to 37 characters */
+    /* Calculate if the COMPANY field is greater than or equal to 27 characters */
     company_string = contacts_list[CONTACT_ID].contact_company_name;
     company_count = strlen(company_string);
 
@@ -524,22 +524,22 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_label_set_recolor(contact_company_name, true);
 
     /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-    if(company_count >= 37) {
+    if(company_count >= 27) {
         lv_label_set_text(contact_company_name, contacts_list[CONTACT_ID].contact_company_name);
-        lv_label_cut_text(contact_company_name,35,company_count);
-        lv_label_ins_text(contact_company_name,37,"...");
+        lv_label_cut_text(contact_company_name,25,company_count);
+        lv_label_ins_text(contact_company_name,27,"...");
     } else {
         lv_label_set_text(contact_company_name, contacts_list[CONTACT_ID].contact_company_name);
     }
 
     /* Contact Name field */
-    lv_obj_align(contact_company_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -110);
+    lv_obj_align(contact_company_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -50);
     lv_obj_set_style_text_color(contact_company_name, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_company_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
 
     /* NOTES FIELD HERE */
-    /* Calculate if the NOTES field is greater than or equal to 37 characters */
+    /* Calculate if the NOTES field is greater than or equal to 27 characters */
     notes_string = contacts_list[CONTACT_ID].contact_notes;
     notes_count = strlen(notes_string);
 
@@ -548,16 +548,16 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_label_set_recolor(contact_notes, true);
 
     /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-    if(notes_count >= 37) {
+    if(notes_count >= 27) {
         lv_label_set_text(contact_notes, contacts_list[CONTACT_ID].contact_notes);
-        lv_label_cut_text(contact_notes,35,notes_count);
-        lv_label_ins_text(contact_notes,37,"...");
+        lv_label_cut_text(contact_notes,25,notes_count);
+        lv_label_ins_text(contact_notes,27,"...");
     } else {
         lv_label_set_text(contact_notes, contacts_list[CONTACT_ID].contact_notes);
     }
 
     /* Contact Name field */
-    lv_obj_align(contact_notes, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -110);
+    lv_obj_align(contact_notes, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -30);
     lv_obj_set_style_text_color(contact_notes, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_notes, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -575,7 +575,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Add a list item separator line below the list item text */
     list_item_separator[CONTACT_ID] = lv_img_create(image);
     lv_img_set_src(list_item_separator[CONTACT_ID], &Linez);
-    lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -78);
+    lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -10);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
     // name_string = contacts_list[CONTACT_ID].contact_name;
