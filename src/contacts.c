@@ -497,7 +497,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Contact Email field */
     contact_p_email = lv_label_create(image);
-    lv_label_set_recolor(contact_email, true);
+    lv_label_set_recolor(contact_p_email, true);
 
     /* Calculate and then truncate if the EMAIL field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
     if(email_count >= 37) {
