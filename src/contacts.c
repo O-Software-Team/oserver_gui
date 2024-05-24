@@ -477,7 +477,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Contact Name field */
     lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -130);
     lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-    lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_26, LV_PART_MAIN);
+    lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
 
 /* MOBILE NUMBER FIELD HERE */
