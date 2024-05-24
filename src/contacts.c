@@ -475,7 +475,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     }
 
     /* Contact Name field */
-    lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -130);
+    lv_obj_align(contact_name, LV_ALIGN_TOP_MID, CONTACT_PAD_LEFT, -130);
     lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
@@ -636,7 +636,7 @@ void contacts_menu_setup(void)
     lv_obj_set_style_clip_corner(contacts_page, true, 3);
     lv_obj_set_scroll_dir(contacts_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(contacts_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_ON);
+    lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLL_ALL | LV_SCROLLBAR_MODE_ON);
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
     printf("CONTACTS LIST init...\n");
