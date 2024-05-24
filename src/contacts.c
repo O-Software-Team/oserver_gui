@@ -388,9 +388,12 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_img_set_src(top_of_list_items, &Linez);
     lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
 
+    /* TODO :: figure out why these are being used */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
+
+    /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_contact_items];
 
     /* Add (simulated) contacts as clickable buttons*/
@@ -450,13 +453,10 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Back button */
     render_back_button(image, back_home_button_cb);
 
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
-    lv_obj_t * list_item_separator[total_contact_items];
+    /* NAME BANNER IMAGE & INITIALS HERE */
 
-    offset =  -48 + (62 * 1);
 
+    /* CONTACT NAME BANNER TEXT HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
     name_string = contacts_list[CONTACT_ID].contact_name;
     name_count = strlen(name_string);
@@ -478,6 +478,18 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -110);
     lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+
+    /* TODO :: figure out why we are using these */
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
+    lv_coord_t offset = 0;
+
+    /* Set the list_item_separator object here */
+    lv_obj_t * list_item_separator[total_contact_items];
+
+    // offset =  -48 + (62 * 1);
+
 
     /* Add a list item separator line below the list item text */
     list_item_separator[CONTACT_ID] = lv_img_create(image);
