@@ -502,7 +502,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Calculate and then truncate if the EMAIL field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
     if(email_count >= 37) {
         lv_label_set_text(contact_p_email, contacts_list[CONTACT_ID].contact_p_email);
-        lv_label_cut_text(cocontact_p_emailntact_email,35,email_count);
+        lv_label_cut_text(contact_p_email,35,email_count);
         lv_label_ins_text(contact_p_email,37,"...");
     } else {
         lv_label_set_text(contact_p_email, contacts_list[CONTACT_ID].contact_p_email);
