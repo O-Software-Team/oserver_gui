@@ -336,6 +336,11 @@ lv_label_t * contact_status;
 lv_label_t * contact_company_name;
 lv_label_t * contact_notes;
 
+lv_label_t * heading_mobile;
+lv_label_t * heading_email;
+lv_label_t * heading_company;
+lv_label_t * heading_notes;
+
 lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
 
@@ -482,12 +487,12 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
 /* MOBILE NUMBER FIELD HERE */
     /* Contact Name heading */
-    heading_name = lv_label_create(image);
-    lv_label_set_recolor(heading_name, true);
-    lv_label_set_text(heading_name, "Mobile");
-    lv_obj_align(contact_m_phone, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -50);
-    lv_obj_set_style_text_color(contact_m_phone, lv_color_white(), 0);
-    lv_obj_set_style_text_font(contact_m_phone, &NeueHaasDisplayLight_20, LV_PART_MAIN);
+    heading_mobile = lv_label_create(image);
+    lv_label_set_recolor(heading_mobile, true);
+    lv_label_set_text(heading_mobile, "Mobile");
+    lv_obj_align(heading_mobile, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -50);
+    lv_obj_set_style_text_color(heading_mobile, lv_color_white(), 0);
+    lv_obj_set_style_text_font(heading_mobile, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
     /* Contact Mobile Number field */
     contact_m_phone = lv_label_create(image);
