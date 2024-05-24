@@ -485,6 +485,8 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     contact_m_phone = lv_label_create(image);
     lv_label_set_recolor(contact_m_phone, true);
 
+    lv_label_set_text(contact_m_phone, contacts_list[CONTACT_ID].contact_m_phone);
+
     lv_obj_align(contact_m_phone, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -90);
     lv_obj_set_style_text_color(contact_m_phone, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_m_phone, &NeueHaasDisplayLight_24, LV_PART_MAIN);
