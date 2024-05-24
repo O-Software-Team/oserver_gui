@@ -453,10 +453,10 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Back button */
     render_back_button(image, back_home_button_cb);
 
-    /* NAME BANNER IMAGE & INITIALS HERE */
+    /* INITIALS-OVER-IMAGE ELEMENT HERE */
 
 
-    /* CONTACT NAME BANNER TEXT HERE */
+    /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
     name_string = contacts_list[CONTACT_ID].contact_name;
     name_count = strlen(name_string);
@@ -479,17 +479,36 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
+    /* MOBILE NUMBER FIELD HERE */
+    /* Calculate if the MOBILE field is greater than or equal to 37 characters */
+    mobile_string = contacts_list[CONTACT_ID].contact_m_phone;
+    mobile_count = strlen(mobile_string);
+
+    /* EMAIL FIELD HERE */
+    /* Calculate if the EMAIL field is greater than or equal to 37 characters */
+    email_string = contacts_list[CONTACT_ID].contact_p_email;
+    email_count = strlen(email_string);
+
+    /* COMPANY NAME FIELD HERE */
+    /* Calculate if the COMPANY field is greater than or equal to 37 characters */
+    company_string = contacts_list[CONTACT_ID].contact_company_name;
+    company_count = strlen(company_string);
+
+    /* NOTES FIELD HERE */
+    /* Calculate if the NOTES field is greater than or equal to 37 characters */
+    notes_string = contacts_list[CONTACT_ID].contact_notes;
+    notes_count = strlen(notes_string);
+
 
     /* TODO :: figure out why we are using these */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
+    // lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_contact_items];
 
     // offset =  -48 + (62 * 1);
-
 
     /* Add a list item separator line below the list item text */
     list_item_separator[CONTACT_ID] = lv_img_create(image);
@@ -512,22 +531,6 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Text FROM field */
     // contact_detail_from = lv_label_create(image);
     // lv_label_set_recolor(contact_detail_from, true);
-
-    /* Calculate if the MOBILE field is greater than or equal to 37 characters */
-    mobile_string = contacts_list[CONTACT_ID].contact_m_phone;
-    mobile_count = strlen(mobile_string);
-
-    /* Calculate if the EMAIL field is greater than or equal to 37 characters */
-    email_string = contacts_list[CONTACT_ID].contact_p_email;
-    email_count = strlen(email_string);
-
-    /* Calculate if the COMPANY field is greater than or equal to 37 characters */
-    company_string = contacts_list[CONTACT_ID].contact_company_name;
-    company_count = strlen(company_string);
-
-    /* Calculate if the NOTES field is greater than or equal to 37 characters */
-    notes_string = contacts_list[CONTACT_ID].contact_notes;
-    notes_count = strlen(notes_string);
 
     /* Contact FAV/NOT_FAV icon on the left */
     // lv_obj_t * txtmsg_icon = lv_img_create(image);
