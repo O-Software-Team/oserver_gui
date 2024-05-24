@@ -487,7 +487,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     lv_label_set_text(contact_m_phone, contacts_list[CONTACT_ID].contact_m_phone);
 
-    lv_obj_align(contact_m_phone, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -90);
+    lv_obj_align(contact_m_phone, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -80);
     lv_obj_set_style_text_color(contact_m_phone, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_m_phone, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -511,7 +511,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     }
 
     /* Contact Email field */
-    lv_obj_align(contact_p_email, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -70);
+    lv_obj_align(contact_p_email, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -50);
     lv_obj_set_style_text_color(contact_p_email, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_p_email, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -535,7 +535,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     }
 
     /* Contact Name field */
-    lv_obj_align(contact_company_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -50);
+    lv_obj_align(contact_company_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -20);
     lv_obj_set_style_text_color(contact_company_name, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_company_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -559,7 +559,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     }
 
     /* Contact Name field */
-    lv_obj_align(contact_notes, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -30);
+    lv_obj_align(contact_notes, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, 10);
     lv_obj_set_style_text_color(contact_notes, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_notes, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -577,7 +577,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Add a list item separator line below the list item text */
     list_item_separator[CONTACT_ID] = lv_img_create(image);
     lv_img_set_src(list_item_separator[CONTACT_ID], &Linez);
-    lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -10);
+    lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, 40);
 
     /* Calculate if the FROM field is greater than or equal to 25 characters */
     // name_string = contacts_list[CONTACT_ID].contact_name;
