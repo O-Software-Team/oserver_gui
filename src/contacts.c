@@ -458,6 +458,9 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     /* Back button */
     render_back_button(image, back_home_button_cb);
 
+    /* Set the list_item_separator object here */
+    lv_obj_t * list_item_separator[total_contact_items];
+
 /* INITIALS-OVER-IMAGE ELEMENT HERE */
 
 
@@ -586,9 +589,6 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     // lv_point_t right = { 290, -220};
     // lv_coord_t offset = 0;
-
-    /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_contact_items];
 
     // offset =  -48 + (62 * 1);
 
