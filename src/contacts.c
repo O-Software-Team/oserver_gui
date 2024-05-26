@@ -469,8 +469,8 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
 /* INITIALS-OVER-IMAGE ELEMENT HERE */
     contact_initials_bg = lv_img_create(image);
-    lv_img_set_src(contact_initials_bg, &Linez);
-    lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
+    lv_img_set_src(contact_initials_bg, &teal_circle_selector);
+    lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_MID, 0, 80);
 
 
     contact_initials_text = lv_img_create(image);
