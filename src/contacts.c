@@ -68,6 +68,9 @@ LV_IMG_DECLARE(Icon_Next_White);
 LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
 
+/* Contact Card - Contact Initials Background */
+LV_IMAGE_DECLARE(teal_circle_selector);
+
 /* Main HEADING iconography */
 LV_IMG_DECLARE(Contacts_App_Heading_Title);
 
@@ -336,6 +339,9 @@ lv_label_t * contact_status;
 lv_label_t * contact_company_name;
 lv_label_t * contact_notes;
 
+lv_obj_t * contact_initials_bg;
+lv_label_t * contact_initials_text;
+
 lv_label_t * heading_mobile;
 lv_label_t * heading_email;
 lv_label_t * heading_company;
@@ -462,7 +468,12 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_t * list_item_separator[total_contact_items];
 
 /* INITIALS-OVER-IMAGE ELEMENT HERE */
+    contact_initials_bg = lv_img_create(image);
+    lv_img_set_src(contact_initials_bg, &Linez);
+    lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
 
+
+    contact_initials_text = lv_img_create(image);
 
 /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
