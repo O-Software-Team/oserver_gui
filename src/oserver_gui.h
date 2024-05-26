@@ -64,6 +64,7 @@ LV_IMG_DECLARE(O_App_Heading_Title);
 LV_IMG_DECLARE(Page_Dot);
 LV_IMG_DECLARE(Settings_App_Heading_Title);
 LV_IMG_DECLARE(Logo); // Metalic boot screen logo
+LV_IMG_DECLARE(teal_circle_selector);
 
 /*
  * Album covers for the 'Music' player

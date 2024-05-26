@@ -69,7 +69,7 @@ LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
 
 /* Contact Card - Contact Initials Background */
-LV_IMAGE_DECLARE(teal_circle_selector);
+LV_IMG_DECLARE(teal_circle_selector);
 
 /* Main HEADING iconography */
 LV_IMG_DECLARE(Contacts_App_Heading_Title);
