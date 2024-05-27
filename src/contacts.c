@@ -482,10 +482,10 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     fname_1st_char = contacts_list[CONTACT_ID].contact_fname;
     lname_1st_char = contacts_list[CONTACT_ID].contact_lname;
 
-    std::string s;
-    s += fname_1st_char;
-    s += lname_1st_char;
-    contact_initials_set = s;
+    // std::string s;
+    contact_initials_set += fname_1st_char;
+    contact_initials_set += lname_1st_char;
+    // contact_initials_set = s;
     // contact_initials_set = fname_1st_char + lname_1st_char;
 
     printf("\nFname char: %c   Lname char: %c  \n", fname_1st_char[0], lname_1st_char[0]);
