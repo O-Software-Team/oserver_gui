@@ -501,7 +501,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     contact_initials = lv_label_create(image);
     lv_label_set_text(contact_initials, contacts_list[CONTACT_ID].contact_initials);
     lv_label_set_recolor(contact_initials, true);
-    lv_obj_align(contact_initials, LV_ALIGN_TOP_MID, 0, 48);
+    lv_obj_align(contact_initials, LV_ALIGN_TOP_MID, 0, 42);
     lv_obj_set_style_text_color(contact_initials, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_initials, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
