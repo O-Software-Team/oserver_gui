@@ -424,9 +424,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
 
     /* TODO :: figure out why these are being used */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
+    // lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_contact_items];
@@ -505,7 +505,6 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_set_style_text_color(contact_initials, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_initials, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
-
 /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
     name_string = contacts_list[CONTACT_ID].contact_name;
@@ -528,7 +527,6 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_align(contact_name, LV_ALIGN_TOP_MID, 0, 120);
     lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
     lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_32, LV_PART_MAIN);
-
 
 /* MOBILE NUMBER FIELD HERE */
     /* Contact Mobile heading */
@@ -553,7 +551,6 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     list_item_separator[CONTACT_ID] = lv_img_create(image);
     lv_img_set_src(list_item_separator[CONTACT_ID], &Linez);
     lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, 14);
-
 
 /* EMAIL FIELD HERE */
     /* Contact Email heading */
