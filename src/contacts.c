@@ -6,29 +6,12 @@
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
-// #define CONTACT_LIST_MAX 7
-// #define CONTACT_FOUND_MAX 0
 #define CONTACT_ID 0
 
 /* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
 #define CONTACT_PAD_LEFT 30
-// #define CONTACT_HEIGHT 290
-// #define CONTACT_WIDTH 332
-// #define CONTACT_MASK_WIDTH 332
-// #define CONTACT_MASK_HEIGHT 290
-
-/* USE THESE AS REFERENCE */
-#define EMAIL_MESSAGE_SUBJECT 120
-#define EMAIL_MESSAGE_CONTENT 186
-#define EMAIL_MESSAGE_LINE_SPACING 5.5
-
-
 #define CONTACT_NAME_WIDTH 332
 #define CONTACT_NAME 120
-// #define CONTACT_NOTES 120
-// #define CONTACT_CONTENT 186
-// #define CONTACT_LINE_SPACING 5.5
-
 #define LIST_LEFT_ALIGNED 25
 #define LIST_SEPARATOR 30
 #define LIST_CONTENT_ITEM 50
@@ -69,7 +52,6 @@ LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
 
 /* Contact Card - Contact Initials Background */
-// LV_IMG_DECLARE(teal_circle_selector);
 LV_IMG_DECLARE(Icon_Contact_Initials_Background);
 
 /* Main HEADING iconography */
@@ -78,11 +60,6 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
-/* global static */
-// static lv_obj_t * contact_list[CONTACT_LIST_MAX];
-
-// static lv_obj_t * trusted_device_btn_list[CONTACT_PAGE_MAX];
-// static lv_obj_t * found_btn[CONTACT_FOUND_MAX];
 
 /* Create and initialize the Contacts list */
 static contacts_item contacts_list[] = {
@@ -337,17 +314,14 @@ static int total_contact_items = 1;
 static int ttl_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-static const char * fname_1st_char;
-static const char * lname_1st_char;
-// static const char * contact_initials;
+// static const char * fname_1st_char;
+// static const char * lname_1st_char;
 static const char * name_string;
 static int name_count;
 static const char * email_string;
 static int email_count;
 static const char * mobile_string;
 static int mobile_count;
-// static const char * address_string;
-// static int address_count;
 static const char * company_string;
 static int company_count;
 static const char * notes_string;
@@ -358,8 +332,8 @@ lv_label_t * contact_id;
 lv_label_t * contact_name;
 lv_label_t * contact_p_email;
 lv_label_t * contact_m_phone;
-lv_label_t * contact_w_address;
-lv_label_t * contact_status;
+// lv_label_t * contact_w_address;
+// lv_label_t * contact_status;
 lv_label_t * contact_company_name;
 lv_label_t * contact_notes;
 
@@ -371,7 +345,7 @@ lv_label_t * heading_email;
 lv_label_t * heading_company;
 lv_label_t * heading_notes;
 
-lv_label_t * contact_detail_from;
+// lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
 
 /* The following function populates the main screen with full list of contacts */
