@@ -69,7 +69,8 @@ LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
 
 /* Contact Card - Contact Initials Background */
-LV_IMG_DECLARE(teal_circle_selector);
+// LV_IMG_DECLARE(teal_circle_selector);
+LV_IMG_DECLARE(Icon_Contact_Initials_Background);
 
 /* Main HEADING iconography */
 LV_IMG_DECLARE(Contacts_App_Heading_Title);
@@ -469,7 +470,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
 /* INITIALS-OVER-IMAGE ELEMENT HERE */
     contact_initials_bg = lv_img_create(image);
-    lv_img_set_src(contact_initials_bg, &teal_circle_selector);
+    lv_img_set_src(contact_initials_bg, &Icon_Contact_Initials_Background);
     lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_MID, 0, 80);
 
 
