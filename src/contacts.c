@@ -314,26 +314,20 @@ static int total_contact_items = 1;
 static int ttl_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-// static const char * fname_1st_char;
-// static const char * lname_1st_char;
 static const char * name_string;
 static int name_count;
 static const char * email_string;
 static int email_count;
-// static const char * mobile_string;
-// static int mobile_count;
 static const char * company_string;
 static int company_count;
 static const char * notes_string;
 static int notes_count;
 
 /* Set variables for all the contacts content fields: ID, NAME, EMAIL, PHONE, etc */
-lv_label_t * contact_id;
+// lv_label_t * contact_id;
 lv_label_t * contact_name;
 lv_label_t * contact_p_email;
 lv_label_t * contact_m_phone;
-// lv_label_t * contact_w_address;
-// lv_label_t * contact_status;
 lv_label_t * contact_company_name;
 lv_label_t * contact_notes;
 
