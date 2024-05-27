@@ -317,6 +317,8 @@ static int total_contact_items = 1;
 static int ttl_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+static const char * fname_1st_char;
+static const char * lname_1st_char;
 static const char * name_string;
 static int name_count;
 static const char * email_string;
@@ -469,12 +471,16 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_t * list_item_separator[total_contact_items];
 
 /* INITIALS-OVER-IMAGE ELEMENT HERE */
+    /* Contact Initials Background image */
     contact_initials_bg = lv_img_create(image);
     lv_img_set_src(contact_initials_bg, &Icon_Contact_Initials_Background);
     lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_MID, 0, 24);
 
-
+    /* Contact Initials text */
     contact_initials_text = lv_img_create(image);
+    fname_1st_char = contacts_list[CONTACT_ID].contact_fname;
+    lname_1st_char = contacts_list[CONTACT_ID].contact_lname;
+    printf("Fname char: %s   Lname char: %s", fname_1st_char, lname_1st_char);
 
 /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
