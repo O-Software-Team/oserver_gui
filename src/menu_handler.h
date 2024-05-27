@@ -73,6 +73,7 @@ typedef struct {
     char * contact_fname;
     char * contact_lname;
     char * contact_name;
+    char * contact_initials;
     char * contact_p_phone;
     char * contact_m_phone;
     char * contact_w_phone;

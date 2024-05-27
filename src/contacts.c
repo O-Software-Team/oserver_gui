@@ -91,6 +91,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Buckaroo Banzai",
         .contact_fname = "Buckaroo",
         .contact_lname = "Banzai",
+        .contact_initials = "BB",
         .contact_p_email = "Buckaroo+Banzai@gmail.com",
         .contact_m_phone = "650.555.0201",
         .contact_w_address = "757 Kingman Ave, Santa Monica, CA 90402",
@@ -102,6 +103,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Dr Emilio Lizardo",
         .contact_fname = "Emilio",
         .contact_lname = "Lizardo",
+        .contact_initials = "EL",
         .contact_p_email = "Emilio+Lizardo@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
@@ -113,6 +115,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Professor Toichi Hikita",
         .contact_fname = "Toichi",
         .contact_lname = "Hikita",
+        .contact_initials = "TH",
         .contact_p_email = "Toichi+Hikita@gmail.com",
         .contact_m_phone = "650.555.0202",
         .contact_w_address = "757 Kingman Ave, Santa Monica, CA 90402",
@@ -124,6 +127,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Penny Priddy",
         .contact_fname = "Penny",
         .contact_lname = "Priddy",
+        .contact_initials = "PP",
         .contact_p_email = "Penny+Priddy@gmail.com",
         .contact_m_phone = "650.555.0203",
         .contact_w_address = "757 Kingman Ave, Santa Monica, CA 90402",
@@ -135,6 +139,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Rawhide",
         .contact_fname = "Rawhide",
         .contact_lname = "",
+        .contact_initials = "RA",
         .contact_p_email = "Rawhide@gmail.com",
         .contact_m_phone = "650.555.0204",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
@@ -146,6 +151,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Perfect Tommy",
         .contact_fname = "Perfect",
         .contact_lname = "Tommy",
+        .contact_initials = "PT",
         .contact_p_email = "Perfect+Tommy@gmail.com",
         .contact_m_phone = "650.555.0205",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
@@ -157,6 +163,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "New Jersey",
         .contact_fname = "New",
         .contact_lname = "Jersey",
+        .contact_initials = "NJ",
         .contact_p_email = "New+Jersey@gmail.com",
         .contact_m_phone = "650.555.0206",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
@@ -168,6 +175,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Reno Nevada",
         .contact_fname = "Reno",
         .contact_lname = "Nevada",
+        .contact_initials = "RN",
         .contact_p_email = "Reno+Nevada@gmail.com",
         .contact_m_phone = "650.555.0207",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
@@ -179,6 +187,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "The Swede",
         .contact_fname = "Swede",
         .contact_lname = "",
+        .contact_initials = "TS",
         .contact_p_email = "Swede@gmail.com",
         .contact_m_phone = "650.555.0214",
         .contact_w_address = "367 George St, New Brunswick, NJ 08901",
@@ -190,6 +199,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Scooter Lindley",
         .contact_fname = "Scooter",
         .contact_lname = "Lindley",
+        .contact_initials = "SL",
         .contact_p_email = "Scooter+Lindley@gmail.com",
         .contact_m_phone = "650.555.0209",
         .contact_w_address = "2010 El Camino Real, San Mateo, CA 94403",
@@ -201,6 +211,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Pinky Carruthers",
         .contact_fname = "Pinky",
         .contact_lname = "Carruthers",
+        .contact_initials = "PC",
         .contact_p_email = "Pinky+Carruthers@gmail.com",
         .contact_m_phone = "650.555.0210",
         .contact_w_address = "2010 El Camino Real, San Mateo, CA 94403",
@@ -212,6 +223,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Billy Travers",
         .contact_fname = "Billy",
         .contact_lname = "Travers",
+        .contact_initials = "BT",
         .contact_p_email = "Billy+Travers@gmail.com",
         .contact_m_phone = "650.555.0211",
         .contact_w_address = "2010 El Camino Real, San Mateo, CA 94403",
@@ -223,6 +235,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Dr Masado Banzai",
         .contact_fname = "Masado",
         .contact_lname = "Banzai",
+        .contact_initials = "MB",
         .contact_p_email = "Masado+Banzai@gmail.com",
         .contact_m_phone = "650.555.0212",
         .contact_w_address = "500 W University Ave, El Paso, TX 79968",
@@ -234,6 +247,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Dr Sandra Banzai",
         .contact_fname = "Sandra",
         .contact_lname = "Banzai",
+        .contact_initials = "SB",
         .contact_p_email = "Sandra+Banzai@gmail.com",
         .contact_m_phone = "650.555.0213",
         .contact_w_address = "500 W University Ave, El Paso, TX 79968",
@@ -245,6 +259,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "Lord John Whorfin",
         .contact_fname = "John",
         .contact_lname = "Whorfin",
+        .contact_initials = "JW",
         .contact_p_email = "John+Whorfin@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
@@ -256,6 +271,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "John Parker",
         .contact_fname = "John",
         .contact_lname = "Parker",
+        .contact_initials = "JP",
         .contact_p_email = "John+Parker@gmail.com",
         .contact_m_phone = "650.555.0208",
         .contact_w_address = "Planet 10, Redwood City, CA 94063",
@@ -267,6 +283,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "John O'Connor",
         .contact_fname = "John",
         .contact_lname = "O'Connor",
+        .contact_initials = "JO",
         .contact_p_email = "John+O'Connor@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
@@ -278,6 +295,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "John Emdall",
         .contact_fname = "John",
         .contact_lname = "Emdall",
+        .contact_initials = "JE",
         .contact_p_email = "John+Emdall@gmail.com",
         .contact_m_phone = "650.555.0208",
         .contact_w_address = "Planet 10, Redwood City, CA 94063",
@@ -289,6 +307,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "John Bigboote",
         .contact_fname = "John",
         .contact_lname = "Bigboote",
+        .contact_initials = "JB",
         .contact_p_email = "John+Bigboote@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
@@ -300,6 +319,7 @@ static contacts_item contacts_list[] = {
         .contact_name = "John Wright",
         .contact_fname = "John",
         .contact_lname = "Wright",
+        .contact_initials = "JW",
         .contact_p_email = "John+Wright@gmail.com",
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
@@ -319,7 +339,7 @@ static int ttl_items;
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * fname_1st_char;
 static const char * lname_1st_char;
-static const char * contact_initials_set;
+static const char * contact_initials;
 static const char * name_string;
 static int name_count;
 static const char * email_string;
@@ -479,24 +499,9 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Contact Initials text */
     contact_initials_text = lv_img_create(image);
-    // fname_1st_char[] = contacts_list[CONTACT_ID].contact_fname;
-    // lname_1st_char[] = contacts_list[CONTACT_ID].contact_lname;
-    fname_1st_char = str(contacts_list[CONTACT_ID].contact_fname);
-    lname_1st_char = str(contacts_list[CONTACT_ID].contact_lname);
+    contact_initials = contacts_list[CONTACT_ID].contact_initials;
 
-    // auto contact_initials_set = std::string(1,fname_1st_char)+lname_1st_char;
-    // contact_initials_set[] = contacts_list[CONTACT_ID].contact_fname;
-    contact_initials_set = strcat(fname_1st_char, lname_1st_char);
-    // contact_initials_set[1] = lname_1st_char;
-    // contact_initials_set[2] = '\0';
-
-    // contact_initials_set += fname_1st_char;
-    // contact_initials_set += lname_1st_char;
-    // contact_initials_set = s;
-    // contact_initials_set = fname_1st_char + lname_1st_char;
-
-    printf("\nFname char: %c   Lname char: %c  \n", fname_1st_char[0], lname_1st_char[0]);
-    printf("CTC Inits: %s \n", contact_initials_set);
+    printf("CTC Inits: %s \n", contact_initials);
 
 /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
