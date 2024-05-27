@@ -435,10 +435,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     for (int i = 0; i < total_contact_items; i++) {
 
         /* TODO :: find out why these next two lines are even here at all */
-        left.y = left.y + offset;
-        right.y = right.y + offset;
+        // left.y = left.y + offset;
+        // right.y = right.y + offset;
 
-        offset =  -48 + (62 * i);
+        // offset =  -48 + (62 * i);
 
         /* Calculate if the NAME field is greater than or equal to 25 characters */
         name_string = contacts_list[i].contact_name;
