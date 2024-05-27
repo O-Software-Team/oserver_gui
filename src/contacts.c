@@ -480,7 +480,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     contact_initials_text = lv_img_create(image);
     fname_1st_char = contacts_list[CONTACT_ID].contact_fname;
     lname_1st_char = contacts_list[CONTACT_ID].contact_lname;
-    printf("Fname char: %s   Lname char: %s", fname_1st_char, lname_1st_char);
+    printf("\n\nFname char: %s   Lname char: %s\n\n", fname_1st_char[0], lname_1st_char[0]);
 
 /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
