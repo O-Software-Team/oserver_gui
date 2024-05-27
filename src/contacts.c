@@ -339,7 +339,7 @@ static int ttl_items;
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * fname_1st_char;
 static const char * lname_1st_char;
-static const char * contact_initials;
+// static const char * contact_initials;
 static const char * name_string;
 static int name_count;
 static const char * email_string;
@@ -364,7 +364,7 @@ lv_label_t * contact_company_name;
 lv_label_t * contact_notes;
 
 lv_obj_t * contact_initials_bg;
-lv_label_t * contact_initials_text;
+lv_label_t * contact_initials;
 
 lv_label_t * heading_mobile;
 lv_label_t * heading_email;
@@ -498,10 +498,13 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_MID, 0, 24);
 
     /* Contact Initials text */
-    contact_initials_text = lv_img_create(image);
-    contact_initials = contacts_list[CONTACT_ID].contact_initials;
+    contact_initials = lv_label_create(image);
+    lv_label_set_text(contact_initials, contacts_list[CONTACT_ID].contact_initials);
+    lv_label_set_recolor(contact_initials, true);
+    lv_obj_align(contact_initials, LV_ALIGN_TOP_MID, 0, 24);
+    lv_obj_set_style_text_color(contact_initials, lv_color_white(), 0);
+    lv_obj_set_style_text_font(contact_initials, &NeueHaasDisplayLight_32, LV_PART_MAIN);
 
-    printf("CTC Inits: %s \n", contact_initials);
 
 /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
