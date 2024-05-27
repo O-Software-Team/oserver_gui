@@ -423,10 +423,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_img_set_src(top_of_list_items, &Linez);
     lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
 
-    /* TODO :: figure out why these are being used */
-    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    // lv_point_t right = { 290, -220};
-    // lv_coord_t offset = 0;
+    /* These keep the alignment settings evenly spaced when in a for loop */
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
+    lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_contact_items];
@@ -434,11 +434,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     /* Add (simulated) contacts as clickable buttons*/
     for (int i = 0; i < total_contact_items; i++) {
 
-        /* TODO :: find out why these next two lines are even here at all */
-        // left.y = left.y + offset;
-        // right.y = right.y + offset;
+        left.y = left.y + offset;
+        right.y = right.y + offset;
 
-        // offset =  -48 + (62 * i);
+        offset =  -48 + (62 * i);
 
         /* Calculate if the NAME field is greater than or equal to 25 characters */
         name_string = contacts_list[i].contact_name;
@@ -660,60 +659,12 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_img_set_src(list_item_separator[CONTACT_ID], &Linez);
     lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, 326);
 
-/* DONE */
-
-
-    /* TODO :: figure out why we are using these */
-    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    // lv_point_t right = { 290, -220};
-    // lv_coord_t offset = 0;
-
-    // offset =  -48 + (62 * 1);
+/* Contact Detail Card elements complete -- add final line below last item */
 
     /* Add a list item separator line below the list item text */
     list_item_separator[CONTACT_ID] = lv_img_create(image);
     lv_img_set_src(list_item_separator[CONTACT_ID], &Linez);
     lv_obj_align(list_item_separator[CONTACT_ID], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, 300);
-
-    /* Calculate if the FROM field is greater than or equal to 25 characters */
-    // name_string = contacts_list[CONTACT_ID].contact_name;
-    // name_count = strlen(name_string);
-
-    /* Calculate and then truncate if the FROM field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-    // if(name_count >= 37) {
-    //     lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
-    //     lv_label_cut_text(contact_name,35,name_count);
-    //     lv_label_ins_text(contact_name,37,"...");
-    // } else {
-    //     lv_label_set_text(contact_detail_from, contacts_list[CONTACT_ID].contact_name);
-    // }
-
-    /* Text FROM field */
-    // contact_detail_from = lv_label_create(image);
-    // lv_label_set_recolor(contact_detail_from, true);
-
-    /* Contact FAV/NOT_FAV icon on the left */
-    // lv_obj_t * txtmsg_icon = lv_img_create(image);
-    // lv_img_set_src(txtmsg_icon, contacts_list[i].ctcitem_status);
-    // lv_obj_align(txtmsg_icon, LV_ALIGN_LEFT_MID, LIST_LEFT_ALIGNED, offset);
-
-    /* Text message SUMMARY field */
-    // contact_name = lv_label_create(image);
-    // lv_label_set_recolor(contact_name, true);
-
-    /* Calculate and then truncate if the SUMMARY field is greater than or equal to 37 characters; then insert an ellipsis in place of the long string */
-    // if(summary_count >= 37) {
-    //     lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-    //     lv_label_cut_text(ctcitem_name,35,summary_count);
-    //     lv_label_ins_text(ctcitem_name,37,"...");
-    // } else {
-    //     lv_label_set_text(ctcitem_name, contacts_list[i].contact_name);
-    // } 
-
-    // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + 15);
-    // lv_obj_set_style_text_color(contact_name, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
-    // lv_obj_set_style_text_line_space(contact_name, CONTACT_LINE_SPACING, LV_PART_MAIN);
-    // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
 }
 
