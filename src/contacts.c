@@ -471,7 +471,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 /* INITIALS-OVER-IMAGE ELEMENT HERE */
     contact_initials_bg = lv_img_create(image);
     lv_img_set_src(contact_initials_bg, &Icon_Contact_Initials_Background);
-    lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_MID, 0, 80);
+    lv_obj_align(contact_initials_bg, LV_ALIGN_TOP_MID, 0, 60);
 
 
     contact_initials_text = lv_img_create(image);
