@@ -319,7 +319,7 @@ static int ttl_items;
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * fname_1st_char[];
 static const char * lname_1st_char[];
-static const char * contact_initials_set[];
+static const char * contact_initials_set;
 static const char * name_string;
 static int name_count;
 static const char * email_string;
@@ -483,8 +483,8 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lname_1st_char[] = contacts_list[CONTACT_ID].contact_lname;
 
     // auto contact_initials_set = std::string(1,fname_1st_char)+lname_1st_char;
-    contact_initials_set[] = contacts_list[CONTACT_ID].contact_fname;
-    strcat(contact_initials_set, lname_1st_char);
+    // contact_initials_set[] = contacts_list[CONTACT_ID].contact_fname;
+    contact_initials_set = strcat(fname_1st_char, lname_1st_char);
     // contact_initials_set[1] = lname_1st_char;
     // contact_initials_set[2] = '\0';
 
