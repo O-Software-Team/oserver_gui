@@ -67,26 +67,32 @@ LV_FONT_DECLARE(lv_font_montserrat_44);
     // lv_obj_align(next_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
     // lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
 
-void contacts_list_init(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(contacts_page);
+/* Set variables to determine total number of Contacts list members */
+static int total_filesystem_items = 1;
+static int ttl_items;
+
+static lv_obj_t * top_of_list_items;
+
+void filesystem_list_init(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
-    /* Calculate total Contact records */
-    printf("\nCalculate contact records...\n");
-    for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
-        total_contact_items = ttl_items+1;
-        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_list[ttl_items].contact_id);
+    /* Calculate total Filesystem_01 records */
+    printf("\nCalculate filesystem_01 records...\n");
+    for(ttl_items = 0; filesystem_01_list[ttl_items].file_id != "end"; ttl_items++) {
+        total_filesystem_items = ttl_items+1;
+        printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_01_list[ttl_items].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_contact_items);
+    printf("\nTotal Records: %d\n\n",total_filesystem_items);
 
     /* Build the Contact record list for display */
-    printf("Building each Contact record for display\n");
-    for(int j = 0; j < total_contact_items; j++) {
-        if(contacts_list[j].contact_id == "end") {
-            printf("item: %d -- contact_notes: %s\n",j,contacts_list[j].contact_notes);
+    printf("Building each Filesystem_01 record for display\n");
+    for(int j = 0; j < total_filesystem_items; j++) {
+        if(filesystem_01_list[j].file_id == "end") {
+            printf("item: %d -- file_name: %s\n",j,filesystem_01_list[j].file_name);
             break;
         } else {
-            printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
+            printf("file_id: %s -- file_name: %s\n",filesystem_01_list[j].file_id,filesystem_01_list[j].file_name);
         }
     }
 
@@ -121,7 +127,7 @@ void contacts_list_init(lv_obj_t * filesystem_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_contact_items];
+    lv_obj_t * list_item_separator[total_filesystem_items];
 }
 
 void file_menu_setup(void)
@@ -142,7 +148,7 @@ void file_menu_setup(void)
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
     printf("FILESYSTEM LIST init...\n");
-    contacts_list_init(filesystem_page);
+    filesystem_list_init(filesystem_page);
 
     /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
     printf("FILESYSTEM VIEW launch...\n");
