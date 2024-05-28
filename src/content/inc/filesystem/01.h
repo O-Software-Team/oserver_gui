@@ -22,13 +22,13 @@
 static filesystem_item filesystem_01_list[] = {
     {
         .file_id = "0001",
-        .file_permissions = "drwxr-xr-x@",
+        .file_permissions = "-rw-r--r--@",
         .file_owner = "steveglaiser",
         .file_group = "staff",
-        .file_type = "directory",
-        .file_size = "2368",
+        .file_type = "file",
+        .file_size = "13829",
         .file_modified = "May 18  2023",
-        .file_fullname = "."
+        .file_fullname = "Autograf_And_Tiina_Image.c"
     },
     {
         .file_id = "0002",
