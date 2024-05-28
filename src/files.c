@@ -2,8 +2,10 @@
 #include "oserver_gui.h"
 #include "menu_handler.h"
 #include "utilities.h"
-#include "content/inc/filesystem/01.h"
 #include <stdio.h>
+
+/* Initialize/populate the Filesystem list struct */
+#include "content/inc/filesystem/01.h"
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0
