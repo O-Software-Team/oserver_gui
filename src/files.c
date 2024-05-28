@@ -2,7 +2,7 @@
 #include "oserver_gui.h"
 #include "menu_handler.h"
 #include "utilities.h"
-#include "../content/inc/filesystem/01.h"
+#include "content/inc/filesystem/01.h"
 #include <stdio.h>
 
 /* Contact list and contact ID variables */
