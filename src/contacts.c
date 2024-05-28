@@ -2,6 +2,7 @@
 #include "oserver_gui.h"
 #include "menu_handler.h"
 #include "utilities.h"
+#include "content/inc/contacts/01.h"
 
 #include <stdio.h>
 
@@ -61,7 +62,7 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
 
-/* Create and initialize the Contacts list */
+/* Create and initialize the Contacts list
 static contacts_item contacts_list[] = {
     {
         .contact_id = "0001",
@@ -307,7 +308,7 @@ static contacts_item contacts_list[] = {
         .contact_id = "end",
         .contact_notes = "TAP HERE\nTo import\nyour Contacts",
     },
-};
+}; */
 
 /* Set variables to determine total number of Contacts list members */
 static int total_contact_items = 1;
