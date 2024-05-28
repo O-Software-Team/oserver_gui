@@ -89,10 +89,10 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     printf("Building each Filesystem_01 record for display\n");
     for(int j = 0; j < total_filesystem_items; j++) {
         if(filesystem_01_list[j].file_id == "end") {
-            printf("item: %d -- file_name: %s\n",j,filesystem_01_list[j].file_name);
+            printf("item: %d -- file_fullname: %s\n",j,filesystem_01_list[j].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_name: %s\n",filesystem_01_list[j].file_id,filesystem_01_list[j].file_name);
+            printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[j].file_id,filesystem_01_list[j].file_fullname);
         }
     }
 
