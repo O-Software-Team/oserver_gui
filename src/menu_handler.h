@@ -89,6 +89,30 @@ typedef struct {
     // bool active;
 } contacts_item;
 
+typedef struct {
+    char * menu_pre;
+    char * menu_italic;
+    int lx_offset;
+    int mx_offset;
+    int rx_offset;
+    char * file_id;
+    char * file_name;
+    char * file_extension;
+    char * file_fullname;
+    char * file_type;
+    char * file_size;
+    char * file_location;
+    char * file_permissions;
+    char * file_created;
+    char * file_modified;
+    char * file_owner;
+    char * file_group;
+    char * file_visibility;
+    char * file_info;
+    // void (* page_handler)(lv_obj_t *);
+    // bool active;
+} filesystem_item;
+
 enum security {ADMIN = 0, FRIEND};
 
 // typedef struct {
