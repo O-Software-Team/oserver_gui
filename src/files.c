@@ -67,25 +67,104 @@ LV_FONT_DECLARE(lv_font_montserrat_44);
     // lv_obj_align(next_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
     // lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
 
+void contacts_list_init(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(contacts_page);
+    lv_img_set_src(image, &Background);
 
+    /* Calculate total Contact records */
+    printf("\nCalculate contact records...\n");
+    for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
+        total_contact_items = ttl_items+1;
+        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_list[ttl_items].contact_id);
+    }
+    printf("\nTotal Records: %d\n\n",total_contact_items);
+
+    /* Build the Contact record list for display */
+    printf("Building each Contact record for display\n");
+    for(int j = 0; j < total_contact_items; j++) {
+        if(contacts_list[j].contact_id == "end") {
+            printf("item: %d -- contact_notes: %s\n",j,contacts_list[j].contact_notes);
+            break;
+        } else {
+            printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
+        }
+    }
+
+    render_back_button(image, back_home_button_cb);
+
+    /* 'Filter' button to filter the text messages */
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &Contacts_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the text message list heading - NOT NEEDED FOR THIS APP */
+    lv_label_t * list_name = lv_label_create(image);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_label_set_text(list_name, "Favorites");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+    // Add a list item separator line below the list item header
+    top_of_list_items = lv_img_create(image);
+    lv_img_set_src(top_of_list_items, &Linez);
+    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
+
+    /* These keep the alignment settings evenly spaced when in a for loop */
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
+    lv_coord_t offset = 0;
+
+    /* Set the list_item_separator object here */
+    lv_obj_t * list_item_separator[total_contact_items];
+}
 
 void file_menu_setup(void)
 {
-    lv_obj_t * files_page = lv_obj_create(NULL);
-    lv_obj_t * background = lv_img_create(files_page);
-    lv_img_set_src(background, &Background);
-
     printf("FILES MENU init...\n");
 
-    menu_dispatch_table[FILES_VEC] = files_page;
+    lv_obj_t * filesystem_page = lv_obj_create(NULL);
+    menu_dispatch_table[FILES_VEC] = filesystem_page;
 
-    render_back_button(background, back_home_button_cb);
-    lv_obj_center(files_page);
-    lv_obj_set_style_bg_color(files_page, lv_color_lighten(lv_color_black(), 60), 0);
-    lv_obj_set_flex_flow(files_page, LV_FLEX_FLOW_ROW);
-    //lv_obj_add_event_cb(files_page, scroll_event_cb, LV_EVENT_SCROLL, NULL);
-    lv_obj_set_style_clip_corner(files_page, true, 3);
-    lv_obj_set_scroll_dir(files_page, LV_DIR_HOR);
-    lv_obj_set_scroll_snap_x(files_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(files_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+    lv_obj_center(filesystem_page);
+    lv_obj_set_style_bg_color(filesystem_page, lv_color_lighten(lv_color_black(), 60), 0);
+    lv_obj_set_flex_flow(filesystem_page, LV_FLEX_FLOW_ROW);
+    //lv_obj_add_event_cb(filesystem_page, scroll_event_cb, LV_EVENT_SCROLL, NULL);
+    lv_obj_set_style_clip_corner(filesystem_page, true, 3);
+    lv_obj_set_scroll_dir(filesystem_page, LV_DIR_HOR);
+    lv_obj_set_scroll_snap_x(filesystem_page, LV_SCROLL_SNAP_CENTER);
+    lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
+
+    /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
+    printf("FILESYSTEM LIST init...\n");
+    contacts_list_init(filesystem_page);
+
+    /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
+    printf("FILESYSTEM VIEW launch...\n");
+    // contacts_view(filesystem_view_page);
+
+
+
+    // lv_obj_t * files_page = lv_obj_create(NULL);
+    // lv_obj_t * background = lv_img_create(files_page);
+    // lv_img_set_src(background, &Background);
+
+    // printf("FILES MENU init...\n");
+
+    // menu_dispatch_table[FILES_VEC] = files_page;
+
+    // render_back_button(background, back_home_button_cb);
+    // lv_obj_center(files_page);
+    // lv_obj_set_style_bg_color(files_page, lv_color_lighten(lv_color_black(), 60), 0);
+    // lv_obj_set_flex_flow(files_page, LV_FLEX_FLOW_ROW);
+    // //lv_obj_add_event_cb(files_page, scroll_event_cb, LV_EVENT_SCROLL, NULL);
+    // lv_obj_set_style_clip_corner(files_page, true, 3);
+    // lv_obj_set_scroll_dir(files_page, LV_DIR_HOR);
+    // lv_obj_set_scroll_snap_x(files_page, LV_SCROLL_SNAP_CENTER);
+    // lv_obj_set_scrollbar_mode(files_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
 }

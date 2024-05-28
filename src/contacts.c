@@ -324,7 +324,6 @@ static const char * notes_string;
 static int notes_count;
 
 /* Set variables for all the contacts content fields: ID, NAME, EMAIL, PHONE, etc */
-// lv_label_t * contact_id;
 lv_label_t * contact_name;
 lv_label_t * contact_p_email;
 lv_label_t * contact_m_phone;
@@ -638,7 +637,6 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
 void contacts_menu_setup(void)
 {
-
     printf("CONTACTS MENU init...\n");
 
     lv_obj_t * contacts_page = lv_obj_create(NULL);
