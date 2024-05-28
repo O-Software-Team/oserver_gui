@@ -107,7 +107,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 
     /* Add the Page header at the top */
     lv_obj_t * page_header = lv_img_create(image);
-    lv_img_set_src(page_header, &Contacts_App_Heading_Title);
+    lv_img_set_src(page_header, &Files_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the text message list heading - NOT NEEDED FOR THIS APP */
