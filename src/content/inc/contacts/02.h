@@ -1,4 +1,24 @@
-{
+/* List based upon the items created for use in an active Contacts App on a person's mobile fone -- from 01.json */
+
+/*
+    char * contact_id;
+    char * contact_fname;
+    char * contact_lname;
+    char * contact_name;
+    char * contact_initials;
+    char * contact_p_phone;
+    char * contact_m_phone;
+    char * contact_w_phone;
+    char * contact_p_email;
+    char * contact_w_email;
+    char * contact_p_address;
+    char * contact_w_address;
+    char * contact_company_name;
+    char * contact_notes;
+*/
+
+/* Create and initialize the Contacts_02 list */
+static contacts_item contacts_02_list[] = {
     {
         .contact_id = "0001",
         .contact_name = "Buckaroo Banzai",

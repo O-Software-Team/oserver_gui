@@ -101,20 +101,20 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
     /* Calculate total Contact records */
     printf("\nCalculate contact records...\n");
-    for(ttl_items = 0; contacts_list[ttl_items].contact_id != "end"; ttl_items++) {
+    for(ttl_items = 0; contacts_01_list[ttl_items].contact_id != "end"; ttl_items++) {
         total_contact_items = ttl_items+1;
-        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_list[ttl_items].contact_id);
+        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_01_list[ttl_items].contact_id);
     }
     printf("\nTotal Records: %d\n\n",total_contact_items);
 
     /* Build the Contact record list for display */
     printf("Building each Contact record for display\n");
     for(int j = 0; j < total_contact_items; j++) {
-        if(contacts_list[j].contact_id == "end") {
-            printf("item: %d -- contact_notes: %s\n",j,contacts_list[j].contact_notes);
+        if(contacts_01_list[j].contact_id == "end") {
+            printf("item: %d -- contact_notes: %s\n",j,contacts_01_list[j].contact_notes);
             break;
         } else {
-            printf("contact_id: %s -- contact_name: %s\n",contacts_list[j].contact_id,contacts_list[j].contact_name);
+            printf("contact_id: %s -- contact_name: %s\n",contacts_01_list[j].contact_id,contacts_01_list[j].contact_name);
         }
     }
 
@@ -160,7 +160,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         offset =  -48 + (62 * i);
 
         /* Calculate if the NAME field is greater than or equal to 25 characters */
-        name_string = contacts_list[i].contact_name;
+        name_string = contacts_01_list[i].contact_name;
         name_count = strlen(name_string);
 
         /* Contact NAME field */
@@ -169,11 +169,11 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
         if(name_count >= 37) {
-            lv_label_set_text(contact_name, contacts_list[i].contact_name);
+            lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
             lv_label_cut_text(contact_name,35,name_count);
             lv_label_ins_text(contact_name,37,"...");
         } else {
-            lv_label_set_text(contact_name, contacts_list[i].contact_name);
+            lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
         }
 
         /* Contact Name field */
@@ -218,7 +218,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Contact Initials text */
     contact_initials = lv_label_create(image);
-    lv_label_set_text(contact_initials, contacts_list[CONTACT_ID].contact_initials);
+    lv_label_set_text(contact_initials, contacts_01_list[CONTACT_ID].contact_initials);
     lv_label_set_recolor(contact_initials, true);
     lv_obj_align(contact_initials, LV_ALIGN_TOP_MID, 0, 42);
     lv_obj_set_style_text_color(contact_initials, lv_color_white(), 0);
@@ -226,7 +226,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
 /* FULL NAME BANNER HERE */
     /* Calculate if the NAME field is greater than or equal to 25 characters */
-    name_string = contacts_list[CONTACT_ID].contact_name;
+    name_string = contacts_01_list[CONTACT_ID].contact_name;
     name_count = strlen(name_string);
 
     /* Contact NAME field */
@@ -235,11 +235,11 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Calculate and then truncate if the NAME field is greater than or equal to 27 characters; then insert an ellipsis in place of the long string */
     if(name_count >= 27) {
-        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
+        lv_label_set_text(contact_name, contacts_01_list[CONTACT_ID].contact_name);
         lv_label_cut_text(contact_name,25,name_count);
         lv_label_ins_text(contact_name,27,"...");
     } else {
-        lv_label_set_text(contact_name, contacts_list[CONTACT_ID].contact_name);
+        lv_label_set_text(contact_name, contacts_01_list[CONTACT_ID].contact_name);
     }
 
     /* Contact Name field */
@@ -260,7 +260,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     contact_m_phone = lv_label_create(image);
     lv_label_set_recolor(contact_m_phone, true);
 
-    lv_label_set_text(contact_m_phone, contacts_list[CONTACT_ID].contact_m_phone);
+    lv_label_set_text(contact_m_phone, contacts_01_list[CONTACT_ID].contact_m_phone);
 
     lv_obj_align(contact_m_phone, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, -20);
     lv_obj_set_style_text_color(contact_m_phone, lv_color_white(), 0);
@@ -281,7 +281,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_set_style_text_font(heading_email, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
     /* Calculate if the EMAIL field is greater than or equal to 27 characters */
-    email_string = contacts_list[CONTACT_ID].contact_p_email;
+    email_string = contacts_01_list[CONTACT_ID].contact_p_email;
     email_count = strlen(email_string);
 
     /* Contact Email field */
@@ -290,11 +290,11 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Calculate and then truncate if the EMAIL field is greater than or equal to 27 characters; then insert an ellipsis in place of the long string */
     if(email_count >= 27) {
-        lv_label_set_text(contact_p_email, contacts_list[CONTACT_ID].contact_p_email);
+        lv_label_set_text(contact_p_email, contacts_01_list[CONTACT_ID].contact_p_email);
         lv_label_cut_text(contact_p_email,25,email_count);
         lv_label_ins_text(contact_p_email,27,"...");
     } else {
-        lv_label_set_text(contact_p_email, contacts_list[CONTACT_ID].contact_p_email);
+        lv_label_set_text(contact_p_email, contacts_01_list[CONTACT_ID].contact_p_email);
     }
 
     /* Contact Email field */
@@ -317,7 +317,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_set_style_text_font(heading_company, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
     /* Calculate if the COMPANY field is greater than or equal to 27 characters */
-    company_string = contacts_list[CONTACT_ID].contact_company_name;
+    company_string = contacts_01_list[CONTACT_ID].contact_company_name;
     company_count = strlen(company_string);
 
     /* Contact NAME field */
@@ -326,11 +326,11 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
     if(company_count >= 27) {
-        lv_label_set_text(contact_company_name, contacts_list[CONTACT_ID].contact_company_name);
+        lv_label_set_text(contact_company_name, contacts_01_list[CONTACT_ID].contact_company_name);
         lv_label_cut_text(contact_company_name,25,company_count);
         lv_label_ins_text(contact_company_name,27,"...");
     } else {
-        lv_label_set_text(contact_company_name, contacts_list[CONTACT_ID].contact_company_name);
+        lv_label_set_text(contact_company_name, contacts_01_list[CONTACT_ID].contact_company_name);
     }
 
     /* Contact Name field */
@@ -353,7 +353,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_obj_set_style_text_font(heading_notes, &NeueHaasDisplayLight_20, LV_PART_MAIN);
 
     /* Calculate if the NOTES field is greater than or equal to 27 characters */
-    notes_string = contacts_list[CONTACT_ID].contact_notes;
+    notes_string = contacts_01_list[CONTACT_ID].contact_notes;
     notes_count = strlen(notes_string);
 
     /* Contact NAME field */
@@ -362,11 +362,11 @@ void contacts_view(lv_obj_t * contacts_view_page) {
 
     /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
     if(notes_count >= 27) {
-        lv_label_set_text(contact_notes, contacts_list[CONTACT_ID].contact_notes);
+        lv_label_set_text(contact_notes, contacts_01_list[CONTACT_ID].contact_notes);
         lv_label_cut_text(contact_notes,25,notes_count);
         lv_label_ins_text(contact_notes,27,"...");
     } else {
-        lv_label_set_text(contact_notes, contacts_list[CONTACT_ID].contact_notes);
+        lv_label_set_text(contact_notes, contacts_01_list[CONTACT_ID].contact_notes);
     }
 
     /* Contact Name field */
@@ -406,7 +406,7 @@ void contacts_menu_setup(void)
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
     printf("CONTACTS LIST init...\n");
-    contacts_list_init(contacts_page);
+    contacts_01_list_init(contacts_page);
 
     /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
     printf("CONTACTS VIEW launch...\n");

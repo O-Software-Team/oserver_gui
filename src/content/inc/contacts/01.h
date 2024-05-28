@@ -18,8 +18,8 @@
 */
 
 
-/* Create and initialize the Contacts list */
-static contacts_item contacts_list[] = {
+/* Create and initialize the Contacts_01 list */
+static contacts_item contacts_01_list[] = {
     {
         .contact_id = "0001",
         .contact_name = "Buckaroo Banzai",
