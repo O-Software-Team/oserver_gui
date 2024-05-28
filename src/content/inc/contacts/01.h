@@ -1,4 +1,3 @@
-
 /* List based upon the items created for use in an active Contacts App on a person's mobile fone -- from 01.json */
 
 /*
@@ -16,11 +15,8 @@
     char * contact_w_address;
     char * contact_company_name;
     char * contact_notes;
-    // char * contact_status;
-    // void (* page_handler)(lv_obj_t *);
-    lv_img_dsc_t * contact_status;
-    // bool active;
 */
+
 
 /* Create and initialize the Contacts list */
 static contacts_item contacts_list[] = {
