@@ -114,7 +114,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "Favorites");
+    lv_label_set_text(list_name, "List of files");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
