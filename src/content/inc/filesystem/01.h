@@ -15,6 +15,7 @@
     char * file_group;
     char * file_visibility;
     char * file_info;
+    lv_img_dsc_t * file_icon;
 */
 
 
@@ -39,7 +40,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "Movies"
+        .file_fullname = "Movies",
         .file_icon = &Icon_Video_Yellow
     },
     {
@@ -50,7 +51,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "Images"
+        .file_fullname = "Images",
         .file_icon = &Icon_Image_Yellow
     },
     {
@@ -61,7 +62,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "Applications"
+        .file_fullname = "Applications",
         .file_icon = &Icon_Programs_Yellow
     },
     {
@@ -72,7 +73,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "Excel"
+        .file_fullname = "Excel",
         .file_icon = &Icon_Excel_Yellow
     },
     {
@@ -83,7 +84,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_size = "555",
         .file_size = "147408",
         .file_modified = "May 18 2024",
-        .file_fullname = "Documents"
+        .file_fullname = "Documents",
         .file_icon = &Icon_Documents_Yellow
     },
     {

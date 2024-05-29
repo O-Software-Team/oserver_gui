@@ -68,13 +68,6 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
-/*
-    {.menu_pre = "Bob's iPhone",   .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
-    {.menu_pre = "Marks iPad",     .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-    {.menu_pre = "Bob's Macbook",  .active = false, .security_status = FRIEND, .icon = &Icon_MacBook},
-    {.menu_pre = "Orna's iPad",    .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
-*/
-
 /* USE THIS FOR THE LIST -- NEXT BUTTON */
     // next_icon[i] = lv_img_create(image);
     // lv_img_set_src(next_icon[i], &Icon_Next_White);
