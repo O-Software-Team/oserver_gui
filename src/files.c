@@ -124,9 +124,9 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     // Add a list item separator line below the list item header
-    top_of_list_items = lv_img_create(image);
-    lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
+    // top_of_list_items = lv_img_create(image);
+    // lv_img_set_src(top_of_list_items, &Linez);
+    // lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
@@ -173,7 +173,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         lv_label_set_recolor(found_label[i], true);
         lv_obj_align(found_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
         lv_label_set_text(found_label[i], filesystem_01_list[i].file_fullname);
-        lv_style_set_text_font(&name_style, &NeueHaasDisplayRoman_16);
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayRoman_20);
         lv_obj_add_style(found_label[i], &name_style, LV_PART_MAIN);
         lv_obj_set_style_text_color(found_label[i], lv_color_white(), 0);
 
