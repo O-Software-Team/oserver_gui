@@ -149,7 +149,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     /* Add (simulated) devices entries as clickable buttons*/
     for (int i = 0; i < total_filesystem_items; i++)
     {
-        offset =  121 + (60 * i);
+        offset =  151 + (60 * i);
         entry_separator[i] = lv_img_create(image);
         lv_img_set_src(entry_separator[i], &Linez);
         lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
