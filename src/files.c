@@ -158,7 +158,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         device_icon[i] = lv_img_create(image);
         lv_img_set_src(device_icon[i], filesystem_01_list[i].file_icon);
         lv_obj_align(device_icon[i], LV_ALIGN_CENTER, -130, offset - 225);
-        lv_obj_set_style_opa(device_icon[i], LV_OPA_70, LV_PART_MAIN);
+        // lv_obj_set_style_opa(device_icon[i], LV_OPA_70, LV_PART_MAIN);
 
         /*this is the opaque button overlay of the device entry graphic*/
         // found_btn[i] = lv_btn_create(image);
@@ -173,7 +173,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         lv_label_set_recolor(found_label[i], true);
         lv_obj_align(found_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
         lv_label_set_text(found_label[i], filesystem_01_list[i].file_fullname);
-        lv_style_set_text_font(&name_style, &NeueHaasDisplayRoman_20);
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_22);
         lv_obj_add_style(found_label[i], &name_style, LV_PART_MAIN);
         lv_obj_set_style_text_color(found_label[i], lv_color_white(), 0);
 
