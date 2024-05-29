@@ -1,4 +1,4 @@
-/* List to provide a sample of movies found on the device */
+/* List based upon the items found in the "files" directory -- from 01.json */
 
 /*
     char * file_id;
@@ -19,7 +19,7 @@
 
 
 /* Create and initialize the Filesystem list */
-static filesystem_item filesystem_03_list[] = {
+static filesystem_item filesystem_08_list[] = {
     {
         .file_id = "0001",
         .file_permissions = "-rw-r--r--@",
@@ -269,6 +269,116 @@ static filesystem_item filesystem_03_list[] = {
         .file_size = "222858",
         .file_modified = "May 18 2023",
         .file_fullname = "Icon_Filter_Button.c"
+    },
+    {
+        .file_id = "0026",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "222894",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Grey_Outline_Button.c"
+    },
+    {
+        .file_id = "0027",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "24317",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_List_Item_Divider.c"
+    },
+    {
+        .file_id = "0028",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "116646",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_MacBook.c"
+    },
+    {
+        .file_id = "0029",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "370548",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_Calendar_Yellow.c"
+    },
+    {
+        .file_id = "0030",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "353454",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_Contact_Yellow.c"
+    },
+    {
+        .file_id = "0031",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "433855",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_Devices_Yellow.c"
+    },
+    {
+        .file_id = "0032",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "353442",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_Files_Yellow.c"
+    },
+    {
+        .file_id = "0033",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "250116",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_Mail_Yellow.c"
+    },
+    {
+        .file_id = "0034",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "364962",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_Music_Yellow.c"
+    },
+    {
+        .file_id = "0035",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "462858",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_O_Yellow.c"
+    },
+    {
+        .file_id = "0036",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "325152",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Icon_Menu_Settings_Yellow.c"
     },
     {
         .file_id = "end",

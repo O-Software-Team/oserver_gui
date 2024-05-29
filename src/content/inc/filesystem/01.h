@@ -1,4 +1,4 @@
-/* List based upon the items found in the "files" directory -- from 01.json */
+/* List from Files spec */
 
 /*
     char * file_id;

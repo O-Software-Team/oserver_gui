@@ -1,4 +1,4 @@
-/* List to provide a sample of movies found on the device */
+/* List to provide a sample of documents found on the device */
 
 /*
     char * file_id;
@@ -19,7 +19,7 @@
 
 
 /* Create and initialize the Filesystem list */
-static filesystem_item filesystem_03_list[] = {
+static filesystem_item filesystem_07_list[] = {
     {
         .file_id = "0001",
         .file_permissions = "-rw-r--r--@",

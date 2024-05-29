@@ -1,4 +1,4 @@
-/* List based upon the items found in the "files" directory -- from 01.json */
+/* List to provide a sample of folders found on the device */
 
 /*
     char * file_id;
@@ -61,7 +61,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_fullname = "Downloads"
     },
     {
-        .file_id = "0004",
+        .file_id = "0005",
         .file_permissions = "drwxr-xr-x@",
         .file_owner = "steveglaiser",
         .file_group = "staff",
@@ -71,7 +71,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_fullname = "Movies"
     },
     {
-        .file_id = "0005",
+        .file_id = "0006",
         .file_permissions = "drwxr-xr-x@",
         .file_owner = "steveglaiser",
         .file_group = "staff",
@@ -81,7 +81,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_fullname = "Music"
     },
     {
-        .file_id = "0002",
+        .file_id = "0007",
         .file_permissions = "drwxr-xr-x@",
         .file_owner = "steveglaiser",
         .file_group = "staff",
@@ -91,7 +91,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_fullname = "Pictures"
     },
     {
-        .file_id = "0006",
+        .file_id = "0008",
         .file_permissions = "drwxr-xr-x@",
         .file_owner = "steveglaiser",
         .file_group = "staff",

@@ -7,7 +7,11 @@
 /* Initialize/populate the Filesystem list structs */
 #include "content/inc/filesystem/01.h"   /* Main screen list of elements */
 #include "content/inc/filesystem/02.h"   /* Filesystem Folders list */
-#include "content/inc/filesystem/03.h"   /* Filesystem Random files list */
+#include "content/inc/filesystem/03.h"   /* Filesystem Movies list */
+#include "content/inc/filesystem/04.h"   /* Filesystem Images list */
+#include "content/inc/filesystem/05.h"   /* Filesystem Applications list */
+#include "content/inc/filesystem/06.h"   /* Filesystem Excel list */
+#include "content/inc/filesystem/07.h"   /* Filesystem Documents list */
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0
