@@ -120,7 +120,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "List of files");
+    lv_label_set_text(list_name, "System List");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -211,16 +211,39 @@ void file_menu_setup(void)
     lv_obj_set_scroll_snap_x(filesystem_page, LV_SCROLL_SNAP_CENTER);
     lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
 
-    /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
-    printf("FILESYSTEM LIST init...\n");
+    /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
+    printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
     filesystem_list_init(filesystem_page);
 
-    /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
+    /* FILESYSTEM VIEW: Display the content for filesystem_02 */
     printf("FILESYSTEM_02 VIEW launch...\n");
     // filesystem_02_view(filesystem_02_view_page);
     filesystem_02_view(filesystem_page);
 
+    /* FILESYSTEM VIEW: Display the content for filesystem_03 */
+    printf("FILESYSTEM_03 VIEW launch...\n");
+    // filesystem_02_view(filesystem_02_view_page);
+    filesystem_03_view(filesystem_page);
 
+    /* FILESYSTEM VIEW: Display the content for filesystem_04 */
+    printf("FILESYSTEM_04 VIEW launch...\n");
+    // filesystem_04_view(filesystem_02_view_page);
+    filesystem_04_view(filesystem_page);
+
+    /* FILESYSTEM VIEW: Display the content for filesystem_05 */
+    printf("FILESYSTEM_05 VIEW launch...\n");
+    // filesystem_02_view(filesystem_02_view_page);
+    filesystem_05_view(filesystem_page);
+
+    /* FILESYSTEM VIEW: Display the content for filesystem_06 */
+    printf("FILESYSTEM_06 VIEW launch...\n");
+    // filesystem_02_view(filesystem_02_view_page);
+    filesystem_06_view(filesystem_page);
+
+    /* FILESYSTEM VIEW: Display the content for filesystem_07 */
+    printf("FILESYSTEM_07 VIEW launch...\n");
+    // filesystem_02_view(filesystem_02_view_page);
+    filesystem_07_view(filesystem_page);
 
     // lv_obj_t * files_page = lv_obj_create(NULL);
     // lv_obj_t * background = lv_img_create(files_page);
