@@ -27,7 +27,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_group = "staff",
         .file_type = "folder",
         .file_size = "41379012823870",
-        .file_modified = "May 21  2024",
+        .file_modified = "May 21 2024",
         .file_fullname = "Applications"
     },
     {
@@ -37,7 +37,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_group = "staff",
         .file_type = "folder",
         .file_size = "2713829",
-        .file_modified = "June 18  2023",
+        .file_modified = "June 18 2023",
         .file_fullname = "Desktop"
     },
     {
@@ -47,7 +47,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_group = "staff",
         .file_type = "folder",
         .file_size = "33957732829",
-        .file_modified = "January 31  2024",
+        .file_modified = "January 31 2024",
         .file_fullname = "Documents"
     },
     {
@@ -57,7 +57,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_group = "staff",
         .file_type = "folder",
         .file_size = "9274142837753",
-        .file_modified = "May 4  2024",
+        .file_modified = "May 4 2024",
         .file_fullname = "Downloads"
     },
     {
@@ -87,7 +87,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_group = "staff",
         .file_type = "folder",
         .file_size = "490123753",
-        .file_modified = "August 4  2023",
+        .file_modified = "August 4 2023",
         .file_fullname = "Pictures"
     },
     {
@@ -97,7 +97,7 @@ static filesystem_item filesystem_02_list[] = {
         .file_group = "staff",
         .file_type = "folder",
         .file_size = "8430247019388290",
-        .file_modified = "June 18  2023",
+        .file_modified = "June 18 2023",
         .file_fullname = "Storage"
     },
     {

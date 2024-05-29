@@ -27,7 +27,7 @@ static filesystem_item filesystem_03_list[] = {
         .file_group = "staff",
         .file_type = "file",
         .file_size = "13829",
-        .file_modified = "May 18  2023",
+        .file_modified = "May 18 2023",
         .file_fullname = "Autograf_And_Tiina_Image.c"
     },
     {

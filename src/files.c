@@ -147,7 +147,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     printf("\nTotal Records: %d\n\n",total_filesystem_items);
 
     /* Build the Contact record list for display */
-    printf("Building each Filesystem_01 record for display\n");
+    printf("Building each Filesystem_02 record for display\n");
     for(int j = 0; j < total_filesystem_items; j++) {
         if(filesystem_02_list[j].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",j,filesystem_02_list[j].file_fullname);
