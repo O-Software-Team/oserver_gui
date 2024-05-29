@@ -143,7 +143,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_filesystem_items];
 
-    lv_coord_t offset = 0;
+    // lv_coord_t offset = 0;
     lv_obj_t * entry_separator[total_filesystem_items];
     lv_obj_t * device_icon[total_filesystem_items];
     lv_obj_t * found_btn[total_filesystem_items];
