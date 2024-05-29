@@ -4,8 +4,9 @@
 #include "utilities.h"
 #include <stdio.h>
 
-/* Initialize/populate the Filesystem list struct */
+/* Initialize/populate the Filesystem list structs */
 #include "content/inc/filesystem/01.h"
+#include "content/inc/filesystem/02.h"
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0

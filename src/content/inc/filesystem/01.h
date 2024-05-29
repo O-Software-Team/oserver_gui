@@ -382,6 +382,6 @@ static filesystem_item filesystem_01_list[] = {
     },
     {
         .file_id = "end",
-        .file_info = "TAP HERE\nTo import\nyour Contacts",
+        .file_info = "TAP HERE\nTo add a new\nFile",
     },
 };
