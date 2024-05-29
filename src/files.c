@@ -5,8 +5,9 @@
 #include <stdio.h>
 
 /* Initialize/populate the Filesystem list structs */
-#include "content/inc/filesystem/01.h"
-#include "content/inc/filesystem/02.h"
+#include "content/inc/filesystem/01.h"   /* Main screen list of elements */
+#include "content/inc/filesystem/02.h"   /* Filesystem Folders list */
+#include "content/inc/filesystem/03.h"   /* Filesystem Random files list */
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0
@@ -133,6 +134,63 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_obj_t * list_item_separator[total_filesystem_items];
 }
 
+void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
+    lv_obj_t * image = lv_img_create(filesystem_02_view_page);
+    lv_img_set_src(image, &Background);
+
+    /* Calculate total Filesystem_02 records */
+    printf("\nCalculate filesystem_02 records...\n");
+    for(ttl_items = 0; filesystem_02_list[ttl_items].file_id != "end"; ttl_items++) {
+        total_filesystem_items = ttl_items+1;
+        printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_02_list[ttl_items].file_id);
+    }
+    printf("\nTotal Records: %d\n\n",total_filesystem_items);
+
+    /* Build the Contact record list for display */
+    printf("Building each Filesystem_01 record for display\n");
+    for(int j = 0; j < total_filesystem_items; j++) {
+        if(filesystem_02_list[j].file_id == "end") {
+            printf("item: %d -- file_fullname: %s\n",j,filesystem_02_list[j].file_fullname);
+            break;
+        } else {
+            printf("file_id: %s -- file_fullname: %s\n",filesystem_02_list[j].file_id,filesystem_02_list[j].file_fullname);
+        }
+    }
+
+    render_back_button(image, back_home_button_cb);
+
+    /* 'Filter' button to filter the text messages */
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &Files_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the text message list heading - NOT NEEDED FOR THIS APP */
+    lv_label_t * list_name = lv_label_create(image);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_label_set_text(list_name, "List of folders");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+    // Add a list item separator line below the list item header
+    top_of_list_items = lv_img_create(image);
+    lv_img_set_src(top_of_list_items, &Linez);
+    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
+
+    /* These keep the alignment settings evenly spaced when in a for loop */
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
+    lv_coord_t offset = 0;
+
+    /* Set the list_item_separator object here */
+    lv_obj_t * list_item_separator[total_filesystem_items];
+}
+
 void file_menu_setup(void)
 {
     printf("FILES MENU init...\n");
@@ -154,8 +212,9 @@ void file_menu_setup(void)
     filesystem_list_init(filesystem_page);
 
     /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
-    printf("FILESYSTEM VIEW launch...\n");
-    // contacts_view(filesystem_view_page);
+    printf("FILESYSTEM_02 VIEW launch...\n");
+    // filesystem_02_view(filesystem_02_view_page);
+    filesystem_02_view(filesystem_page);
 
 
 
