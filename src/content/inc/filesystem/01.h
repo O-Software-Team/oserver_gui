@@ -28,7 +28,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "Autograf_And_Tiina_Image.c"
+        .file_fullname = "Folders"
     },
     {
         .file_id = "0002",
@@ -38,7 +38,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "ABBA_SOS.c"
+        .file_fullname = "Movies"
     },
     {
         .file_id = "0003",
@@ -48,7 +48,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "ABBA_SOS_LARGE.c"
+        .file_fullname = "Images"
     },
     {
         .file_id = "0004",
@@ -58,7 +58,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "ALICIA_KEYS.c"
+        .file_fullname = "Applications"
     },
     {
         .file_id = "0005",
@@ -68,7 +68,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "ALICIA_KEYS_LARGE.c"
+        .file_fullname = "Excel"
     },
     {
         .file_id = "0006",
@@ -78,7 +78,7 @@ static filesystem_item filesystem_01_list[] = {
         .file_size = "555",
         .file_size = "147408",
         .file_modified = "May 18 2024",
-        .file_fullname = "AMY_WINEHOUSE.c"
+        .file_fullname = "Documents"
     },
     {
         .file_id = "end",
