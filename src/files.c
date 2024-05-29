@@ -68,6 +68,12 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
+/*
+    {.menu_pre = "Bob's iPhone",   .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
+    {.menu_pre = "Marks iPad",     .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
+    {.menu_pre = "Bob's Macbook",  .active = false, .security_status = FRIEND, .icon = &Icon_MacBook},
+    {.menu_pre = "Orna's iPad",    .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
+*/
 
 /* USE THIS FOR THE LIST -- NEXT BUTTON */
     // next_icon[i] = lv_img_create(image);
@@ -136,6 +142,59 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_filesystem_items];
+
+    lv_coord_t offset = 0;
+    lv_obj_t * entry_separator[total_filesystem_items];
+    lv_obj_t * device_icon[total_filesystem_items];
+    lv_obj_t * found_btn[total_filesystem_items];
+    lv_obj_t * found_label[total_filesystem_items];
+    lv_obj_t * next_icon[total_filesystem_items];
+
+    static lv_style_t name_style;
+    lv_style_init(&name_style);
+
+    /* Add (simulated) devices entries as clickable buttons*/
+    for (int i = 0; i < total_filesystem_items; i++)
+    {
+        offset =  121 + (60 * i);
+        entry_separator[i] = lv_img_create(image);
+        lv_img_set_src(entry_separator[i], &Linez);
+        lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
+
+        /* Device icon image on the left */
+        device_icon[i] = lv_img_create(image);
+        lv_img_set_src(device_icon[i], filesystem_01_list[i].file_icon);
+        lv_obj_align(device_icon[i], LV_ALIGN_CENTER, -130, offset - 225);
+        lv_obj_set_style_opa(device_icon[i], LV_OPA_70, LV_PART_MAIN);
+
+        /*this is the opaque button overlay of the device entry graphic*/
+        // found_btn[i] = lv_btn_create(image);
+        // lv_obj_set_size(found_btn[i], 330, 50);
+        // lv_obj_align(found_btn[i], LV_ALIGN_CENTER, 0, offset - 225);
+        // lv_obj_set_style_opa(found_btn[i], LV_OPA_0, LV_PART_MAIN);
+        // lv_obj_add_event_cb(found_btn[i], enter_code_handler, LV_EVENT_CLICKED, 0);
+        // lv_obj_set_user_data(found_btn[i], device_page);
+
+        /* The label text with the device name */
+        found_label[i] = lv_label_create(image);
+        lv_label_set_recolor(found_label[i], true);
+        lv_obj_align(found_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
+        lv_label_set_text(found_label[i], filesystem_01_list[i].file_fullname);
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayRoman_16);
+        lv_obj_add_style(found_label[i], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(found_label[i], lv_color_white(), 0);
+
+        next_icon[i] = lv_img_create(image);
+        lv_img_set_src(next_icon[i], &Icon_Next_White);
+        lv_obj_align(next_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
+        lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
+
+        // Add a list item separator line at the end of the list item
+        list_item_separator[i] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[i], &Linez);
+        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+    }
+
 }
 
 void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
@@ -291,7 +350,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "List of folders");
+    lv_label_set_text(list_name, "Your Images");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
