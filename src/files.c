@@ -119,7 +119,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "System List");
+    lv_label_set_text(list_name, "Your filesystem");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -173,7 +173,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         lv_label_set_recolor(found_label[i], true);
         lv_obj_align(found_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
         lv_label_set_text(found_label[i], filesystem_01_list[i].file_fullname);
-        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_22);
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
         lv_obj_add_style(found_label[i], &name_style, LV_PART_MAIN);
         lv_obj_set_style_text_color(found_label[i], lv_color_white(), 0);
 
