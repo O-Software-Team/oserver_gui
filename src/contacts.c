@@ -406,7 +406,7 @@ void contacts_menu_setup(void)
 
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
     printf("CONTACTS LIST init...\n");
-    contacts_01_list_init(contacts_page);
+    contacts_list_init(contacts_page);
 
     /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
     printf("CONTACTS VIEW launch...\n");
