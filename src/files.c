@@ -208,7 +208,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "Your filesystem");
+    lv_label_set_text(list_name, "Your folders");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
@@ -232,7 +232,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     /* Add (simulated) devices entries as clickable buttons*/
     for (int j = 0; j < total_filesystem_items; j++)
     {
-        offset =  151 + (60 * j);
+        offset =  111 + (60 * j);
         entry_separator[j] = lv_img_create(image);
         lv_img_set_src(entry_separator[j], &Linez);
         lv_obj_align(entry_separator[j], LV_ALIGN_DEFAULT, 25, offset);
