@@ -68,12 +68,6 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
-/* USE THIS FOR THE LIST -- NEXT BUTTON */
-    // next_icon[i] = lv_img_create(image);
-    // lv_img_set_src(next_icon[i], &Icon_Next_White);
-    // lv_obj_align(next_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
-    // lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
-
 /* Set variables to determine total number of Contacts list members */
 static int total_filesystem_items = 1;
 static int ttl_items;
@@ -123,11 +117,6 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-    // Add a list item separator line below the list item header
-    // top_of_list_items = lv_img_create(image);
-    // lv_img_set_src(top_of_list_items, &Linez);
-    // lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
-
     /* These keep the alignment settings evenly spaced when in a for loop */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
@@ -158,15 +147,6 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         device_icon[i] = lv_img_create(image);
         lv_img_set_src(device_icon[i], filesystem_01_list[i].file_icon);
         lv_obj_align(device_icon[i], LV_ALIGN_CENTER, -130, offset - 225);
-        // lv_obj_set_style_opa(device_icon[i], LV_OPA_70, LV_PART_MAIN);
-
-        /*this is the opaque button overlay of the device entry graphic*/
-        // found_btn[i] = lv_btn_create(image);
-        // lv_obj_set_size(found_btn[i], 330, 50);
-        // lv_obj_align(found_btn[i], LV_ALIGN_CENTER, 0, offset - 225);
-        // lv_obj_set_style_opa(found_btn[i], LV_OPA_0, LV_PART_MAIN);
-        // lv_obj_add_event_cb(found_btn[i], enter_code_handler, LV_EVENT_CLICKED, 0);
-        // lv_obj_set_user_data(found_btn[i], device_page);
 
         /* The label text with the device name */
         found_label[i] = lv_label_create(image);
