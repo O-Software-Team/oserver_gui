@@ -232,7 +232,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     /* Add (simulated) devices entries as clickable buttons*/
     for (int j = 0; j < total_filesystem_items; j++)
     {
-        offset =  111 + (60 * j);
+        offset =  134 + (60 * j);
         entry_separator[j] = lv_img_create(image);
         lv_img_set_src(entry_separator[j], &Linez);
         lv_obj_align(entry_separator[j], LV_ALIGN_DEFAULT, 25, offset);
