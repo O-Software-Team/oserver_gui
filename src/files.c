@@ -262,9 +262,9 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
         lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
-        list_item_separator[i] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        // list_item_separator[i] = lv_img_create(image);
+        // lv_img_set_src(list_item_separator[i], &Linez);
+        // lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
 }
 
