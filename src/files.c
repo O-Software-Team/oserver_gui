@@ -99,7 +99,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 
     render_back_button(image, back_home_button_cb);
 
-    /* 'Filter' button to filter the text messages */
+    /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
     lv_img_set_src(filter_image, &Icon_Filter_Button);
     lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
@@ -109,7 +109,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_img_set_src(page_header, &Files_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    /* Add the text message list heading - NOT NEEDED FOR THIS APP */
+    /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
@@ -122,14 +122,13 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
 
-    /* Set the list_item_separator object here */
+    /* Set the list_item_separator and entry_separator objects here */
     lv_obj_t * list_item_separator[total_filesystem_items];
-
-    // lv_coord_t offset = 0;
     lv_obj_t * entry_separator[total_filesystem_items];
-    lv_obj_t * device_icon[total_filesystem_items];
-    lv_obj_t * found_btn[total_filesystem_items];
-    lv_obj_t * found_label[total_filesystem_items];
+
+    /* Icon and label objects here */
+    lv_obj_t * file_icon[total_filesystem_items];
+    lv_obj_t * file_label[total_filesystem_items];
     lv_obj_t * next_icon[total_filesystem_items];
 
     static lv_style_t name_style;
@@ -144,18 +143,18 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
 
         /* Device icon image on the left */
-        device_icon[i] = lv_img_create(image);
-        lv_img_set_src(device_icon[i], filesystem_01_list[i].file_icon);
-        lv_obj_align(device_icon[i], LV_ALIGN_CENTER, -130, offset - 225);
+        file_icon[i] = lv_img_create(image);
+        lv_img_set_src(file_icon[i], filesystem_01_list[i].file_icon);
+        lv_obj_align(file_icon[i], LV_ALIGN_CENTER, -130, offset - 225);
 
         /* The label text with the device name */
-        found_label[i] = lv_label_create(image);
-        lv_label_set_recolor(found_label[i], true);
-        lv_obj_align(found_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
-        lv_label_set_text(found_label[i], filesystem_01_list[i].file_fullname);
+        file_label[i] = lv_label_create(image);
+        lv_label_set_recolor(file_label[i], true);
+        lv_obj_align(file_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
+        lv_label_set_text(file_label[i], filesystem_01_list[i].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-        lv_obj_add_style(found_label[i], &name_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(found_label[i], lv_color_white(), 0);
+        lv_obj_add_style(file_label[i], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[i], lv_color_white(), 0);
 
         next_icon[i] = lv_img_create(image);
         lv_img_set_src(next_icon[i], &Icon_Next_White);
