@@ -240,12 +240,12 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
         /* Device icon image on the left */
         file_icon[j] = lv_img_create(image);
         lv_img_set_src(file_icon[j], filesystem_02_list[j].file_icon);
-        lv_obj_align(file_icon[j], LV_ALIGN_CENTER, -130, offset - 235);
+        lv_obj_align(file_icon[j], LV_ALIGN_CENTER, -130, offset - 231);
 
         /* The label text with the device name */
         file_label[j] = lv_label_create(image);
         lv_label_set_recolor(file_label[j], true);
-        lv_obj_align(file_label[j], LV_ALIGN_LEFT_MID, 125, offset - 235);
+        lv_obj_align(file_label[j], LV_ALIGN_LEFT_MID, 125, offset - 231);
         lv_label_set_text(file_label[j], filesystem_02_list[j].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
         lv_obj_add_style(file_label[j], &name_style, LV_PART_MAIN);
@@ -253,7 +253,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
         next_icon[j] = lv_img_create(image);
         lv_img_set_src(next_icon[j], &Icon_Next_White);
-        lv_obj_align(next_icon[j], LV_ALIGN_CENTER, 130, offset - 235);
+        lv_obj_align(next_icon[j], LV_ALIGN_CENTER, 130, offset - 231);
         lv_obj_set_style_opa(next_icon[j], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
