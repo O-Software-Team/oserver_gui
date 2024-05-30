@@ -224,6 +224,48 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_filesystem_items];
+    lv_obj_t * entry_separator[total_filesystem_items];
+
+    /* Icon and label objects here */
+    lv_obj_t * file_icon[total_filesystem_items];
+    lv_obj_t * file_label[total_filesystem_items];
+    lv_obj_t * next_icon[total_filesystem_items];
+
+    static lv_style_t name_style;
+    lv_style_init(&name_style);
+
+    /* Add (simulated) devices entries as clickable buttons*/
+    for (int i = 0; i < total_filesystem_items; i++)
+    {
+        offset =  151 + (60 * i);
+        entry_separator[i] = lv_img_create(image);
+        lv_img_set_src(entry_separator[i], &Linez);
+        lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
+
+        /* Device icon image on the left */
+        file_icon[i] = lv_img_create(image);
+        lv_img_set_src(file_icon[i], filesystem_02_list[i].file_icon);
+        lv_obj_align(file_icon[i], LV_ALIGN_CENTER, -130, offset - 225);
+
+        /* The label text with the device name */
+        file_label[i] = lv_label_create(image);
+        lv_label_set_recolor(file_label[i], true);
+        lv_obj_align(file_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
+        lv_label_set_text(file_label[i], filesystem_02_list[i].file_fullname);
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+        lv_obj_add_style(file_label[i], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[i], lv_color_white(), 0);
+
+        next_icon[i] = lv_img_create(image);
+        lv_img_set_src(next_icon[i], &Icon_Next_White);
+        lv_obj_align(next_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
+        lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
+
+        // Add a list item separator line at the end of the list item
+        list_item_separator[i] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[i], &Linez);
+        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+    }
 }
 
 void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
