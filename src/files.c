@@ -194,7 +194,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
     render_back_button(image, back_home_button_cb);
 
-    /* 'Filter' button to filter the text messages */
+    /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
     lv_img_set_src(filter_image, &Icon_Filter_Button);
     lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
@@ -204,18 +204,13 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_img_set_src(page_header, &Files_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    /* Add the text message list heading - NOT NEEDED FOR THIS APP */
+    /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "List of folders");
+    lv_label_set_text(list_name, "Your filesystem");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
-
-    // Add a list item separator line below the list item header
-    // top_of_list_items = lv_img_create(image);
-    // lv_img_set_src(top_of_list_items, &Linez);
-    // lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
@@ -235,36 +230,36 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_style_init(&name_style);
 
     /* Add (simulated) devices entries as clickable buttons*/
-    for (int i = 0; i < total_filesystem_items; i++)
+    for (int j = 0; j < total_filesystem_items; j++)
     {
-        offset =  151 + (60 * i);
-        entry_separator[i] = lv_img_create(image);
-        lv_img_set_src(entry_separator[i], &Linez);
-        lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
+        offset =  151 + (60 * j);
+        entry_separator[j] = lv_img_create(image);
+        lv_img_set_src(entry_separator[j], &Linez);
+        lv_obj_align(entry_separator[j], LV_ALIGN_DEFAULT, 25, offset);
 
         /* Device icon image on the left */
-        file_icon[i] = lv_img_create(image);
-        lv_img_set_src(file_icon[i], filesystem_02_list[i].file_icon);
-        lv_obj_align(file_icon[i], LV_ALIGN_CENTER, -130, offset - 225);
+        file_icon[j] = lv_img_create(image);
+        lv_img_set_src(file_icon[j], filesystem_02_list[j].file_icon);
+        lv_obj_align(file_icon[j], LV_ALIGN_CENTER, -130, offset - 225);
 
         /* The label text with the device name */
-        file_label[i] = lv_label_create(image);
-        lv_label_set_recolor(file_label[i], true);
-        lv_obj_align(file_label[i], LV_ALIGN_LEFT_MID, 125, offset - 225);
-        lv_label_set_text(file_label[i], filesystem_02_list[i].file_fullname);
+        file_label[j] = lv_label_create(image);
+        lv_label_set_recolor(file_label[j], true);
+        lv_obj_align(file_label[j], LV_ALIGN_LEFT_MID, 125, offset - 225);
+        lv_label_set_text(file_label[j], filesystem_02_list[j].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-        lv_obj_add_style(file_label[i], &name_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(file_label[i], lv_color_white(), 0);
+        lv_obj_add_style(file_label[j], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[j], lv_color_white(), 0);
 
-        next_icon[i] = lv_img_create(image);
-        lv_img_set_src(next_icon[i], &Icon_Next_White);
-        lv_obj_align(next_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
-        lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
+        next_icon[j] = lv_img_create(image);
+        lv_img_set_src(next_icon[j], &Icon_Next_White);
+        lv_obj_align(next_icon[j], LV_ALIGN_CENTER, 130, offset - 225);
+        lv_obj_set_style_opa(next_icon[j], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
-        list_item_separator[i] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        list_item_separator[j] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[j], &Linez);
+        lv_obj_align(list_item_separator[j], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
 }
 
