@@ -170,11 +170,12 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 }
 
 void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
+/* Your Folders */
     lv_obj_t * image = lv_img_create(filesystem_02_view_page);
     lv_img_set_src(image, &Background);
 
-    /* Calculate total Filesystem_02 records */
-    printf("\nCalculate filesystem_02 records...\n");
+    /* Calculate total Filesystem_02 -- your folders */
+    printf("\nCalculate filesystem_02 -- folders...\n");
     for(ttl_items = 0; filesystem_02_list[ttl_items].file_id != "end"; ttl_items++) {
         total_filesystem_items = ttl_items+1;
         printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_02_list[ttl_items].file_id);
@@ -264,11 +265,12 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 }
 
 void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
+/* Your Movies */
     lv_obj_t * image = lv_img_create(filesystem_03_view_page);
     lv_img_set_src(image, &Background);
 
-    /* Calculate total Filesystem_03 records */
-    printf("\nCalculate filesystem_03 records...\n");
+    /* Calculate total filesystem_03 -- your movies */
+    printf("\nCalculate filesystem_03 -- your movies...\n");
     for(ttl_items = 0; filesystem_03_list[ttl_items].file_id != "end"; ttl_items++) {
         total_filesystem_items = ttl_items+1;
         printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_03_list[ttl_items].file_id);
@@ -276,7 +278,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     printf("\nTotal Records: %d\n\n",total_filesystem_items);
 
     /* Build the Contact record list for display */
-    printf("Building each Filesystem_03 record for display\n");
+    printf("Building each filesystem_03 record for display\n");
     for(int j = 0; j < total_filesystem_items; j++) {
         if(filesystem_03_list[j].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",j,filesystem_03_list[j].file_fullname);
@@ -288,7 +290,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     render_back_button(image, back_home_button_cb);
 
-    /* 'Filter' button to filter the text messages */
+    /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
     lv_img_set_src(filter_image, &Icon_Filter_Button);
     lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
@@ -298,18 +300,13 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_img_set_src(page_header, &Files_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    /* Add the text message list heading - NOT NEEDED FOR THIS APP */
+    /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "Your Movies");
+    lv_label_set_text(list_name, "Your folders");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
-
-    // Add a list item separator line below the list item header
-    top_of_list_items = lv_img_create(image);
-    lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
@@ -318,9 +315,52 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[total_filesystem_items];
+    lv_obj_t * entry_separator[total_filesystem_items];
+
+    /* Icon and label objects here */
+    lv_obj_t * file_icon[total_filesystem_items];
+    lv_obj_t * file_label[total_filesystem_items];
+    lv_obj_t * next_icon[total_filesystem_items];
+
+    static lv_style_t name_style;
+    lv_style_init(&name_style);
+
+    /* Add (simulated) devices entries as clickable buttons*/
+    for (int j = 0; j < total_filesystem_items; j++)
+    {
+        offset =  131 + (60 * j);
+        entry_separator[j] = lv_img_create(image);
+        lv_img_set_src(entry_separator[j], &Linez);
+        lv_obj_align(entry_separator[j], LV_ALIGN_DEFAULT, 25, offset +22);
+
+        /* Device icon image on the left */
+        file_icon[j] = lv_img_create(image);
+        lv_img_set_src(file_icon[j], filesystem_03_list[j].file_icon);
+        lv_obj_align(file_icon[j], LV_ALIGN_CENTER, -130, offset - 231);
+
+        /* The label text with the device name */
+        file_label[j] = lv_label_create(image);
+        lv_label_set_recolor(file_label[j], true);
+        lv_obj_align(file_label[j], LV_ALIGN_LEFT_MID, 125, offset - 231);
+        lv_label_set_text(file_label[j], filesystem_03_list[j].file_fullname);
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+        lv_obj_add_style(file_label[j], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[j], lv_color_white(), 0);
+
+        next_icon[j] = lv_img_create(image);
+        lv_img_set_src(next_icon[j], &Icon_Next_White);
+        lv_obj_align(next_icon[j], LV_ALIGN_CENTER, 130, offset - 231);
+        lv_obj_set_style_opa(next_icon[j], LV_OPA_70, LV_PART_MAIN);
+
+        // Add a list item separator line at the end of the list item
+        list_item_separator[j] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[j], &Linez);
+        lv_obj_align(list_item_separator[j], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+    }
 }
 
 void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
+/* Your Images */
     lv_obj_t * image = lv_img_create(filesystem_04_view_page);
     lv_img_set_src(image, &Background);
 
@@ -397,32 +437,32 @@ void file_menu_setup(void)
     printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
     filesystem_list_init(filesystem_page);
 
-    /* FILESYSTEM VIEW: Display the content for filesystem_02 */
+    /* FILESYSTEM VIEW: Display the content for filesystem_02 -- Your Folders */
     printf("FILESYSTEM_02 VIEW launch...\n");
     // filesystem_02_view(filesystem_02_view_page);
     filesystem_02_view(filesystem_page);
 
-    /* FILESYSTEM VIEW: Display the content for filesystem_03 */
+    /* FILESYSTEM VIEW: Display the content for filesystem_03 -- Your Movies */
     printf("FILESYSTEM_03 VIEW launch...\n");
-    // filesystem_02_view(filesystem_02_view_page);
+    // filesystem_02_view(filesystem_03_view_page);
     filesystem_03_view(filesystem_page);
 
-    /* FILESYSTEM VIEW: Display the content for filesystem_04 */
+    /* FILESYSTEM VIEW: Display the content for filesystem_04 -- Your Images */
     printf("FILESYSTEM_04 VIEW launch...\n");
     // filesystem_04_view(filesystem_02_view_page);
     filesystem_04_view(filesystem_page);
 
-    /* FILESYSTEM VIEW: Display the content for filesystem_05 */
+    /* FILESYSTEM VIEW: Display the content for filesystem_05 -- Your Applications */
     // printf("FILESYSTEM_05 VIEW launch...\n");
     // filesystem_02_view(filesystem_02_view_page);
     // filesystem_05_view(filesystem_page);
 
-    /* FILESYSTEM VIEW: Display the content for filesystem_06 */
+    /* FILESYSTEM VIEW: Display the content for filesystem_06 -- Your Documents */
     // printf("FILESYSTEM_06 VIEW launch...\n");
     // filesystem_02_view(filesystem_02_view_page);
     // filesystem_06_view(filesystem_page);
 
-    /* FILESYSTEM VIEW: Display the content for filesystem_07 */
+    /* FILESYSTEM VIEW: Display the content for filesystem_07 -- Your Excel Files */
     // printf("FILESYSTEM_07 VIEW launch...\n");
     // filesystem_02_view(filesystem_02_view_page);
     // filesystem_07_view(filesystem_page);
