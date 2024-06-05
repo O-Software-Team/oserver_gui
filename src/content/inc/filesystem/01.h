@@ -73,19 +73,20 @@ static filesystem_item filesystem_01_list[] = {
         .file_type = "category",
         .file_size = "555",
         .file_modified = "May 18 2024",
-        .file_fullname = "Excel",
-        .file_icon = &Icon_Excel_Yellow
+        .file_fullname = "Documents",
+        .file_icon = &Icon_Documents_Yellow
     },
     {
         .file_id = "0006",
         .file_permissions = "drwxr-xr-x@",
         .file_owner = "steveglaiser",
         .file_group = "staff",
+        .file_type = "category",
         .file_size = "555",
-        .file_size = "147408",
         .file_modified = "May 18 2024",
-        .file_fullname = "Documents",
-        .file_icon = &Icon_Documents_Yellow
+        .file_fullname = "Spreadsheets",
+        .file_icon = &Icon_Excel_Yellow
+
     },
     {
         .file_id = "end",

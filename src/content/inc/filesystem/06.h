@@ -1,4 +1,4 @@
-/* List to provide a sample of excel docs found on the device */
+/* List to provide a sample of documents found on the device */
 
 /*
     char * file_id;
