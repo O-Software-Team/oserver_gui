@@ -205,14 +205,14 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     /* Calculate total Filesystem_02 -- your folders */
     printf("\nCalculate filesystem_02 -- your folders...\n");
     for(folder_item = 0; filesystem_02_list[folder_item].file_id != "end"; folder_item++) {
-        total_folder_items = folder_item+1;
-        printf("Item count: %d -- file_id: %s\n",total_folder_items,filesystem_02_list[folder_item].file_id);
+        ttl_folder_items = folder_item+1;
+        printf("Item count: %d -- file_id: %s\n",ttl_folder_items,filesystem_02_list[folder_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_folder_items);
+    printf("\nTotal Records: %d\n\n",ttl_folder_items);
 
     /* Build the Contact record list for display */
     printf("Building each Filesystem_02 record for display\n");
-    for(int j = 0; j < total_folder_items; j++) {
+    for(int j = 0; j < ttl_folder_items; j++) {
         if(filesystem_02_list[j].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",j,filesystem_02_list[j].file_fullname);
             break;
@@ -247,19 +247,19 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_folder_items];
-    lv_obj_t * entry_separator[total_folder_items];
+    lv_obj_t * list_item_separator[ttl_folder_items];
+    lv_obj_t * entry_separator[ttl_folder_items];
 
     /* Icon and label objects here */
-    lv_obj_t * file_icon[total_folder_items];
-    lv_obj_t * file_label[total_folder_items];
-    lv_obj_t * next_icon[total_folder_items];
+    lv_obj_t * file_icon[ttl_folder_items];
+    lv_obj_t * file_label[ttl_folder_items];
+    lv_obj_t * next_icon[ttl_folder_items];
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
     /* Add (simulated) devices entries as clickable buttons*/
-    for (folder_record = 0; folder_record < total_folder_items; folder_record++) {
+    for (folder_record = 0; folder_record < ttl_folder_items; folder_record++) {
         offset =  131 + (60 * folder_record);
         entry_separator[folder_record] = lv_img_create(image);
         lv_img_set_src(entry_separator[folder_record], &Linez);
@@ -300,14 +300,14 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     /* Calculate total filesystem_03 -- your movies */
     printf("\nCalculate filesystem_03 -- your movies...\n");
     for(movie_item = 0; filesystem_03_list[movie_item].file_id != "end"; movie_item++) {
-        total_movie_items = movie_item+1;
-        printf("Item count: %d -- file_id: %s\n",total_movie_items,filesystem_03_list[movie_item].file_id);
+        ttl_movie_items = movie_item+1;
+        printf("Item count: %d -- file_id: %s\n",ttl_movie_items,filesystem_03_list[movie_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_movie_items);
+    printf("\nTotal Records: %d\n\n",ttl_movie_items);
 
     /* Build the Contact record list for display */
     printf("Building each filesystem_03 record for display\n");
-    for(int k = 0; k < total_movie_items; k++) {
+    for(int k = 0; k < ttl_movie_items; k++) {
         if(filesystem_03_list[k].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",k,filesystem_03_list[k].file_fullname);
             break;
@@ -342,13 +342,13 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_movie_items];
-    lv_obj_t * entry_separator[total_movie_items];
+    lv_obj_t * list_item_separator[ttl_movie_items];
+    lv_obj_t * entry_separator[ttl_movie_items];
 
     /* Icon and label objects here */
-    lv_obj_t * file_icon[total_movie_items];
-    lv_obj_t * file_label[total_movie_items];
-    lv_obj_t * next_icon[total_movie_items];
+    lv_obj_t * file_icon[ttl_movie_items];
+    lv_obj_t * file_label[ttl_movie_items];
+    lv_obj_t * next_icon[ttl_movie_items];
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
