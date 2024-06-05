@@ -69,31 +69,58 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
 /* Set variables to determine total number of Contacts list members */
-static int total_filesystem_items = 1;
-static int ttl_items;
+static int filesystem_item;    /* 01.h */
+static int filesystem_record;
+static int ttl_filesystem_items = 1;
+
+static int folder_item;        /* 02.h */
+static int folder_record;
+static int ttl_folder_items = 1;
+
+static int movie_item;         /* 03.h */
+static int movie_record;
+static int ttl_movie_items = 1;
+
+static int image_item;         /* 04.h */
+static int image_record;
+static int ttl_image_items = 1;
+
+static int application_item;   /* 05.h */
+static int application_record;
+static int ttl_application_items = 1;
+
+static int document_item;      /* 06.h */
+static int document_record;
+static int ttl_document_items = 1;
+
+static int spreadsheet_item;   /* 07.h */
+static int spreadsheet_record;
+static int ttl_spreadsheet_items = 1;
 
 static lv_obj_t * top_of_list_items;
 
+
+/* Your Filesystem */
 void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_01 records */
     printf("\nCalculate filesystem_01 -- your filesystem...\n");
-    for(ttl_items = 0; filesystem_01_list[ttl_items].file_id != "end"; ttl_items++) {
-        total_filesystem_items = ttl_items+1;
-        printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_01_list[ttl_items].file_id);
+    for(filesystem_item = 0; filesystem_01_list[filesystem_item].file_id != "end"; filesystem_item++) {
+        ttl_filesystem_items = filesystem_item+1;
+        printf("Item count: %d -- file_id: %s\n",ttl_filesystem_items,filesystem_01_list[filesystem_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_filesystem_items);
+    printf("\nTotal Records: %d\n\n",ttl_filesystem_items);
 
     /* Build the Contact record list for display */
     printf("Building each Filesystem_01 record for display\n");
-    for(int j = 0; j < total_filesystem_items; j++) {
-        if(filesystem_01_list[j].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",j,filesystem_01_list[j].file_fullname);
+    for(int e = 0; e < ttl_filesystem_items; e++) {
+        if(filesystem_01_list[e].file_id == "end") {
+            printf("item: %d -- file_fullname: %s\n",e,filesystem_01_list[e].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[j].file_id,filesystem_01_list[j].file_fullname);
+            printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[e].file_id,filesystem_01_list[e].file_fullname);
         }
     }
 
@@ -123,68 +150,69 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator and entry_separator objects here */
-    lv_obj_t * list_item_separator[total_filesystem_items];
-    lv_obj_t * entry_separator[total_filesystem_items];
+    lv_obj_t * list_item_separator[ttl_filesystem_items];
+    lv_obj_t * entry_separator[ttl_filesystem_items];
 
     /* Icon and label objects here */
-    lv_obj_t * file_icon[total_filesystem_items];
-    lv_obj_t * file_label[total_filesystem_items];
-    lv_obj_t * next_icon[total_filesystem_items];
+    lv_obj_t * file_icon[ttl_filesystem_items];
+    lv_obj_t * file_label[ttl_filesystem_items];
+    lv_obj_t * next_icon[ttl_filesystem_items];
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
     /* Add (simulated) devices entries as clickable buttons*/
-    for (int i = 0; i < total_filesystem_items; i++)
+    for (filesystem_record = 0; filesystem_record < ttl_filesystem_items; filesystem_record++)
     {
-        offset =  151 + (60 * i);
-        entry_separator[i] = lv_img_create(image);
-        lv_img_set_src(entry_separator[i], &Linez);
-        lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
+        offset =  151 + (60 * filesystem_record);
+        entry_separator[filesystem_record] = lv_img_create(image);
+        lv_img_set_src(entry_separator[filesystem_record], &Linez);
+        lv_obj_align(entry_separator[filesystem_record], LV_ALIGN_DEFAULT, 25, offset);
 
         /* Device icon image on the left */
-        file_icon[i] = lv_img_create(image);
-        lv_img_set_src(file_icon[i], filesystem_01_list[i].file_icon);
-        lv_obj_align(file_icon[i], LV_ALIGN_CENTER, -130, offset - 223);
+        file_icon[filesystem_record] = lv_img_create(image);
+        lv_img_set_src(file_icon[filesystem_record], filesystem_01_list[filesystem_record].file_icon);
+        lv_obj_align(file_icon[filesystem_record], LV_ALIGN_CENTER, -130, offset - 223);
 
         /* The label text with the device name */
-        file_label[i] = lv_label_create(image);
-        lv_label_set_recolor(file_label[i], true);
-        lv_obj_align(file_label[i], LV_ALIGN_LEFT_MID, 125, offset - 223);
-        lv_label_set_text(file_label[i], filesystem_01_list[i].file_fullname);
+        file_label[filesystem_record] = lv_label_create(image);
+        lv_label_set_recolor(file_label[filesystem_record], true);
+        lv_obj_align(file_label[filesystem_record], LV_ALIGN_LEFT_MID, 125, offset - 223);
+        lv_label_set_text(file_label[filesystem_record], filesystem_01_list[filesystem_record].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-        lv_obj_add_style(file_label[i], &name_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(file_label[i], lv_color_white(), 0);
+        lv_obj_add_style(file_label[filesystem_record], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[filesystem_record], lv_color_white(), 0);
 
-        next_icon[i] = lv_img_create(image);
-        lv_img_set_src(next_icon[i], &Icon_Next_White);
-        lv_obj_align(next_icon[i], LV_ALIGN_CENTER, 130, offset - 223);
-        lv_obj_set_style_opa(next_icon[i], LV_OPA_70, LV_PART_MAIN);
+        next_icon[filesystem_record] = lv_img_create(image);
+        lv_img_set_src(next_icon[filesystem_record], &Icon_Next_White);
+        lv_obj_align(next_icon[filesystem_record], LV_ALIGN_CENTER, 130, offset - 223);
+        lv_obj_set_style_opa(next_icon[filesystem_record], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
-        list_item_separator[i] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        list_item_separator[filesystem_record] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[filesystem_record], &Linez);
+        lv_obj_align(list_item_separator[filesystem_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
 
 }
 
-void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
+
 /* Your Folders */
+void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_02_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_02 -- your folders */
     printf("\nCalculate filesystem_02 -- your folders...\n");
-    for(ttl_items = 0; filesystem_02_list[ttl_items].file_id != "end"; ttl_items++) {
-        total_filesystem_items = ttl_items+1;
-        printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_02_list[ttl_items].file_id);
+    for(folder_item = 0; filesystem_02_list[folder_item].file_id != "end"; folder_item++) {
+        total_folder_items = folder_item+1;
+        printf("Item count: %d -- file_id: %s\n",total_folder_items,filesystem_02_list[folder_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_filesystem_items);
+    printf("\nTotal Records: %d\n\n",total_folder_items);
 
     /* Build the Contact record list for display */
     printf("Building each Filesystem_02 record for display\n");
-    for(int j = 0; j < total_filesystem_items; j++) {
+    for(int j = 0; j < total_folder_items; j++) {
         if(filesystem_02_list[j].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",j,filesystem_02_list[j].file_fullname);
             break;
@@ -219,66 +247,67 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_filesystem_items];
-    lv_obj_t * entry_separator[total_filesystem_items];
+    lv_obj_t * list_item_separator[total_folder_items];
+    lv_obj_t * entry_separator[total_folder_items];
 
     /* Icon and label objects here */
-    lv_obj_t * file_icon[total_filesystem_items];
-    lv_obj_t * file_label[total_filesystem_items];
-    lv_obj_t * next_icon[total_filesystem_items];
+    lv_obj_t * file_icon[total_folder_items];
+    lv_obj_t * file_label[total_folder_items];
+    lv_obj_t * next_icon[total_folder_items];
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
     /* Add (simulated) devices entries as clickable buttons*/
-    for (int j = 0; j < total_filesystem_items; j++) {
-        offset =  131 + (60 * j);
-        entry_separator[j] = lv_img_create(image);
-        lv_img_set_src(entry_separator[j], &Linez);
-        lv_obj_align(entry_separator[j], LV_ALIGN_DEFAULT, 25, offset +22);
+    for (folder_record = 0; folder_record < total_folder_items; folder_record++) {
+        offset =  131 + (60 * folder_record);
+        entry_separator[folder_record] = lv_img_create(image);
+        lv_img_set_src(entry_separator[folder_record], &Linez);
+        lv_obj_align(entry_separator[folder_record], LV_ALIGN_DEFAULT, 25, offset +22);
 
         /* Device icon image on the left */
-        file_icon[j] = lv_img_create(image);
-        lv_img_set_src(file_icon[j], filesystem_02_list[j].file_icon);
-        lv_obj_align(file_icon[j], LV_ALIGN_CENTER, -130, offset - 231);
+        file_icon[folder_record] = lv_img_create(image);
+        lv_img_set_src(file_icon[folder_record], filesystem_02_list[folder_record].file_icon);
+        lv_obj_align(file_icon[folder_record], LV_ALIGN_CENTER, -130, offset - 231);
 
         /* The label text with the device name */
-        file_label[j] = lv_label_create(image);
-        lv_label_set_recolor(file_label[j], true);
-        lv_obj_align(file_label[j], LV_ALIGN_LEFT_MID, 125, offset - 231);
-        lv_label_set_text(file_label[j], filesystem_02_list[j].file_fullname);
+        file_label[folder_record] = lv_label_create(image);
+        lv_label_set_recolor(file_label[folder_record], true);
+        lv_obj_align(file_label[folder_record], LV_ALIGN_LEFT_MID, 125, offset - 231);
+        lv_label_set_text(file_label[folder_record], filesystem_02_list[folder_record].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-        lv_obj_add_style(file_label[j], &name_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(file_label[j], lv_color_white(), 0);
+        lv_obj_add_style(file_label[folder_record], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[folder_record], lv_color_white(), 0);
 
-        next_icon[j] = lv_img_create(image);
-        lv_img_set_src(next_icon[j], &Icon_Next_White);
-        lv_obj_align(next_icon[j], LV_ALIGN_CENTER, 130, offset - 231);
-        lv_obj_set_style_opa(next_icon[j], LV_OPA_70, LV_PART_MAIN);
+        next_icon[folder_record] = lv_img_create(image);
+        lv_img_set_src(next_icon[folder_record], &Icon_Next_White);
+        lv_obj_align(next_icon[folder_record], LV_ALIGN_CENTER, 130, offset - 231);
+        lv_obj_set_style_opa(next_icon[folder_record], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
-        list_item_separator[j] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[j], &Linez);
-        lv_obj_align(list_item_separator[j], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        list_item_separator[folder_record] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[folder_record], &Linez);
+        lv_obj_align(list_item_separator[folder_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
 }
 
-void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
+
 /* Your Movies */
+void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_03_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_03 -- your movies */
     printf("\nCalculate filesystem_03 -- your movies...\n");
-    for(ttl_items = 0; filesystem_03_list[ttl_items].file_id != "end"; ttl_items++) {
-        total_filesystem_items = ttl_items+1;
-        printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_03_list[ttl_items].file_id);
+    for(movie_item = 0; filesystem_03_list[movie_item].file_id != "end"; movie_item++) {
+        total_movie_items = movie_item+1;
+        printf("Item count: %d -- file_id: %s\n",total_movie_items,filesystem_03_list[movie_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_filesystem_items);
+    printf("\nTotal Records: %d\n\n",total_movie_items);
 
     /* Build the Contact record list for display */
     printf("Building each filesystem_03 record for display\n");
-    for(int k = 0; k < total_filesystem_items; k++) {
+    for(int k = 0; k < total_movie_items; k++) {
         if(filesystem_03_list[k].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",k,filesystem_03_list[k].file_fullname);
             break;
@@ -313,47 +342,47 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_filesystem_items];
-    lv_obj_t * entry_separator[total_filesystem_items];
+    lv_obj_t * list_item_separator[total_movie_items];
+    lv_obj_t * entry_separator[total_movie_items];
 
     /* Icon and label objects here */
-    lv_obj_t * file_icon[total_filesystem_items];
-    lv_obj_t * file_label[total_filesystem_items];
-    lv_obj_t * next_icon[total_filesystem_items];
+    lv_obj_t * file_icon[total_movie_items];
+    lv_obj_t * file_label[total_movie_items];
+    lv_obj_t * next_icon[total_movie_items];
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
 
-    int f = 0;
-    offset =  131 + (60 * f);
-    entry_separator[f] = lv_img_create(image);
-    lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
+    // int f = 0;
+    // offset =  131 + (60 * f);
+    // entry_separator[f] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[f], &Linez);
+    // lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
 
-    /* Device icon image on the left */
-    file_icon[f] = lv_img_create(image);
-    lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
-    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 231);
+    // /* Device icon image on the left */
+    // file_icon[f] = lv_img_create(image);
+    // lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
+    // lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 231);
 
-    /* The label text with the device name */
-    file_label[f] = lv_label_create(image);
-    lv_label_set_recolor(file_label[f], true);
-    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 231);
-    lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
-    lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-    lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+    // /* The label text with the device name */
+    // file_label[f] = lv_label_create(image);
+    // lv_label_set_recolor(file_label[f], true);
+    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 231);
+    // lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
+    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
 
-    next_icon[f] = lv_img_create(image);
-    lv_img_set_src(next_icon[f], &Icon_Next_White);
-    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 231);
-    lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+    // next_icon[f] = lv_img_create(image);
+    // lv_img_set_src(next_icon[f], &Icon_Next_White);
+    // lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 231);
+    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
 
-    // Add a list item separator line at the end of the list item
-    list_item_separator[f] = lv_img_create(image);
-    lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+    // // Add a list item separator line at the end of the list item
+    // list_item_separator[f] = lv_img_create(image);
+    // lv_img_set_src(list_item_separator[f], &Linez);
+    // lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
 
 
     // int k = 0;
@@ -398,15 +427,15 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     /* Calculate total Filesystem_04 records */
     printf("\nCalculate filesystem_04 records...\n");
-    for(ttl_items = 0; filesystem_04_list[ttl_items].file_id != "end"; ttl_items++) {
-        total_filesystem_items = ttl_items+1;
-        printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_04_list[ttl_items].file_id);
+    for(image_items = 0; filesystem_04_list[image_items].file_id != "end"; image_items++) {
+        total_image_items = image_items+1;
+        printf("Item count: %d -- file_id: %s\n",total_image_items,filesystem_04_list[image_items].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_filesystem_items);
+    printf("\nTotal Records: %d\n\n",total_image_items);
 
     /* Build the Contact record list for display */
     printf("Building each Filesystem_04 record for display\n");
-    for(int j = 0; j < total_filesystem_items; j++) {
+    for(int j = 0; j < total_image_items; j++) {
         if(filesystem_04_list[j].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",j,filesystem_04_list[j].file_fullname);
             break;
@@ -446,7 +475,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_filesystem_items];
+    lv_obj_t * list_item_separator[total_image_items];
 }
 
 void file_menu_setup(void)
