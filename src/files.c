@@ -325,7 +325,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_style_init(&name_style);
 
 
-    int k = 0;
+    int k = 1;
     offset =  131 + (60 * k);
     entry_separator[k] = lv_img_create(image);
     lv_img_set_src(entry_separator[k], &Linez);
