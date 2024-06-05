@@ -86,7 +86,6 @@ static filesystem_item filesystem_01_list[] = {
         .file_modified = "May 18 2024",
         .file_fullname = "Spreadsheets",
         .file_icon = &Icon_Excel_Yellow
-
     },
     {
         .file_id = "end",
