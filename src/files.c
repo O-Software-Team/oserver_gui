@@ -337,13 +337,13 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         lv_obj_align(file_icon[k], LV_ALIGN_CENTER, -130, offset - 231);
 
         /* The label text with the device name */
-        file_label[k] = lv_label_create(image);
-        lv_label_set_recolor(file_label[k], true);
-        lv_obj_align(file_label[k], LV_ALIGN_LEFT_MID, 125, offset - 231);
-        lv_label_set_text(file_label[k], filesystem_03_list[k].file_id);
-        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-        lv_obj_add_style(file_label[k], &name_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(file_label[k], lv_color_white(), 0);
+        // file_label[k] = lv_label_create(image);
+        // lv_label_set_recolor(file_label[k], true);
+        // lv_obj_align(file_label[k], LV_ALIGN_LEFT_MID, 125, offset - 231);
+        // lv_label_set_text(file_label[k], filesystem_03_list[k].file_id);
+        // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+        // lv_obj_add_style(file_label[k], &name_style, LV_PART_MAIN);
+        // lv_obj_set_style_text_color(file_label[k], lv_color_white(), 0);
 
         next_icon[k] = lv_img_create(image);
         lv_img_set_src(next_icon[k], &Icon_Next_White);
