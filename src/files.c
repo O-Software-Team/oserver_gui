@@ -107,7 +107,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 
     /* Calculate total Filesystem_01 records */
     printf("\nCalculate filesystem_01 -- your filesystem...\n");
-    for(filesystem_item = 0; filesystem_01_list[filesystem_item].file_id != "end"; filesystem_item++) {
+    for(int filesystem_item = 0; filesystem_01_list[filesystem_item].file_id != "end"; filesystem_item++) {
         ttl_filesystem_items = filesystem_item+1;
         printf("Item count: %d -- file_id: %s\n",ttl_filesystem_items,filesystem_01_list[filesystem_item].file_id);
     }
