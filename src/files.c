@@ -328,7 +328,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     /* Add (simulated) devices entries as clickable buttons*/
     for (int j = 0; j < total_filesystem_items; j++)
     {
-        offset =  131 + (60 * j);
+        offset =  111 + (60 * j);
         entry_separator[j] = lv_img_create(image);
         lv_img_set_src(entry_separator[j], &Linez);
         lv_obj_align(entry_separator[j], LV_ALIGN_DEFAULT, 25, offset +22);
@@ -342,7 +342,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         file_label[j] = lv_label_create(image);
         lv_label_set_recolor(file_label[j], true);
         lv_obj_align(file_label[j], LV_ALIGN_LEFT_MID, 125, offset - 231);
-        lv_label_set_text(file_label[j], filesystem_03_list[j].file_id);
+        lv_label_set_text(file_label[j], filesystem_03_list[j].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
         lv_obj_add_style(file_label[j], &name_style, LV_PART_MAIN);
         lv_obj_set_style_text_color(file_label[j], lv_color_white(), 0);
@@ -438,17 +438,17 @@ void file_menu_setup(void)
     filesystem_list_init(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_02 -- Your Folders */
-    printf("FILESYSTEM_02 VIEW launch...\n");
+    printf("\nFILESYSTEM_02 VIEW launch...\n");
     // filesystem_02_view(filesystem_02_view_page);
     filesystem_02_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_03 -- Your Movies */
-    printf("FILESYSTEM_03 VIEW launch...\n");
+    printf("\nFILESYSTEM_03 VIEW launch...\n");
     // filesystem_03_view(filesystem_03_view_page);
     filesystem_03_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_04 -- Your Images */
-    printf("FILESYSTEM_04 VIEW launch...\n");
+    printf("\nFILESYSTEM_04 VIEW launch...\n");
     // filesystem_04_view(filesystem_04_view_page);
     filesystem_04_view(filesystem_page);
 
