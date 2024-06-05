@@ -163,7 +163,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(main_menu_record = 0; main_menu_record < ttl_main_menu_items; main_menu_record++) {
-        offset =  151 + (60 * main_menu_record);
+        offset = 151 + (60 * main_menu_record);
         entry_separator[main_menu_record] = lv_img_create(image);
         lv_img_set_src(entry_separator[main_menu_record], &Linez);
         lv_obj_align(entry_separator[main_menu_record], LV_ALIGN_DEFAULT, 25, offset);
@@ -357,7 +357,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     offset = 131 + (60 * f);
     entry_separator[f] = lv_img_create(image);
     lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
+    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +44);
 
     file_icon[f] = lv_img_create(image);
     lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
@@ -378,7 +378,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     list_item_separator[f] = lv_img_create(image);
     lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 66);
 
 
     /* Add (simulated) devices entries as clickable buttons */
