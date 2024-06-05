@@ -354,10 +354,10 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
 
     int f = 0;
-    offset = 131 + (60 * f);
+    offset = 111 + (60 * f);
     entry_separator[f] = lv_img_create(image);
     lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +44);
+    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
 
     file_icon[f] = lv_img_create(image);
     lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
@@ -378,7 +378,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     list_item_separator[f] = lv_img_create(image);
     lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 66);
+    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
 
 
     /* Add (simulated) devices entries as clickable buttons */
