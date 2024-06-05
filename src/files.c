@@ -325,37 +325,35 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_style_init(&name_style);
 
 
-    // int f = 0;
-    for (int f = 0; f < total_filesystem_items; f++) {
-        offset =  131 + (60 * f);
-        entry_separator[f] = lv_img_create(image);
-        lv_img_set_src(entry_separator[f], &Linez);
-        lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
+    int f = 0;
+    offset =  131 + (60 * f);
+    entry_separator[f] = lv_img_create(image);
+    lv_img_set_src(entry_separator[f], &Linez);
+    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
 
-        /* Device icon image on the left */
-        file_icon[f] = lv_img_create(image);
-        lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
-        lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 231);
+    /* Device icon image on the left */
+    file_icon[f] = lv_img_create(image);
+    lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
+    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 231);
 
-        /* The label text with the device name */
-        file_label[f] = lv_label_create(image);
-        lv_label_set_recolor(file_label[f], true);
-        lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 231);
-        lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
-        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-        lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+    /* The label text with the device name */
+    file_label[f] = lv_label_create(image);
+    lv_label_set_recolor(file_label[f], true);
+    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 231);
+    lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
+    lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
 
-        next_icon[f] = lv_img_create(image);
-        lv_img_set_src(next_icon[f], &Icon_Next_White);
-        lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 231);
-        lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+    next_icon[f] = lv_img_create(image);
+    lv_img_set_src(next_icon[f], &Icon_Next_White);
+    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 231);
+    lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
 
-        // Add a list item separator line at the end of the list item
-        list_item_separator[f] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[f], &Linez);
-        lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
-    }
+    // Add a list item separator line at the end of the list item
+    list_item_separator[f] = lv_img_create(image);
+    lv_img_set_src(list_item_separator[f], &Linez);
+    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
 
 
     // int k = 0;
