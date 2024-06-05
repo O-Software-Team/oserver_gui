@@ -325,7 +325,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_style_init(&name_style);
 
 
-    int k = 1;
+    int k = 0;
     offset =  131 + (60 * k);
     entry_separator[k] = lv_img_create(image);
     lv_img_set_src(entry_separator[k], &Linez);
@@ -356,7 +356,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_obj_align(list_item_separator[k], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
 
 
-    int k = 0;
+    // int k = 0;
 
     /* Add (simulated) devices entries as clickable buttons*/
     for (int k = 0; k < total_filesystem_items; k++) {
