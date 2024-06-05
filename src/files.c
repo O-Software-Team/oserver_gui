@@ -324,38 +324,70 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
+
+    int k = 0;
+    offset =  131 + (60 * k);
+    entry_separator[k] = lv_img_create(image);
+    lv_img_set_src(entry_separator[k], &Linez);
+    lv_obj_align(entry_separator[k], LV_ALIGN_DEFAULT, 25, offset +22);
+
+    /* Device icon image on the left */
+    file_icon[k] = lv_img_create(image);
+    lv_img_set_src(file_icon[k], filesystem_03_list[k].file_icon);
+    lv_obj_align(file_icon[k], LV_ALIGN_CENTER, -130, offset - 231);
+
+    /* The label text with the device name */
+    file_label[k] = lv_label_create(image);
+    lv_label_set_recolor(file_label[k], true);
+    lv_obj_align(file_label[k], LV_ALIGN_LEFT_MID, 125, offset - 231);
+    lv_label_set_text(file_label[k], filesystem_03_list[k].file_id);
+    lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    lv_obj_add_style(file_label[k], &name_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(file_label[k], lv_color_white(), 0);
+
+    next_icon[k] = lv_img_create(image);
+    lv_img_set_src(next_icon[k], &Icon_Next_White);
+    lv_obj_align(next_icon[k], LV_ALIGN_CENTER, 130, offset - 231);
+    lv_obj_set_style_opa(next_icon[k], LV_OPA_70, LV_PART_MAIN);
+
+    // Add a list item separator line at the end of the list item
+    list_item_separator[k] = lv_img_create(image);
+    lv_img_set_src(list_item_separator[k], &Linez);
+    lv_obj_align(list_item_separator[k], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+
+
+
     /* Add (simulated) devices entries as clickable buttons*/
-    for (int k = 0; k < total_filesystem_items; k++) {
-        offset =  131 + (60 * k);
-        entry_separator[k] = lv_img_create(image);
-        lv_img_set_src(entry_separator[k], &Linez);
-        lv_obj_align(entry_separator[k], LV_ALIGN_DEFAULT, 25, offset +22);
+    // for (int k = 0; k < total_filesystem_items; k++) {
+    //     offset =  131 + (60 * k);
+    //     entry_separator[k] = lv_img_create(image);
+    //     lv_img_set_src(entry_separator[k], &Linez);
+    //     lv_obj_align(entry_separator[k], LV_ALIGN_DEFAULT, 25, offset +22);
 
-        /* Device icon image on the left */
-        file_icon[k] = lv_img_create(image);
-        // lv_img_set_src(file_icon[k], filesystem_03_list[k].file_icon);
-        lv_img_set_src(file_icon[k], &Icon_Video_Yellow);
-        lv_obj_align(file_icon[k], LV_ALIGN_CENTER, -130, offset - 231);
+    //     /* Device icon image on the left */
+    //     file_icon[k] = lv_img_create(image);
+    //     lv_img_set_src(file_icon[k], filesystem_03_list[k].file_icon);
+    //     lv_obj_align(file_icon[k], LV_ALIGN_CENTER, -130, offset - 231);
 
-        /* The label text with the device name */
-        // file_label[k] = lv_label_create(image);
-        // lv_label_set_recolor(file_label[k], true);
-        // lv_obj_align(file_label[k], LV_ALIGN_LEFT_MID, 125, offset - 231);
-        // lv_label_set_text(file_label[k], filesystem_03_list[k].file_id);
-        // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-        // lv_obj_add_style(file_label[k], &name_style, LV_PART_MAIN);
-        // lv_obj_set_style_text_color(file_label[k], lv_color_white(), 0);
+    //     /* The label text with the device name */
+    //     file_label[k] = lv_label_create(image);
+    //     lv_label_set_recolor(file_label[k], true);
+    //     lv_obj_align(file_label[k], LV_ALIGN_LEFT_MID, 125, offset - 231);
+    //     lv_label_set_text(file_label[k], filesystem_03_list[k].file_id);
+    //     lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    //     lv_obj_add_style(file_label[k], &name_style, LV_PART_MAIN);
+    //     lv_obj_set_style_text_color(file_label[k], lv_color_white(), 0);
 
-        // next_icon[k] = lv_img_create(image);
-        // lv_img_set_src(next_icon[k], &Icon_Next_White);
-        // lv_obj_align(next_icon[k], LV_ALIGN_CENTER, 130, offset - 231);
-        // lv_obj_set_style_opa(next_icon[k], LV_OPA_70, LV_PART_MAIN);
+    //     next_icon[k] = lv_img_create(image);
+    //     lv_img_set_src(next_icon[k], &Icon_Next_White);
+    //     lv_obj_align(next_icon[k], LV_ALIGN_CENTER, 130, offset - 231);
+    //     lv_obj_set_style_opa(next_icon[k], LV_OPA_70, LV_PART_MAIN);
 
-        // Add a list item separator line at the end of the list item
-        list_item_separator[k] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[k], &Linez);
-        lv_obj_align(list_item_separator[k], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
-    }
+    //     // Add a list item separator line at the end of the list item
+    //     list_item_separator[k] = lv_img_create(image);
+    //     lv_img_set_src(list_item_separator[k], &Linez);
+    //     lv_obj_align(list_item_separator[k], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+    // }
 }
 
 void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
