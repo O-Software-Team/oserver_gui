@@ -231,8 +231,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_style_init(&name_style);
 
     /* Add (simulated) devices entries as clickable buttons*/
-    for (int j = 0; j < total_filesystem_items; j++)
-    {
+    for (int j = 0; j < total_filesystem_items; j++) {
         offset =  131 + (60 * j);
         entry_separator[j] = lv_img_create(image);
         lv_img_set_src(entry_separator[j], &Linez);
@@ -279,12 +278,12 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     /* Build the Contact record list for display */
     printf("Building each filesystem_03 record for display\n");
-    for(int j = 0; j < total_filesystem_items; j++) {
-        if(filesystem_03_list[j].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",j,filesystem_03_list[j].file_fullname);
+    for(int k = 0; k < total_filesystem_items; k++) {
+        if(filesystem_03_list[k].file_id == "end") {
+            printf("item: %d -- file_fullname: %s\n",k,filesystem_03_list[k].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_03_list[j].file_id,filesystem_03_list[j].file_fullname);
+            printf("file_id: %s -- file_fullname: %s\n",filesystem_03_list[k].file_id,filesystem_03_list[k].file_fullname);
         }
     }
 
@@ -326,8 +325,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_style_init(&name_style);
 
     /* Add (simulated) devices entries as clickable buttons*/
-    for (int k = 0; k < total_filesystem_items; k++)
-    {
+    for (int k = 0; k < total_filesystem_items; k++) {
         offset =  131 + (60 * k);
         entry_separator[k] = lv_img_create(image);
         lv_img_set_src(entry_separator[k], &Linez);
