@@ -79,7 +79,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_01 records */
-    printf("\nCalculate filesystem_01 records...\n");
+    printf("\nCalculate filesystem_01 -- your filesystem...\n");
     for(ttl_items = 0; filesystem_01_list[ttl_items].file_id != "end"; ttl_items++) {
         total_filesystem_items = ttl_items+1;
         printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_01_list[ttl_items].file_id);
@@ -175,7 +175,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_02 -- your folders */
-    printf("\nCalculate filesystem_02 -- folders...\n");
+    printf("\nCalculate filesystem_02 -- your folders...\n");
     for(ttl_items = 0; filesystem_02_list[ttl_items].file_id != "end"; ttl_items++) {
         total_filesystem_items = ttl_items+1;
         printf("Item count: %d -- file_id: %s\n",total_filesystem_items,filesystem_02_list[ttl_items].file_id);
