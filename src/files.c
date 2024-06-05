@@ -428,14 +428,14 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     /* Calculate total Filesystem_04 records */
     printf("\nCalculate filesystem_04 records...\n");
     for(image_items = 0; filesystem_04_list[image_items].file_id != "end"; image_items++) {
-        total_image_items = image_items+1;
-        printf("Item count: %d -- file_id: %s\n",total_image_items,filesystem_04_list[image_items].file_id);
+        ttl_image_items = image_items+1;
+        printf("Item count: %d -- file_id: %s\n",ttl_image_items,filesystem_04_list[image_items].file_id);
     }
-    printf("\nTotal Records: %d\n\n",total_image_items);
+    printf("\nTotal Records: %d\n\n",ttl_image_items);
 
     /* Build the Contact record list for display */
     printf("Building each Filesystem_04 record for display\n");
-    for(int j = 0; j < total_image_items; j++) {
+    for(int j = 0; j < ttl_image_items; j++) {
         if(filesystem_04_list[j].file_id == "end") {
             printf("item: %d -- file_fullname: %s\n",j,filesystem_04_list[j].file_fullname);
             break;
@@ -475,7 +475,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_image_items];
+    lv_obj_t * list_item_separator[ttl_image_items];
 }
 
 void file_menu_setup(void)
