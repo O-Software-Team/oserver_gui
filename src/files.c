@@ -333,7 +333,8 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
         /* Device icon image on the left */
         file_icon[k] = lv_img_create(image);
-        lv_img_set_src(file_icon[k], filesystem_03_list[k].file_icon);
+        // lv_img_set_src(file_icon[k], filesystem_03_list[k].file_icon);
+        lv_img_set_src(file_icon[k], &Icon_Video_Yellow);
         lv_obj_align(file_icon[k], LV_ALIGN_CENTER, -130, offset - 231);
 
         /* The label text with the device name */
@@ -345,10 +346,10 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         // lv_obj_add_style(file_label[k], &name_style, LV_PART_MAIN);
         // lv_obj_set_style_text_color(file_label[k], lv_color_white(), 0);
 
-        next_icon[k] = lv_img_create(image);
-        lv_img_set_src(next_icon[k], &Icon_Next_White);
-        lv_obj_align(next_icon[k], LV_ALIGN_CENTER, 130, offset - 231);
-        lv_obj_set_style_opa(next_icon[k], LV_OPA_70, LV_PART_MAIN);
+        // next_icon[k] = lv_img_create(image);
+        // lv_img_set_src(next_icon[k], &Icon_Next_White);
+        // lv_obj_align(next_icon[k], LV_ALIGN_CENTER, 130, offset - 231);
+        // lv_obj_set_style_opa(next_icon[k], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
         list_item_separator[k] = lv_img_create(image);
