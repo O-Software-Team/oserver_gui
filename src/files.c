@@ -508,9 +508,9 @@ void file_menu_setup(void)
     filesystem_03_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_04 -- Your Images */
-    printf("\nFILESYSTEM_04 VIEW launch...\n");
+    // printf("\nFILESYSTEM_04 VIEW launch...\n");
     // filesystem_04_view(filesystem_04_view_page);
-    filesystem_04_view(filesystem_page);
+    // filesystem_04_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_05 -- Your Applications */
     // printf("FILESYSTEM_05 VIEW launch...\n");
