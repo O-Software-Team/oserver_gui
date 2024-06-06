@@ -569,7 +569,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         file_label[image_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[image_record], true);
         lv_obj_align(file_label[image_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
-        lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_id);
+        lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
         lv_obj_add_style(file_label[image_record], &name_style, LV_PART_MAIN);
         lv_obj_set_style_text_color(file_label[image_record], lv_color_white(), 0);
