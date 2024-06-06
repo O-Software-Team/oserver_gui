@@ -450,8 +450,8 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_04_view_page);
     lv_img_set_src(image, &Background);
 
-    /* Calculate total Filesystem_04 records */
-    printf("\nCalculate filesystem_04 records...\n");
+    /* Calculate total filesystem_04 -- your images */
+    printf("\nCalculate filesystem_04 -- your images...\n");
     for(image_item = 0; filesystem_04_list[image_item].file_id != "end"; image_item++) {
         ttl_image_items = image_item+1;
         printf("Item count: %d -- file_id: %s\n",ttl_image_items,filesystem_04_list[image_item].file_id);
@@ -459,19 +459,19 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     printf("\nTotal Records: %d\n\n",ttl_image_items);
 
     /* Build the Contact record list for display */
-    printf("Building each Filesystem_04 record for display\n");
-    for(int j = 0; j < ttl_image_items; j++) {
-        if(filesystem_04_list[j].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",j,filesystem_04_list[j].file_fullname);
+    printf("Building each filesystem_04 record for display\n");
+    for(int k = 0; k < ttl_image_items; k++) {
+        if(filesystem_04_list[k].file_id == "end") {
+            printf("item: %d -- file_fullname: %s\n",k,filesystem_04_list[k].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_04_list[j].file_id,filesystem_04_list[j].file_fullname);
+            printf("file_id: %s -- file_fullname: %s\n",filesystem_04_list[k].file_id,filesystem_04_list[k].file_fullname);
         }
     }
 
     render_back_button(image, back_home_button_cb);
 
-    /* 'Filter' button to filter the text messages */
+    /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
     lv_img_set_src(filter_image, &Icon_Filter_Button);
     lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
@@ -481,18 +481,13 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_img_set_src(page_header, &Files_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    /* Add the text message list heading - NOT NEEDED FOR THIS APP */
+    /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
-    lv_label_set_text(list_name, "Your Images");
+    lv_label_set_text(list_name, "Your movies");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
-
-    // Add a list item separator line below the list item header
-    top_of_list_items = lv_img_create(image);
-    lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
@@ -501,6 +496,107 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[ttl_image_items];
+    lv_obj_t * entry_separator[ttl_image_items];
+
+    /* Icon and label objects here */
+    lv_obj_t * file_icon[ttl_image_items];
+    lv_obj_t * file_label[ttl_image_items];
+    lv_obj_t * next_icon[ttl_image_items];
+
+    static lv_style_t name_style;
+    lv_style_init(&name_style);
+
+
+    int f = 0;
+    offset = 131 + (60 * f);
+
+
+    entry_separator[f] = lv_img_create(image);
+    lv_img_set_src(entry_separator[f], &Linez);
+    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
+
+    file_icon[f] = lv_img_create(image);
+    lv_img_set_src(file_icon[f], filesystem_04_list[f].file_icon);
+    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 209);
+
+    file_label[f] = lv_label_create(image);
+    lv_label_set_recolor(file_label[f], true);
+    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 209);
+    lv_label_set_text(file_label[f], filesystem_04_list[f].file_fullname);
+    lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+
+    next_icon[f] = lv_img_create(image);
+    lv_img_set_src(next_icon[f], &Icon_Next_White);
+    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 209);
+    lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+
+    list_item_separator[f] = lv_img_create(image);
+    lv_img_set_src(list_item_separator[f], &Linez);
+    lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 44);
+
+
+    f = 1;
+    offset = 131 + (60 * f);
+    entry_separator[f] = lv_img_create(image);
+    lv_img_set_src(entry_separator[f], &Linez);
+    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
+
+    file_icon[f] = lv_img_create(image);
+    lv_img_set_src(file_icon[f], filesystem_04_list[f].file_icon);
+    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 209);
+
+    file_label[f] = lv_label_create(image);
+    lv_label_set_recolor(file_label[f], true);
+    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 209);
+    lv_label_set_text(file_label[f], filesystem_04_list[f].file_fullname);
+    lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+
+    next_icon[f] = lv_img_create(image);
+    lv_img_set_src(next_icon[f], &Icon_Next_White);
+    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 209);
+    lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+
+    list_item_separator[f] = lv_img_create(image);
+    lv_img_set_src(list_item_separator[f], &Linez);
+    lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 44);
+
+    /* Add (simulated) devices entries as clickable buttons */
+    // for(movie_record = 0; movie_record < ttl_image_items; movie_record++) {
+    //     offset = 131 + (60 * movie_record);
+
+    //     // Add a list item separator line at the top of the list item
+    //     entry_separator[movie_record] = lv_img_create(image);
+    //     lv_img_set_src(entry_separator[movie_record], &Linez);
+    //     lv_obj_align(entry_separator[movie_record], LV_ALIGN_DEFAULT, 25, offset +22);
+
+    //     /* Device icon image on the left */
+    //     file_icon[movie_record] = lv_img_create(image);
+    //     lv_img_set_src(file_icon[movie_record], filesystem_04_list[movie_record].file_icon);
+    //     lv_obj_align(file_icon[movie_record], LV_ALIGN_CENTER, -130, offset - 231);
+
+    //     /* The label text with the device name */
+    //     file_label[movie_record] = lv_label_create(image);
+    //     lv_label_set_recolor(file_label[movie_record], true);
+    //     lv_obj_align(file_label[movie_record], LV_ALIGN_LEFT_MID, 125, offset - 231);
+    //     lv_label_set_text(file_label[movie_record], filesystem_04_list[movie_record].file_id);
+    //     lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    //     lv_obj_add_style(file_label[movie_record], &name_style, LV_PART_MAIN);
+    //     lv_obj_set_style_text_color(file_label[movie_record], lv_color_white(), 0);
+
+    //     next_icon[movie_record] = lv_img_create(image);
+    //     lv_img_set_src(next_icon[movie_record], &Icon_Next_White);
+    //     lv_obj_align(next_icon[movie_record], LV_ALIGN_CENTER, 130, offset - 231);
+    //     lv_obj_set_style_opa(next_icon[movie_record], LV_OPA_70, LV_PART_MAIN);
+
+    //     // Add a list item separator line at the end of the list item
+    //     list_item_separator[movie_record] = lv_img_create(image);
+    //     lv_img_set_src(list_item_separator[movie_record], &Linez);
+    //     lv_obj_align(list_item_separator[movie_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+    // }
 }
 
 void file_menu_setup(void)
