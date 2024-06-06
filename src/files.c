@@ -529,7 +529,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     next_icon[f] = lv_img_create(image);
     lv_img_set_src(next_icon[f], &Icon_Next_White);
-    lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 188, offset - 209);
+    lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 328, offset - 209);
     lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
 
     list_item_separator[f] = lv_img_create(image);
@@ -539,9 +539,9 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     f = 1;
     offset = 131 + (60 * f);
-    entry_separator[f] = lv_img_create(image);
-    lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 28, offset +22);
+    // entry_separator[f] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[f], &Linez);
+    // lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 28, offset +22);
 
     file_icon[f] = lv_img_create(image);
     lv_img_set_src(file_icon[f], filesystem_04_list[f].file_icon);
@@ -560,9 +560,9 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 142, offset - 209);
     lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
 
-    list_item_separator[f] = lv_img_create(image);
-    lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 28, offset + 66);
+    // list_item_separator[f] = lv_img_create(image);
+    // lv_img_set_src(list_item_separator[f], &Linez);
+    // lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 28, offset + 66);
 
     /* Add (simulated) devices entries as clickable buttons */
     // for(movie_record = 0; movie_record < ttl_image_items; movie_record++) {
