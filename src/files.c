@@ -478,6 +478,34 @@ void file_menu_setup(void)
 {
     printf("FILES MENU init...\n");
 
+
+// #if ALL_SCROLL
+//     lv_obj_t * device_page = lv_obj_create(NULL);
+//     menu_dispatch_table[DEVICE_VEC] = device_page;
+
+//     lv_obj_center(device_page);
+//     lv_obj_set_style_bg_color(device_page, lv_color_lighten(lv_color_black(), 60), 0);
+//     lv_obj_set_flex_flow(device_page, LV_FLEX_FLOW_ROW);
+//     lv_obj_set_style_clip_corner(device_page, true, 3);
+//     lv_obj_set_scroll_dir(device_page, LV_DIR_HOR);
+//     lv_obj_set_scroll_snap_x(device_page, LV_SCROLL_SNAP_CENTER);
+//     lv_obj_set_scrollbar_mode(device_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+
+//     /* Store the content of this page for later display */
+
+//     /* SUB-SCREEN 0: Create already connected (trusted) devices page add it to parent */
+//     device_trusted_init(device_page);
+
+//     /* SUB-SCREEN 1: Devices found in the area listed here */
+//     devices_found_init(device_page);
+
+//     /* SUB-SCREEN 2: Display code for connection to selected device */
+//     device_code_init(device_page);
+
+//     /* SUB_SCREEN 3: Setup display for the new 'trusted' device */
+//     device_connected_init(device_page);
+// #endif
+
     lv_obj_t * filesystem_page = lv_obj_create(NULL);
     menu_dispatch_table[FILES_VEC] = filesystem_page;
 
@@ -488,7 +516,8 @@ void file_menu_setup(void)
     lv_obj_set_style_clip_corner(filesystem_page, true, 3);
     lv_obj_set_scroll_dir(filesystem_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(filesystem_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
+    lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+    // lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
 
     /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
     printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
