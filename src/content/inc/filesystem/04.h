@@ -28,7 +28,7 @@ static filesystem_item filesystem_04_list[] = {
         .file_type = "file",
         .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Autograf_And_Tiina_Image.c",
+        .file_fullname = "Autograf And Tiina",
         .file_icon = &Icon_Image_Yellow
     },
     {

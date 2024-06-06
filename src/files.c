@@ -529,7 +529,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     next_icon[f] = lv_img_create(image);
     lv_img_set_src(next_icon[f], &Icon_Next_White);
-    lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 358, offset - 199);
+    lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 348, offset - 199);
     lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
 
     list_item_separator[f] = lv_img_create(image);
