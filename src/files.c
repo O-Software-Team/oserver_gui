@@ -357,15 +357,15 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     offset = 131 + (60 * f);
     entry_separator[f] = lv_img_create(image);
     lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +44);
+    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
 
     file_icon[f] = lv_img_create(image);
     lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
-    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 231);
+    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 200);
 
     file_label[f] = lv_label_create(image);
     lv_label_set_recolor(file_label[f], true);
-    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 231);
+    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 200);
     lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
     lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
     lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
@@ -373,12 +373,12 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     next_icon[f] = lv_img_create(image);
     lv_img_set_src(next_icon[f], &Icon_Next_White);
-    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 231);
+    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 200);
     lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
 
     list_item_separator[f] = lv_img_create(image);
     lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 66);
+    lv_obj_align(list_item_separator[f], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
 
 
     /* Add (simulated) devices entries as clickable buttons */
