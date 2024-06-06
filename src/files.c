@@ -579,40 +579,6 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         lv_obj_align(next_icon[image_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
         lv_obj_set_style_opa(next_icon[image_record], LV_OPA_70, LV_PART_MAIN);
     }
-
-    /* Add (simulated) devices entries as clickable buttons */
-    // for(movie_record = 0; movie_record < ttl_image_items; movie_record++) {
-    //     offset = 131 + (60 * movie_record);
-
-    //     // Add a list item separator line at the top of the list item
-    //     entry_separator[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(entry_separator[movie_record], &Linez);
-    //     lv_obj_align(entry_separator[movie_record], LV_ALIGN_DEFAULT, 25, offset +22);
-
-    //     /* Device icon image on the left */
-    //     file_icon[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(file_icon[movie_record], filesystem_04_list[movie_record].file_icon);
-    //     lv_obj_align(file_icon[movie_record], LV_ALIGN_CENTER, -130, offset - 231);
-
-    //     /* The label text with the device name */
-    //     file_label[movie_record] = lv_label_create(image);
-    //     lv_label_set_recolor(file_label[movie_record], true);
-    //     lv_obj_align(file_label[movie_record], LV_ALIGN_LEFT_MID, 125, offset - 231);
-    //     lv_label_set_text(file_label[movie_record], filesystem_04_list[movie_record].file_id);
-    //     lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    //     lv_obj_add_style(file_label[movie_record], &name_style, LV_PART_MAIN);
-    //     lv_obj_set_style_text_color(file_label[movie_record], lv_color_white(), 0);
-
-    //     next_icon[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(next_icon[movie_record], &Icon_Next_White);
-    //     lv_obj_align(next_icon[movie_record], LV_ALIGN_CENTER, 130, offset - 231);
-    //     lv_obj_set_style_opa(next_icon[movie_record], LV_OPA_70, LV_PART_MAIN);
-
-    //     // Add a list item separator line at the end of the list item
-    //     list_item_separator[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(list_item_separator[movie_record], &Linez);
-    //     lv_obj_align(list_item_separator[movie_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
-    // }
 }
 
 void file_menu_setup(void)
@@ -657,8 +623,8 @@ void file_menu_setup(void)
     lv_obj_set_style_clip_corner(filesystem_page, true, 3);
     lv_obj_set_scroll_dir(filesystem_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(filesystem_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
-    // lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
+    // lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
 
     /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
     printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
