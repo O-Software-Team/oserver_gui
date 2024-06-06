@@ -513,7 +513,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
 // BEG LOOP - 0
     int f = 0;
-    offset = 131 + (60 * f);
+    offset = 131 + (54 * f);
 
     file_icon[f] = lv_img_create(image);
     lv_img_set_src(file_icon[f], filesystem_04_list[f].file_icon);
@@ -536,7 +536,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
 // BEG LOOP - 1
     f = 1;
-    offset = 131 + (60 * f);
+    offset = 131 + (54 * f);
     // entry_separator[f] = lv_img_create(image);
     // lv_img_set_src(entry_separator[f], &Linez);
     // lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 28, offset +22);
