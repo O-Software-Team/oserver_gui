@@ -489,11 +489,6 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-    /* Provide a single rule under the heading */
-    entry_separator[f] = lv_img_create(image);
-    lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_LEFT_MID, 28, 144);
-
     /* These keep the alignment settings evenly spaced when in a for loop */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     lv_point_t right = { 290, -220};
@@ -511,10 +506,14 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
+    /* Provide a single rule under the heading */
+    entry_separator[f] = lv_img_create(image);
+    lv_img_set_src(entry_separator[f], &Linez);
+    lv_obj_align(entry_separator[f], LV_ALIGN_LEFT_MID, 28, 144);
+
 
     int f = 0;
     offset = 131 + (60 * f);
-
 
     // entry_separator[f] = lv_img_create(image);
     // lv_img_set_src(entry_separator[f], &Linez);
