@@ -508,8 +508,8 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     /* Provide a single rule under the heading */
     entry_separator[0] = lv_img_create(image);
-    lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_LEFT_MID, 28, 144);
+    lv_img_set_src(entry_separator[0], &Linez);
+    lv_obj_align(entry_separator[0], LV_ALIGN_LEFT_MID, 28, 144);
 
 
     int f = 0;
