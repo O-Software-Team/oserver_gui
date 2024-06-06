@@ -558,7 +558,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons */
     for(image_record = 0; image_record < ttl_image_items; image_record++) {
-        offset = 130 + (52 * f);
+        offset = 130 + (52 * image_record);
 
         /* Device icon image on the left */
         file_icon[image_record] = lv_img_create(image);
