@@ -581,38 +581,123 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     }
 }
 
+void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
+/* Your Applications */
+    lv_obj_t * image = lv_img_create(filesystem_05_view_page);
+    lv_img_set_src(image, &Background);
+
+    /* Calculate total filesystem_05 -- your applications */
+    printf("\nCalculate filesystem_05 -- your applications...\n");
+    for(application_item = 0; filesystem_05_list[application_item].file_id != "end"; application_item++) {
+        ttl_application_items = application_item+1;
+        printf("Item count: %d -- file_id: %s\n",ttl_application_items,filesystem_05_list[application_item].file_id);
+    }
+    printf("\nTotal Records: %d\n\n",ttl_application_items);
+
+    /* Build the Contact record list for display */
+    printf("Building each filesystem_05 record for display\n");
+    for(int k = 0; k < ttl_application_items; k++) {
+        if(filesystem_05_list[k].file_id == "end") {
+            printf("item: %d -- file_fullname: %s\n",k,filesystem_05_list[k].file_fullname);
+            break;
+        } else {
+            printf("file_id: %s -- file_fullname: %s\n",filesystem_05_list[k].file_id,filesystem_05_list[k].file_fullname);
+        }
+    }
+
+    render_back_button(image, back_home_button_cb);
+
+    /* 'Filter' button to filter the list */
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &Files_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the file list heading */
+    lv_label_t * list_name = lv_label_create(image);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_label_set_text(list_name, "Your applications");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+    /* These keep the alignment settings evenly spaced when in a for loop */
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
+    lv_coord_t offset = 0;
+
+    /* Set the list_item_separator object here */
+    lv_obj_t * list_item_separator[ttl_application_items];
+    lv_obj_t * entry_separator[ttl_application_items];
+
+    /* Icon and label objects here */
+    lv_obj_t * file_icon[ttl_application_items];
+    lv_obj_t * file_label[ttl_application_items];
+    lv_obj_t * next_icon[ttl_application_items];
+
+    static lv_style_t name_style;
+    lv_style_init(&name_style);
+
+    /* Provide a single rule under the heading */
+    entry_separator[0] = lv_img_create(image);
+    lv_img_set_src(entry_separator[0], &Linez);
+    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+
+// application_record
+
+// BEG LOOP - 0
+    // int f = 0;
+    // offset = 130 + (52 * f);
+
+    // file_icon[f] = lv_img_create(image);
+    // lv_img_set_src(file_icon[f], filesystem_05_list[f].file_icon);
+    // lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 199);
+
+    // file_label[f] = lv_label_create(image);
+    // lv_label_set_recolor(file_label[f], true);
+    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 199);
+    // lv_label_set_text(file_label[f], filesystem_05_list[f].file_fullname);
+    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+
+    // next_icon[f] = lv_img_create(image);
+    // lv_img_set_src(next_icon[f], &Icon_Next_White);
+    // lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 348, offset - 199);
+    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+// END LOOP - 0
+
+
+// BEG LOOP - 1
+    // f = 1;
+    // offset = 130 + (52 * f);
+
+    // file_icon[f] = lv_img_create(image);
+    // lv_img_set_src(file_icon[f], filesystem_05_list[f].file_icon);
+    // lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 199);
+
+    // file_label[f] = lv_label_create(image);
+    // lv_label_set_recolor(file_label[f], true);
+    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 199);
+    // lv_label_set_text(file_label[f], filesystem_05_list[f].file_fullname);
+    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+
+    // next_icon[f] = lv_img_create(image);
+    // lv_img_set_src(next_icon[f], &Icon_Next_White);
+    // lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 348, offset - 199);
+    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+// END LOOP - 1
+}
+
 void file_menu_setup(void)
 {
     printf("FILES MENU init...\n");
-
-
-// #if ALL_SCROLL
-//     lv_obj_t * device_page = lv_obj_create(NULL);
-//     menu_dispatch_table[DEVICE_VEC] = device_page;
-
-//     lv_obj_center(device_page);
-//     lv_obj_set_style_bg_color(device_page, lv_color_lighten(lv_color_black(), 60), 0);
-//     lv_obj_set_flex_flow(device_page, LV_FLEX_FLOW_ROW);
-//     lv_obj_set_style_clip_corner(device_page, true, 3);
-//     lv_obj_set_scroll_dir(device_page, LV_DIR_HOR);
-//     lv_obj_set_scroll_snap_x(device_page, LV_SCROLL_SNAP_CENTER);
-//     lv_obj_set_scrollbar_mode(device_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
-
-//     /* Store the content of this page for later display */
-
-//     /* SUB-SCREEN 0: Create already connected (trusted) devices page add it to parent */
-//     device_trusted_init(device_page);
-
-//     /* SUB-SCREEN 1: Devices found in the area listed here */
-//     devices_found_init(device_page);
-
-//     /* SUB-SCREEN 2: Display code for connection to selected device */
-//     device_code_init(device_page);
-
-//     /* SUB_SCREEN 3: Setup display for the new 'trusted' device */
-//     device_connected_init(device_page);
-// #endif
-
     lv_obj_t * filesystem_page = lv_obj_create(NULL);
     menu_dispatch_table[FILES_VEC] = filesystem_page;
 
@@ -646,9 +731,9 @@ void file_menu_setup(void)
     filesystem_04_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_05 -- Your Applications */
-    // printf("FILESYSTEM_05 VIEW launch...\n");
+    printf("FILESYSTEM_05 VIEW launch...\n");
     // filesystem_02_view(filesystem_02_view_page);
-    // filesystem_05_view(filesystem_page);
+    filesystem_05_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_06 -- Your Documents */
     // printf("FILESYSTEM_06 VIEW launch...\n");
