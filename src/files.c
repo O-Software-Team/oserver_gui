@@ -507,7 +507,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_style_init(&name_style);
 
     /* Provide a single rule under the heading */
-    entry_separator[f] = lv_img_create(image);
+    entry_separator[0] = lv_img_create(image);
     lv_img_set_src(entry_separator[f], &Linez);
     lv_obj_align(entry_separator[f], LV_ALIGN_LEFT_MID, 28, 144);
 
