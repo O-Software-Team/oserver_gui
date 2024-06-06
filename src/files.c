@@ -354,7 +354,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
 
     int f = 0;
-    offset = 151 + (60 * f);
+    offset = 131 + (60 * f);
     entry_separator[f] = lv_img_create(image);
     lv_img_set_src(entry_separator[f], &Linez);
     lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
