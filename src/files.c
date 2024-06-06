@@ -517,11 +517,11 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     file_icon[f] = lv_img_create(image);
     lv_img_set_src(file_icon[f], filesystem_04_list[f].file_icon);
-    lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 209);
+    lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
     file_label[f] = lv_label_create(image);
     lv_label_set_recolor(file_label[f], true);
-    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 209);
+    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 199);
     lv_label_set_text(file_label[f], filesystem_04_list[f].file_fullname);
     lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
     lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
@@ -529,12 +529,12 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     next_icon[f] = lv_img_create(image);
     lv_img_set_src(next_icon[f], &Icon_Next_White);
-    lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 328, offset - 209);
+    lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 358, offset - 199);
     lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
 
     list_item_separator[f] = lv_img_create(image);
     lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 66);
+    lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 86);
 
 
     f = 1;
