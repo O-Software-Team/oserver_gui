@@ -866,8 +866,8 @@ void file_menu_setup(void)
     filesystem_06_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_07 -- Your Spreadsheet Files */
-    // printf("FILESYSTEM_07 VIEW launch...\n");
-    // filesystem_07_view(filesystem_page);
+    printf("FILESYSTEM_07 VIEW launch...\n");
+    filesystem_07_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_08 -- Your ??? Files */
     // printf("FILESYSTEM_08 VIEW launch...\n");
