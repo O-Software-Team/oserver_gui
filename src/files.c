@@ -100,8 +100,8 @@ static int ttl_spreadsheet_items = 1;
 static lv_obj_t * top_of_list_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-static const char * fs_03_fullname_string;
-static int fs_03_fullname_count;
+static const char * fs_fullname_string;
+static int fs_fullname_count;
 static const char * fs_04_fullname_string;
 static int fs_04_fullname_count;
 static const char * fs_05_fullname_string;
@@ -381,8 +381,8 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         lv_obj_align(file_icon[movie_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
-        fs_04_fullname_string = filesystem_03_list[movie_record].file_fullname;
-        fs_04_fullname_count = strlen(fs_04_fullname_string);
+        fs_fullname_string = filesystem_03_list[movie_record].file_fullname;
+        fs_fullname_count = strlen(fs_fullname_string);
 
         /* The label text with the device name */
         file_label[movie_record] = lv_label_create(image);
@@ -390,9 +390,9 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         lv_obj_align(file_label[movie_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_04_fullname_count >= 19) {
+        if(fs_fullname_count >= 19) {
             lv_label_set_text(file_label[movie_record], filesystem_03_list[movie_record].file_fullname);
-            lv_label_cut_text(file_label[movie_record],17,fs_04_fullname_count);
+            lv_label_cut_text(file_label[movie_record],17,fs_fullname_count);
             lv_label_ins_text(file_label[movie_record],19,"...");
         } else {
             lv_label_set_text(file_label[movie_record], filesystem_03_list[movie_record].file_fullname);
@@ -485,8 +485,8 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         lv_obj_align(file_icon[image_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
-        fs_04_fullname_string = filesystem_04_list[image_record].file_fullname;
-        fs_04_fullname_count = strlen(fs_04_fullname_string);
+        fs_fullname_string = filesystem_04_list[image_record].file_fullname;
+        fs_fullname_count = strlen(fs_fullname_string);
 
         /* The label text with the device name */
         file_label[image_record] = lv_label_create(image);
@@ -494,9 +494,9 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         lv_obj_align(file_label[image_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_04_fullname_count >= 19) {
+        if(fs_fullname_count >= 19) {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
-            lv_label_cut_text(file_label[image_record],17,fs_04_fullname_count);
+            lv_label_cut_text(file_label[image_record],17,fs_fullname_count);
             lv_label_ins_text(file_label[image_record],19,"...");
         } else {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
@@ -589,8 +589,8 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         lv_obj_align(file_icon[application_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
-        fs_04_fullname_string = filesystem_05_list[application_record].file_fullname;
-        fs_04_fullname_count = strlen(fs_04_fullname_string);
+        fs_fullname_string = filesystem_05_list[application_record].file_fullname;
+        fs_fullname_count = strlen(fs_fullname_string);
 
         /* The label text with the device name */
         file_label[application_record] = lv_label_create(image);
@@ -598,9 +598,9 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         lv_obj_align(file_label[application_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_04_fullname_count >= 19) {
+        if(fs_fullname_count >= 19) {
             lv_label_set_text(file_label[application_record], filesystem_05_list[application_record].file_fullname);
-            lv_label_cut_text(file_label[application_record],17,fs_04_fullname_count);
+            lv_label_cut_text(file_label[application_record],17,fs_fullname_count);
             lv_label_ins_text(file_label[application_record],19,"...");
         } else {
             lv_label_set_text(file_label[application_record], filesystem_05_list[application_record].file_fullname);
@@ -693,8 +693,8 @@ void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
         lv_obj_align(file_icon[document_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
-        fs_04_fullname_string = filesystem_06_list[document_record].file_fullname;
-        fs_04_fullname_count = strlen(fs_04_fullname_string);
+        fs_fullname_string = filesystem_06_list[document_record].file_fullname;
+        fs_fullname_count = strlen(fs_fullname_string);
 
         /* The label text with the device name */
         file_label[document_record] = lv_label_create(image);
@@ -702,9 +702,9 @@ void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
         lv_obj_align(file_label[document_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_04_fullname_count >= 19) {
+        if(fs_fullname_count >= 19) {
             lv_label_set_text(file_label[document_record], filesystem_06_list[document_record].file_fullname);
-            lv_label_cut_text(file_label[document_record],17,fs_04_fullname_count);
+            lv_label_cut_text(file_label[document_record],17,fs_fullname_count);
             lv_label_ins_text(file_label[document_record],19,"...");
         } else {
             lv_label_set_text(file_label[document_record], filesystem_06_list[document_record].file_fullname);
@@ -797,8 +797,8 @@ void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
         lv_obj_align(file_icon[spreadsheet_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
-        fs_04_fullname_string = filesystem_07_list[spreadsheet_record].file_fullname;
-        fs_04_fullname_count = strlen(fs_04_fullname_string);
+        fs_fullname_string = filesystem_07_list[spreadsheet_record].file_fullname;
+        fs_fullname_count = strlen(fs_fullname_string);
 
         /* The label text with the device name */
         file_label[spreadsheet_record] = lv_label_create(image);
@@ -806,9 +806,9 @@ void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
         lv_obj_align(file_label[spreadsheet_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_04_fullname_count >= 19) {
+        if(fs_fullname_count >= 19) {
             lv_label_set_text(file_label[spreadsheet_record], filesystem_07_list[spreadsheet_record].file_fullname);
-            lv_label_cut_text(file_label[spreadsheet_record],17,fs_04_fullname_count);
+            lv_label_cut_text(file_label[spreadsheet_record],17,fs_fullname_count);
             lv_label_ins_text(file_label[spreadsheet_record],19,"...");
         } else {
             lv_label_set_text(file_label[spreadsheet_record], filesystem_07_list[spreadsheet_record].file_fullname);
