@@ -617,6 +617,110 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     }
 }
 
+void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
+/* Your Documents */
+    lv_obj_t * image = lv_img_create(filesystem_06_view_page);
+    lv_img_set_src(image, &Background);
+
+    /* Calculate total filesystem_06 -- your documents */
+    printf("\nCalculate filesystem_06 -- your documents...\n");
+    for(document_item = 0; filesystem_06_list[document_item].file_id != "end"; document_item++) {
+        ttl_document_items = document_item+1;
+        printf("Item count: %d -- file_id: %s\n",ttl_document_items,filesystem_06_list[document_item].file_id);
+    }
+    printf("\nTotal Records: %d\n\n",ttl_document_items);
+
+    /* Build the Contact record list for display */
+    printf("Building each filesystem_06 record for display\n");
+    for(int k = 0; k < ttl_document_items; k++) {
+        if(filesystem_06_list[k].file_id == "end") {
+            printf("item: %d -- file_fullname: %s\n",k,filesystem_06_list[k].file_fullname);
+            break;
+        } else {
+            printf("file_id: %s -- file_fullname: %s\n",filesystem_06_list[k].file_id,filesystem_06_list[k].file_fullname);
+        }
+    }
+
+    render_back_button(image, back_home_button_cb);
+
+    /* 'Filter' button to filter the list */
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &Files_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the file list heading */
+    lv_label_t * list_name = lv_label_create(image);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_label_set_text(list_name, "Your documents");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+    /* These keep the alignment settings evenly spaced when in a for loop */
+    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    lv_point_t right = { 290, -220};
+    lv_coord_t offset = 0;
+
+    /* Set the list_item_separator object here */
+    lv_obj_t * list_item_separator[ttl_document_items];
+    lv_obj_t * entry_separator[ttl_document_items];
+
+    /* Icon and label objects here */
+    lv_obj_t * file_icon[ttl_document_items];
+    lv_obj_t * file_label[ttl_document_items];
+    lv_obj_t * next_icon[ttl_document_items];
+
+    static lv_style_t name_style;
+    lv_style_init(&name_style);
+
+    /* Provide a single rule under the heading */
+    entry_separator[0] = lv_img_create(image);
+    lv_img_set_src(entry_separator[0], &Linez);
+    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+
+    /* Add (simulated) devices entries as clickable buttons */
+    for(document_record = 0; document_record < ttl_document_items; document_record++) {
+        offset = 130 + (52 * document_record);
+
+        /* Device icon image on the left */
+        file_icon[document_record] = lv_img_create(image);
+        lv_img_set_src(file_icon[document_record], filesystem_06_list[document_record].file_icon);
+        lv_obj_align(file_icon[document_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
+
+        /* Calculate if the file_fullname field is greater than or equal to 25 characters */
+        fs_04_fullname_string = filesystem_06_list[document_record].file_fullname;
+        fs_04_fullname_count = strlen(fs_04_fullname_string);
+
+        /* The label text with the device name */
+        file_label[document_record] = lv_label_create(image);
+        lv_label_set_recolor(file_label[document_record], true);
+        lv_obj_align(file_label[document_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
+
+        /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+        if(fs_04_fullname_count >= 19) {
+            lv_label_set_text(file_label[document_record], filesystem_06_list[document_record].file_fullname);
+            lv_label_cut_text(file_label[document_record],17,fs_04_fullname_count);
+            lv_label_ins_text(file_label[document_record],19,"...");
+        } else {
+            lv_label_set_text(file_label[document_record], filesystem_06_list[document_record].file_fullname);
+        }
+
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+        lv_obj_add_style(file_label[document_record], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[document_record], lv_color_white(), 0);
+
+        next_icon[document_record] = lv_img_create(image);
+        lv_img_set_src(next_icon[document_record], &Icon_Next_White);
+        lv_obj_align(next_icon[document_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
+        lv_obj_set_style_opa(next_icon[document_record], LV_OPA_70, LV_PART_MAIN);
+    }
+}
+
 void file_menu_setup(void)
 {
     printf("FILES MENU init...\n");
