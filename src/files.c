@@ -372,7 +372,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
 
     /* Add (simulated) devices entries as clickable buttons */
-    for(movie_record = 0; movie_record < ttl_image_items; movie_record++) {
+    for(movie_record = 0; movie_record < ttl_movie_items; movie_record++) {
         offset = 130 + (52 * movie_record);
 
         /* Device icon image on the left */
