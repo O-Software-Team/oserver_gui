@@ -549,51 +549,6 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_img_set_src(entry_separator[0], &Linez);
     lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
 
-// BEG LOOP - 0
-    // int f = 0;
-    // offset = 130 + (52 * f);
-
-    // file_icon[f] = lv_img_create(image);
-    // lv_img_set_src(file_icon[f], filesystem_04_list[f].file_icon);
-    // lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 199);
-
-    // file_label[f] = lv_label_create(image);
-    // lv_label_set_recolor(file_label[f], true);
-    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 199);
-    // lv_label_set_text(file_label[f], filesystem_04_list[f].file_fullname);
-    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
-
-    // next_icon[f] = lv_img_create(image);
-    // lv_img_set_src(next_icon[f], &Icon_Next_White);
-    // lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 348, offset - 199);
-    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
-// END LOOP - 0
-
-
-// BEG LOOP - 1
-    // f = 1;
-    // offset = 130 + (52 * f);
-
-    // file_icon[f] = lv_img_create(image);
-    // lv_img_set_src(file_icon[f], filesystem_04_list[f].file_icon);
-    // lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 199);
-
-    // file_label[f] = lv_label_create(image);
-    // lv_label_set_recolor(file_label[f], true);
-    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 199);
-    // lv_label_set_text(file_label[f], filesystem_04_list[f].file_fullname);
-    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
-
-    // next_icon[f] = lv_img_create(image);
-    // lv_img_set_src(next_icon[f], &Icon_Next_White);
-    // lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 348, offset - 199);
-    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
-// END LOOP - 1
-
     /* Add (simulated) devices entries as clickable buttons */
     for(image_record = 0; image_record < ttl_image_items; image_record++) {
         offset = 130 + (52 * image_record);
@@ -607,10 +562,6 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         fs_04_fullname_string = filesystem_04_list[image_record].file_fullname;
         fs_04_fullname_count = strlen(fs_04_fullname_string);
 
-        // /* Contact NAME field */
-        // contact_name = lv_label_create(image);
-        // lv_label_set_recolor(contact_name, true);
-
         /* The label text with the device name */
         file_label[image_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[image_record], true);
@@ -619,18 +570,11 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
         if(fs_04_fullname_count >= 19) {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
-            // lv_label_set_text(contact_name, contacts_01_list[image_record].contact_name);
             lv_label_cut_text(file_label[image_record],17,fs_04_fullname_count);
             lv_label_ins_text(file_label[image_record],19,"...");
         } else {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
-            // lv_label_set_text(contact_name, contacts_01_list[image_record].contact_name);
         }
-
-        // /* Contact Name field */
-        // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
-        // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-        // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
         lv_obj_add_style(file_label[image_record], &name_style, LV_PART_MAIN);
