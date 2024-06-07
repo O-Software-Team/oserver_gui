@@ -329,30 +329,6 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         }
     }
 
-
-    // /* Calculate if the NAME field is greater than or equal to 25 characters */
-    // fs_03_fullname_string = filesystem_03_list[k].file_fullname;
-    // fs_03_fullname_count = strlen(fs_03_fullname_string);
-
-    // /* Contact NAME field */
-    // contact_name = lv_label_create(image);
-    // lv_label_set_recolor(contact_name, true);
-
-    // /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-    // if(name_count >= 37) {
-    //     lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
-    //     lv_label_cut_text(contact_name,35,name_count);
-    //     lv_label_ins_text(contact_name,37,"...");
-    // } else {
-    //     lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
-    // }
-
-    // /* Contact Name field */
-    // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
-    // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
-    // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
-
-
     render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the list */
@@ -390,97 +366,128 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
-
-    int f = 0;
-    offset = 131 + (60 * f);
-
-
-    entry_separator[f] = lv_img_create(image);
-    lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
-
-    file_icon[f] = lv_img_create(image);
-    lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
-    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 209);
-
-    file_label[f] = lv_label_create(image);
-    lv_label_set_recolor(file_label[f], true);
-    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 209);
-    lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
-    lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-    lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
-
-    next_icon[f] = lv_img_create(image);
-    lv_img_set_src(next_icon[f], &Icon_Next_White);
-    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 209);
-    lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
-
-    list_item_separator[f] = lv_img_create(image);
-    lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 44);
-
-
-    f = 1;
-    offset = 131 + (60 * f);
-    entry_separator[f] = lv_img_create(image);
-    lv_img_set_src(entry_separator[f], &Linez);
-    lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
-
-    file_icon[f] = lv_img_create(image);
-    lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
-    lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 209);
-
-    file_label[f] = lv_label_create(image);
-    lv_label_set_recolor(file_label[f], true);
-    lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 209);
-    lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
-    lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-    lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
-
-    next_icon[f] = lv_img_create(image);
-    lv_img_set_src(next_icon[f], &Icon_Next_White);
-    lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 209);
-    lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
-
-    list_item_separator[f] = lv_img_create(image);
-    lv_img_set_src(list_item_separator[f], &Linez);
-    lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 44);
+    /* Provide a single rule under the heading */
+    entry_separator[0] = lv_img_create(image);
+    lv_img_set_src(entry_separator[0], &Linez);
+    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
 
     /* Add (simulated) devices entries as clickable buttons */
-    // for(movie_record = 0; movie_record < ttl_movie_items; movie_record++) {
-    //     offset = 131 + (60 * movie_record);
+    for(movie_record = 0; movie_record < ttl_image_items; movie_record++) {
+        offset = 130 + (52 * movie_record);
 
-    //     // Add a list item separator line at the top of the list item
-    //     entry_separator[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(entry_separator[movie_record], &Linez);
-    //     lv_obj_align(entry_separator[movie_record], LV_ALIGN_DEFAULT, 25, offset +22);
+        /* Device icon image on the left */
+        file_icon[movie_record] = lv_img_create(image);
+        lv_img_set_src(file_icon[movie_record], filesystem_03_list[movie_record].file_icon);
+        lv_obj_align(file_icon[movie_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
-    //     /* Device icon image on the left */
-    //     file_icon[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(file_icon[movie_record], filesystem_03_list[movie_record].file_icon);
-    //     lv_obj_align(file_icon[movie_record], LV_ALIGN_CENTER, -130, offset - 231);
+        /* Calculate if the file_fullname field is greater than or equal to 25 characters */
+        fs_04_fullname_string = filesystem_03_list[movie_record].file_fullname;
+        fs_04_fullname_count = strlen(fs_04_fullname_string);
 
-    //     /* The label text with the device name */
-    //     file_label[movie_record] = lv_label_create(image);
-    //     lv_label_set_recolor(file_label[movie_record], true);
-    //     lv_obj_align(file_label[movie_record], LV_ALIGN_LEFT_MID, 125, offset - 231);
-    //     lv_label_set_text(file_label[movie_record], filesystem_03_list[movie_record].file_id);
-    //     lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    //     lv_obj_add_style(file_label[movie_record], &name_style, LV_PART_MAIN);
-    //     lv_obj_set_style_text_color(file_label[movie_record], lv_color_white(), 0);
+        /* The label text with the device name */
+        file_label[movie_record] = lv_label_create(image);
+        lv_label_set_recolor(file_label[movie_record], true);
+        lv_obj_align(file_label[movie_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
 
-    //     next_icon[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(next_icon[movie_record], &Icon_Next_White);
-    //     lv_obj_align(next_icon[movie_record], LV_ALIGN_CENTER, 130, offset - 231);
-    //     lv_obj_set_style_opa(next_icon[movie_record], LV_OPA_70, LV_PART_MAIN);
+        /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+        if(fs_04_fullname_count >= 19) {
+            lv_label_set_text(file_label[movie_record], filesystem_03_list[movie_record].file_fullname);
+            lv_label_cut_text(file_label[movie_record],17,fs_04_fullname_count);
+            lv_label_ins_text(file_label[movie_record],19,"...");
+        } else {
+            lv_label_set_text(file_label[movie_record], filesystem_03_list[movie_record].file_fullname);
+        }
 
-    //     // Add a list item separator line at the end of the list item
-    //     list_item_separator[movie_record] = lv_img_create(image);
-    //     lv_img_set_src(list_item_separator[movie_record], &Linez);
-    //     lv_obj_align(list_item_separator[movie_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+        lv_obj_add_style(file_label[movie_record], &name_style, LV_PART_MAIN);
+        lv_obj_set_style_text_color(file_label[movie_record], lv_color_white(), 0);
+
+        next_icon[movie_record] = lv_img_create(image);
+        lv_img_set_src(next_icon[movie_record], &Icon_Next_White);
+        lv_obj_align(next_icon[movie_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
+        lv_obj_set_style_opa(next_icon[movie_record], LV_OPA_70, LV_PART_MAIN);
+    }
+
+    // /* Calculate if the NAME field is greater than or equal to 25 characters */
+    // fs_03_fullname_string = filesystem_03_list[k].file_fullname;
+    // fs_03_fullname_count = strlen(fs_03_fullname_string);
+
+    // /* Contact NAME field */
+    // contact_name = lv_label_create(image);
+    // lv_label_set_recolor(contact_name, true);
+
+    // /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+    // if(name_count >= 37) {
+    //     lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
+    //     lv_label_cut_text(contact_name,35,name_count);
+    //     lv_label_ins_text(contact_name,37,"...");
+    // } else {
+    //     lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
     // }
+
+    // /* Contact Name field */
+    // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
+    // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
+    // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+
+
+    // int f = 0;
+    // offset = 131 + (60 * f);
+
+    // entry_separator[f] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[f], &Linez);
+    // lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
+
+    // file_icon[f] = lv_img_create(image);
+    // lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
+    // lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 209);
+
+    // file_label[f] = lv_label_create(image);
+    // lv_label_set_recolor(file_label[f], true);
+    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 209);
+    // lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
+    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+
+    // next_icon[f] = lv_img_create(image);
+    // lv_img_set_src(next_icon[f], &Icon_Next_White);
+    // lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 209);
+    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+
+    // list_item_separator[f] = lv_img_create(image);
+    // lv_img_set_src(list_item_separator[f], &Linez);
+    // lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 44);
+
+
+    // f = 1;
+    // offset = 131 + (60 * f);
+    // entry_separator[f] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[f], &Linez);
+    // lv_obj_align(entry_separator[f], LV_ALIGN_DEFAULT, 25, offset +22);
+
+    // file_icon[f] = lv_img_create(image);
+    // lv_img_set_src(file_icon[f], filesystem_03_list[f].file_icon);
+    // lv_obj_align(file_icon[f], LV_ALIGN_CENTER, -130, offset - 209);
+
+    // file_label[f] = lv_label_create(image);
+    // lv_label_set_recolor(file_label[f], true);
+    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 125, offset - 209);
+    // lv_label_set_text(file_label[f], filesystem_03_list[f].file_fullname);
+    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
+    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
+    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
+
+    // next_icon[f] = lv_img_create(image);
+    // lv_img_set_src(next_icon[f], &Icon_Next_White);
+    // lv_obj_align(next_icon[f], LV_ALIGN_CENTER, 130, offset - 209);
+    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
+
+    // list_item_separator[f] = lv_img_create(image);
+    // lv_img_set_src(list_item_separator[f], &Linez);
+    // lv_obj_align(list_item_separator[f], LV_ALIGN_DEFAULT, 25, offset + 44);
+
 }
 
 void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
