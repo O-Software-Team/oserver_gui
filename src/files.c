@@ -5,13 +5,13 @@
 #include <stdio.h>
 
 /* Initialize/populate the Filesystem list structs */
-#include "content/inc/filesystem/01.h"   /* Main screen list of elements */
-#include "content/inc/filesystem/02.h"   /* Filesystem Folders list */
-#include "content/inc/filesystem/03.h"   /* Filesystem Movies list */
-#include "content/inc/filesystem/04.h"   /* Filesystem Images list */
-#include "content/inc/filesystem/05.h"   /* Filesystem Applications list */
-#include "content/inc/filesystem/06.h"   /* Filesystem Excel list */
-#include "content/inc/filesystem/07.h"   /* Filesystem Documents list */
+#include "content/inc/filesystem/01.h"   /* Main screen - Filesystem list */
+#include "content/inc/filesystem/02.h"   /* Filesystem  - Folders list */
+#include "content/inc/filesystem/03.h"   /* Filesystem  - Movies list */
+#include "content/inc/filesystem/04.h"   /* Filesystem  - Images list */
+#include "content/inc/filesystem/05.h"   /* Filesystem  - Applications list */
+#include "content/inc/filesystem/06.h"   /* Filesystem  - Documents list */
+#include "content/inc/filesystem/07.h"   /* Filesystem  - Excel list */
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0
@@ -102,17 +102,6 @@ static lv_obj_t * top_of_list_items;
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * fs_fullname_string;
 static int fs_fullname_count;
-static const char * fs_04_fullname_string;
-static int fs_04_fullname_count;
-static const char * fs_05_fullname_string;
-static int fs_05_fullname_count;
-static const char * fs_06_fullname_string;
-static int fs_06_fullname_count;
-static const char * fs_07_fullname_string;
-static int fs_07_fullname_count;
-static const char * fs_08_fullname_string;
-static int fs_08_fullname_count;
-
 
 /* Your Filesystem */
 void filesystem_list_init(lv_obj_t * filesystem_page) {
