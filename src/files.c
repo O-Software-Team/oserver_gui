@@ -615,62 +615,6 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         lv_obj_align(next_icon[application_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
         lv_obj_set_style_opa(next_icon[application_record], LV_OPA_70, LV_PART_MAIN);
     }
-
-
-
-
-
-    // /* Provide a single rule under the heading */
-    // entry_separator[0] = lv_img_create(image);
-    // lv_img_set_src(entry_separator[0], &Linez);
-    // lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
-
-// application_record
-
-// BEG LOOP - 0
-    // int f = 0;
-    // offset = 130 + (52 * f);
-
-    // file_icon[f] = lv_img_create(image);
-    // lv_img_set_src(file_icon[f], filesystem_05_list[f].file_icon);
-    // lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 199);
-
-    // file_label[f] = lv_label_create(image);
-    // lv_label_set_recolor(file_label[f], true);
-    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 199);
-    // lv_label_set_text(file_label[f], filesystem_05_list[f].file_fullname);
-    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
-
-    // next_icon[f] = lv_img_create(image);
-    // lv_img_set_src(next_icon[f], &Icon_Next_White);
-    // lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 348, offset - 199);
-    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
-// END LOOP - 0
-
-
-// BEG LOOP - 1
-    // f = 1;
-    // offset = 130 + (52 * f);
-
-    // file_icon[f] = lv_img_create(image);
-    // lv_img_set_src(file_icon[f], filesystem_05_list[f].file_icon);
-    // lv_obj_align(file_icon[f], LV_ALIGN_LEFT_MID, 28, offset - 199);
-
-    // file_label[f] = lv_label_create(image);
-    // lv_label_set_recolor(file_label[f], true);
-    // lv_obj_align(file_label[f], LV_ALIGN_LEFT_MID, 78, offset - 199);
-    // lv_label_set_text(file_label[f], filesystem_05_list[f].file_fullname);
-    // lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
-    // lv_obj_add_style(file_label[f], &name_style, LV_PART_MAIN);
-    // lv_obj_set_style_text_color(file_label[f], lv_color_white(), 0);
-
-    // next_icon[f] = lv_img_create(image);
-    // lv_img_set_src(next_icon[f], &Icon_Next_White);
-    // lv_obj_align(next_icon[f], LV_ALIGN_LEFT_MID, 348, offset - 199);
-    // lv_obj_set_style_opa(next_icon[f], LV_OPA_70, LV_PART_MAIN);
-// END LOOP - 1
 }
 
 void file_menu_setup(void)
@@ -711,7 +655,6 @@ void file_menu_setup(void)
 
     /* FILESYSTEM VIEW: Display the content for filesystem_06 -- Your Documents */
     // printf("FILESYSTEM_06 VIEW launch...\n");
-    // filesystem_02_view(filesystem_02_view_page);
     // filesystem_06_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_07 -- Your Excel Files */
