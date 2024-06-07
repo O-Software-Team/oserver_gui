@@ -617,11 +617,11 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         lv_obj_align(file_label[image_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_04_fullname_count >= 27) {
+        if(fs_04_fullname_count >= 21) {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
             // lv_label_set_text(contact_name, contacts_01_list[image_record].contact_name);
-            lv_label_cut_text(file_label[image_record],25,fs_04_fullname_count);
-            lv_label_ins_text(file_label[image_record],27,"...");
+            lv_label_cut_text(file_label[image_record],21,fs_04_fullname_count);
+            lv_label_ins_text(file_label[image_record],21,"...");
         } else {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
             // lv_label_set_text(contact_name, contacts_01_list[image_record].contact_name);
