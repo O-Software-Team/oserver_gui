@@ -758,8 +758,8 @@ void file_menu_setup(void)
     filesystem_05_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_06 -- Your Documents */
-    // printf("FILESYSTEM_06 VIEW launch...\n");
-    // filesystem_06_view(filesystem_page);
+    printf("FILESYSTEM_06 VIEW launch...\n");
+    filesystem_06_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_07 -- Your Excel Files */
     // printf("FILESYSTEM_07 VIEW launch...\n");
