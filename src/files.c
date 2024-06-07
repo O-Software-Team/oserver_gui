@@ -99,6 +99,20 @@ static int ttl_spreadsheet_items = 1;
 
 static lv_obj_t * top_of_list_items;
 
+/* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
+static const char * fs_03_fullname_string;
+static int fs_03_fullname_count;
+static const char * fs_04_fullname_string;
+static int fs_04_fullname_count;
+static const char * fs_05_fullname_string;
+static int fs_05_fullname_count;
+static const char * fs_06_fullname_string;
+static int fs_06_fullname_count;
+static const char * fs_07_fullname_string;
+static int fs_07_fullname_count;
+static const char * fs_08_fullname_string;
+static int fs_08_fullname_count;
+
 
 /* Your Filesystem */
 void filesystem_list_init(lv_obj_t * filesystem_page) {
@@ -314,6 +328,30 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
             printf("file_id: %s -- file_fullname: %s\n",filesystem_03_list[k].file_id,filesystem_03_list[k].file_fullname);
         }
     }
+
+
+    // /* Calculate if the NAME field is greater than or equal to 25 characters */
+    // fs_03_fullname_string = filesystem_03_list[k].file_fullname;
+    // fs_03_fullname_count = strlen(fs_03_fullname_string);
+
+    // /* Contact NAME field */
+    // contact_name = lv_label_create(image);
+    // lv_label_set_recolor(contact_name, true);
+
+    // /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+    // if(name_count >= 37) {
+    //     lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
+    //     lv_label_cut_text(contact_name,35,name_count);
+    //     lv_label_ins_text(contact_name,37,"...");
+    // } else {
+    //     lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
+    // }
+
+    // /* Contact Name field */
+    // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
+    // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
+    // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
 
     render_back_button(image, back_home_button_cb);
 
@@ -565,11 +603,35 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         lv_img_set_src(file_icon[image_record], filesystem_04_list[image_record].file_icon);
         lv_obj_align(file_icon[image_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
 
+        /* Calculate if the file_fullname field is greater than or equal to 25 characters */
+        fs_04_fullname_string = filesystem_04_list[image_record].file_fullname;
+        fs_04_fullname_count = strlen(fs_04_fullname_string);
+
+        // /* Contact NAME field */
+        // contact_name = lv_label_create(image);
+        // lv_label_set_recolor(contact_name, true);
+
         /* The label text with the device name */
         file_label[image_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[image_record], true);
         lv_obj_align(file_label[image_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
-        lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
+
+        /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
+        if(fs_04_fullname_count >= 27) {
+            lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
+            // lv_label_set_text(contact_name, contacts_01_list[image_record].contact_name);
+            lv_label_cut_text(file_label[image_record],25,fs_04_fullname_count);
+            lv_label_ins_text(file_label[image_record],27,"...");
+        } else {
+            lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
+            // lv_label_set_text(contact_name, contacts_01_list[image_record].contact_name);
+        }
+
+        // /* Contact Name field */
+        // lv_obj_align(contact_name, LV_ALIGN_LEFT_MID, CONTACT_PAD_LEFT, offset - 16);
+        // lv_obj_set_style_text_color(contact_name, lv_color_white(), 0);
+        // lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
         lv_obj_add_style(file_label[image_record], &name_style, LV_PART_MAIN);
         lv_obj_set_style_text_color(file_label[image_record], lv_color_white(), 0);
@@ -717,22 +779,18 @@ void file_menu_setup(void)
 
     /* FILESYSTEM VIEW: Display the content for filesystem_02 -- Your Folders */
     printf("\nFILESYSTEM_02 VIEW launch...\n");
-    // filesystem_02_view(filesystem_02_view_page);
     filesystem_02_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_03 -- Your Movies */
     printf("\nFILESYSTEM_03 VIEW launch...\n");
-    // filesystem_03_view(filesystem_03_view_page);
     filesystem_03_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_04 -- Your Images */
     printf("\nFILESYSTEM_04 VIEW launch...\n");
-    // filesystem_04_view(filesystem_04_view_page);
     filesystem_04_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_05 -- Your Applications */
     printf("FILESYSTEM_05 VIEW launch...\n");
-    // filesystem_02_view(filesystem_02_view_page);
     filesystem_05_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_06 -- Your Documents */
