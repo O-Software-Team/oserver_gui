@@ -110,7 +110,7 @@ typedef struct {
     char * file_visibility;
     char * file_info;
     lv_img_dsc_t * file_icon;
-    // void (* page_handler)(lv_obj_t *);
+    void (* page_handler)(lv_obj_t *);
     // bool active;
 } filesystem_item;
 

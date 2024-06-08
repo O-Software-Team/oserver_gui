@@ -105,6 +105,9 @@ static const char * fs_fullname_string;
 static int fs_fullname_count;
 
 static void file_selected_cb(lv_event_t * e) { printf("Selected filesystem_page...\n"); }
+static void display_connected_device(lv_obj_t * cont, int filesystem_view) {
+    printf ("devices %d connected\n", filesystem_view);
+}
 
 /* Your Filesystem */
 void filesystem_list_init(lv_obj_t * filesystem_page) {
@@ -129,6 +132,8 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
             printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[e].file_id,filesystem_01_list[e].file_fullname);
         }
     }
+
+    int filesystem_view = 1;
 
     render_back_button(image, back_home_button_cb);
 
@@ -234,8 +239,10 @@ void filesystem_02_view(lv_obj_t * filesystem_page) {
         }
     }
 
+    int filesystem_view = 2;
+
     /* Declare "home" as the main Filesystem page */
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -330,6 +337,8 @@ void filesystem_03_view(lv_obj_t * filesystem_page) {
             printf("file_id: %s -- file_fullname: %s\n",filesystem_03_list[k].file_id,filesystem_03_list[k].file_fullname);
         }
     }
+
+    int filesystem_view = 3;
 
     render_back_button(image, back_button_cb);
 
@@ -436,6 +445,8 @@ void filesystem_04_view(lv_obj_t * filesystem_page) {
         }
     }
 
+    int filesystem_view = 4;
+
     render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
@@ -540,6 +551,8 @@ void filesystem_05_view(lv_obj_t * filesystem_page) {
             printf("file_id: %s -- file_fullname: %s\n",filesystem_05_list[k].file_id,filesystem_05_list[k].file_fullname);
         }
     }
+
+    int filesystem_view = 5;
 
     render_back_button(image, back_button_cb);
 
@@ -646,6 +659,8 @@ void filesystem_06_view(lv_obj_t * filesystem_page) {
         }
     }
 
+    int filesystem_view = 6;
+
     render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
@@ -750,6 +765,8 @@ void filesystem_07_view(lv_obj_t * filesystem_page) {
             printf("file_id: %s -- file_fullname: %s\n",filesystem_07_list[k].file_id,filesystem_07_list[k].file_fullname);
         }
     }
+
+    int filesystem_view = 7;
 
     render_back_button(image, back_button_cb);
 
