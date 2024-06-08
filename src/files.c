@@ -233,7 +233,9 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
         }
     }
 
-    render_back_button(image, back_button_cb);
+    /* Declare "home" as the main Filesystem page */
+    lv_obj_t * fs_home = lv_img_create(filesystem_page);
+    render_back_button(fs_home, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
