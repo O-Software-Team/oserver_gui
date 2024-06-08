@@ -210,8 +210,9 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 
 
 /* Your Folders */
-void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
-    lv_obj_t * image = lv_img_create(filesystem_02_view_page);
+// void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
+void filesystem_02_view(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_02 -- your folders */
@@ -307,8 +308,9 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
 
 /* Your Movies */
-void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
-    lv_obj_t * image = lv_img_create(filesystem_03_view_page);
+// void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
+void filesystem_03_view(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_03 -- your movies */
@@ -410,9 +412,10 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     }
 }
 
-void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 /* Your Images */
-    lv_obj_t * image = lv_img_create(filesystem_04_view_page);
+// void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
+void filesystem_04_view(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_04 -- your images */
@@ -514,9 +517,10 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     }
 }
 
-void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 /* Your Applications */
-    lv_obj_t * image = lv_img_create(filesystem_05_view_page);
+// void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
+void filesystem_05_view(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_05 -- your applications */
@@ -618,9 +622,10 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     }
 }
 
-void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 /* Your Documents */
-    lv_obj_t * image = lv_img_create(filesystem_06_view_page);
+// void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
+void filesystem_06_view(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_06 -- your documents */
@@ -722,9 +727,10 @@ void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     }
 }
 
-void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 /* Your Spreadsheets */
-    lv_obj_t * image = lv_img_create(filesystem_07_view_page);
+// void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
+void filesystem_07_view(lv_obj_t * filesystem_page) {
+    lv_obj_t * image = lv_img_create(filesystem_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_07 -- your documents */
