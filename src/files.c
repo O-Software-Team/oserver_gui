@@ -104,6 +104,8 @@ static lv_obj_t * file_btn_list[];
 static const char * fs_fullname_string;
 static int fs_fullname_count;
 
+static void file_selected_cb(lv_event_t * e) { printf("Selected filesystem_page...\n"); }
+
 /* Your Filesystem */
 void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_obj_t * image = lv_img_create(filesystem_page);
@@ -182,7 +184,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         lv_obj_set_size(file_btn_list[main_menu_record], 330, 70);
         lv_obj_align(file_btn_list[main_menu_record], LV_ALIGN_CENTER, 0, offset);
         lv_obj_set_style_opa(file_btn_list[main_menu_record], LV_OPA_0, LV_PART_MAIN);
-        lv_obj_add_event_cb(file_btn_list[main_menu_record], device_selected_cb, LV_EVENT_CLICKED, 0);
+        lv_obj_add_event_cb(file_btn_list[main_menu_record], file_selected_cb, LV_EVENT_CLICKED, 0);
 
         /* The label text with the device name */
         file_label[main_menu_record] = lv_label_create(image);
