@@ -97,7 +97,8 @@ static int spreadsheet_item;   /* 07.h */
 static int spreadsheet_record;
 static int ttl_spreadsheet_items = 1;
 
-static lv_obj_t * top_of_list_items;
+// static lv_obj_t * top_of_list_items;
+static lv_obj_t * file_btn_list[];
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * fs_fullname_string;
@@ -176,6 +177,13 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         lv_img_set_src(file_icon[main_menu_record], filesystem_01_list[main_menu_record].file_icon);
         lv_obj_align(file_icon[main_menu_record], LV_ALIGN_CENTER, -130, offset - 223);
 
+        /* Opaque button overlay of the device entry graphic  -- file_btn_list */
+        file_btn_list[main_menu_record] = lv_btn_create(image);
+        lv_obj_set_size(file_btn_list[main_menu_record], 330, 70);
+        lv_obj_align(file_btn_list[main_menu_record], LV_ALIGN_CENTER, 0, offset);
+        lv_obj_set_style_opa(file_btn_list[main_menu_record], LV_OPA_0, LV_PART_MAIN);
+        lv_obj_add_event_cb(file_btn_list[main_menu_record], device_selected_cb, LV_EVENT_CLICKED, 0);
+
         /* The label text with the device name */
         file_label[main_menu_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[main_menu_record], true);
@@ -223,7 +231,7 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -318,7 +326,7 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -422,7 +430,7 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -526,7 +534,7 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -630,7 +638,7 @@ void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -734,7 +742,7 @@ void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, back_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -871,7 +879,9 @@ void file_menu_setup(void)
 
     // menu_dispatch_table[FILES_VEC] = files_page;
 
-    // render_back_button(background, back_home_button_cb);
+    // render_back_button(background, back_home_button_cb);  /* Go back all the way to the home page */
+    // render_back_button(background, back_button_cb);  /* Go back one page */
+
     // lv_obj_center(files_page);
     // lv_obj_set_style_bg_color(files_page, lv_color_lighten(lv_color_black(), 60), 0);
     // lv_obj_set_flex_flow(files_page, LV_FLEX_FLOW_ROW);
