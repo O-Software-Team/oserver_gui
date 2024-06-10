@@ -178,7 +178,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
-    lv_obj_t * file_btn_list[];
+    lv_obj_t * file_btn_list[ttl_main_menu_items];
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(main_menu_record = 0; main_menu_record < ttl_main_menu_items; main_menu_record++) {
