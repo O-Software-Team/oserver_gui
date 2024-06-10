@@ -5,13 +5,13 @@
 #include <stdio.h>
 
 /* Initialize/populate the Filesystem list structs */
-#include "content/inc/filesystem/01.h"   /* Main screen - Filesystem list */
-#include "content/inc/filesystem/02.h"   /* Filesystem  - Folders list */
-#include "content/inc/filesystem/03.h"   /* Filesystem  - Movies list */
-#include "content/inc/filesystem/04.h"   /* Filesystem  - Images list */
-#include "content/inc/filesystem/05.h"   /* Filesystem  - Applications list */
-#include "content/inc/filesystem/06.h"   /* Filesystem  - Documents list */
-#include "content/inc/filesystem/07.h"   /* Filesystem  - Excel list */
+#include "content/inc/filesystem/01.h"   /* Main screen list of elements */
+#include "content/inc/filesystem/02.h"   /* Filesystem Folders list */
+#include "content/inc/filesystem/03.h"   /* Filesystem Movies list */
+#include "content/inc/filesystem/04.h"   /* Filesystem Images list */
+#include "content/inc/filesystem/05.h"   /* Filesystem Applications list */
+#include "content/inc/filesystem/06.h"   /* Filesystem Excel list */
+#include "content/inc/filesystem/07.h"   /* Filesystem Documents list */
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0
@@ -97,17 +97,12 @@ static int spreadsheet_item;   /* 07.h */
 static int spreadsheet_record;
 static int ttl_spreadsheet_items = 1;
 
-// static lv_obj_t * top_of_list_items;
-static lv_obj_t * file_btn_list[];
+static lv_obj_t * top_of_list_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * fs_fullname_string;
 static int fs_fullname_count;
 
-static void file_selected_cb(lv_event_t * e) { printf("Selected filesystem_page...\n"); }
-static void display_connected_device(lv_obj_t * cont, int filesystem_view) {
-    printf ("devices %d connected\n", filesystem_view);
-}
 
 /* Your Filesystem */
 void filesystem_list_init(lv_obj_t * filesystem_page) {
@@ -132,8 +127,6 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
             printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[e].file_id,filesystem_01_list[e].file_fullname);
         }
     }
-
-    int filesystem_view = 1;
 
     render_back_button(image, back_home_button_cb);
 
@@ -184,13 +177,6 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         lv_img_set_src(file_icon[main_menu_record], filesystem_01_list[main_menu_record].file_icon);
         lv_obj_align(file_icon[main_menu_record], LV_ALIGN_CENTER, -130, offset - 223);
 
-        /* Opaque button overlay of the device entry graphic  -- file_btn_list */
-        file_btn_list[main_menu_record] = lv_btn_create(image);
-        lv_obj_set_size(file_btn_list[main_menu_record], 330, 70);
-        lv_obj_align(file_btn_list[main_menu_record], LV_ALIGN_CENTER, 0, offset);
-        lv_obj_set_style_opa(file_btn_list[main_menu_record], LV_OPA_0, LV_PART_MAIN);
-        lv_obj_add_event_cb(file_btn_list[main_menu_record], file_selected_cb, LV_EVENT_CLICKED, 0);
-
         /* The label text with the device name */
         file_label[main_menu_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[main_menu_record], true);
@@ -215,9 +201,8 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
 
 
 /* Your Folders */
-// void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
-void filesystem_02_view(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(filesystem_page);
+void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
+    lv_obj_t * image = lv_img_create(filesystem_02_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_02 -- your folders */
@@ -239,10 +224,7 @@ void filesystem_02_view(lv_obj_t * filesystem_page) {
         }
     }
 
-    int filesystem_view = 2;
-
-    /* Declare "home" as the main Filesystem page */
-    render_back_button(image, back_button_cb);
+    render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -314,9 +296,8 @@ void filesystem_02_view(lv_obj_t * filesystem_page) {
 
 
 /* Your Movies */
-// void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
-void filesystem_03_view(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(filesystem_page);
+void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
+    lv_obj_t * image = lv_img_create(filesystem_03_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_03 -- your movies */
@@ -338,9 +319,7 @@ void filesystem_03_view(lv_obj_t * filesystem_page) {
         }
     }
 
-    int filesystem_view = 3;
-
-    render_back_button(image, back_button_cb);
+    render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -420,10 +399,9 @@ void filesystem_03_view(lv_obj_t * filesystem_page) {
     }
 }
 
+void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 /* Your Images */
-// void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
-void filesystem_04_view(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(filesystem_page);
+    lv_obj_t * image = lv_img_create(filesystem_04_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_04 -- your images */
@@ -445,9 +423,7 @@ void filesystem_04_view(lv_obj_t * filesystem_page) {
         }
     }
 
-    int filesystem_view = 4;
-
-    render_back_button(image, back_button_cb);
+    render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -527,10 +503,9 @@ void filesystem_04_view(lv_obj_t * filesystem_page) {
     }
 }
 
+void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 /* Your Applications */
-// void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
-void filesystem_05_view(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(filesystem_page);
+    lv_obj_t * image = lv_img_create(filesystem_05_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_05 -- your applications */
@@ -552,9 +527,7 @@ void filesystem_05_view(lv_obj_t * filesystem_page) {
         }
     }
 
-    int filesystem_view = 5;
-
-    render_back_button(image, back_button_cb);
+    render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -634,10 +607,9 @@ void filesystem_05_view(lv_obj_t * filesystem_page) {
     }
 }
 
+void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 /* Your Documents */
-// void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
-void filesystem_06_view(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(filesystem_page);
+    lv_obj_t * image = lv_img_create(filesystem_06_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_06 -- your documents */
@@ -659,9 +631,7 @@ void filesystem_06_view(lv_obj_t * filesystem_page) {
         }
     }
 
-    int filesystem_view = 6;
-
-    render_back_button(image, back_button_cb);
+    render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -741,10 +711,9 @@ void filesystem_06_view(lv_obj_t * filesystem_page) {
     }
 }
 
+void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 /* Your Spreadsheets */
-// void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
-void filesystem_07_view(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(filesystem_page);
+    lv_obj_t * image = lv_img_create(filesystem_07_view_page);
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_07 -- your documents */
@@ -766,9 +735,7 @@ void filesystem_07_view(lv_obj_t * filesystem_page) {
         }
     }
 
-    int filesystem_view = 7;
-
-    render_back_button(image, back_button_cb);
+    render_back_button(image, back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -905,9 +872,7 @@ void file_menu_setup(void)
 
     // menu_dispatch_table[FILES_VEC] = files_page;
 
-    // render_back_button(background, back_home_button_cb);  /* Go back all the way to the home page */
-    // render_back_button(background, back_button_cb);  /* Go back one page */
-
+    // render_back_button(background, back_home_button_cb);
     // lv_obj_center(files_page);
     // lv_obj_set_style_bg_color(files_page, lv_color_lighten(lv_color_black(), 60), 0);
     // lv_obj_set_flex_flow(files_page, LV_FLEX_FLOW_ROW);
