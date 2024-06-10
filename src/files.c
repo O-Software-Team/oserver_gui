@@ -110,7 +110,7 @@ static void select_screen_handler(lv_event_t * e) {
      */
     lv_obj_t * target = lv_event_get_target(e);
     lv_obj_t * music_page = lv_obj_get_user_data(target);
-    printf("\nTarget: %s  --  Page: %s\n");
+    printf("\nTarget: %s  --  Page: %s\n",target,music_page);
 
     // lv_img_set_src(music_page, &Music_Player_White);
     // lv_obj_scroll_to_view(lv_obj_get_child(music_page, 1), LV_ANIM_ON);
