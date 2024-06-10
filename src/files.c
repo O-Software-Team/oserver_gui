@@ -105,15 +105,13 @@ static int fs_fullname_count;
 
 
 static void select_screen_handler(lv_event_t * e) {
-    /*
-     * Scroll to the page to 'play the album' - For presentation, an in-progress song will play.
-     */
+    /* Scroll to the page to 'play the album' - For presentation, an in-progress song will play. */
     lv_obj_t * target = lv_event_get_target(e);
-    lv_obj_t * music_page = lv_obj_get_user_data(target);
-    printf("\nTarget: %d  --  Page: %s\n",e);
+    lv_obj_t * fs_screen_page = lv_obj_get_user_data(target);
+    printf("\nTarget: %d\n",e);
 
-    // lv_img_set_src(music_page, &Music_Player_White);
-    // lv_obj_scroll_to_view(lv_obj_get_child(music_page, 1), LV_ANIM_ON);
+    lv_img_set_src(fs_screen_page, &Background);
+    lv_obj_scroll_to_view(lv_obj_get_child(fs_screen_page, 2), LV_ANIM_ON);
 }
 
 
