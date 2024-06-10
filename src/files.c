@@ -5,13 +5,13 @@
 #include <stdio.h>
 
 /* Initialize/populate the Filesystem list structs */
-#include "content/inc/filesystem/01.h"   /* Main screen list of elements */
-#include "content/inc/filesystem/02.h"   /* Filesystem Folders list */
-#include "content/inc/filesystem/03.h"   /* Filesystem Movies list */
-#include "content/inc/filesystem/04.h"   /* Filesystem Images list */
-#include "content/inc/filesystem/05.h"   /* Filesystem Applications list */
-#include "content/inc/filesystem/06.h"   /* Filesystem Excel list */
-#include "content/inc/filesystem/07.h"   /* Filesystem Documents list */
+#include "content/inc/filesystem/01.h"   /* Main screen - Filesystem list */
+#include "content/inc/filesystem/02.h"   /* Filesystem  - Folders list */
+#include "content/inc/filesystem/03.h"   /* Filesystem  - Movies list */
+#include "content/inc/filesystem/04.h"   /* Filesystem  - Images list */
+#include "content/inc/filesystem/05.h"   /* Filesystem  - Applications list */
+#include "content/inc/filesystem/06.h"   /* Filesystem  - Documents list */
+#include "content/inc/filesystem/07.h"   /* Filesystem  - Excel list */
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0
@@ -399,8 +399,8 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     }
 }
 
-void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 /* Your Images */
+void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_04_view_page);
     lv_img_set_src(image, &Background);
 
@@ -503,8 +503,8 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     }
 }
 
-void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 /* Your Applications */
+void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_05_view_page);
     lv_img_set_src(image, &Background);
 
@@ -607,8 +607,8 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     }
 }
 
-void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 /* Your Documents */
+void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_06_view_page);
     lv_img_set_src(image, &Background);
 
@@ -711,8 +711,8 @@ void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     }
 }
 
-void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 /* Your Spreadsheets */
+void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_07_view_page);
     lv_img_set_src(image, &Background);
 
