@@ -104,6 +104,19 @@ static const char * fs_fullname_string;
 static int fs_fullname_count;
 
 
+static void select_screen_handler(lv_event_t * e) {
+    /*
+     * Scroll to the page to 'play the album' - For presentation, an in-progress song will play.
+     */
+    lv_obj_t * target = lv_event_get_target(e);
+    lv_obj_t * music_page = lv_obj_get_user_data(target);
+    printf("\nTarget: %s  --  Page: %s\n");
+
+    // lv_img_set_src(music_page, &Music_Player_White);
+    // lv_obj_scroll_to_view(lv_obj_get_child(music_page, 1), LV_ANIM_ON);
+}
+
+
 /* Your Filesystem */
 void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_obj_t * image = lv_img_create(filesystem_page);
@@ -165,6 +178,8 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
+    lv_obj_t * file_btn_list[];
+
     /* Add (simulated) devices entries as clickable buttons*/
     for(main_menu_record = 0; main_menu_record < ttl_main_menu_items; main_menu_record++) {
         offset = 151 + (60 * main_menu_record);
@@ -176,6 +191,14 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         file_icon[main_menu_record] = lv_img_create(image);
         lv_img_set_src(file_icon[main_menu_record], filesystem_01_list[main_menu_record].file_icon);
         lv_obj_align(file_icon[main_menu_record], LV_ALIGN_CENTER, -130, offset - 223);
+
+        /*this is the opaque button overlay of the album entry */
+        file_btn_list[folder_record] = lv_btn_create(image);
+        lv_obj_set_size(file_btn_list[folder_record], 330, 50);
+        lv_obj_align(file_btn_list[folder_record], LV_ALIGN_CENTER, 0, offset - 225);
+        lv_obj_set_style_opa(file_btn_list[folder_record], LV_OPA_0, LV_PART_MAIN);
+        lv_obj_add_event_cb(file_btn_list[folder_record], select_screen_handler, LV_EVENT_CLICKED, 0);
+        lv_obj_set_user_data(file_btn_list[folder_record], filesystem_page);
 
         /* The label text with the device name */
         file_label[main_menu_record] = lv_label_create(image);
