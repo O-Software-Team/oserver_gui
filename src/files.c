@@ -891,8 +891,8 @@ void file_menu_setup(void)
     // lv_obj_t * background = lv_img_create(files_page);
     // lv_img_set_src(background, &Background);
 
-    int child_window_count = lv_obj_get_child_count(filesystem_page);
-    printf("TTL Child Windows = %d", child_window_count);
+    // int child_window_count = lv_obj_get_child_count(filesystem_page);
+    // printf("TTL Child Windows = %d", child_window_count);
 
     // printf("FILES MENU init...\n");
 
