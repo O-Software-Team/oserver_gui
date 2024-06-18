@@ -40,6 +40,7 @@
 
 /* Main background and radio controls declared below */
 LV_IMG_DECLARE(Background);
+LV_IMG_DECLARE(Icon_Back);
 LV_IMG_DECLARE(Icon_WiFi_White);
 LV_IMG_DECLARE(Icon_Bluetooth_White);
 LV_IMG_DECLARE(Icon_NFC_White);
@@ -68,7 +69,21 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
-/* Set variables to determine total number of Contacts list members */
+
+/***  Filesystem Specific Declarations  ***/
+
+/* Set total number of pages / screens -- this includes screen #1 which is the main filesystem screen to screen #7 which is the spreadsheets screen */
+#define NUM_SCREENS 7
+
+/* Set the array to store the screen reference pointers */
+lv_obj_t* image_objects[NUM_SCREENS];
+
+/* Set the BACK-TO-HOME array to use in a custom back button for the filesystem app */
+lv_obj_t * back_to_filesystem[NUM_SCREENS];
+
+static int back_to_fs = 1;
+
+/* Set variables to determine total number of items per list */
 static int main_menu_item;    /* 01.h */
 static int main_menu_record;
 static int ttl_main_menu_items = 1;
@@ -103,23 +118,28 @@ static lv_obj_t * top_of_list_items;
 static const char * fs_fullname_string;
 static int fs_fullname_count;
 
+/***  Filesystem Specific Functions  ***/
+/* Scroll to the filesystem home screen as the final step in the filesytem app launch */
+static void scroll_to_home() {
+    printf("EXEC :: scroll_to_home()\n\n");
+    lv_obj_scroll_to_view(image_objects[1], LV_ANIM_OFF);
+}
 
-static void select_screen_handler(lv_event_t * e) {
-    /*
-     * Scroll to the page to 'play the album' - For presentation, an in-progress song will play.
-     */
-    lv_obj_t * target = lv_event_get_target(e);
-    lv_obj_t * music_page = lv_obj_get_user_data(target);
-    printf("\nTarget: %d\n",e);
-
-    // lv_img_set_src(music_page, &Music_Player_White);
-    // lv_obj_scroll_to_view(lv_obj_get_child(music_page, 1), LV_ANIM_ON);
+/* Scroll to screen clicked in the clickback call */
+static void scroll_to_screen(lv_event_t* e) {
+    int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
+    printf("\nClicked Filesystem Element: %d\n\n",screen_index);
+    // lv_obj_t* screen_obj = image_objects[screen_index];
+    lv_obj_scroll_to_view(image_objects[screen_index], LV_ANIM_OFF);    // Use LV_ANIM_OFF to disable animation
+    lv_event_stop_bubbling(e); // Stop event bubbling
 }
 
 
 /* Your Filesystem */
-void filesystem_list_init(lv_obj_t * filesystem_page) {
-    lv_obj_t * image = lv_img_create(filesystem_page);
+static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
+    lv_obj_t * image = lv_img_create(filesystem_01_view_page);
+    image_objects[1] = image;
+
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_01 records */
@@ -156,7 +176,7 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your filesystem");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -174,31 +194,38 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
     lv_obj_t * file_icon[ttl_main_menu_items];
     lv_obj_t * file_label[ttl_main_menu_items];
     lv_obj_t * next_icon[ttl_main_menu_items];
+    lv_obj_t * button_overlay[ttl_main_menu_items];
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
-    lv_obj_t * file_btn_list[ttl_main_menu_items];
+    printf("Screen number: 1\n");
+
+    /* Set the screen number counter to the first visible sub-screen for the filesystem */
+    int scr_nbr = 2;
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(main_menu_record = 0; main_menu_record < ttl_main_menu_items; main_menu_record++) {
-        offset = 151 + (60 * main_menu_record);
+        // scr_nbr = scr_nbr + main_menu_record;
+        printf("Screen number: %d\n",scr_nbr);
+
+        offset = 131 + (60 * main_menu_record);
+        // offset = 151 + (60 * main_menu_record);
         entry_separator[main_menu_record] = lv_img_create(image);
         lv_img_set_src(entry_separator[main_menu_record], &Linez);
         lv_obj_align(entry_separator[main_menu_record], LV_ALIGN_DEFAULT, 25, offset);
+
+        /*this is the opaque button overlay of the album entry */
+        button_overlay[scr_nbr] = lv_btn_create(image);
+        lv_obj_set_size(button_overlay[scr_nbr], 350, 54);
+        lv_obj_align(button_overlay[scr_nbr], LV_ALIGN_CENTER, 0, offset - 223);
+        lv_obj_set_style_opa(button_overlay[scr_nbr], LV_OPA_0, LV_PART_MAIN);
+        lv_obj_add_event_cb(button_overlay[scr_nbr], scroll_to_screen, LV_EVENT_CLICKED, (void*)scr_nbr);
 
         /* Device icon image on the left */
         file_icon[main_menu_record] = lv_img_create(image);
         lv_img_set_src(file_icon[main_menu_record], filesystem_01_list[main_menu_record].file_icon);
         lv_obj_align(file_icon[main_menu_record], LV_ALIGN_CENTER, -130, offset - 223);
-
-        /*this is the opaque button overlay of the album entry */
-        file_btn_list[folder_record] = lv_btn_create(image);
-        lv_obj_set_size(file_btn_list[folder_record], 330, 50);
-        lv_obj_align(file_btn_list[folder_record], LV_ALIGN_CENTER, 0, offset - 225);
-        lv_obj_set_style_opa(file_btn_list[folder_record], LV_OPA_0, LV_PART_MAIN);
-        lv_obj_add_event_cb(file_btn_list[folder_record], select_screen_handler, LV_EVENT_CLICKED, 0);
-        lv_obj_set_user_data(file_btn_list[folder_record], filesystem_page);
 
         /* The label text with the device name */
         file_label[main_menu_record] = lv_label_create(image);
@@ -218,14 +245,20 @@ void filesystem_list_init(lv_obj_t * filesystem_page) {
         list_item_separator[main_menu_record] = lv_img_create(image);
         lv_img_set_src(list_item_separator[main_menu_record], &Linez);
         lv_obj_align(list_item_separator[main_menu_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+
+        scr_nbr++;
     }
+
+    /* Now, navigate to the main filesystem screen */
+    scroll_to_home(1);
 
 }
 
 
 /* Your Folders */
-void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
+static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_02_view_page);
+    image_objects[2] = image;
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_02 -- your folders */
@@ -247,7 +280,30 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    back_to_filesystem[back_to_fs] = lv_btn_create(image);
+    lv_obj_set_size(back_to_filesystem[back_to_fs], 130, 50);
+    lv_obj_align(back_to_filesystem[back_to_fs], LV_ALIGN_TOP_LEFT, 20, 31);
+    lv_obj_set_style_opa(back_to_filesystem[back_to_fs], LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_filesystem[back_to_fs], scroll_to_home, LV_EVENT_CLICKED, NULL);
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(image);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(image);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Go Home");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -319,8 +375,9 @@ void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
 
 /* Your Movies */
-void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
+static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_03_view_page);
+    image_objects[3] = image;
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_03 -- your movies */
@@ -342,7 +399,32 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    // render_back_button(image, back_home_button_cb);
+
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    back_to_filesystem[back_to_fs] = lv_btn_create(image);
+    lv_obj_set_size(back_to_filesystem[back_to_fs], 130, 50);
+    lv_obj_align(back_to_filesystem[back_to_fs], LV_ALIGN_TOP_LEFT, 20, 31);
+    lv_obj_set_style_opa(back_to_filesystem[back_to_fs], LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_filesystem[back_to_fs], scroll_to_home, LV_EVENT_CLICKED, NULL);
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(image);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(image);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Go Home");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -423,8 +505,9 @@ void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 }
 
 /* Your Images */
-void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
+static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_04_view_page);
+    image_objects[4] = image;
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_04 -- your images */
@@ -446,7 +529,32 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    // render_back_button(image, back_home_button_cb);
+
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    back_to_filesystem[back_to_fs] = lv_btn_create(image);
+    lv_obj_set_size(back_to_filesystem[back_to_fs], 130, 50);
+    lv_obj_align(back_to_filesystem[back_to_fs], LV_ALIGN_TOP_LEFT, 20, 31);
+    lv_obj_set_style_opa(back_to_filesystem[back_to_fs], LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_filesystem[back_to_fs], scroll_to_home, LV_EVENT_CLICKED, NULL);
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(image);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(image);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Go Home");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -527,8 +635,9 @@ void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 }
 
 /* Your Applications */
-void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
+static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_05_view_page);
+    image_objects[5] = image;
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_05 -- your applications */
@@ -550,7 +659,32 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    // render_back_button(image, back_home_button_cb);
+
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    back_to_filesystem[back_to_fs] = lv_btn_create(image);
+    lv_obj_set_size(back_to_filesystem[back_to_fs], 130, 50);
+    lv_obj_align(back_to_filesystem[back_to_fs], LV_ALIGN_TOP_LEFT, 20, 31);
+    lv_obj_set_style_opa(back_to_filesystem[back_to_fs], LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_filesystem[back_to_fs], scroll_to_home, LV_EVENT_CLICKED, NULL);
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(image);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(image);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Go Home");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -631,8 +765,9 @@ void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 }
 
 /* Your Documents */
-void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
+static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_06_view_page);
+    image_objects[6] = image;
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_06 -- your documents */
@@ -654,7 +789,32 @@ void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    // render_back_button(image, back_home_button_cb);
+
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    back_to_filesystem[back_to_fs] = lv_btn_create(image);
+    lv_obj_set_size(back_to_filesystem[back_to_fs], 130, 50);
+    lv_obj_align(back_to_filesystem[back_to_fs], LV_ALIGN_TOP_LEFT, 20, 31);
+    lv_obj_set_style_opa(back_to_filesystem[back_to_fs], LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_filesystem[back_to_fs], scroll_to_home, LV_EVENT_CLICKED, NULL);
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(image);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(image);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Go Home");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -735,9 +895,12 @@ void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 }
 
 /* Your Spreadsheets */
-void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
+static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     lv_obj_t * image = lv_img_create(filesystem_07_view_page);
+    image_objects[7] = image;
     lv_img_set_src(image, &Background);
+
+    lv_obj_set_user_data(image, "fs_07");
 
     /* Calculate total filesystem_07 -- your documents */
     printf("\nCalculate filesystem_07 -- your documents...\n");
@@ -758,7 +921,32 @@ void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    // render_back_button(image, back_home_button_cb);
+
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    back_to_filesystem[back_to_fs] = lv_btn_create(image);
+    lv_obj_set_size(back_to_filesystem[back_to_fs], 130, 50);
+    lv_obj_align(back_to_filesystem[back_to_fs], LV_ALIGN_TOP_LEFT, 20, 31);
+    lv_obj_set_style_opa(back_to_filesystem[back_to_fs], LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_filesystem[back_to_fs], scroll_to_home, LV_EVENT_CLICKED, NULL);
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(image);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(image);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Go Home");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -854,9 +1042,17 @@ void file_menu_setup(void)
     // lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
     lv_obj_set_scrollbar_mode(filesystem_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
 
-    /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
-    printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
-    filesystem_list_init(filesystem_page);
+    /* Setup all of the page references for each screen/page to be viewed usng scroll_to_view call */
+    // pages[PAGE_HOME] = lv_page_create(lv_scr_act(), NULL);
+    // pages[PAGE_FOLDERS] = lv_page_create(lv_scr_act(), NULL);
+    // pages[PAGE_MOVIES] = lv_page_create(lv_scr_act(), NULL);
+    // pages[PAGE_IMAGES] = lv_page_create(lv_scr_act(), NULL);
+    // pages[PAGE_APPLICATIONS] = lv_page_create(lv_scr_act(), NULL);
+    // pages[PAGE_DOCUMENTS] = lv_page_create(lv_scr_act(), NULL);
+    // pages[PAGE_SPREADSHEETS] = lv_page_create(lv_scr_act(), NULL);
+    // pages[NUM_PAGES] = 7;
+
+    // printf("Number of screens = %d\n",pages[NUM_PAGES]);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_02 -- Your Folders */
     printf("\nFILESYSTEM_02 VIEW launch...\n");
@@ -881,6 +1077,10 @@ void file_menu_setup(void)
     /* FILESYSTEM VIEW: Display the content for filesystem_07 -- Your Spreadsheet Files */
     printf("FILESYSTEM_07 VIEW launch...\n");
     filesystem_07_view(filesystem_page);
+
+    /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
+    printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
+    filesystem_01_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_08 -- Your ??? Files */
     // printf("FILESYSTEM_08 VIEW launch...\n");
