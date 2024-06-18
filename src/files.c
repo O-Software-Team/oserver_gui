@@ -121,16 +121,15 @@ static int fs_fullname_count;
 /***  Filesystem Specific Functions  ***/
 /* Scroll to the filesystem home screen as the final step in the filesytem app launch */
 static void scroll_to_home() {
-    printf("EXEC :: scroll_to_home()\n\n");
+    // printf("EXEC :: scroll_to_home()\n\n");
     lv_obj_scroll_to_view(image_objects[1], LV_ANIM_OFF);
 }
 
 /* Scroll to screen clicked in the clickback call */
 static void scroll_to_screen(lv_event_t* e) {
     int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
-    printf("\nClicked Filesystem Element: %d\n\n",screen_index);
-    // lv_obj_t* screen_obj = image_objects[screen_index];
-    lv_obj_scroll_to_view(image_objects[screen_index], LV_ANIM_OFF);    // Use LV_ANIM_OFF to disable animation
+    // printf("\nClicked Filesystem Element: %d\n\n",screen_index);
+    lv_obj_scroll_to_view(image_objects[screen_index], LV_ANIM_OFF);
     lv_event_stop_bubbling(e); // Stop event bubbling
 }
 
@@ -206,14 +205,11 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(main_menu_record = 0; main_menu_record < ttl_main_menu_items; main_menu_record++) {
-        // scr_nbr = scr_nbr + main_menu_record;
-        printf("Screen number: %d\n",scr_nbr);
-
-        offset = 131 + (60 * main_menu_record);
+        offset = 121 + (60 * main_menu_record);
         // offset = 151 + (60 * main_menu_record);
-        entry_separator[main_menu_record] = lv_img_create(image);
-        lv_img_set_src(entry_separator[main_menu_record], &Linez);
-        lv_obj_align(entry_separator[main_menu_record], LV_ALIGN_DEFAULT, 25, offset);
+        // entry_separator[main_menu_record] = lv_img_create(image);
+        // lv_img_set_src(entry_separator[main_menu_record], &Linez);
+        // lv_obj_align(entry_separator[main_menu_record], LV_ALIGN_DEFAULT, 25, offset);
 
         /*this is the opaque button overlay of the album entry */
         button_overlay[scr_nbr] = lv_btn_create(image);
@@ -242,16 +238,15 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
         lv_obj_set_style_opa(next_icon[main_menu_record], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
-        list_item_separator[main_menu_record] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[main_menu_record], &Linez);
-        lv_obj_align(list_item_separator[main_menu_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        // list_item_separator[main_menu_record] = lv_img_create(image);
+        // lv_img_set_src(list_item_separator[main_menu_record], &Linez);
+        // lv_obj_align(list_item_separator[main_menu_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
 
         scr_nbr++;
     }
 
     /* Now, navigate to the main filesystem screen */
     scroll_to_home(1);
-
 }
 
 
@@ -280,6 +275,8 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
         }
     }
 
+/***  HEADING ELEMENTS  ***/
+
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -300,7 +297,7 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
     lv_label_set_recolor(back_label, true);
-    lv_label_set_text(back_label, "Go Home");
+    lv_label_set_text(back_label, "Back");
     lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
@@ -318,7 +315,7 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your folders");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -342,20 +339,20 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(folder_record = 0; folder_record < ttl_folder_items; folder_record++) {
-        offset =  131 + (60 * folder_record);
-        entry_separator[folder_record] = lv_img_create(image);
-        lv_img_set_src(entry_separator[folder_record], &Linez);
-        lv_obj_align(entry_separator[folder_record], LV_ALIGN_DEFAULT, 25, offset +22);
+        offset =  121 + (60 * folder_record);
+        // entry_separator[folder_record] = lv_img_create(image);
+        // lv_img_set_src(entry_separator[folder_record], &Linez);
+        // lv_obj_align(entry_separator[folder_record], LV_ALIGN_DEFAULT, 25, offset +19);
 
         /* Device icon image on the left */
         file_icon[folder_record] = lv_img_create(image);
         lv_img_set_src(file_icon[folder_record], filesystem_02_list[folder_record].file_icon);
-        lv_obj_align(file_icon[folder_record], LV_ALIGN_CENTER, -130, offset - 231);
+        lv_obj_align(file_icon[folder_record], LV_ALIGN_CENTER, -130, offset - 223);
 
         /* The label text with the device name */
         file_label[folder_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[folder_record], true);
-        lv_obj_align(file_label[folder_record], LV_ALIGN_LEFT_MID, 125, offset - 231);
+        lv_obj_align(file_label[folder_record], LV_ALIGN_LEFT_MID, 125, offset - 223);
         lv_label_set_text(file_label[folder_record], filesystem_02_list[folder_record].file_fullname);
         lv_style_set_text_font(&name_style, &NeueHaasDisplayLight_24);
         lv_obj_add_style(file_label[folder_record], &name_style, LV_PART_MAIN);
@@ -363,13 +360,13 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
         next_icon[folder_record] = lv_img_create(image);
         lv_img_set_src(next_icon[folder_record], &Icon_Next_White);
-        lv_obj_align(next_icon[folder_record], LV_ALIGN_CENTER, 130, offset - 231);
+        lv_obj_align(next_icon[folder_record], LV_ALIGN_CENTER, 130, offset - 223);
         lv_obj_set_style_opa(next_icon[folder_record], LV_OPA_70, LV_PART_MAIN);
 
         // Add a list item separator line at the end of the list item
-        list_item_separator[folder_record] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[folder_record], &Linez);
-        lv_obj_align(list_item_separator[folder_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
+        // list_item_separator[folder_record] = lv_img_create(image);
+        // lv_img_set_src(list_item_separator[folder_record], &Linez);
+        // lv_obj_align(list_item_separator[folder_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
     }
 }
 
@@ -399,8 +396,6 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         }
     }
 
-    // render_back_button(image, back_home_button_cb);
-
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -439,7 +434,7 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your movies");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -529,8 +524,6 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         }
     }
 
-    // render_back_button(image, back_home_button_cb);
-
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -569,7 +562,7 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your images");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -659,8 +652,6 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         }
     }
 
-    // render_back_button(image, back_home_button_cb);
-
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -699,7 +690,7 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your applications");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -789,8 +780,6 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
         }
     }
 
-    // render_back_button(image, back_home_button_cb);
-
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -829,7 +818,7 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your documents");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -921,8 +910,6 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
         }
     }
 
-    // render_back_button(image, back_home_button_cb);
-
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -961,7 +948,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     /* Add the file list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your spreadsheets");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
