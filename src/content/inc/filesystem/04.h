@@ -28,8 +28,8 @@ static filesystem_item filesystem_04_list[] = {
         .file_type = "file",
         .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Autograf And Tiina",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Big surf",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0002",
@@ -37,10 +37,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "150630",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "ABBA_SOS.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Blackbird-SR71-night",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0003",
@@ -48,10 +48,21 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "578874",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "ABBA_SOS_LARGE.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Blackbirds-Sisters",
+		.file_icon = &Icon_Image_Yellow
+    },
+    {
+        .file_id = "0001",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "13829",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Bugatti",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0004",
@@ -59,10 +70,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "147396",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "ALICIA_KEYS.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Cowboy bebop 1",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0005",
@@ -70,10 +81,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "572472",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "ALICIA_KEYS_LARGE.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Cowboy bebop 2",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0006",
@@ -81,10 +92,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "147408",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "AMY_WINEHOUSE.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "DV9K8732",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0007",
@@ -92,10 +103,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "572484",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "AMY_WINEHOUSE_LARGE.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "DV9K8733",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0008",
@@ -103,10 +114,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "147408",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "BACK_IN_BLACK.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Ferrari_F12_Novitec",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0009",
@@ -114,10 +125,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "572484",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "BACK_IN_BLACK_LARGE.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Jordan in the air",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0010",
@@ -125,10 +136,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "14181094",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Background.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "O Mini Server with battery",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0011",
@@ -136,10 +147,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "5859621",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Background_Menu_Yellow.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Pagani Huayra",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0012",
@@ -147,10 +158,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "119022",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Calendar_App_Heading_Title.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Pagani zonda r",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0013",
@@ -158,10 +169,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "105342",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Contacts_App_Heading_Title.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Screenshot_20200102-215111",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0014",
@@ -169,10 +180,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "106704",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Devices_App_Heading_Title.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Wave",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0015",
@@ -180,10 +191,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "72491",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Email_App_Heading_Title.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Wipe out",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0016",
@@ -191,10 +202,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "55313",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "FFWD.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Wipe out 2",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0017",
@@ -202,10 +213,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "57443",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Files_App_Heading_Title.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "SR-71-sunset",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0018",
@@ -213,10 +224,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "222798",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "GreyHalo.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "SR71",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0019",
@@ -224,10 +235,21 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "16882",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Icon_Back.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "300SL Gullwing",
+		.file_icon = &Icon_Image_Yellow
+    },
+    {
+        .file_id = "0019",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "13829",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Theapoo BIG WIPE OUT",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0020",
@@ -235,10 +257,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "42869",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Icon_Bluetooth_White.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Tahiti profondeur de l'eau",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0021",
@@ -246,10 +268,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "42845",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Icon_Close_White.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Josie the whippet",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0022",
@@ -257,10 +279,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "42887",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Icon_Email_Filter_White.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Josie & Gia",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0023",
@@ -268,10 +290,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "5834",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Icon_Email_Unread_Yellow.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "White shark",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0024",
@@ -279,10 +301,10 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "16954",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Icon_Email_View_White.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Golden Gate Bridge",
+		.file_icon = &Icon_Image_Yellow
     },
     {
         .file_id = "0025",
@@ -290,11 +312,66 @@ static filesystem_item filesystem_04_list[] = {
         .file_owner = "steveglaiser",
         .file_group = "staff",
         .file_type = "file",
-        .file_size = "222858",
+        .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Icon_Filter_Button.c",
-        .file_icon = &Icon_Image_Yellow
+        .file_fullname = "Paris Arc de Triomphe",
+		.file_icon = &Icon_Image_Yellow
     },
+    {
+        .file_id = "0026",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "13829",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Paris The Hôtel des Invalides",
+		.file_icon = &Icon_Image_Yellow
+    },
+    {
+        .file_id = "0027",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "13829",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Pacman",
+		.file_icon = &Icon_Image_Yellow
+    },
+    {
+        .file_id = "0028",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "13829",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Manchester City Football Club",
+		.file_icon = &Icon_Image_Yellow
+    },
+    {
+        .file_id = "0029",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "13829",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Real Madrid Club de Fútbol",
+		.file_icon = &Icon_Image_Yellow
+    },
+    {
+        .file_id = "0030",
+        .file_permissions = "-rw-r--r--@",
+        .file_owner = "steveglaiser",
+        .file_group = "staff",
+        .file_type = "file",
+        .file_size = "13829",
+        .file_modified = "May 18 2023",
+        .file_fullname = "Invader",
+		.file_icon = &Icon_Image_Yellow
+    }, 
     {
         .file_id = "end",
         .file_info = "TAP HERE\nTo add a new\nFile",
