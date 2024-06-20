@@ -153,7 +153,6 @@ static int calc_scroll_offset(int ttl_rows) {
     } else {
         ttl_offset = ttl_rows * 22;
     }
-    // ttl_offset = ttl_rows * 22;
     printf("Calc Scroll Offset: %d\n",ttl_offset);
     return ttl_offset;
 }
@@ -381,13 +380,13 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_style_init(&name_style);
 
     /* Full screen overlay to enable scolling the main page vertically */
-    lv_obj_t * screen_02_scroll_overlay = lv_img_create(image);
-    lv_obj_set_size(screen_02_scroll_overlay, 350, ttl_calc_overlay_height);
-    lv_obj_align(screen_02_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
-    lv_obj_set_style_opa(screen_02_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
-    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(screen_02_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
+    lv_obj_t * screen_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(folder_record = 0; folder_record < ttl_folder_items; folder_record++) {
@@ -520,13 +519,13 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     // lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
 
     /* Full screen overlay to enable scolling the main page vertically */
-    lv_obj_t * screen_02_scroll_overlay = lv_img_create(image);
-    lv_obj_set_size(screen_02_scroll_overlay, 350, ttl_calc_overlay_height);
-    lv_obj_align(screen_02_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
-    lv_obj_set_style_opa(screen_02_scroll_overlay, LV_OPA_0, LV_PART_MAIN);
-    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(screen_02_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
+    lv_obj_t * screen_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Add (simulated) devices entries as clickable buttons */
     for(movie_record = 0; movie_record < ttl_movie_items; movie_record++) {
@@ -658,13 +657,13 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_style_init(&name_style);
 
     /* Full screen overlay to enable scolling the main page vertically */
-    lv_obj_t * screen_02_scroll_overlay = lv_img_create(image);
-    lv_obj_set_size(screen_02_scroll_overlay, 350, ttl_calc_overlay_height);
-    lv_obj_align(screen_02_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
-    lv_obj_set_style_opa(screen_02_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
-    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
-    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
-    lv_obj_add_event_cb(screen_02_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
+    lv_obj_t * screen_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Add (simulated) devices entries as clickable buttons */
     for(image_record = 0; image_record < ttl_image_items; image_record++) {
@@ -729,6 +728,12 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         }
     }
 
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_application_items);
+    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    ttl_calc_overlay_offset = calc_scroll_offset(ttl_application_items);
+    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -749,7 +754,7 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
     lv_label_set_recolor(back_label, true);
-    lv_label_set_text(back_label, "Go Home");
+    lv_label_set_text(back_label, "Back");
     lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
@@ -788,6 +793,15 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
+
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Provide a single rule under the heading */
     // entry_separator[0] = lv_img_create(image);
@@ -857,6 +871,12 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
         }
     }
 
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_document_items);
+    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    ttl_calc_overlay_offset = calc_scroll_offset(ttl_document_items);
+    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -877,7 +897,7 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
     lv_label_set_recolor(back_label, true);
-    lv_label_set_text(back_label, "Go Home");
+    lv_label_set_text(back_label, "Back");
     lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
@@ -916,6 +936,15 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
+
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Provide a single rule under the heading */
     // entry_separator[0] = lv_img_create(image);
@@ -987,6 +1016,12 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
         }
     }
 
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_spreadsheet_items);
+    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    ttl_calc_overlay_offset = calc_scroll_offset(ttl_spreadsheet_items);
+    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -1007,7 +1042,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
     lv_label_set_recolor(back_label, true);
-    lv_label_set_text(back_label, "Go Home");
+    lv_label_set_text(back_label, "Back");
     lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
@@ -1046,6 +1081,15 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
+
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Provide a single rule under the heading */
     // entry_separator[0] = lv_img_create(image);
