@@ -325,7 +325,7 @@ static filesystem_item filesystem_04_list[] = {
         .file_type = "file",
         .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Paris The Hôtel des Invalides",
+        .file_fullname = "Paris The Hotel des Invalides",
 		.file_icon = &Icon_Image_Yellow
     },
     {
@@ -358,7 +358,7 @@ static filesystem_item filesystem_04_list[] = {
         .file_type = "file",
         .file_size = "13829",
         .file_modified = "May 18 2023",
-        .file_fullname = "Real Madrid Club de Fútbol",
+        .file_fullname = "Real Madrid Club de Futbol",
 		.file_icon = &Icon_Image_Yellow
     },
     {
