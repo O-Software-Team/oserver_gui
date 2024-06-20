@@ -7,11 +7,11 @@
 /* Initialize/populate the Filesystem list structs */
 #include "content/inc/filesystem/01.h"   /* Main screen - Filesystem list */
 #include "content/inc/filesystem/02.h"   /* Filesystem  - Folders list */
-#include "content/inc/filesystem/03.h"   /* Filesystem  - Movies list */
-#include "content/inc/filesystem/04.h"   /* Filesystem  - Images list */
-#include "content/inc/filesystem/05.h"   /* Filesystem  - Applications list */
-#include "content/inc/filesystem/06.h"   /* Filesystem  - Documents list */
-#include "content/inc/filesystem/07.h"   /* Filesystem  - Excel list */
+#include "content/test/filesystem/03.h"   /* Filesystem  - Movies list */
+#include "content/test/filesystem/04.h"   /* Filesystem  - Images list */
+#include "content/test/filesystem/05.h"   /* Filesystem  - Applications list */
+#include "content/test/filesystem/06.h"   /* Filesystem  - Documents list */
+#include "content/test/filesystem/07.h"   /* Filesystem  - Excel list */
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0
@@ -118,6 +118,12 @@ static lv_obj_t * top_of_list_items;
 static const char * fs_fullname_string;
 static int fs_fullname_count;
 
+static int ttl_rows;
+static int ttl_height;
+static int ttl_offset;
+static int ttl_calc_overlay_height;
+static int ttl_calc_overlay_offset;
+
 /***  Filesystem Specific Functions  ***/
 /* Scroll to the filesystem home screen as the final step in the filesytem app launch */
 static void scroll_to_home() {
@@ -133,6 +139,37 @@ static void scroll_to_screen(lv_event_t* e) {
     lv_event_stop_bubbling(e); // Stop event bubbling
 }
 
+static int calc_scroll_height(int ttl_rows) {
+    printf("\n\nCalc Scroll Rows: %d\n",ttl_rows);
+    ttl_height = ttl_rows * 52;
+    printf("Calc Scroll Height: %d\n",ttl_height);
+    return ttl_height;
+}
+
+static int calc_scroll_offset(int ttl_rows) {
+    int off_mult;
+    if(ttl_rows <= 10) {
+        ttl_offset = 90;
+    } else {
+        ttl_offset = ttl_rows * 22;
+    }
+    // ttl_offset = ttl_rows * 22;
+    printf("Calc Scroll Offset: %d\n",ttl_offset);
+    return ttl_offset;
+}
+
+static int calc_scroll_offset_2(int ttl_rows) {
+    ttl_offset = ttl_rows / 3.75;
+    printf("Calc Scroll Offset: %d",ttl_offset);
+    return ttl_offset;
+}
+
+static void image_click_event_cb(lv_event_t* e) {
+    lv_event_code_t code = lv_event_get_code(e);
+    if (code == LV_EVENT_CLICKED) {
+        printf("\nScrolling panel has been clicked!\n");
+    }
+}
 
 /* Your Filesystem */
 static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
@@ -205,7 +242,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(main_menu_record = 0; main_menu_record < ttl_main_menu_items; main_menu_record++) {
-        offset = 121 + (60 * main_menu_record);
+        offset = 121 + (52 * main_menu_record);
         // offset = 151 + (60 * main_menu_record);
         // entry_separator[main_menu_record] = lv_img_create(image);
         // lv_img_set_src(entry_separator[main_menu_record], &Linez);
@@ -275,6 +312,12 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
         }
     }
 
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_folder_items);
+    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    ttl_calc_overlay_offset = calc_scroll_offset(ttl_folder_items);
+    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+
 /***  HEADING ELEMENTS  ***/
 
     static lv_style_t back_button_style;
@@ -337,9 +380,18 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_02_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_02_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_02_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_02_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
+    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_02_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
+
     /* Add (simulated) devices entries as clickable buttons*/
     for(folder_record = 0; folder_record < ttl_folder_items; folder_record++) {
-        offset =  121 + (60 * folder_record);
+        offset =  121 + (52 * folder_record);
         // entry_separator[folder_record] = lv_img_create(image);
         // lv_img_set_src(entry_separator[folder_record], &Linez);
         // lv_obj_align(entry_separator[folder_record], LV_ALIGN_DEFAULT, 25, offset +19);
@@ -396,6 +448,12 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         }
     }
 
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_movie_items);
+    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    ttl_calc_overlay_offset = calc_scroll_offset(ttl_movie_items);
+    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -416,7 +474,7 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
     lv_label_set_recolor(back_label, true);
-    lv_label_set_text(back_label, "Go Home");
+    lv_label_set_text(back_label, "Back");
     lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
@@ -457,18 +515,27 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_style_init(&name_style);
 
     /* Provide a single rule under the heading */
-    entry_separator[0] = lv_img_create(image);
-    lv_img_set_src(entry_separator[0], &Linez);
-    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+    // entry_separator[0] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[0], &Linez);
+    // lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_02_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_02_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_02_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_02_scroll_overlay, LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_02_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Add (simulated) devices entries as clickable buttons */
     for(movie_record = 0; movie_record < ttl_movie_items; movie_record++) {
-        offset = 130 + (52 * movie_record);
+        offset = 121 + (52 * movie_record);
 
         /* Device icon image on the left */
         file_icon[movie_record] = lv_img_create(image);
         lv_img_set_src(file_icon[movie_record], filesystem_03_list[movie_record].file_icon);
-        lv_obj_align(file_icon[movie_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
+        lv_obj_align(file_icon[movie_record], LV_ALIGN_LEFT_MID, 28, offset - 223);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
         fs_fullname_string = filesystem_03_list[movie_record].file_fullname;
@@ -477,13 +544,13 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
         /* The label text with the device name */
         file_label[movie_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[movie_record], true);
-        lv_obj_align(file_label[movie_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
+        lv_obj_align(file_label[movie_record], LV_ALIGN_LEFT_MID, 78, offset - 223);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_fullname_count >= 19) {
+        if(fs_fullname_count >= 24) {
             lv_label_set_text(file_label[movie_record], filesystem_03_list[movie_record].file_fullname);
-            lv_label_cut_text(file_label[movie_record],17,fs_fullname_count);
-            lv_label_ins_text(file_label[movie_record],19,"...");
+            lv_label_cut_text(file_label[movie_record],22,fs_fullname_count);
+            lv_label_ins_text(file_label[movie_record],24,"...");
         } else {
             lv_label_set_text(file_label[movie_record], filesystem_03_list[movie_record].file_fullname);
         }
@@ -494,7 +561,7 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
         next_icon[movie_record] = lv_img_create(image);
         lv_img_set_src(next_icon[movie_record], &Icon_Next_White);
-        lv_obj_align(next_icon[movie_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
+        lv_obj_align(next_icon[movie_record], LV_ALIGN_LEFT_MID, 348, offset - 223);
         lv_obj_set_style_opa(next_icon[movie_record], LV_OPA_70, LV_PART_MAIN);
     }
 }
@@ -524,6 +591,12 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         }
     }
 
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_image_items);
+    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    ttl_calc_overlay_offset = calc_scroll_offset(ttl_image_items);
+    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -544,7 +617,7 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
     lv_label_set_recolor(back_label, true);
-    lv_label_set_text(back_label, "Go Home");
+    lv_label_set_text(back_label, "Back");
     lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
     lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
@@ -584,19 +657,23 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
-    /* Provide a single rule under the heading */
-    entry_separator[0] = lv_img_create(image);
-    lv_img_set_src(entry_separator[0], &Linez);
-    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_02_scroll_overlay = lv_img_create(image);
+    lv_obj_set_size(screen_02_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_02_scroll_overlay, LV_ALIGN_LEFT_MID, 10, ttl_calc_overlay_offset);
+    lv_obj_set_style_opa(screen_02_scroll_overlay, LV_OPA_90, LV_PART_MAIN);
+    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_02_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_02_scroll_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);
 
     /* Add (simulated) devices entries as clickable buttons */
     for(image_record = 0; image_record < ttl_image_items; image_record++) {
-        offset = 130 + (52 * image_record);
+        offset = 121 + (52 * image_record);
 
         /* Device icon image on the left */
         file_icon[image_record] = lv_img_create(image);
         lv_img_set_src(file_icon[image_record], filesystem_04_list[image_record].file_icon);
-        lv_obj_align(file_icon[image_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
+        lv_obj_align(file_icon[image_record], LV_ALIGN_LEFT_MID, 28, offset - 223);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
         fs_fullname_string = filesystem_04_list[image_record].file_fullname;
@@ -605,13 +682,13 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
         /* The label text with the device name */
         file_label[image_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[image_record], true);
-        lv_obj_align(file_label[image_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
+        lv_obj_align(file_label[image_record], LV_ALIGN_LEFT_MID, 78, offset - 223);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_fullname_count >= 19) {
+        if(fs_fullname_count >= 24) {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
-            lv_label_cut_text(file_label[image_record],17,fs_fullname_count);
-            lv_label_ins_text(file_label[image_record],19,"...");
+            lv_label_cut_text(file_label[image_record],22,fs_fullname_count);
+            lv_label_ins_text(file_label[image_record],24,"...");
         } else {
             lv_label_set_text(file_label[image_record], filesystem_04_list[image_record].file_fullname);
         }
@@ -622,7 +699,7 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
         next_icon[image_record] = lv_img_create(image);
         lv_img_set_src(next_icon[image_record], &Icon_Next_White);
-        lv_obj_align(next_icon[image_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
+        lv_obj_align(next_icon[image_record], LV_ALIGN_LEFT_MID, 348, offset - 223);
         lv_obj_set_style_opa(next_icon[image_record], LV_OPA_70, LV_PART_MAIN);
     }
 }
@@ -713,18 +790,18 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     lv_style_init(&name_style);
 
     /* Provide a single rule under the heading */
-    entry_separator[0] = lv_img_create(image);
-    lv_img_set_src(entry_separator[0], &Linez);
-    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+    // entry_separator[0] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[0], &Linez);
+    // lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
 
     /* Add (simulated) devices entries as clickable buttons */
     for(application_record = 0; application_record < ttl_application_items; application_record++) {
-        offset = 130 + (52 * application_record);
+        offset = 121 + (52 * application_record);
 
         /* Device icon image on the left */
         file_icon[application_record] = lv_img_create(image);
         lv_img_set_src(file_icon[application_record], filesystem_05_list[application_record].file_icon);
-        lv_obj_align(file_icon[application_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
+        lv_obj_align(file_icon[application_record], LV_ALIGN_LEFT_MID, 28, offset - 223);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
         fs_fullname_string = filesystem_05_list[application_record].file_fullname;
@@ -733,13 +810,13 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
         /* The label text with the device name */
         file_label[application_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[application_record], true);
-        lv_obj_align(file_label[application_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
+        lv_obj_align(file_label[application_record], LV_ALIGN_LEFT_MID, 78, offset - 223);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_fullname_count >= 19) {
+        if(fs_fullname_count >= 24) {
             lv_label_set_text(file_label[application_record], filesystem_05_list[application_record].file_fullname);
-            lv_label_cut_text(file_label[application_record],17,fs_fullname_count);
-            lv_label_ins_text(file_label[application_record],19,"...");
+            lv_label_cut_text(file_label[application_record],22,fs_fullname_count);
+            lv_label_ins_text(file_label[application_record],24,"...");
         } else {
             lv_label_set_text(file_label[application_record], filesystem_05_list[application_record].file_fullname);
         }
@@ -750,7 +827,7 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 
         next_icon[application_record] = lv_img_create(image);
         lv_img_set_src(next_icon[application_record], &Icon_Next_White);
-        lv_obj_align(next_icon[application_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
+        lv_obj_align(next_icon[application_record], LV_ALIGN_LEFT_MID, 348, offset - 223);
         lv_obj_set_style_opa(next_icon[application_record], LV_OPA_70, LV_PART_MAIN);
     }
 }
@@ -841,18 +918,18 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     lv_style_init(&name_style);
 
     /* Provide a single rule under the heading */
-    entry_separator[0] = lv_img_create(image);
-    lv_img_set_src(entry_separator[0], &Linez);
-    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+    // entry_separator[0] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[0], &Linez);
+    // lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
 
     /* Add (simulated) devices entries as clickable buttons */
     for(document_record = 0; document_record < ttl_document_items; document_record++) {
-        offset = 130 + (52 * document_record);
+        offset = 121 + (52 * document_record);
 
         /* Device icon image on the left */
         file_icon[document_record] = lv_img_create(image);
         lv_img_set_src(file_icon[document_record], filesystem_06_list[document_record].file_icon);
-        lv_obj_align(file_icon[document_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
+        lv_obj_align(file_icon[document_record], LV_ALIGN_LEFT_MID, 28, offset - 223);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
         fs_fullname_string = filesystem_06_list[document_record].file_fullname;
@@ -861,13 +938,13 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
         /* The label text with the device name */
         file_label[document_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[document_record], true);
-        lv_obj_align(file_label[document_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
+        lv_obj_align(file_label[document_record], LV_ALIGN_LEFT_MID, 78, offset - 223);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_fullname_count >= 19) {
+        if(fs_fullname_count >= 24) {
             lv_label_set_text(file_label[document_record], filesystem_06_list[document_record].file_fullname);
-            lv_label_cut_text(file_label[document_record],17,fs_fullname_count);
-            lv_label_ins_text(file_label[document_record],19,"...");
+            lv_label_cut_text(file_label[document_record],22,fs_fullname_count);
+            lv_label_ins_text(file_label[document_record],24,"...");
         } else {
             lv_label_set_text(file_label[document_record], filesystem_06_list[document_record].file_fullname);
         }
@@ -878,7 +955,7 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 
         next_icon[document_record] = lv_img_create(image);
         lv_img_set_src(next_icon[document_record], &Icon_Next_White);
-        lv_obj_align(next_icon[document_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
+        lv_obj_align(next_icon[document_record], LV_ALIGN_LEFT_MID, 348, offset - 223);
         lv_obj_set_style_opa(next_icon[document_record], LV_OPA_70, LV_PART_MAIN);
     }
 }
@@ -971,18 +1048,18 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     lv_style_init(&name_style);
 
     /* Provide a single rule under the heading */
-    entry_separator[0] = lv_img_create(image);
-    lv_img_set_src(entry_separator[0], &Linez);
-    lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
+    // entry_separator[0] = lv_img_create(image);
+    // lv_img_set_src(entry_separator[0], &Linez);
+    // lv_obj_align(entry_separator[0], LV_ALIGN_TOP_LEFT, 28, 152);
 
     /* Add (simulated) devices entries as clickable buttons */
     for(spreadsheet_record = 0; spreadsheet_record < ttl_spreadsheet_items; spreadsheet_record++) {
-        offset = 130 + (52 * spreadsheet_record);
+        offset = 121 + (52 * spreadsheet_record);
 
         /* Device icon image on the left */
         file_icon[spreadsheet_record] = lv_img_create(image);
         lv_img_set_src(file_icon[spreadsheet_record], filesystem_07_list[spreadsheet_record].file_icon);
-        lv_obj_align(file_icon[spreadsheet_record], LV_ALIGN_LEFT_MID, 28, offset - 199);
+        lv_obj_align(file_icon[spreadsheet_record], LV_ALIGN_LEFT_MID, 28, offset - 223);
 
         /* Calculate if the file_fullname field is greater than or equal to 25 characters */
         fs_fullname_string = filesystem_07_list[spreadsheet_record].file_fullname;
@@ -991,13 +1068,13 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
         /* The label text with the device name */
         file_label[spreadsheet_record] = lv_label_create(image);
         lv_label_set_recolor(file_label[spreadsheet_record], true);
-        lv_obj_align(file_label[spreadsheet_record], LV_ALIGN_LEFT_MID, 78, offset - 199);
+        lv_obj_align(file_label[spreadsheet_record], LV_ALIGN_LEFT_MID, 78, offset - 223);
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
-        if(fs_fullname_count >= 19) {
+        if(fs_fullname_count >= 24) {
             lv_label_set_text(file_label[spreadsheet_record], filesystem_07_list[spreadsheet_record].file_fullname);
-            lv_label_cut_text(file_label[spreadsheet_record],17,fs_fullname_count);
-            lv_label_ins_text(file_label[spreadsheet_record],19,"...");
+            lv_label_cut_text(file_label[spreadsheet_record],22,fs_fullname_count);
+            lv_label_ins_text(file_label[spreadsheet_record],24,"...");
         } else {
             lv_label_set_text(file_label[spreadsheet_record], filesystem_07_list[spreadsheet_record].file_fullname);
         }
@@ -1008,7 +1085,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 
         next_icon[spreadsheet_record] = lv_img_create(image);
         lv_img_set_src(next_icon[spreadsheet_record], &Icon_Next_White);
-        lv_obj_align(next_icon[spreadsheet_record], LV_ALIGN_LEFT_MID, 348, offset - 199);
+        lv_obj_align(next_icon[spreadsheet_record], LV_ALIGN_LEFT_MID, 348, offset - 223);
         lv_obj_set_style_opa(next_icon[spreadsheet_record], LV_OPA_70, LV_PART_MAIN);
     }
 }
@@ -1065,13 +1142,17 @@ void file_menu_setup(void)
     printf("FILESYSTEM_07 VIEW launch...\n");
     filesystem_07_view(filesystem_page);
 
+/***                                     ***
+ ***  FILESYSTEM_01 MUST BE LAUNCHED LAST  ***
+ ***                                     ***/
+
     /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
     printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
     filesystem_01_view(filesystem_page);
 
+
     /* FILESYSTEM VIEW: Display the content for filesystem_08 -- Your ??? Files */
     // printf("FILESYSTEM_08 VIEW launch...\n");
-    // filesystem_02_view(filesystem_02_view_page);
     // filesystem_08_view(filesystem_page);
 
     // lv_obj_t * files_page = lv_obj_create(NULL);
