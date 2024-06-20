@@ -140,9 +140,9 @@ static void scroll_to_screen(lv_event_t* e) {
 }
 
 static int calc_scroll_height(int ttl_rows) {
-    printf("\n\nCalc Scroll Rows: %d\n",ttl_rows);
+    // printf("\n\nCalc Scroll Rows: %d\n",ttl_rows);
     ttl_height = ttl_rows * 52;
-    printf("Calc Scroll Height: %d\n",ttl_height);
+    // printf("Calc Scroll Height: %d\n",ttl_height);
     return ttl_height;
 }
 
@@ -153,20 +153,20 @@ static int calc_scroll_offset(int ttl_rows) {
     } else {
         ttl_offset = ttl_rows * 22;
     }
-    printf("Calc Scroll Offset: %d\n",ttl_offset);
+    // printf("Calc Scroll Offset: %d\n",ttl_offset);
     return ttl_offset;
 }
 
 static int calc_scroll_offset_2(int ttl_rows) {
     ttl_offset = ttl_rows / 3.75;
-    printf("Calc Scroll Offset: %d",ttl_offset);
+    // printf("Calc Scroll Offset: %d",ttl_offset);
     return ttl_offset;
 }
 
 static void image_click_event_cb(lv_event_t* e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED) {
-        printf("\nScrolling panel has been clicked!\n");
+        // printf("\nScrolling panel has been clicked!\n");
     }
 }
 
@@ -178,21 +178,21 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_01 records */
-    printf("\nCalculate filesystem_01 -- your filesystem...\n");
+    // printf("\nCalculate filesystem_01 -- your filesystem...\n");
     for(main_menu_item = 0; filesystem_01_list[main_menu_item].file_id != "end"; main_menu_item++) {
         ttl_main_menu_items = main_menu_item+1;
-        printf("Item count: %d -- file_id: %s\n",ttl_main_menu_items,filesystem_01_list[main_menu_item].file_id);
+        // printf("Item count: %d -- file_id: %s\n",ttl_main_menu_items,filesystem_01_list[main_menu_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_main_menu_items);
+    // printf("\nTotal Records: %d\n\n",ttl_main_menu_items);
 
     /* Build the Contact record list for display */
-    printf("Building each Filesystem_01 record for display\n");
+    // printf("Building each Filesystem_01 record for display\n");
     for(int e = 0; e < ttl_main_menu_items; e++) {
         if(filesystem_01_list[e].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",e,filesystem_01_list[e].file_fullname);
+            // printf("item: %d -- file_fullname: %s\n",e,filesystem_01_list[e].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[e].file_id,filesystem_01_list[e].file_fullname);
+            // printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[e].file_id,filesystem_01_list[e].file_fullname);
         }
     }
 
@@ -234,7 +234,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
-    printf("Screen number: 1\n");
+    // printf("Screen number: 1\n");
 
     /* Set the screen number counter to the first visible sub-screen for the filesystem */
     int scr_nbr = 2;
@@ -293,29 +293,29 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total Filesystem_02 -- your folders */
-    printf("\nCalculate filesystem_02 -- your folders...\n");
+    // printf("\nCalculate filesystem_02 -- your folders...\n");
     for(folder_item = 0; filesystem_02_list[folder_item].file_id != "end"; folder_item++) {
         ttl_folder_items = folder_item+1;
-        printf("Item count: %d -- file_id: %s\n",ttl_folder_items,filesystem_02_list[folder_item].file_id);
+        // printf("Item count: %d -- file_id: %s\n",ttl_folder_items,filesystem_02_list[folder_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_folder_items);
+    // printf("\nTotal Records: %d\n\n",ttl_folder_items);
 
     /* Build the Contact record list for display */
-    printf("Building each Filesystem_02 record for display\n");
+    // printf("Building each Filesystem_02 record for display\n");
     for(int j = 0; j < ttl_folder_items; j++) {
         if(filesystem_02_list[j].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",j,filesystem_02_list[j].file_fullname);
+            // printf("item: %d -- file_fullname: %s\n",j,filesystem_02_list[j].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_02_list[j].file_id,filesystem_02_list[j].file_fullname);
+            // printf("file_id: %s -- file_fullname: %s\n",filesystem_02_list[j].file_id,filesystem_02_list[j].file_fullname);
         }
     }
 
     /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
     ttl_calc_overlay_height = calc_scroll_height(ttl_folder_items);
-    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
     ttl_calc_overlay_offset = calc_scroll_offset(ttl_folder_items);
-    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+    // printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
 
 /***  HEADING ELEMENTS  ***/
 
@@ -429,29 +429,29 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_03 -- your movies */
-    printf("\nCalculate filesystem_03 -- your movies...\n");
+    // printf("\nCalculate filesystem_03 -- your movies...\n");
     for(movie_item = 0; filesystem_03_list[movie_item].file_id != "end"; movie_item++) {
         ttl_movie_items = movie_item+1;
-        printf("Item count: %d -- file_id: %s\n",ttl_movie_items,filesystem_03_list[movie_item].file_id);
+        // printf("Item count: %d -- file_id: %s\n",ttl_movie_items,filesystem_03_list[movie_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_movie_items);
+    // printf("\nTotal Records: %d\n\n",ttl_movie_items);
 
     /* Build the Contact record list for display */
-    printf("Building each filesystem_03 record for display\n");
+    // printf("Building each filesystem_03 record for display\n");
     for(int k = 0; k < ttl_movie_items; k++) {
         if(filesystem_03_list[k].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",k,filesystem_03_list[k].file_fullname);
+            // printf("item: %d -- file_fullname: %s\n",k,filesystem_03_list[k].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_03_list[k].file_id,filesystem_03_list[k].file_fullname);
+            // printf("file_id: %s -- file_fullname: %s\n",filesystem_03_list[k].file_id,filesystem_03_list[k].file_fullname);
         }
     }
 
     /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
     ttl_calc_overlay_height = calc_scroll_height(ttl_movie_items);
-    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
     ttl_calc_overlay_offset = calc_scroll_offset(ttl_movie_items);
-    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+    // printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
 
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
@@ -572,29 +572,29 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_04 -- your images */
-    printf("\nCalculate filesystem_04 -- your images...\n");
+    // printf("\nCalculate filesystem_04 -- your images...\n");
     for(image_item = 0; filesystem_04_list[image_item].file_id != "end"; image_item++) {
         ttl_image_items = image_item+1;
-        printf("Item count: %d -- file_id: %s\n",ttl_image_items,filesystem_04_list[image_item].file_id);
+        // printf("Item count: %d -- file_id: %s\n",ttl_image_items,filesystem_04_list[image_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_image_items);
+    // printf("\nTotal Records: %d\n\n",ttl_image_items);
 
     /* Build the Contact record list for display */
-    printf("Building each filesystem_04 record for display\n");
+    // printf("Building each filesystem_04 record for display\n");
     for(int k = 0; k < ttl_image_items; k++) {
         if(filesystem_04_list[k].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",k,filesystem_04_list[k].file_fullname);
+            // printf("item: %d -- file_fullname: %s\n",k,filesystem_04_list[k].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_04_list[k].file_id,filesystem_04_list[k].file_fullname);
+            // printf("file_id: %s -- file_fullname: %s\n",filesystem_04_list[k].file_id,filesystem_04_list[k].file_fullname);
         }
     }
 
     /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
     ttl_calc_overlay_height = calc_scroll_height(ttl_image_items);
-    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
     ttl_calc_overlay_offset = calc_scroll_offset(ttl_image_items);
-    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+    // printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
 
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
@@ -710,29 +710,29 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_05 -- your applications */
-    printf("\nCalculate filesystem_05 -- your applications...\n");
+    // printf("\nCalculate filesystem_05 -- your applications...\n");
     for(application_item = 0; filesystem_05_list[application_item].file_id != "end"; application_item++) {
         ttl_application_items = application_item+1;
-        printf("Item count: %d -- file_id: %s\n",ttl_application_items,filesystem_05_list[application_item].file_id);
+        // printf("Item count: %d -- file_id: %s\n",ttl_application_items,filesystem_05_list[application_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_application_items);
+    // printf("\nTotal Records: %d\n\n",ttl_application_items);
 
     /* Build the Contact record list for display */
-    printf("Building each filesystem_05 record for display\n");
+    // printf("Building each filesystem_05 record for display\n");
     for(int k = 0; k < ttl_application_items; k++) {
         if(filesystem_05_list[k].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",k,filesystem_05_list[k].file_fullname);
+            // printf("item: %d -- file_fullname: %s\n",k,filesystem_05_list[k].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_05_list[k].file_id,filesystem_05_list[k].file_fullname);
+            // printf("file_id: %s -- file_fullname: %s\n",filesystem_05_list[k].file_id,filesystem_05_list[k].file_fullname);
         }
     }
 
     /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
     ttl_calc_overlay_height = calc_scroll_height(ttl_application_items);
-    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
     ttl_calc_overlay_offset = calc_scroll_offset(ttl_application_items);
-    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+    // printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
 
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
@@ -853,29 +853,29 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Calculate total filesystem_06 -- your documents */
-    printf("\nCalculate filesystem_06 -- your documents...\n");
+    // printf("\nCalculate filesystem_06 -- your documents...\n");
     for(document_item = 0; filesystem_06_list[document_item].file_id != "end"; document_item++) {
         ttl_document_items = document_item+1;
-        printf("Item count: %d -- file_id: %s\n",ttl_document_items,filesystem_06_list[document_item].file_id);
+        // printf("Item count: %d -- file_id: %s\n",ttl_document_items,filesystem_06_list[document_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_document_items);
+    // printf("\nTotal Records: %d\n\n",ttl_document_items);
 
     /* Build the Contact record list for display */
-    printf("Building each filesystem_06 record for display\n");
+    // printf("Building each filesystem_06 record for display\n");
     for(int k = 0; k < ttl_document_items; k++) {
         if(filesystem_06_list[k].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",k,filesystem_06_list[k].file_fullname);
+            // printf("item: %d -- file_fullname: %s\n",k,filesystem_06_list[k].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_06_list[k].file_id,filesystem_06_list[k].file_fullname);
+            // printf("file_id: %s -- file_fullname: %s\n",filesystem_06_list[k].file_id,filesystem_06_list[k].file_fullname);
         }
     }
 
     /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
     ttl_calc_overlay_height = calc_scroll_height(ttl_document_items);
-    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
     ttl_calc_overlay_offset = calc_scroll_offset(ttl_document_items);
-    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+    // printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
 
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
@@ -998,29 +998,29 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     lv_obj_set_user_data(image, "fs_07");
 
     /* Calculate total filesystem_07 -- your documents */
-    printf("\nCalculate filesystem_07 -- your documents...\n");
+    // printf("\nCalculate filesystem_07 -- your documents...\n");
     for(spreadsheet_item = 0; filesystem_07_list[spreadsheet_item].file_id != "end"; spreadsheet_item++) {
         ttl_spreadsheet_items = spreadsheet_item+1;
-        printf("Item count: %d -- file_id: %s\n",ttl_spreadsheet_items,filesystem_07_list[spreadsheet_item].file_id);
+        // printf("Item count: %d -- file_id: %s\n",ttl_spreadsheet_items,filesystem_07_list[spreadsheet_item].file_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_spreadsheet_items);
+    // printf("\nTotal Records: %d\n\n",ttl_spreadsheet_items);
 
     /* Build the Contact record list for display */
-    printf("Building each filesystem_07 record for display\n");
+    // printf("Building each filesystem_07 record for display\n");
     for(int k = 0; k < ttl_spreadsheet_items; k++) {
         if(filesystem_07_list[k].file_id == "end") {
-            printf("item: %d -- file_fullname: %s\n",k,filesystem_07_list[k].file_fullname);
+            // printf("item: %d -- file_fullname: %s\n",k,filesystem_07_list[k].file_fullname);
             break;
         } else {
-            printf("file_id: %s -- file_fullname: %s\n",filesystem_07_list[k].file_id,filesystem_07_list[k].file_fullname);
+            // printf("file_id: %s -- file_fullname: %s\n",filesystem_07_list[k].file_id,filesystem_07_list[k].file_fullname);
         }
     }
 
     /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
     ttl_calc_overlay_height = calc_scroll_height(ttl_spreadsheet_items);
-    printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
     ttl_calc_overlay_offset = calc_scroll_offset(ttl_spreadsheet_items);
-    printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
+    // printf("Calc Scroll Offset: %d\n\n",ttl_calc_overlay_offset);
 
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
@@ -1136,7 +1136,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 
 void file_menu_setup(void)
 {
-    printf("FILES MENU init...\n");
+    // printf("FILES MENU init...\n");
     lv_obj_t * filesystem_page = lv_obj_create(NULL);
     menu_dispatch_table[FILES_VEC] = filesystem_page;
 
@@ -1163,27 +1163,27 @@ void file_menu_setup(void)
     // printf("Number of screens = %d\n",pages[NUM_PAGES]);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_02 -- Your Folders */
-    printf("\nFILESYSTEM_02 VIEW launch...\n");
+    // printf("\nFILESYSTEM_02 VIEW launch...\n");
     filesystem_02_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_03 -- Your Movies */
-    printf("\nFILESYSTEM_03 VIEW launch...\n");
+    // printf("\nFILESYSTEM_03 VIEW launch...\n");
     filesystem_03_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_04 -- Your Images */
-    printf("\nFILESYSTEM_04 VIEW launch...\n");
+    // printf("\nFILESYSTEM_04 VIEW launch...\n");
     filesystem_04_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_05 -- Your Applications */
-    printf("FILESYSTEM_05 VIEW launch...\n");
+    // printf("FILESYSTEM_05 VIEW launch...\n");
     filesystem_05_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_06 -- Your Documents */
-    printf("FILESYSTEM_06 VIEW launch...\n");
+    // printf("FILESYSTEM_06 VIEW launch...\n");
     filesystem_06_view(filesystem_page);
 
     /* FILESYSTEM VIEW: Display the content for filesystem_07 -- Your Spreadsheet Files */
-    printf("FILESYSTEM_07 VIEW launch...\n");
+    // printf("FILESYSTEM_07 VIEW launch...\n");
     filesystem_07_view(filesystem_page);
 
 /***                                     ***
@@ -1191,7 +1191,7 @@ void file_menu_setup(void)
  ***                                     ***/
 
     /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
-    printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
+    // printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
     filesystem_01_view(filesystem_page);
 
 
