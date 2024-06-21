@@ -157,11 +157,11 @@ static int calc_scroll_offset(int ttl_rows) {
     return ttl_offset;
 }
 
-static int calc_scroll_offset_2(int ttl_rows) {
-    ttl_offset = ttl_rows / 3.75;
-    // printf("Calc Scroll Offset: %d",ttl_offset);
-    return ttl_offset;
-}
+// static int calc_scroll_offset_2(int ttl_rows) {
+//     ttl_offset = ttl_rows / 3.75;
+//     // printf("Calc Scroll Offset: %d",ttl_offset);
+//     return ttl_offset;
+// }
 
 static void image_click_event_cb(lv_event_t* e) {
     lv_event_code_t code = lv_event_get_code(e);
@@ -169,6 +169,7 @@ static void image_click_event_cb(lv_event_t* e) {
         // printf("\nScrolling panel has been clicked!\n");
     }
 }
+
 
 /* Your Filesystem */
 static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
@@ -193,6 +194,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
             break;
         } else {
             // printf("file_id: %s -- file_fullname: %s\n",filesystem_01_list[e].file_id,filesystem_01_list[e].file_fullname);
+            continue;
         }
     }
 

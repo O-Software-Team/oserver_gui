@@ -34,6 +34,7 @@
 
 /* Main background and radio controls declared below */
 LV_IMG_DECLARE(Background);
+LV_IMG_DECLARE(Icon_Back);
 LV_IMG_DECLARE(Icon_WiFi_White);
 LV_IMG_DECLARE(Icon_Bluetooth_White);
 LV_IMG_DECLARE(Icon_NFC_White);
@@ -61,6 +62,32 @@ LV_IMG_DECLARE(Contacts_App_Heading_Title);
 
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
+
+/***  Contacts Specific Declarations  ***/
+
+/* Set total number of pages / screens -- this includes screen #1 which is the main contacts screen to screen #4 which is the spreadsheets screen */
+#define NUM_SCREENS 4
+
+/* Set the array to store the screen reference pointers */
+lv_obj_t* contact_objects[NUM_SCREENS];
+
+/* Set the BACK-TO-HOME array to use in a custom back button for the filesystem app */
+lv_obj_t * back_to_home_screen[NUM_SCREENS];
+
+static int back_to_cs = 1;
+
+/* Set variables to determine total number of items per list */
+static int favorites_menu_item;    /* 01.h */
+static int favorites_menu_record;
+static int ttl_favorites_menu_items = 1;
+
+static int folder_item;        /* 02.h */
+static int folder_record;
+static int ttl_folder_items = 1;
+
+static int movie_item;         /* 03.h */
+static int movie_record;
+static int ttl_movie_items = 1;
 
 /* Set variables to determine total number of Contacts list members */
 static int total_contact_items = 1;
@@ -94,22 +121,75 @@ lv_label_t * heading_notes;
 // lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
 
-/* The following function populates the main screen with full list of contacts */
-void contacts_list_init(lv_obj_t * contacts_page) {
-    lv_obj_t * image = lv_img_create(contacts_page);
+
+static int ttl_rows;
+static int ttl_height;
+static int ttl_offset;
+static int ttl_calc_overlay_height;
+static int ttl_calc_overlay_offset;
+
+/***  Contacts Specific Functions  ***/
+/* Scroll to the filesystem home screen as the final step in the filesytem app launch */
+static void scroll_to_home() {
+    // printf("EXEC :: scroll_to_home()\n\n");
+    lv_obj_scroll_to_view(contact_objects[1], LV_ANIM_OFF);
+}
+
+/* Scroll to screen clicked in the clickback call */
+static void scroll_to_screen(lv_event_t* e) {
+    int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
+    // printf("\nClicked Filesystem Element: %d\n\n",screen_index);
+    lv_obj_scroll_to_view(contact_objects[screen_index], LV_ANIM_OFF);
+    lv_event_stop_bubbling(e); // Stop event bubbling
+}
+
+static int calc_scroll_height(int ttl_rows) {
+    // printf("\n\nCalc Scroll Rows: %d\n",ttl_rows);
+    ttl_height = ttl_rows * 52;
+    // printf("Calc Scroll Height: %d\n",ttl_height);
+    return ttl_height;
+}
+
+static int calc_scroll_offset(int ttl_rows) {
+    int off_mult;
+    if(ttl_rows <= 10) {
+        ttl_offset = 90;
+    } else {
+        ttl_offset = ttl_rows * 22;
+    }
+    // printf("Calc Scroll Offset: %d\n",ttl_offset);
+    return ttl_offset;
+}
+
+static void image_click_event_cb(lv_event_t* e) {
+    lv_event_code_t code = lv_event_get_code(e);
+    if (code == LV_EVENT_CLICKED) {
+        // printf("\nScrolling panel has been clicked!\n");
+    }
+}
+
+
+/* Your Contacts */
+// 
+// void contacts_list_init(lv_obj_t * contacts_page) {
+//     lv_obj_t * image = lv_img_create(contacts_page);
+void contacts_list_init(lv_obj_t * contacts_01_view_page) {
+    lv_obj_t * image = lv_img_create(contacts_01_view_page);
+    contact_objects[1] = image;
+
     lv_img_set_src(image, &Background);
 
     /* Calculate total Contact records */
     printf("\nCalculate contact records...\n");
     for(ttl_items = 0; contacts_01_list[ttl_items].contact_id != "end"; ttl_items++) {
-        total_contact_items = ttl_items+1;
-        printf("Item count: %d -- contact_id: %s\n",total_contact_items,contacts_01_list[ttl_items].contact_id);
+        ttl_favorites_menu_items = ttl_items+1;
+        printf("Item count: %d -- contact_id: %s\n",ttl_favorites_menu_items,contacts_01_list[ttl_items].contact_id);
     }
-    printf("\nTotal Records: %d\n\n",total_contact_items);
+    printf("\nTotal Records: %d\n\n",ttl_favorites_menu_items);
 
     /* Build the Contact record list for display */
     printf("Building each Contact record for display\n");
-    for(int j = 0; j < total_contact_items; j++) {
+    for(int j = 0; j < ttl_favorites_menu_items; j++) {
         if(contacts_01_list[j].contact_id == "end") {
             printf("item: %d -- contact_notes: %s\n",j,contacts_01_list[j].contact_notes);
             break;
@@ -130,10 +210,10 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_img_set_src(page_header, &Contacts_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    /* Add the text message list heading - NOT NEEDED FOR THIS APP */
+    /* Add the contacts list heading */
     lv_label_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 112);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Favorites");
     lv_obj_set_style_text_color(list_name, lv_color_hex(CONTACT_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
@@ -141,7 +221,7 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     // Add a list item separator line below the list item header
     top_of_list_items = lv_img_create(image);
     lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -97);
+    lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -127);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
     lv_point_t left = { LIST_LEFT_ALIGNED, -220};
@@ -149,18 +229,27 @@ void contacts_list_init(lv_obj_t * contacts_page) {
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_contact_items];
+    lv_obj_t * list_item_separator[ttl_favorites_menu_items];
 
-    /* Add (simulated) contacts as clickable buttons*/
-    for (int i = 0; i < total_contact_items; i++) {
+    static lv_style_t name_style;
+    lv_style_init(&name_style);
 
-        left.y = left.y + offset;
-        right.y = right.y + offset;
+    // printf("Screen number: 1\n");
 
-        offset =  -48 + (62 * i);
+    /* Set the screen number counter to the first visible sub-screen for the filesystem */
+    int scr_nbr = 2;
+
+    /* Add (simulated) Favorites list of Contacts */
+    for(favorites_menu_record = 0; favorites_menu_record < ttl_favorites_menu_items; favorites_menu_record++) {
+    // for(int i = 0; i < ttl_favorites_menu_items; i++) {
+        offset = 121 + (52 * favorites_menu_record);
+
+        // left.y = left.y + offset;
+        // right.y = right.y + offset;
+        // offset =  -48 + (62 * i);
 
         /* Calculate if the NAME field is greater than or equal to 25 characters */
-        name_string = contacts_01_list[i].contact_name;
+        name_string = contacts_01_list[favorites_menu_record].contact_name;
         name_count = strlen(name_string);
 
         /* Contact NAME field */
@@ -169,11 +258,11 @@ void contacts_list_init(lv_obj_t * contacts_page) {
 
         /* Calculate and then truncate if the NAME field is greater than or equal to 25 characters; then insert an ellipsis in place of the long string */
         if(name_count >= 37) {
-            lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
+            lv_label_set_text(contact_name, contacts_01_list[favorites_menu_record].contact_name);
             lv_label_cut_text(contact_name,35,name_count);
             lv_label_ins_text(contact_name,37,"...");
         } else {
-            lv_label_set_text(contact_name, contacts_01_list[i].contact_name);
+            lv_label_set_text(contact_name, contacts_01_list[favorites_menu_record].contact_name);
         }
 
         /* Contact Name field */
@@ -182,9 +271,9 @@ void contacts_list_init(lv_obj_t * contacts_page) {
         lv_obj_set_style_text_font(contact_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
         /* Add a list item separator line below the list item text */
-        list_item_separator[i] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
+        list_item_separator[favorites_menu_record] = lv_img_create(image);
+        lv_img_set_src(list_item_separator[favorites_menu_record], &Linez);
+        lv_obj_align(list_item_separator[favorites_menu_record], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 12);
     }
 
     /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
@@ -208,7 +297,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     render_back_button(image, back_home_button_cb);
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[total_contact_items];
+    lv_obj_t * list_item_separator[ttl_favorites_menu_items];
 
 /* INITIALS-OVER-IMAGE ELEMENT HERE */
     /* Contact Initials Background image */
@@ -404,12 +493,13 @@ void contacts_menu_setup(void)
     lv_obj_set_scroll_snap_x(contacts_page, LV_SCROLL_SNAP_CENTER);
     lv_obj_set_scrollbar_mode(contacts_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
 
+    /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
+    printf("\nCONTACTS VIEW launch...\n");
+    contacts_view(contacts_page);
+
     /* MAIN-SCREEN: Display the list of text messages: unread and read comingled together */
-    printf("CONTACTS LIST init...\n");
+    printf("\nCONTACTS LIST init...\n");
     contacts_list_init(contacts_page);
 
-    /* MESSAGE VIEW: Display the text message FROM and MESSAGE */
-    printf("CONTACTS VIEW launch...\n");
-    contacts_view(contacts_page);
 
 }

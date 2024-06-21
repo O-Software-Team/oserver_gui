@@ -84,8 +84,8 @@ typedef struct {
     char * contact_company_name;
     char * contact_notes;
     // char * contact_status;
-    // void (* page_handler)(lv_obj_t *);
     lv_img_dsc_t * contact_status;
+    void (* page_handler)(lv_obj_t *);
     // bool active;
 } contacts_item;
 
@@ -113,6 +113,28 @@ typedef struct {
     void (* page_handler)(lv_obj_t *);
     // bool active;
 } filesystem_item;
+
+typedef struct {
+    char * menu_pre;
+    char * menu_italic;
+    int lx_offset;
+    int mx_offset;
+    int rx_offset;
+    char * settings_id;
+    char * settings_name;
+    char * settings_admin;
+    char * settings_group;
+    char * settings_permissions;
+    char * settings_type;
+    char * settings_state;
+    char * settings_description;
+    char * settings_summary;
+    char * settings_info;
+    lv_img_dsc_t * settings_icon;
+    void (* page_handler)(lv_obj_t *);
+    // lv_img_dsc_t * txtmsg_status;
+    // bool active;
+} settings_item;
 
 enum security {ADMIN = 0, FRIEND};
 
