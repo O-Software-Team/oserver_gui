@@ -70,8 +70,8 @@ static int back_to_fs = 1;
 
 /* Scroll to the filesystem home screen as the final step in the filesytem app launch */
 static void quit_application() {
-    printf("EXEC :: exiting()\n\n");
-    usleep(3000000);
+    printf("\n\nEXEC :: exiting()\n\n");
+    usleep(2250000);
     exit(0);
 }
 
@@ -125,6 +125,12 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
 
 /***  HEADING ELEMENTS  ***/
 
+    static lv_style_t power_off_style_img;
+    lv_style_init(&power_off_style_img);
+    lv_style_set_img_recolor(&power_off_style_img, lv_color_hex(0xDD4949));
+    lv_style_set_img_recolor_opa(&power_off_style_img, LV_OPA_COVER);
+    lv_style_set_text_font(&power_off_style_img, &NeueHaasDisplayLight_20);
+
     static lv_style_t back_button_style;
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -140,14 +146,14 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
     lv_obj_t * back_image = lv_img_create(image);
     lv_img_set_src(back_image, &Icon_Back);
     lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
-    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_add_style(back_image, &power_off_style_img, 0);
 
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
     lv_label_set_recolor(back_label, true);
     lv_label_set_text(back_label, "Power Off");
     lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
-    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(0xDD4949), 0);
     lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
 }
 
