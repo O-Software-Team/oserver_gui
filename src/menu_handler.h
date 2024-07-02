@@ -126,11 +126,13 @@ typedef struct {
     char * settings_group;
     char * settings_permissions;
     char * settings_type;
-    char * settings_state;
+    bool * settings_state;
     char * settings_description;
     char * settings_summary;
     char * settings_info;
     lv_img_dsc_t * settings_icon;
+    lv_font_t * settings_font;
+    // lv_color_t * settings_color;
     void (* page_handler)(lv_obj_t *);
     // lv_img_dsc_t * txtmsg_status;
     // bool active;

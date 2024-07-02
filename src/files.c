@@ -997,8 +997,6 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     image_objects[7] = image;
     lv_img_set_src(image, &Background);
 
-    lv_obj_set_user_data(image, "fs_07");
-
     /* Calculate total filesystem_07 -- your documents */
     // printf("\nCalculate filesystem_07 -- your documents...\n");
     for(spreadsheet_item = 0; filesystem_07_list[spreadsheet_item].file_id != "end"; spreadsheet_item++) {
@@ -1188,9 +1186,9 @@ void file_menu_setup(void)
     // printf("FILESYSTEM_07 VIEW launch...\n");
     filesystem_07_view(filesystem_page);
 
-/***                                     ***
+/***                                       ***
  ***  FILESYSTEM_01 MUST BE LAUNCHED LAST  ***
- ***                                     ***/
+ ***                                       ***/
 
     /* MAIN-SCREEN: Display the list items from filesystem_01 -- this is what the user will see to allow drilldown into the local filesystem */
     // printf("FILESYSTEM_01 -- PRIMARY LIST init...\n");
