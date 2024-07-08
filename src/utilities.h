@@ -25,13 +25,22 @@ extern "C" {
 /**********************
  *      INLINES
  **********************/
-/* Boolean check if a string is equal to "end" */
-static inline int is_end(const char *str) {
-    if (str && *str && !strcmp(str, "end")) {
+
+/* Boolean check for string equality: null pointer(s) are taken to be inequality
+ * conditios (for now) 
+ */
+static inline int is_eq(const char *s1, const char *s2) {
+    if (s1 && s2 && !strcmp(s1, s2)) {
         return 1;
     }
     return 0;
 }
+
+/* Boolean check if a string is equal to "end" */
+static inline int is_end(const char *str) {
+    return is_eq(str, "end");
+}
+
 
 /**********************
  * GLOBAL PROTOTYPES

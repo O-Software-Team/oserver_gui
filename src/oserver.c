@@ -4,10 +4,8 @@
 #include "utilities.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
-/* O App list and item ID variables */
-#define DEVICE_PAGE_MAX 4
-#define DEVICE_FOUND_MAX 4
 
 /* O App alignment for elements and Item separator lines */
 #define LIST_ITEM_TEXTAREA_HEIGHT 290
@@ -41,14 +39,7 @@ LV_IMG_DECLARE(O_App_Heading_Title);
 #undef DAN_CODE
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-const char * device_name_string;
-int device_name_count;
-static lv_obj_t * top_of_list_items;
-
-static lv_obj_t * trusted_device_btn_list[DEVICE_PAGE_MAX];
-static lv_timer_t * sleeptimer;
-
-static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
+static menu_item devices_active_info[] = {
     {.menu_pre = "Kevin's Work iPhone",   .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
     {.menu_pre = "Mark's iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
     {.menu_pre = "Alice's Macbook: Personal",  .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_MacBook},
@@ -56,13 +47,21 @@ static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
     {.menu_pre = "Office iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
     {.menu_pre = "Mary's iPhone",    .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
 };
+static const int DEVICE_PAGE_MAX = sizeof(devices_active_info) / sizeof(menu_item);
 
-static menu_item devices_found_info[DEVICE_FOUND_MAX] = {
+static menu_item devices_found_info[] = {
     {.menu_pre = "Bob's iPhone",   .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
     {.menu_pre = "Marks iPad",     .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
     {.menu_pre = "Bob's Macbook",  .active = false, .security_status = FRIEND, .icon = &Icon_MacBook},
     {.menu_pre = "Orna's iPad",    .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
 };
+static const int DEVICE_FOUND_MAX = sizeof(devices_found_info) / sizeof(menu_item);
+
+const char * device_name_string;
+int device_name_count;
+static lv_obj_t * top_of_list_items;
+static lv_obj_t ** trusted_device_btn_list;
+static lv_timer_t * sleeptimer;
 
 static void device_selected_cb(lv_event_t * e) { printf("Selected device for total control...\n"); }
 
@@ -426,6 +425,11 @@ void devices_connected_init(lv_obj_t * device_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 #endif // DAN_CODE
+    
+    /* Make the list of trusted device buttons if DNE */
+    if (!trusted_device_btn_list) {
+        trusted_device_btn_list = calloc(DEVICE_PAGE_MAX, sizeof(lv_obj_t *));
+    }
 
     /* Add (simulated) devices entries as clickable buttons*/
     for (int i = 0; i < DEVICE_PAGE_MAX; i++)

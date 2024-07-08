@@ -485,7 +485,7 @@ static void settings_02_view(lv_obj_t * settings_02_view_page) {
 
     /* Calculate total settings_03 -- main list */
     printf("\nCalculate settings_03 -- storage list...\n");
-    for(display_app_item = 0; settings_03_list[display_app_item].settings_id != "end"; display_app_item++) {
+    for(display_app_item = 0; !is_end(settings_03_list[display_app_item].settings_id); display_app_item++) {
         ttl_display_app_items = display_app_item+1;
         printf("Item count: %d -- settings_id: %s\n",ttl_display_app_items,settings_03_list[display_app_item].settings_id);
     }
@@ -494,7 +494,7 @@ static void settings_02_view(lv_obj_t * settings_02_view_page) {
     /* Build the Connection record list for display */
     printf("Building each settings_03 record for display\n");
     for(int j = 0; j < ttl_display_app_items; j++) {
-        if(settings_03_list[j].settings_id == "end") {
+        if(is_end(settings_03_list[j].settings_id)) {
             printf("item: %d -- settings_name: %s\n",j,settings_03_list[j].settings_name);
             break;
         } else {
@@ -562,7 +562,7 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
 
     /* Calculate total settings_03 -- main list */
     printf("\nCalculate settings_03 -- storage list...\n");
-    for(storage_app_item = 0; settings_03_list[storage_app_item].settings_id != "end"; storage_app_item++) {
+    for(storage_app_item = 0; !is_end(settings_03_list[storage_app_item].settings_id); storage_app_item++) {
         ttl_storage_app_items = storage_app_item+1;
         printf("Item count: %d -- settings_id: %s\n",ttl_storage_app_items,settings_03_list[storage_app_item].settings_id);
     }
@@ -571,7 +571,7 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
     /* Build the Connection record list for display */
     printf("Building each settings_03 record for display\n");
     for(int j = 0; j < ttl_storage_app_items; j++) {
-        if(settings_03_list[j].settings_id == "end") {
+        if(is_end(settings_03_list[j].settings_id)) {
             printf("item: %d -- settings_name: %s\n",j,settings_03_list[j].settings_name);
             break;
         } else {
@@ -680,11 +680,11 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
         storage_icon[storage_list_counter] = lv_img_create(image);
         lv_img_set_src(storage_icon[storage_list_counter], settings_03_list[storage_list_counter].settings_icon);
 
-        if(settings_03_list[storage_list_counter].settings_type == "O_SCALE_RED") {
+        if(is_eq(settings_03_list[storage_list_counter].settings_type, "O_SCALE_RED")) {
             lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_RED), 0);
-        } else if(settings_03_list[storage_list_counter].settings_type == "O_SCALE_ORANGE") {
+        } else if(is_eq(settings_03_list[storage_list_counter].settings_type, "O_SCALE_ORANGE")) {
             lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_ORANGE), 0);
-        } else if(settings_03_list[storage_list_counter].settings_type == "O_SCALE_CREAM") {
+        } else if(is_eq(settings_03_list[storage_list_counter].settings_type, "O_SCALE_CREAM")) {
             lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_CREAM), 0);
         } else {
             lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_GREY), 0);
