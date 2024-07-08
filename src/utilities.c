@@ -10,12 +10,12 @@
  */
 void add_separator_line(lv_point_t *a, lv_point_t *b, lv_obj_t * parent)
 {
-    lv_point_t *lv_line_points[] = {
-        a,
-        b
+    const lv_point_t lv_line_points[] = {
+        *a,
+        *b
     };
 
-    int size = sizeof(lv_line_points) / (sizeof(lv_point_t *));
+    int size = sizeof(lv_line_points) / (sizeof(lv_point_t));
 
     /*Create style*/
     static lv_style_t style_line;

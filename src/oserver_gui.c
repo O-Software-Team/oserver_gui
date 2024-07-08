@@ -142,11 +142,11 @@ void main_menu_init(void) {
     lv_obj_t * icon;
     lv_obj_t * btn;
 
-    lv_label_t * label_pre;
-    lv_label_t * label;
-    lv_label_t * label_post;
+    lv_obj_t * label_pre;
+    lv_obj_t * label;
+    lv_obj_t * label_post;
 
-    lv_label_t * label_index;
+    lv_obj_t * label_index;
 
     static lv_style_t label_style;
     static lv_style_t italic_style;

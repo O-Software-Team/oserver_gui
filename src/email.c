@@ -166,11 +166,11 @@ const char * message_string;
 int message_count;
 
 /* Set variables for all the message content fields: ID, FROM, SUBJECT, MESSAGE */
-lv_label_t * email_id;
-lv_label_t * email_from;
-lv_label_t * email_subject;
-lv_label_t * email_status;
-lv_label_t * email_message;
+lv_obj_t * email_id;
+lv_obj_t * email_from;
+lv_obj_t * email_subject;
+lv_obj_t * email_status;
+lv_obj_t * email_message;
 lv_obj_t * top_of_list_items;
 lv_obj_t * spacer;
 
@@ -179,7 +179,7 @@ void email_list_init(lv_obj_t * email_page) {
     lv_obj_t * image = lv_img_create(email_page);
     lv_img_set_src(image, &Background);
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     /* 'Filter' button to filter the email messages */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -192,7 +192,7 @@ void email_list_init(lv_obj_t * email_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the email list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, 30, 112);
     lv_label_set_text(list_name, "All emails");
@@ -293,7 +293,7 @@ void email_message_view(lv_obj_t * email_message_page) {
     lv_img_set_src(image, &Background);
 
     /* Back button */
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     /* Calculate if the SUBJECT field is greater than or equal to 37 characters */
     subject_string = email_list[EMAIL_MESSAGE_ID].email_subject;

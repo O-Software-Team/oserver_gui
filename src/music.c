@@ -44,28 +44,28 @@ void music_list_init(lv_obj_t * music_page) {
     lv_obj_center(image);
 
 #endif // ALL_SCROLL
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     static lv_style_t page_header_style;
     lv_style_init(&page_header_style);
     lv_style_set_text_font(&page_header_style, &NeueHaasDisplayLight_18);
 
     /* Add the Page header at the top*/
-    lv_label_t * pre_header = lv_label_create(image);
+    lv_obj_t * pre_header = lv_label_create(image);
     lv_label_set_recolor(pre_header, true);
     lv_obj_align(pre_header, LV_ALIGN_TOP_MID, -20, 24);
     lv_obj_add_style(pre_header, &page_header_style, LV_PART_MAIN);
     lv_label_set_text(pre_header, "A");
     lv_obj_set_style_text_color(pre_header, lv_color_white(), 0);
 
-    lv_label_t * header = lv_label_create(image);
+    lv_obj_t * header = lv_label_create(image);
     lv_label_set_recolor(header, true);
     lv_obj_align(header, LV_ALIGN_TOP_MID, -8, 21);
     lv_obj_add_style(header, &italic_style, LV_PART_MAIN);
     lv_label_set_text(header, "r");
     lv_obj_set_style_text_color(header, lv_color_white(), 0);
 
-    lv_label_t * post_header = lv_label_create(image);
+    lv_obj_t * post_header = lv_label_create(image);
     lv_label_set_recolor(post_header, true);
     lv_obj_align(post_header, LV_ALIGN_TOP_MID, 12, 24);
     lv_obj_add_style(post_header, &page_header_style, LV_PART_MAIN);
@@ -73,7 +73,7 @@ void music_list_init(lv_obj_t * music_page) {
     lv_obj_set_style_text_color(post_header, lv_color_white(), 0);
 
     /* Add the item List heading*/
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 85);
     lv_label_set_text(list_name, "Alphabetical Order");
@@ -141,7 +141,7 @@ void music_player_init(lv_obj_t * music_page) {
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
-        static lv_style_t current_song_style;
+    static lv_style_t current_song_style;
     lv_style_init(&current_song_style);
 
     lv_obj_t * album_icon = lv_img_create(image);
@@ -158,21 +158,20 @@ void music_player_init(lv_obj_t * music_page) {
     lv_img_set_src(pause, &Pause);
     lv_obj_align(pause, LV_ALIGN_TOP_MID, 0, 300);
 
-        lv_obj_t * rwnd = lv_img_create(image);
+    lv_obj_t * rwnd = lv_img_create(image);
     lv_img_set_src(rwnd, &RWND);
     lv_obj_align(rwnd, LV_ALIGN_TOP_MID, -85, 325);
 
-        lv_obj_t * ffwd = lv_img_create(image);
+    lv_obj_t * ffwd = lv_img_create(image);
     lv_img_set_src(ffwd, &FFWD);
     lv_obj_align(ffwd, LV_ALIGN_TOP_MID, 85, 325);
 
-        lv_obj_t * current_song = lv_label_create(image);
+    lv_obj_t * current_song = lv_label_create(image);
     lv_label_set_long_mode(current_song, LV_LABEL_LONG_SCROLL_CIRCULAR);     /*Circular scroll*/
     lv_obj_set_width(current_song, 200);
     lv_label_set_text(current_song, "How Come You Don't Call Me");
     lv_obj_align(current_song, LV_ALIGN_TOP_MID, 0, 240);
-    lv_style_set_text_font(&current_song_style, &NeueHaasDisplayRoman_18
-    );
+    lv_style_set_text_font(&current_song_style, &NeueHaasDisplayRoman_18);
     lv_obj_add_style(current_song, &current_song_style, LV_PART_MAIN);
     lv_obj_set_style_text_color(current_song, lv_color_lighten(lv_color_black(), 80), 0);
 

@@ -246,7 +246,7 @@ void total_control_item_init(lv_obj_t * oserver_page) {
     lv_obj_center(image);
 #endif // ALL_SCROLL
 
-    render_back_button(image, back_button_cb);
+    render_back_button(image, (back_button_cb_t)back_button_cb);
 
     /* The 'Cancel' button graphic */
     lv_obj_t * cancel = lv_label_create(image);
@@ -271,8 +271,8 @@ void total_control_item_init(lv_obj_t * oserver_page) {
     lv_obj_align(device_found, LV_ALIGN_TOP_MID, 0, 20);
     lv_obj_add_style(device_found, &header_style, LV_PART_MAIN);
 
-        /* Add the item List heading*/
-    lv_label_t * list_name = lv_label_create(image);
+    /* Add the item List heading*/
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 85);
     lv_label_set_text(list_name, "Configuration");
@@ -381,7 +381,7 @@ void devices_connected_init(lv_obj_t * device_page) {
     lv_obj_center(image);
 #endif // ALL_SCROLL
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     /* 'Filter' button to filter the Device items */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -394,7 +394,7 @@ void devices_connected_init(lv_obj_t * device_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the devices connected list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
     lv_label_set_text(list_name, "Devices connected");

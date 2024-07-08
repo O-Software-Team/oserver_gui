@@ -129,7 +129,7 @@ void device_connected_init(lv_obj_t * device_page) {
     lv_obj_center(image);
 
 #endif // ALL_SCROLL
-    render_back_button(image, back_button_cb);
+    render_back_button(image, (back_button_cb_t)back_button_cb);
 
     /* The 'Cancel' button graphic */
     lv_obj_t * cancel = lv_label_create(image);
@@ -251,7 +251,7 @@ void device_code_init(lv_obj_t * device_page)
     lv_obj_center(image);
 
 #endif // ALL_SCROLL
-    render_back_button(image, back_button_cb);
+    render_back_button(image, (back_button_cb_t)back_button_cb);
 
     /* 'Cancel' button to cancel the security challenge process*/
     lv_obj_t * cancel = lv_label_create(image);
@@ -357,7 +357,7 @@ void device_code_init(lv_obj_t * device_page)
     lv_obj_set_style_text_color(instructions, lv_palette_main(LV_PALETTE_GREY), 0);
     lv_obj_align(instructions, LV_ALIGN_DEFAULT, 140, 300);
 
-    render_back_button(image, back_button_cb);
+    render_back_button(image, (back_button_cb_t)back_button_cb);
 }
 
 /* After selecting the '+' (add device) button on the devices page list more devices in the area */
@@ -372,7 +372,7 @@ void devices_found_init(lv_obj_t * device_page) {
     lv_obj_center(image);
 
 #endif // ALL_SCROLL
-    render_back_button(image, back_button_cb);
+    render_back_button(image, (back_button_cb_t)back_button_cb);
 
     static lv_style_t page_header_style;
     lv_style_init(&page_header_style);
@@ -384,7 +384,7 @@ void devices_found_init(lv_obj_t * device_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the item List heading*/
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 85);
     lv_label_set_text(list_name, "List of devices found");
@@ -448,7 +448,7 @@ void device_trusted_init(lv_obj_t * device_page) {
     lv_obj_center(image);
 
 #endif // ALL_SCROLL
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     static lv_style_t page_header_style;
     lv_style_init(&page_header_style);
@@ -472,7 +472,7 @@ void device_trusted_init(lv_obj_t * device_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the item List heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, 25, 85);
     lv_label_set_text(list_name, "List of devices");

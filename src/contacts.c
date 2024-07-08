@@ -104,19 +104,19 @@ static const char * notes_string;
 static int notes_count;
 
 /* Set variables for all the contacts content fields: ID, NAME, EMAIL, PHONE, etc */
-lv_label_t * contact_name;
-lv_label_t * contact_p_email;
-lv_label_t * contact_m_phone;
-lv_label_t * contact_company_name;
-lv_label_t * contact_notes;
+lv_obj_t * contact_name;
+lv_obj_t * contact_p_email;
+lv_obj_t * contact_m_phone;
+lv_obj_t * contact_company_name;
+lv_obj_t * contact_notes;
 
 lv_obj_t * contact_initials_bg;
-lv_label_t * contact_initials;
+lv_obj_t * contact_initials;
 
-lv_label_t * heading_mobile;
-lv_label_t * heading_email;
-lv_label_t * heading_company;
-lv_label_t * heading_notes;
+lv_obj_t * heading_mobile;
+lv_obj_t * heading_email;
+lv_obj_t * heading_company;
+lv_obj_t * heading_notes;
 
 // lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
@@ -198,7 +198,7 @@ void contacts_list_init(lv_obj_t * contacts_01_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     /* 'Filter' button to filter the text messages */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -211,7 +211,7 @@ void contacts_list_init(lv_obj_t * contacts_01_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the contacts list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Favorites");
@@ -294,7 +294,7 @@ void contacts_view(lv_obj_t * contacts_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Back button */
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     /* Set the list_item_separator object here */
     lv_obj_t * list_item_separator[ttl_favorites_menu_items];

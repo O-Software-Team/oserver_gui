@@ -198,7 +198,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
         }
     }
 
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -211,7 +211,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your filesystem");
@@ -357,7 +357,7 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your folders");
@@ -491,7 +491,7 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your movies");
@@ -634,7 +634,7 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your images");
@@ -772,7 +772,7 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your applications");
@@ -915,7 +915,7 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your documents");
@@ -1058,7 +1058,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, CONTACT_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your spreadsheets");
@@ -1210,7 +1210,7 @@ void file_menu_setup(void)
 
     // menu_dispatch_table[FILES_VEC] = files_page;
 
-    // render_back_button(background, back_home_button_cb);
+    // render_back_button(background, (back_button_cb_t)back_home_button_cb);
     // lv_obj_center(files_page);
     // lv_obj_set_style_bg_color(files_page, lv_color_lighten(lv_color_black(), 60), 0);
     // lv_obj_set_flex_flow(files_page, LV_FLEX_FLOW_ROW);

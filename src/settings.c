@@ -262,7 +262,7 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
     }
 
 /***  HEADING ELEMENTS  ***/
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     /* 'Filter' button to filter the list */
     lv_obj_t * filter_image = lv_img_create(image);
@@ -275,7 +275,7 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your settings");
@@ -402,7 +402,7 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your connections");
@@ -514,7 +514,7 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
 
 /***  MAIN LIST ITEMS  ***/
     /* Add the storage heading */
-    lv_label_t * storage_name = lv_label_create(image);
+    lv_obj_t * storage_name = lv_label_create(image);
     lv_label_set_recolor(storage_name, true);
     lv_obj_align(storage_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 92);
     lv_label_set_text(storage_name, "Your storage");
@@ -772,7 +772,7 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
     /* Add the file list heading */
-    lv_label_t * list_name = lv_label_create(image);
+    lv_obj_t * list_name = lv_label_create(image);
     lv_label_set_recolor(list_name, true);
     lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 92);
     lv_label_set_text(list_name, "Your system");

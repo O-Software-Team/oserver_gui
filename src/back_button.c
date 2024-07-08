@@ -58,7 +58,7 @@ void render_back_button(lv_obj_t * parent, void (* page_handler)(lv_obj_t *))
     lv_obj_t * back = lv_btn_create(parent);
     lv_obj_set_size(back, 50, 50);
     lv_obj_align(back, LV_ALIGN_DEFAULT, 30, 10);
-    lv_obj_add_event_cb(back, page_handler, LV_EVENT_CLICKED, 0);
+    lv_obj_add_event_cb(back, (lv_event_cb_t)page_handler, LV_EVENT_CLICKED, 0);
     lv_obj_set_user_data(back, parent);
     lv_obj_set_style_opa(back, LV_OPA_0, LV_PART_MAIN);
 }

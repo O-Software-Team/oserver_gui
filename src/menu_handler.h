@@ -182,6 +182,9 @@ typedef struct {
     const lv_img_dsc_t * icon;
 } menu_item;
 
+// casting convenience typedef for use w/render_back_button()
+typedef void (*back_button_cb_t)(lv_obj_t *);
+
 /**********************
  * GLOBAL PROTOTYPES
  **********************/

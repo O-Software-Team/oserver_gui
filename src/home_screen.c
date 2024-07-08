@@ -18,8 +18,8 @@ lv_obj_t * hours_low;
 lv_obj_t * mins_high;
 lv_obj_t * mins_low;
 
-lv_label_t * day_of_month;
-lv_label_t * month_of_year;
+lv_obj_t * day_of_month;
+lv_obj_t * month_of_year;
 
 void update_time(void)
 {
@@ -190,7 +190,7 @@ void display_date(lv_obj_t * parent)
     /*
      * Short delay and fill in a set of PIN numbers
      */
-    lv_timer_t * periodic_time_update = lv_timer_create(update_time, MINUTE, NULL);
+    lv_timer_t * periodic_time_update = lv_timer_create((lv_timer_cb_t)update_time, MINUTE, NULL);
     lv_timer_set_repeat_count(periodic_time_update, -1);
 }
 

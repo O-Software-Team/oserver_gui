@@ -75,7 +75,7 @@ void calendar_init(lv_obj_t * calendar_page) {
     lv_obj_center(image);
 
 #endif // ALL_SCROLL
-    render_back_button(image, back_home_button_cb);
+    render_back_button(image, (back_button_cb_t)back_home_button_cb);
 
     time_t T;
     struct tm *t;
