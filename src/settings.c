@@ -244,7 +244,7 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
 
     /* Calculate total settings_00 -- main list */
     // printf("\nCalculate settings_00 -- main settings list...\n");
-    for(settings_app_item = 0; settings_00_list[settings_app_item].settings_id != "end"; settings_app_item++) {
+    for(settings_app_item = 0; !is_end(settings_00_list[settings_app_item].settings_id); settings_app_item++) {
         ttl_settings_items = settings_app_item+1;
         // printf("Item count: %d -- settings_id: %s\n",ttl_settings_items,settings_00_list[settings_app_item].settings_id);
     }
@@ -253,7 +253,7 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each settings_00 record for display\n");
     for(int j = 0; j < ttl_settings_items; j++) {
-        if(settings_00_list[j].settings_id == "end") {
+        if(is_end(settings_00_list[j].settings_id)) {
             // printf("item: %d -- settings_name: %s\n",j,settings_00_list[j].settings_name);
             break;
         } else {
@@ -348,7 +348,7 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
 
     /* Calculate total settings_01 -- main list */
     printf("\nCalculate settings_01 -- connection list...\n");
-    for(connection_app_item = 0; settings_01_list[connection_app_item].settings_id != "end"; connection_app_item++) {
+    for(connection_app_item = 0; !is_end(settings_01_list[connection_app_item].settings_id); connection_app_item++) {
         ttl_connection_app_items = connection_app_item+1;
         printf("Item count: %d -- settings_id: %s\n",ttl_connection_app_items,settings_01_list[connection_app_item].settings_id);
     }
@@ -357,7 +357,7 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
     /* Build the Connection record list for display */
     printf("Building each settings_01 record for display\n");
     for(int j = 0; j < ttl_connection_app_items; j++) {
-        if(settings_01_list[j].settings_id == "end") {
+        if(is_end(settings_01_list[j].settings_id)) {
             printf("item: %d -- settings_name: %s\n",j,settings_01_list[j].settings_name);
             break;
         } else {
@@ -718,7 +718,7 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
 
     /* Calculate total settings_05 -- system list */
     printf("\nCalculate settings_05 -- system list...\n");
-    for(system_app_item = 0; settings_05_list[system_app_item].settings_id != "end"; system_app_item++) {
+    for(system_app_item = 0; !is_end(settings_05_list[system_app_item].settings_id); system_app_item++) {
         ttl_system_app_items = system_app_item+1;
         printf("Item count: %d -- settings_id: %s\n",ttl_system_app_items,settings_05_list[system_app_item].settings_id);
     }
@@ -727,7 +727,7 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
     /* Build the System record list for display */
     printf("Building each settings_05 record for display\n");
     for(int j = 0; j < ttl_system_app_items; j++) {
-        if(settings_05_list[j].settings_id == "end") {
+        if(is_end(settings_05_list[j].settings_id)) {
             printf("item: %d -- settings_name: %s\n",j,settings_05_list[j].settings_name);
             break;
         } else {

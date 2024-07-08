@@ -180,7 +180,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
 
     /* Calculate total Filesystem_01 records */
     // printf("\nCalculate filesystem_01 -- your filesystem...\n");
-    for(main_menu_item = 0; filesystem_01_list[main_menu_item].file_id != "end"; main_menu_item++) {
+    for(main_menu_item = 0; !is_end(filesystem_01_list[main_menu_item].file_id); main_menu_item++) {
         ttl_main_menu_items = main_menu_item+1;
         // printf("Item count: %d -- file_id: %s\n",ttl_main_menu_items,filesystem_01_list[main_menu_item].file_id);
     }
@@ -189,7 +189,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each Filesystem_01 record for display\n");
     for(int e = 0; e < ttl_main_menu_items; e++) {
-        if(filesystem_01_list[e].file_id == "end") {
+        if(is_end(filesystem_01_list[e].file_id)) {
             // printf("item: %d -- file_fullname: %s\n",e,filesystem_01_list[e].file_fullname);
             break;
         } else {
@@ -296,7 +296,7 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
     /* Calculate total Filesystem_02 -- your folders */
     // printf("\nCalculate filesystem_02 -- your folders...\n");
-    for(folder_item = 0; filesystem_02_list[folder_item].file_id != "end"; folder_item++) {
+    for(folder_item = 0; !is_end(filesystem_02_list[folder_item].file_id); folder_item++) {
         ttl_folder_items = folder_item+1;
         // printf("Item count: %d -- file_id: %s\n",ttl_folder_items,filesystem_02_list[folder_item].file_id);
     }
@@ -305,7 +305,7 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each Filesystem_02 record for display\n");
     for(int j = 0; j < ttl_folder_items; j++) {
-        if(filesystem_02_list[j].file_id == "end") {
+        if(is_end(filesystem_02_list[j].file_id)) {
             // printf("item: %d -- file_fullname: %s\n",j,filesystem_02_list[j].file_fullname);
             break;
         } else {
@@ -432,7 +432,7 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     /* Calculate total filesystem_03 -- your movies */
     // printf("\nCalculate filesystem_03 -- your movies...\n");
-    for(movie_item = 0; filesystem_03_list[movie_item].file_id != "end"; movie_item++) {
+    for(movie_item = 0; !is_end(filesystem_03_list[movie_item].file_id); movie_item++) {
         ttl_movie_items = movie_item+1;
         // printf("Item count: %d -- file_id: %s\n",ttl_movie_items,filesystem_03_list[movie_item].file_id);
     }
@@ -441,7 +441,7 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each filesystem_03 record for display\n");
     for(int k = 0; k < ttl_movie_items; k++) {
-        if(filesystem_03_list[k].file_id == "end") {
+        if(is_end(filesystem_03_list[k].file_id)) {
             // printf("item: %d -- file_fullname: %s\n",k,filesystem_03_list[k].file_fullname);
             break;
         } else {
@@ -575,7 +575,7 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     /* Calculate total filesystem_04 -- your images */
     // printf("\nCalculate filesystem_04 -- your images...\n");
-    for(image_item = 0; filesystem_04_list[image_item].file_id != "end"; image_item++) {
+    for(image_item = 0; !is_end(filesystem_04_list[image_item].file_id); image_item++) {
         ttl_image_items = image_item+1;
         // printf("Item count: %d -- file_id: %s\n",ttl_image_items,filesystem_04_list[image_item].file_id);
     }
@@ -584,7 +584,7 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each filesystem_04 record for display\n");
     for(int k = 0; k < ttl_image_items; k++) {
-        if(filesystem_04_list[k].file_id == "end") {
+        if(is_end(filesystem_04_list[k].file_id)) {
             // printf("item: %d -- file_fullname: %s\n",k,filesystem_04_list[k].file_fullname);
             break;
         } else {
@@ -713,7 +713,7 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 
     /* Calculate total filesystem_05 -- your applications */
     // printf("\nCalculate filesystem_05 -- your applications...\n");
-    for(application_item = 0; filesystem_05_list[application_item].file_id != "end"; application_item++) {
+    for(application_item = 0; !is_end(filesystem_05_list[application_item].file_id); application_item++) {
         ttl_application_items = application_item+1;
         // printf("Item count: %d -- file_id: %s\n",ttl_application_items,filesystem_05_list[application_item].file_id);
     }
@@ -722,7 +722,7 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each filesystem_05 record for display\n");
     for(int k = 0; k < ttl_application_items; k++) {
-        if(filesystem_05_list[k].file_id == "end") {
+        if(is_end(filesystem_05_list[k].file_id)) {
             // printf("item: %d -- file_fullname: %s\n",k,filesystem_05_list[k].file_fullname);
             break;
         } else {
@@ -856,7 +856,7 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 
     /* Calculate total filesystem_06 -- your documents */
     // printf("\nCalculate filesystem_06 -- your documents...\n");
-    for(document_item = 0; filesystem_06_list[document_item].file_id != "end"; document_item++) {
+    for(document_item = 0; !is_end(filesystem_06_list[document_item].file_id); document_item++) {
         ttl_document_items = document_item+1;
         // printf("Item count: %d -- file_id: %s\n",ttl_document_items,filesystem_06_list[document_item].file_id);
     }
@@ -865,7 +865,7 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each filesystem_06 record for display\n");
     for(int k = 0; k < ttl_document_items; k++) {
-        if(filesystem_06_list[k].file_id == "end") {
+        if(is_end(filesystem_06_list[k].file_id)) {
             // printf("item: %d -- file_fullname: %s\n",k,filesystem_06_list[k].file_fullname);
             break;
         } else {
@@ -999,7 +999,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 
     /* Calculate total filesystem_07 -- your documents */
     // printf("\nCalculate filesystem_07 -- your documents...\n");
-    for(spreadsheet_item = 0; filesystem_07_list[spreadsheet_item].file_id != "end"; spreadsheet_item++) {
+    for(spreadsheet_item = 0; !is_end(filesystem_07_list[spreadsheet_item].file_id); spreadsheet_item++) {
         ttl_spreadsheet_items = spreadsheet_item+1;
         // printf("Item count: %d -- file_id: %s\n",ttl_spreadsheet_items,filesystem_07_list[spreadsheet_item].file_id);
     }
@@ -1008,7 +1008,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each filesystem_07 record for display\n");
     for(int k = 0; k < ttl_spreadsheet_items; k++) {
-        if(filesystem_07_list[k].file_id == "end") {
+        if(is_end(filesystem_07_list[k].file_id)) {
             // printf("item: %d -- file_fullname: %s\n",k,filesystem_07_list[k].file_fullname);
             break;
         } else {

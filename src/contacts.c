@@ -181,7 +181,7 @@ void contacts_list_init(lv_obj_t * contacts_01_view_page) {
 
     /* Calculate total Contact records */
     // printf("\nCalculate contact records...\n");
-    for(ttl_items = 0; contacts_01_list[ttl_items].contact_id != "end"; ttl_items++) {
+    for(ttl_items = 0; !is_end(contacts_01_list[ttl_items].contact_id); ttl_items++) {
         ttl_favorites_menu_items = ttl_items+1;
         // printf("Item count: %d -- contact_id: %s\n",ttl_favorites_menu_items,contacts_01_list[ttl_items].contact_id);
     }
@@ -190,7 +190,7 @@ void contacts_list_init(lv_obj_t * contacts_01_view_page) {
     /* Build the Contact record list for display */
     // printf("Building each Contact record for display\n");
     for(int j = 0; j < ttl_favorites_menu_items; j++) {
-        if(contacts_01_list[j].contact_id == "end") {
+        if(is_end(contacts_01_list[j].contact_id)) {
             // printf("item: %d -- contact_notes: %s\n",j,contacts_01_list[j].contact_notes);
             break;
         } else {

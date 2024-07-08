@@ -8,9 +8,14 @@
  * Generic routine to render a pixel wide horizontal line between two porints.
  * Caller responsible for proper coordinate position of points on the parent.
  */
-void add_separator_line(lv_point_t * lv_line_points[], lv_obj_t * parent)
+void add_separator_line(lv_point_t *a, lv_point_t *b, lv_obj_t * parent)
 {
-    int size = sizeof(lv_line_points) / sizeof(lv_point_t);
+    lv_point_t *lv_line_points[] = {
+        a,
+        b
+    };
+
+    int size = sizeof(lv_line_points) / (sizeof(lv_point_t *));
 
     /*Create style*/
     static lv_style_t style_line;
