@@ -204,7 +204,7 @@ void main_menu_init(void) {
         lv_obj_set_size(btn, 230, 280);
         lv_obj_set_style_opa(btn, LV_OPA_0, 0);
         lv_obj_add_event_cb(btn, &menu_dispatch, LV_EVENT_LONG_PRESSED, NULL);
-        lv_obj_set_user_data(btn, main_menu_dispatch[i].menu_vec);
+        lv_obj_set_user_data(btn, (void *)(main_menu_dispatch[i].menu_vec));
 
         /* Add page icon */
         icon = lv_img_create(image_cover);
