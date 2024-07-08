@@ -44,7 +44,7 @@ typedef struct {
     char * email_from;
     char * email_subject;
     // void (* page_handler)(lv_obj_t *);
-    lv_img_dsc_t * email_status;
+    const lv_img_dsc_t * email_status;
     // bool active;
 } email_item;
 
@@ -59,7 +59,7 @@ typedef struct {
     char * txtmsg_from;
     char * txtmsg_summary;
     // void (* page_handler)(lv_obj_t *);
-    lv_img_dsc_t * txtmsg_status;
+    const lv_img_dsc_t * txtmsg_status;
     // bool active;
 } txtmsg_item;
 
@@ -84,7 +84,7 @@ typedef struct {
     char * contact_company_name;
     char * contact_notes;
     // char * contact_status;
-    lv_img_dsc_t * contact_status;
+    const lv_img_dsc_t * contact_status;
     void (* page_handler)(lv_obj_t *);
     // bool active;
 } contacts_item;
@@ -109,7 +109,7 @@ typedef struct {
     char * file_group;
     char * file_visibility;
     char * file_info;
-    lv_img_dsc_t * file_icon;
+    const lv_img_dsc_t * file_icon;
     void (* page_handler)(lv_obj_t *);
     // bool active;
 } filesystem_item;
@@ -130,7 +130,7 @@ typedef struct {
     char * settings_description;
     char * settings_summary;
     char * settings_info;
-    lv_img_dsc_t * settings_icon;
+    const lv_img_dsc_t * settings_icon;
     lv_font_t * settings_font;
     // lv_color_t * settings_color;
     void (* page_handler)(lv_obj_t *);
@@ -179,7 +179,7 @@ typedef struct {
     bool active;
     bool onboard;
     enum security security_status;
-    lv_img_dsc_t * icon;
+    const lv_img_dsc_t * icon;
 } menu_item;
 
 /**********************
