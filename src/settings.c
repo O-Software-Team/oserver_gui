@@ -9,6 +9,7 @@
 /* Initialize/populate the Settings list structs */
 #include "content/inc/settings/00.h"   /* Main screen - Settings list */
 #include "content/inc/settings/01.h"   /* Connections list */
+#include "content/test/settings/03.h"   /* Storage list */
 #include "content/inc/settings/05.h"   /* System list */
 
 /* List separator line definitions */
@@ -24,6 +25,13 @@
 
 /* Color definitions */
 #define O_YELLOW_COLOR 0xD6B932
+#define O_GREY_COLOR 0xAEB2A1
+#define O_SCALE_GREY 0xC5C1B7
+#define O_SCALE_CREAM 0xD9DFC2
+#define O_SCALE_ORANGE 0xCB6D4D
+#define O_SCALE_RED 0xB7354B
+#define O_SCALE_LIGHT_TEAL 0xC5E7E7
+#define O_SCALE_LIGHT_YELLOW 0xDABC41
 #define HEADING_SUBDUED_COLOR 0xADB1A2
 #define RESET_COLOR 0x32D642
 #define POWER_OFF_COLOR 0xDD4949
@@ -49,13 +57,13 @@ LV_IMG_DECLARE(Icon_Status_Active);
 LV_IMG_DECLARE(Icon_Status_Disable);
 LV_IMG_DECLARE(Icon_Power_Button_Yellow);
 LV_IMG_DECLARE(Icon_Refresh_Single_Yellow);
+LV_IMG_DECLARE(Icon_Bullet_Item);
 
 /* Standard list control iconography declared below */
 LV_IMG_DECLARE(Icon_Filter_Button);
 LV_IMG_DECLARE(Icon_List_Item_Divider);
 
 LV_IMG_DECLARE(Icon_Filter_White);
-LV_IMG_DECLARE(Icon_Unread_Yellow);
 LV_IMG_DECLARE(Icon_More_White);
 LV_IMG_DECLARE(Icon_Next_White);
 LV_IMG_DECLARE(Icon_Close_White);
@@ -101,7 +109,12 @@ static int connection_app_item;    /* 01.h */
 static int connection_app_record;
 static int ttl_connection_app_items = 1;
 
-/* Set variables to determine total number of Connection app items per list */
+/* Set variables to determine total number of Display app items per list */
+static int display_app_item;    /* 02.h */
+static int display_app_record;
+static int ttl_display_app_items = 1;
+
+/* Set variables to determine total number of Storage app items per list */
 static int storage_app_item;    /* 03.h */
 static int storage_app_record;
 static int ttl_storage_app_items = 1;
@@ -140,7 +153,8 @@ static int back_to_home = 0;
 /* Set style references */
 static lv_style_t reset_style_img;
 static lv_style_t power_off_style_img;
-static lv_style_t settings_feature_bullet;
+// static lv_style_t settings_feature_bullet;
+// static lv_style_t settings_scale_bullet;
 static lv_style_t back_button_style;
 static lv_style_t name_style_20;
 static lv_style_t name_style_24;
@@ -161,11 +175,6 @@ static void init_styles() {
     lv_style_set_img_recolor(&power_off_style_img, lv_color_hex(POWER_OFF_COLOR));
     lv_style_set_img_recolor_opa(&power_off_style_img, LV_OPA_COVER);
     lv_style_set_text_font(&power_off_style_img, &NeueHaasDisplayLight_24);
-
-    lv_style_init(&settings_feature_bullet);
-    lv_style_set_img_recolor(&settings_feature_bullet, lv_color_hex(O_YELLOW_COLOR));
-    lv_style_set_img_recolor_opa(&settings_feature_bullet, LV_OPA_80);
-    lv_style_set_text_font(&settings_feature_bullet, &NeueHaasDisplayLight_24);
 
     lv_style_init(&back_button_style);
     lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
@@ -455,7 +464,83 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
     }
 }
 
+
 /***  SCREEN 02 - Display page  ***/
+static void settings_02_view(lv_obj_t * settings_02_view_page) {
+    lv_obj_t * image = lv_img_create(settings_02_view_page);
+
+    /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
+    lv_obj_set_size(image, lv_pct(100), lv_pct(100));
+
+    /* Set the screen number counter to the first visible sub-screen for the connection app */
+    int scr_nbr = 2;
+    printf("Settings page number: %d\n", scr_nbr);
+
+    /* Store the pointer to the current screen being viewed */
+    settings_objects[scr_nbr] = image;
+    lv_img_set_src(image, &Background);
+
+    /* Just set a fake total list items value for now */
+    int ttl_display_app_items = 3;
+
+    /* Calculate total settings_03 -- main list */
+    printf("\nCalculate settings_03 -- storage list...\n");
+    for(display_app_item = 0; settings_03_list[display_app_item].settings_id != "end"; display_app_item++) {
+        ttl_display_app_items = display_app_item+1;
+        printf("Item count: %d -- settings_id: %s\n",ttl_display_app_items,settings_03_list[display_app_item].settings_id);
+    }
+    printf("\nTotal Records: %d\n\n",ttl_display_app_items);
+
+    /* Build the Connection record list for display */
+    printf("Building each settings_03 record for display\n");
+    for(int j = 0; j < ttl_display_app_items; j++) {
+        if(settings_03_list[j].settings_id == "end") {
+            printf("item: %d -- settings_name: %s\n",j,settings_03_list[j].settings_name);
+            break;
+        } else {
+            printf("settings_id: %s -- settings_name: %s\n",settings_03_list[j].settings_id,settings_03_list[j].settings_name);
+        }
+    }
+
+/***  HEADING ELEMENTS  ***/
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    back_to_settings[back_to_home] = lv_btn_create(image);
+    lv_obj_set_size(back_to_settings[back_to_home], 130, 50);
+    lv_obj_align(back_to_settings[back_to_home], LV_ALIGN_TOP_LEFT, 20, 31);
+    lv_obj_set_style_opa(back_to_settings[back_to_home], LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_settings[back_to_home], scroll_to_home, LV_EVENT_CLICKED, NULL);
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(image);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(image);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Back");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
+
+    /* 'Filter' button to filter the list */
+    lv_obj_t * filter_image = lv_img_create(image);
+    lv_img_set_src(filter_image, &Icon_Filter_Button);
+    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_img_create(image);
+    lv_img_set_src(page_header, &Settings_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+/***  MAIN LIST ITEMS  ***/
+}
+
 
 /***  SCREEN 03 - Storage page  ***/
 static void settings_03_view(lv_obj_t * settings_03_view_page) {
@@ -473,8 +558,26 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Just set a fake total list items value for now */
-    int ttl_storage_app_items = 5;
+    int ttl_storage_app_items = 3;
 
+    /* Calculate total settings_03 -- main list */
+    printf("\nCalculate settings_03 -- storage list...\n");
+    for(storage_app_item = 0; settings_03_list[storage_app_item].settings_id != "end"; storage_app_item++) {
+        ttl_storage_app_items = storage_app_item+1;
+        printf("Item count: %d -- settings_id: %s\n",ttl_storage_app_items,settings_03_list[storage_app_item].settings_id);
+    }
+    printf("\nTotal Records: %d\n\n",ttl_storage_app_items);
+
+    /* Build the Connection record list for display */
+    printf("Building each settings_03 record for display\n");
+    for(int j = 0; j < ttl_storage_app_items; j++) {
+        if(settings_03_list[j].settings_id == "end") {
+            printf("item: %d -- settings_name: %s\n",j,settings_03_list[j].settings_name);
+            break;
+        } else {
+            printf("settings_id: %s -- settings_name: %s\n",settings_03_list[j].settings_id,settings_03_list[j].settings_name);
+        }
+    }
 
 /***  HEADING ELEMENTS  ***/
     static lv_style_t back_button_style;
@@ -549,6 +652,68 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
     lv_label_set_text(storage_amount, "512 Gb");
     lv_obj_set_style_text_color(storage_amount, lv_color_hex(HEADING_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(storage_amount, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+/***  MAIN LIST ITEMS  ***/
+    /* Set the list_item_separator and entry_separator objects here */
+    lv_obj_t * list_item_tail[ttl_storage_app_items];
+
+    /* Icon and label objects here */
+    lv_obj_t * storage_icon[ttl_storage_app_items];
+    lv_obj_t * storage_label[ttl_storage_app_items];
+    lv_obj_t * storage_description[ttl_storage_app_items];
+    lv_obj_t * storage_item_overlay[ttl_storage_app_items];
+
+    /* Add settings features as clickable buttons */
+    for(storage_list_counter = 0; storage_list_counter < ttl_storage_app_items; storage_list_counter++) {
+        /* A row-by-row offset value to maintain spacing between clickable elements */
+        offset = storage_list_counter * 60;
+
+        /* Settings list item button overlay */
+        storage_item_overlay[storage_list_counter] = lv_btn_create(image);
+        lv_obj_set_size(storage_item_overlay[storage_list_counter], 342, 56);
+        lv_obj_align(storage_item_overlay[storage_list_counter], LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 350 + offset);
+        lv_obj_set_style_opa(storage_item_overlay[storage_list_counter], LV_OPA_0, LV_PART_MAIN);
+        /* Uncomment this to enable clicking to some other screen */
+        // lv_obj_add_event_cb(storage_item_overlay, scroll_to_screen, LV_EVENT_CLICKED, (void*)storage_list_counter);
+
+        /* Storage Item bullet */
+        storage_icon[storage_list_counter] = lv_img_create(image);
+        lv_img_set_src(storage_icon[storage_list_counter], settings_03_list[storage_list_counter].settings_icon);
+
+        if(settings_03_list[storage_list_counter].settings_type == "O_SCALE_RED") {
+            lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_RED), 0);
+        } else if(settings_03_list[storage_list_counter].settings_type == "O_SCALE_ORANGE") {
+            lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_ORANGE), 0);
+        } else if(settings_03_list[storage_list_counter].settings_type == "O_SCALE_CREAM") {
+            lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_CREAM), 0);
+        } else {
+            lv_obj_set_style_img_recolor(storage_icon[storage_list_counter], lv_color_hex(O_SCALE_GREY), 0);
+        }
+
+        lv_obj_set_style_img_recolor_opa(storage_icon[storage_list_counter], LV_OPA_COVER, 0);
+        lv_obj_align(storage_icon[storage_list_counter], LV_ALIGN_TOP_LEFT, 28, 372 + offset);
+
+        /* Storage Name label */
+        storage_label[storage_list_counter] = lv_label_create(image);
+        lv_label_set_recolor(storage_label[storage_list_counter], true);
+        lv_label_set_text(storage_label[storage_list_counter], settings_03_list[storage_list_counter].settings_name);
+        lv_obj_add_style(storage_label[storage_list_counter], &name_style_24, LV_PART_MAIN);
+        lv_obj_set_style_text_color(storage_label[storage_list_counter], lv_color_white(), 0);
+        lv_obj_align(storage_label[storage_list_counter], LV_ALIGN_TOP_LEFT, 45, 366 + offset); // add 16
+
+        /* Storage Amount label */
+        storage_description[storage_list_counter] = lv_label_create(image);
+        lv_label_set_recolor(storage_description[storage_list_counter], true);
+        lv_label_set_text(storage_description[storage_list_counter], settings_03_list[storage_list_counter].settings_description);
+        lv_obj_add_style(storage_description[storage_list_counter], &name_style_24, LV_PART_MAIN);
+        lv_obj_set_style_text_color(storage_description[storage_list_counter], lv_color_hex(HEADING_SUBDUED_COLOR), 0);
+        lv_obj_align(storage_description[storage_list_counter], LV_ALIGN_TOP_RIGHT, NORMAL_PAD_RIGHT, 366 + offset); // match previous on left
+
+        /* Add a list item separator line at the end of the list item */
+        list_item_tail[storage_list_counter] = lv_img_create(image);
+        lv_img_set_src(list_item_tail[storage_list_counter], &Linez);
+        lv_obj_align(list_item_tail[storage_list_counter], LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 408 + offset); // add 42
+    }
 
 }
 

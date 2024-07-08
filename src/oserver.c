@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* O App list and item ID variables */
-#define DEVICE_PAGE_MAX 7
+#define DEVICE_PAGE_MAX 4
 #define DEVICE_FOUND_MAX 4
 
 /* O App alignment for elements and Item separator lines */

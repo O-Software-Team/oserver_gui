@@ -34,6 +34,8 @@ LV_IMG_DECLARE(Background);
 LV_IMG_DECLARE(Icon_Arrow_White);
 LV_IMG_DECLARE(Icon_Audio_Yellow);
 LV_IMG_DECLARE(Icon_Bluetooth_White);
+LV_IMG_DECLARE(Icon_Bullet_Item);
+LV_IMG_DECLARE(Icon_Bullet_Yellow);
 LV_IMG_DECLARE(Icon_Close_White);
 LV_IMG_DECLARE(Icon_Contact_Initials_Background);
 LV_IMG_DECLARE(Icon_Documents_Yellow);
