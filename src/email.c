@@ -6,7 +6,7 @@
 #include <stdio.h>
 
 /* Email list and message ID variables */
-#define EMAIL_LIST_MAX 4
+#define EMAIL_LIST_MAX 7
 #define EMAIL_FOUND_MAX 7
 #define EMAIL_MESSAGE_ID 0
 
