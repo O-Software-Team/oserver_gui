@@ -72,9 +72,9 @@ static void enter_code_handler(lv_event_t * e) {
     lv_timer_set_repeat_count(pause_before_onboard, 1);
 }
 
-static void device_selected_cb(lv_event_t * e) { printf("Selected device...\n"); }
+static void device_selected_cb(lv_event_t * e __attribute__((unused))) { printf("Selected device...\n"); }
 
-static void display_connected_device(lv_obj_t * cont, int which_device) {
+static void display_connected_device(lv_obj_t * cont __attribute__((unused)), int which_device) {
 	printf ("devices %d connected\n", which_device);
 }
 
