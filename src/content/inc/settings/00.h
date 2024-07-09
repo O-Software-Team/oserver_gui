@@ -1,13 +1,15 @@
 /* List to provide a sample of folders found on the device */
 
 /*
+    See struct settings_item in menu_handler.h
+
     char * settings_id;
     char * settings_name;
     char * settings_admin;
     char * settings_group;
     char * settings_permissions;
     char * settings_type;
-    char * settings_state;
+    bool   settings_state;
     char * settings_description;
     char * settings_summary;
     lv_img_dsc_t * settings_icon;
@@ -23,7 +25,7 @@ static settings_item settings_00_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = "passive",
+        .settings_state = SETTINGS_STATE_DISABLED,
         .settings_description = "Connection status",
         .settings_summary = "This feature displays the status of all of your O Mini Server connections via WiFi, Bluetooth, and NFC radios",
         .settings_icon = NULL
@@ -35,7 +37,7 @@ static settings_item settings_00_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = "active",
+        .settings_state = SETTINGS_STATE_ACTIVE,
         .settings_description = "Display mode choices",
         .settings_summary = "Use this feature to change the theme to one of the many O Mini Server themes we provide",
         .settings_icon = NULL
@@ -47,7 +49,7 @@ static settings_item settings_00_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = "passive",
+        .settings_state = SETTINGS_STATE_DISABLED,
         .settings_description = "Storage levels",
         .settings_summary = "This feature displays the memory storage level(s) of your O Mini Server",
         .settings_icon = NULL
@@ -59,7 +61,7 @@ static settings_item settings_00_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = "passive",
+        .settings_state = SETTINGS_STATE_DISABLED,
         .settings_description = "Battery status",
         .settings_summary = "This feature displays the battery level(s) of your O Mini Server",
         .settings_icon = NULL
@@ -71,7 +73,7 @@ static settings_item settings_00_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = "passive",
+        .settings_state = SETTINGS_STATE_DISABLED,
         .settings_description = "System info",
         .settings_summary = "This feature displays the system information specific to your O Mini Server",
         .settings_icon = NULL

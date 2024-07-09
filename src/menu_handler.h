@@ -126,7 +126,9 @@ typedef struct {
     char * settings_group;
     char * settings_permissions;
     char * settings_type;
-    bool * settings_state;
+    bool   settings_state;
+#define SETTINGS_STATE_ACTIVE   true
+#define SETTINGS_STATE_DISABLED false
     char * settings_description;
     char * settings_summary;
     char * settings_info;

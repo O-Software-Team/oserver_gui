@@ -1,13 +1,15 @@
 /* List to provide a sample of folders found on the device */
 
 /*
+    See struct settings_item in menu_handler.h
+
     char * settings_id;
     char * settings_name;
     char * settings_admin;
     char * settings_group;
     char * settings_permissions;
     char * settings_type;
-    char * settings_state;
+    bool   settings_state;
     char * settings_description;
     char * settings_summary;
     lv_img_dsc_t * settings_icon;
@@ -23,7 +25,7 @@ static settings_item settings_01_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = true,
+        .settings_state = SETTINGS_STATE_ACTIVE,
         .settings_description = "WiFi radio setting",
         .settings_summary = "This feature displays the status of your O Mini Server WiFi radio",
         .settings_icon = &Icon_Settings_Toggle_On
@@ -35,7 +37,7 @@ static settings_item settings_01_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = false,
+        .settings_state = SETTINGS_STATE_DISABLED,
         .settings_description = "Bluetooth radio setting",
         .settings_summary = "This feature displays the status of your O Mini Server Bluetooth radio",
         .settings_icon = &Icon_Settings_Toggle_Off
@@ -47,7 +49,7 @@ static settings_item settings_01_list[] = {
         .settings_group = "wheel",
         .settings_permissions = "-rwxr-xr-x",
         .settings_type = "func",
-        .settings_state = false,
+        .settings_state = SETTINGS_STATE_DISABLED,
         .settings_description = "NFC radio setting",
         .settings_summary = "This feature displays the status of your O Mini Server NFC radio",
         .settings_icon = &Icon_Settings_Toggle_On
