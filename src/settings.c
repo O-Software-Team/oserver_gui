@@ -9,7 +9,7 @@
 /* Initialize/populate the Settings list structs */
 #include "content/inc/settings/00.h"   /* Main screen - Settings list */
 #include "content/inc/settings/01.h"   /* Connections list */
-#include "content/test/settings/03.h"   /* Storage list */
+#include "content/inc/settings/03.h"   /* Storage list */
 #include "content/inc/settings/05.h"   /* System list */
 
 /* List separator line definitions */
