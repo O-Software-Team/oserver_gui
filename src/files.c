@@ -250,7 +250,7 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
         lv_obj_set_size(button_overlay[scr_nbr], 350, 54);
         lv_obj_align(button_overlay[scr_nbr], LV_ALIGN_CENTER, 0, offset - 223);
         lv_obj_set_style_opa(button_overlay[scr_nbr], LV_OPA_0, LV_PART_MAIN);
-        lv_obj_add_event_cb(button_overlay[scr_nbr], scroll_to_screen, LV_EVENT_CLICKED, (void*)scr_nbr);
+        lv_obj_add_event_cb(button_overlay[scr_nbr], scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)scr_nbr);
 
         /* Device icon image on the left */
         file_icon[main_menu_record] = lv_img_create(image);

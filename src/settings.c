@@ -266,7 +266,7 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
         lv_obj_set_size(settings_item_overlay[scr_nbr], 352, 56);
         lv_obj_align(settings_item_overlay[scr_nbr], LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 141 + offset);
         lv_obj_set_style_opa(settings_item_overlay[scr_nbr], LV_OPA_0, LV_PART_MAIN);
-        lv_obj_add_event_cb(settings_item_overlay[scr_nbr], scroll_to_screen, LV_EVENT_CLICKED, (void*)scr_nbr);
+        lv_obj_add_event_cb(settings_item_overlay[scr_nbr], scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)scr_nbr);
 
         /* Feature selection label */
         settings_label[scr_nbr] = lv_label_create(image);
