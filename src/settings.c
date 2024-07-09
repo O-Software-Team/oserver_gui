@@ -415,7 +415,7 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
 
 
 /***  SCREEN 02 - Display page  ***/
-static __attribute__((unused)) void settings_02_view(lv_obj_t * settings_02_view_page) {
+static void settings_02_view(lv_obj_t * settings_02_view_page) {
     lv_obj_t * image = lv_img_create(settings_02_view_page);
 
     /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
@@ -1018,6 +1018,10 @@ void settings_menu_setup(void)
     /* SETTINGS VIEW: Display the content for settings_01_view -- Connections */
     printf("\nSETTINGS_01_VIEW launch...\n");
     settings_01_view(settings_page);
+
+    /* SETTINGS VIEW: Display the content for settings_02_view -- Display */
+    printf("\nSETTINGS_02_VIEW launch...\n");
+    settings_02_view(settings_page);
 
     /* SETTINGS VIEW: Display the content for settings_03_view -- Storage */
     printf("\nSETTINGS_03_VIEW launch...\n");
