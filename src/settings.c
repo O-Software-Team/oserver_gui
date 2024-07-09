@@ -148,7 +148,7 @@ static void scroll_to_home() {
 
 /* Scroll to screen clicked in the clickback call */
 static void scroll_to_screen(lv_event_t* e) {
-    int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
+    int screen_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
     printf("EXEC :: scroll_to_screen() [%d]\n\n",screen_index);
     lv_obj_scroll_to_view(settings_objects[screen_index], LV_ANIM_OFF);
     lv_event_stop_bubbling(e); // Stop event bubbling
@@ -179,7 +179,7 @@ static __attribute__((unused)) int calc_scroll_offset(int ttl_rows) {
 }
 
 static __attribute__((unused)) void debug_click(lv_event_t* e) {
-    int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
+    int screen_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
     printf("\nEXEC :: clicked() [%d]\n",screen_index);
 }
 

@@ -130,7 +130,7 @@ static void scroll_to_home() {
 
 /* Scroll to screen clicked in the clickback call */
 static void scroll_to_screen(lv_event_t* e) {
-    int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
+    int screen_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
     // printf("\nClicked Filesystem Element: %d\n\n",screen_index);
     lv_obj_scroll_to_view(image_objects[screen_index], LV_ANIM_OFF);
     lv_event_stop_bubbling(e); // Stop event bubbling
