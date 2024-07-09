@@ -55,7 +55,6 @@ static menu_item devices_found_info[] = {
     {.menu_pre = "Bob's Macbook",  .active = false, .security_status = FRIEND, .icon = &Icon_MacBook},
     {.menu_pre = "Orna's iPad",    .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
 };
-static const int DEVICE_FOUND_MAX = sizeof(devices_found_info) / sizeof(menu_item);
 
 const char * device_name_string;
 int device_name_count;
@@ -84,7 +83,8 @@ static lv_obj_t * percent;
 
 static void update_percent(lv_timer_t * percent_timer) {
     static int percent_done = 0;
-    lv_obj_t * oserver_page = percent_timer->user_data;
+    //lv_obj_t * oserver_page = percent_timer->user_data;
+    // TODO: work needed here!
     if(percent_done++ < 100) {
         lv_label_set_text_fmt(percent, "%i", percent_done);
     }
@@ -411,13 +411,10 @@ void devices_connected_init(lv_obj_t * device_page) {
     lv_obj_t * list_item_separator[DEVICE_PAGE_MAX];
 
     // Dan's items for list separator, etc
-    lv_obj_t * entry_separator[DEVICE_PAGE_MAX];
     lv_obj_t * page_icon_list[DEVICE_PAGE_MAX];
     lv_obj_t * label_name[DEVICE_PAGE_MAX];
     lv_obj_t * security_status[DEVICE_PAGE_MAX];
     lv_obj_t * status_active_icon[DEVICE_PAGE_MAX];
-
-    int page_index = 0;
 
 #ifdef DAN_CODE
     static lv_style_t status_style;

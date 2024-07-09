@@ -74,23 +74,23 @@ lv_obj_t* contact_objects[NUM_SCREENS];
 /* Set the BACK-TO-HOME array to use in a custom back button for the filesystem app */
 lv_obj_t * back_to_home_screen[NUM_SCREENS];
 
-static int back_to_cs = 1;
+// static int back_to_cs = 1;
 
 /* Set variables to determine total number of items per list */
-static int favorites_menu_item;    /* 01.h */
+// static int favorites_menu_item;    /* 01.h */
 static int favorites_menu_record;
 static int ttl_favorites_menu_items = 1;
 
-static int folder_item;        /* 02.h */
-static int folder_record;
-static int ttl_folder_items = 1;
+// static int folder_item;        /* 02.h */
+// static int folder_record;
+// static int ttl_folder_items = 1;
 
-static int movie_item;         /* 03.h */
-static int movie_record;
-static int ttl_movie_items = 1;
+// static int movie_item;         /* 03.h */
+// static int movie_record;
+// static int ttl_movie_items = 1;
 
 /* Set variables to determine total number of Contacts list members */
-static int total_contact_items = 1;
+// static int total_contact_items = 1;
 static int ttl_items;
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
@@ -121,13 +121,6 @@ lv_obj_t * heading_notes;
 // lv_label_t * contact_detail_from;
 static lv_obj_t * top_of_list_items;
 
-
-static int ttl_rows;
-static int ttl_height;
-static int ttl_offset;
-static int ttl_calc_overlay_height;
-static int ttl_calc_overlay_offset;
-
 /***  Contacts Specific Functions  ***/
 /* Scroll to the filesystem home screen as the final step in the filesytem app launch */
 static void scroll_to_home() {
@@ -145,13 +138,13 @@ static void scroll_to_screen(lv_event_t* e) {
 
 static int calc_scroll_height(int ttl_rows) {
     // printf("\n\nCalc Scroll Rows: %d\n",ttl_rows);
-    ttl_height = ttl_rows * 52;
+    int ttl_height = ttl_rows * 52;
     // printf("Calc Scroll Height: %d\n",ttl_height);
     return ttl_height;
 }
 
 static int calc_scroll_offset(int ttl_rows) {
-    int off_mult;
+    int ttl_offset;
     if(ttl_rows <= 10) {
         ttl_offset = 90;
     } else {
@@ -224,8 +217,8 @@ void contacts_list_init(lv_obj_t * contacts_01_view_page) {
     lv_obj_align(top_of_list_items, LV_ALIGN_LEFT_MID, LIST_SEPARATOR, -127);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator object here */
@@ -237,7 +230,7 @@ void contacts_list_init(lv_obj_t * contacts_01_view_page) {
     // printf("Screen number: 1\n");
 
     /* Set the screen number counter to the first visible sub-screen for the filesystem */
-    int scr_nbr = 2;
+    // int scr_nbr = 2;
 
     /* Add (simulated) Favorites list of Contacts */
     for(favorites_menu_record = 0; favorites_menu_record < ttl_favorites_menu_items; favorites_menu_record++) {

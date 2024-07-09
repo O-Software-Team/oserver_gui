@@ -104,12 +104,6 @@ LV_IMG_DECLARE(Text_App_Heading_Title);
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
-/* global static */
-static lv_obj_t * txtmsg_messages[TXTMSG_LIST_MAX];
-
-// static lv_obj_t * trusted_device_btn_list[TXTMSG_PAGE_MAX];
-// static lv_obj_t * found_btn[TXTMSG_FOUND_MAX];
-
 static txtmsg_item txtmsg_list[TXTMSG_LIST_MAX] = {
     {
         .txtmsg_id = 0,
@@ -166,7 +160,6 @@ lv_obj_t * txtmsg_message;
 lv_obj_t * text_detail_from;
 lv_obj_t * text_detail_message;
 static lv_obj_t * top_of_list_items;
-static lv_obj_t * spacer;
 
 /* The following function populates the main screen with read and unread text messages */
 void txtmsg_list_init(lv_obj_t * txtmsg_page) {

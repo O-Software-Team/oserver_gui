@@ -112,13 +112,10 @@ static int spreadsheet_item;   /* 07.h */
 static int spreadsheet_record;
 static int ttl_spreadsheet_items = 1;
 
-static lv_obj_t * top_of_list_items;
-
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 static const char * fs_fullname_string;
 static int fs_fullname_count;
 
-static int ttl_rows;
 static int ttl_height;
 static int ttl_offset;
 static int ttl_calc_overlay_height;
@@ -147,7 +144,6 @@ static int calc_scroll_height(int ttl_rows) {
 }
 
 static int calc_scroll_offset(int ttl_rows) {
-    int off_mult;
     if(ttl_rows <= 10) {
         ttl_offset = 90;
     } else {
@@ -219,13 +215,13 @@ static void filesystem_01_view(lv_obj_t * filesystem_01_view_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
     lv_coord_t offset = 0;
 
     /* Set the list_item_separator and entry_separator objects here */
-    lv_obj_t * list_item_separator[ttl_main_menu_items];
-    lv_obj_t * entry_separator[ttl_main_menu_items];
+    // lv_obj_t * list_item_separator[ttl_main_menu_items];
+    // lv_obj_t * entry_separator[ttl_main_menu_items];
 
     /* Icon and label objects here */
     lv_obj_t * file_icon[ttl_main_menu_items];
@@ -365,13 +361,12 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_folder_items];
-    lv_obj_t * entry_separator[ttl_folder_items];
+    // lv_obj_t * list_item_separator[ttl_folder_items];
+    // lv_obj_t * entry_separator[ttl_folder_items];
 
     /* Icon and label objects here */
     lv_obj_t * file_icon[ttl_folder_items];
@@ -392,7 +387,8 @@ static void filesystem_02_view(lv_obj_t * filesystem_02_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons*/
     for(folder_record = 0; folder_record < ttl_folder_items; folder_record++) {
-        offset =  121 + (52 * folder_record);
+        lv_coord_t offset = 121 + (52 * folder_record);
+
         // entry_separator[folder_record] = lv_img_create(image);
         // lv_img_set_src(entry_separator[folder_record], &Linez);
         // lv_obj_align(entry_separator[folder_record], LV_ALIGN_DEFAULT, 25, offset +19);
@@ -499,13 +495,12 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_movie_items];
-    lv_obj_t * entry_separator[ttl_movie_items];
+    // lv_obj_t * list_item_separator[ttl_movie_items];
+    // lv_obj_t * entry_separator[ttl_movie_items];
 
     /* Icon and label objects here */
     lv_obj_t * file_icon[ttl_movie_items];
@@ -531,7 +526,7 @@ static void filesystem_03_view(lv_obj_t * filesystem_03_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons */
     for(movie_record = 0; movie_record < ttl_movie_items; movie_record++) {
-        offset = 121 + (52 * movie_record);
+        lv_coord_t offset = 121 + (52 * movie_record);
 
         /* Device icon image on the left */
         file_icon[movie_record] = lv_img_create(image);
@@ -642,13 +637,12 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_image_items];
-    lv_obj_t * entry_separator[ttl_image_items];
+    //lv_obj_t * list_item_separator[ttl_image_items];
+    //lv_obj_t * entry_separator[ttl_image_items];
 
     /* Icon and label objects here */
     lv_obj_t * file_icon[ttl_image_items];
@@ -669,7 +663,7 @@ static void filesystem_04_view(lv_obj_t * filesystem_04_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons */
     for(image_record = 0; image_record < ttl_image_items; image_record++) {
-        offset = 121 + (52 * image_record);
+        lv_coord_t offset = 121 + (52 * image_record);
 
         /* Device icon image on the left */
         file_icon[image_record] = lv_img_create(image);
@@ -780,13 +774,12 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_application_items];
-    lv_obj_t * entry_separator[ttl_application_items];
+    // lv_obj_t * list_item_separator[ttl_application_items];
+    // lv_obj_t * entry_separator[ttl_application_items];
 
     /* Icon and label objects here */
     lv_obj_t * file_icon[ttl_application_items];
@@ -812,7 +805,7 @@ static void filesystem_05_view(lv_obj_t * filesystem_05_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons */
     for(application_record = 0; application_record < ttl_application_items; application_record++) {
-        offset = 121 + (52 * application_record);
+        lv_coord_t offset = 121 + (52 * application_record);
 
         /* Device icon image on the left */
         file_icon[application_record] = lv_img_create(image);
@@ -923,13 +916,12 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_document_items];
-    lv_obj_t * entry_separator[ttl_document_items];
+    // lv_obj_t * list_item_separator[ttl_document_items];
+    // lv_obj_t * entry_separator[ttl_document_items];
 
     /* Icon and label objects here */
     lv_obj_t * file_icon[ttl_document_items];
@@ -955,7 +947,7 @@ static void filesystem_06_view(lv_obj_t * filesystem_06_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons */
     for(document_record = 0; document_record < ttl_document_items; document_record++) {
-        offset = 121 + (52 * document_record);
+        lv_coord_t offset = 121 + (52 * document_record);
 
         /* Device icon image on the left */
         file_icon[document_record] = lv_img_create(image);
@@ -1066,13 +1058,12 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
     /* These keep the alignment settings evenly spaced when in a for loop */
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
+    // lv_point_t right = { 290, -220};
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_spreadsheet_items];
-    lv_obj_t * entry_separator[ttl_spreadsheet_items];
+    // lv_obj_t * list_item_separator[ttl_spreadsheet_items];
+    // lv_obj_t * entry_separator[ttl_spreadsheet_items];
 
     /* Icon and label objects here */
     lv_obj_t * file_icon[ttl_spreadsheet_items];
@@ -1098,7 +1089,7 @@ static void filesystem_07_view(lv_obj_t * filesystem_07_view_page) {
 
     /* Add (simulated) devices entries as clickable buttons */
     for(spreadsheet_record = 0; spreadsheet_record < ttl_spreadsheet_items; spreadsheet_record++) {
-        offset = 121 + (52 * spreadsheet_record);
+        lv_coord_t offset = 121 + (52 * spreadsheet_record);
 
         /* Device icon image on the left */
         file_icon[spreadsheet_record] = lv_img_create(image);

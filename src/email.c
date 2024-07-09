@@ -6,9 +6,6 @@
 #include <stdio.h>
 
 /* Email list and message ID variables */
-#define EMAIL_LIST_MAX 7
-#define EMAIL_FOUND_MAX 7
-#define EMAIL_MESSAGE_ID 0
 
 /* Email Message alignment for From, Subject, Full Message, and Item separator lines */
 #define MESSAGE_TEXTAREA_HEIGHT 290
@@ -103,9 +100,7 @@ LV_IMG_DECLARE(Email_App_Heading_Title);
 /* Declare the primary font here */
 LV_FONT_DECLARE(lv_font_montserrat_44);
 
-static lv_obj_t * email_messages[EMAIL_LIST_MAX];
-
-static email_item email_list[EMAIL_LIST_MAX] = {
+static email_item email_list[] = {
     {
         .email_id = 0,
         .email_from = "Guillaume Jaulerry",
@@ -156,6 +151,7 @@ static email_item email_list[EMAIL_LIST_MAX] = {
         .email_message = "Blah-blah-blah... BANANA!",
     },
 };
+static const int EMAIL_LIST_MAX = sizeof(email_list) / sizeof(email_item);
 
 /* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
 const char * from_string;
@@ -288,6 +284,9 @@ void email_list_init(lv_obj_t * email_page) {
 }
 
 void email_message_view(lv_obj_t * email_message_page) {
+
+    static const int EMAIL_MESSAGE_ID = 0;
+
     /* Main page definition */
     lv_obj_t * image = lv_img_create(email_message_page);
     lv_img_set_src(image, &Background);

@@ -4,9 +4,7 @@
 #include "utilities.h"
 
 #include <stdio.h>
-
-#define DEVICE_PAGE_MAX 6
-#define DEVICE_FOUND_MAX 4
+#include <stdlib.h>
 
 /* Main HEADING iconography */
 LV_IMG_DECLARE(Devices_App_Heading_Title);
@@ -17,15 +15,12 @@ static void my_timer(lv_timer_t *);
 static void pin_timer(lv_timer_t *);
 
 /* global static */
-static lv_obj_t * trusted_device_list[DEVICE_PAGE_MAX];
-static lv_obj_t * device_found[DEVICE_FOUND_MAX];
-static lv_obj_t * trusted_device_btn_list[DEVICE_PAGE_MAX];
 static lv_timer_t * pause_before_onboard;
 static lv_timer_t * pause_before_set_pins;
 
 static lv_obj_t * roller_digits[5];  // GLOBAL alert
 
-static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
+static menu_item devices_active_info[] = {
     {.menu_pre = "Kevin's iPhone",   .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
     {.menu_pre = "Mark's iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
     {.menu_pre = "Alice's Macbook",  .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_MacBook},
@@ -33,13 +28,15 @@ static menu_item devices_active_info[DEVICE_PAGE_MAX] = {
     {.menu_pre = "Office iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
     {.menu_pre = "Mary's iPhone",    .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
 };
+static const int DEVICE_PAGE_MAX = sizeof(devices_active_info) / sizeof(menu_item);
 
-static menu_item devices_found_info[DEVICE_FOUND_MAX] = {
+static menu_item devices_found_info[] = {
     {.menu_pre = "Bob's iPhone",   .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
     {.menu_pre = "Bob's iPad",     .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
     {.menu_pre = "Bob's Macbook",  .active = false, .security_status = FRIEND, .icon = &Icon_MacBook},
     {.menu_pre = "Orna's iPad",    .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
 };
+static const int DEVICE_FOUND_MAX = sizeof(devices_found_info) / sizeof(menu_item);
 
 static void add_device_cb(lv_event_t * e) {
 
@@ -500,11 +497,13 @@ void device_trusted_init(lv_obj_t * device_page) {
     lv_obj_t * label_name[DEVICE_PAGE_MAX];
     lv_obj_t * security_status[DEVICE_PAGE_MAX];
     lv_obj_t * status_active_icon[DEVICE_PAGE_MAX];
-    int page_index = 0;
+    // int page_index = 0;
     static lv_style_t status_style;
     lv_style_init(&status_style);
     static lv_style_t name_style;
     lv_style_init(&name_style);
+
+    lv_obj_t **trusted_device_btn_list = calloc(DEVICE_PAGE_MAX, sizeof(lv_obj_t *));
 
     /* Add (simulated) devices entries as clickable buttons*/
     for (int i = 0; i < DEVICE_PAGE_MAX; i++)

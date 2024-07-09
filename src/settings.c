@@ -96,59 +96,8 @@ lv_obj_t * settings_objects[NUM_SCREENS];
 /* Set the BACK-TO-HOME array to use in a custom back button for the Settings app */
 lv_obj_t * back_to_settings[NUM_SCREENS];
 
-/* Use this as a separator line in lists */
-// lv_obj_t * entry_separator[ttl_connection_app_items];
-
-/* Set variables to determine total number of Settings app items per list */
-static int settings_app_item;    /* 00.h */
-static int settings_app_record;
-static int ttl_settings_items = 1;
-
-/* Set variables to determine total number of Connection app items per list */
-static int connection_app_item;    /* 01.h */
-static int connection_app_record;
-static int ttl_connection_app_items = 1;
-
-/* Set variables to determine total number of Display app items per list */
-static int display_app_item;    /* 02.h */
-static int display_app_record;
-static int ttl_display_app_items = 1;
-
-/* Set variables to determine total number of Storage app items per list */
-static int storage_app_item;    /* 03.h */
-static int storage_app_record;
-static int ttl_storage_app_items = 1;
-
-/* Set variables to determine total number of Battery app items per list */
-static int battery_app_item;    /* 04.h */
-static int battery_app_record;
-static int ttl_battery_app_items = 1;
-
-/* Set variables to determine total number of System app items per list */
-static int system_app_item;    /* 05.h */
-static int system_app_record;
-static int ttl_system_app_items = 1;
-
-/* Main clickable list item counter definitions */
-static int settings_list_counter = 0;
-static int connection_list_counter = 0;
-static int display_list_counter = 0;
-static int storage_list_counter = 0;
-static int battery_list_counter = 0;
-static int system_list_counter = 0;
-
-/* Use this to provide an offset calculation that enables list item objects to be spaced appropriately in the list generation loop(s) */
-static lv_coord_t offset = 0;
-
-/* Use this to calculate an overlay object for a page that does not have clickable list items */
-static int ttl_rows;
-static int ttl_height;
-static int ttl_offset;
-static int ttl_calc_overlay_height;
-static int ttl_calc_overlay_offset;
-
 /* This is the primary "home page" element in the Settings app */
-static int back_to_home = 0;
+static const int back_to_home = 0;
 
 /* Set style references */
 static lv_style_t reset_style_img;
@@ -161,7 +110,6 @@ static lv_style_t name_style_24;
 
 static lv_style_t label_style;
 static lv_style_t italic_style;
-static lv_style_t label_index_style;
 
 
 /***  Init styles specific to Settings  ***/
@@ -214,13 +162,13 @@ static void quit_application() {
 
 static int calc_scroll_height(int ttl_rows, int base_offset) {
     printf("\n\nttl_rows: %d  --  base_offset: %d\n",ttl_rows,base_offset);
-    ttl_height = ttl_rows * base_offset;
+    int ttl_height = ttl_rows * base_offset;
     // printf("Calc Scroll Height: %d\n",ttl_height);
     return ttl_height;
 }
 
 static int calc_scroll_offset(int ttl_rows) {
-    int off_mult;
+    int ttl_offset = 0;
     if(ttl_rows <= 10) {
         ttl_offset = 90;
     } else {
@@ -253,8 +201,9 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
 
     /* Calculate total settings_00 -- main list */
     // printf("\nCalculate settings_00 -- main settings list...\n");
-    for(settings_app_item = 0; !is_end(settings_00_list[settings_app_item].settings_id); settings_app_item++) {
-        ttl_settings_items = settings_app_item+1;
+    int ttl_settings_items = 0;
+    for(int settings_app_item = 0; !is_end(settings_00_list[settings_app_item].settings_id); settings_app_item++) {
+        ttl_settings_items++;
         // printf("Item count: %d -- settings_id: %s\n",ttl_settings_items,settings_00_list[settings_app_item].settings_id);
     }
     // printf("\nTotal Records: %d\n\n",ttl_settings_items);
@@ -306,12 +255,12 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
 
 /***  MAIN CLICKABLE LIST ITEMS  ***/
     /* Add settings features as clickable buttons */
-    for(settings_list_counter = 0; settings_list_counter < ttl_settings_items; settings_list_counter++) {
+    for(int settings_list_counter = 0; settings_list_counter < ttl_settings_items; settings_list_counter++) {
         /* Increment the page reference number for each Settings page */
         scr_nbr++;
 
         /* A row-by-row offset value to maintain spacing between clickable elements */
-        offset = settings_list_counter * 60;
+        int offset = settings_list_counter * 60;
 
         /* Settings list item button overlay */
         settings_item_overlay[scr_nbr] = lv_btn_create(image);
@@ -357,8 +306,9 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
 
     /* Calculate total settings_01 -- main list */
     printf("\nCalculate settings_01 -- connection list...\n");
-    for(connection_app_item = 0; !is_end(settings_01_list[connection_app_item].settings_id); connection_app_item++) {
-        ttl_connection_app_items = connection_app_item+1;
+    int ttl_connection_app_items = 0;
+    for(int connection_app_item = 0; !is_end(settings_01_list[connection_app_item].settings_id); connection_app_item++) {
+        ttl_connection_app_items++;
         printf("Item count: %d -- settings_id: %s\n",ttl_connection_app_items,settings_01_list[connection_app_item].settings_id);
     }
     printf("\nTotal Records: %d\n\n",ttl_connection_app_items);
@@ -433,9 +383,9 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
     lv_obj_t * connection_item_overlay[ttl_connection_app_items];
 
     /* Add settings features as clickable buttons */
-    for(connection_list_counter = 0; connection_list_counter < ttl_connection_app_items; connection_list_counter++) {
+    for(int connection_list_counter = 0; connection_list_counter < ttl_connection_app_items; connection_list_counter++) {
         /* A row-by-row offset value to maintain spacing between clickable elements */
-        offset = connection_list_counter * 60;
+        int offset = connection_list_counter * 60;
 
         /* Settings list item button overlay */
         connection_item_overlay[connection_list_counter] = lv_btn_create(image);
@@ -481,11 +431,11 @@ static void settings_02_view(lv_obj_t * settings_02_view_page) {
     lv_img_set_src(image, &Background);
 
     /* Just set a fake total list items value for now */
-    int ttl_display_app_items = 3;
+    int ttl_display_app_items = 3;  // ????
 
     /* Calculate total settings_03 -- main list */
     printf("\nCalculate settings_03 -- storage list...\n");
-    for(display_app_item = 0; !is_end(settings_03_list[display_app_item].settings_id); display_app_item++) {
+    for(int display_app_item = 0; !is_end(settings_03_list[display_app_item].settings_id); display_app_item++) {
         ttl_display_app_items = display_app_item+1;
         printf("Item count: %d -- settings_id: %s\n",ttl_display_app_items,settings_03_list[display_app_item].settings_id);
     }
@@ -562,7 +512,7 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
 
     /* Calculate total settings_03 -- main list */
     printf("\nCalculate settings_03 -- storage list...\n");
-    for(storage_app_item = 0; !is_end(settings_03_list[storage_app_item].settings_id); storage_app_item++) {
+    for(int storage_app_item = 0; !is_end(settings_03_list[storage_app_item].settings_id); storage_app_item++) {
         ttl_storage_app_items = storage_app_item+1;
         printf("Item count: %d -- settings_id: %s\n",ttl_storage_app_items,settings_03_list[storage_app_item].settings_id);
     }
@@ -664,9 +614,9 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
     lv_obj_t * storage_item_overlay[ttl_storage_app_items];
 
     /* Add settings features as clickable buttons */
-    for(storage_list_counter = 0; storage_list_counter < ttl_storage_app_items; storage_list_counter++) {
+    for(int storage_list_counter = 0; storage_list_counter < ttl_storage_app_items; storage_list_counter++) {
         /* A row-by-row offset value to maintain spacing between clickable elements */
-        offset = storage_list_counter * 60;
+        int offset = storage_list_counter * 60;
 
         /* Settings list item button overlay */
         storage_item_overlay[storage_list_counter] = lv_btn_create(image);
@@ -732,10 +682,6 @@ static void settings_04_view(lv_obj_t * settings_04_view_page) {
     /* Store the pointer to the current screen being viewed */
     settings_objects[scr_nbr] = image;
     lv_img_set_src(image, &Background);
-
-    /* Just set a fake total list items value for now */
-    int ttl_battery_app_items = 5;
-
 
 /***  HEADING ELEMENTS  ***/
     static lv_style_t back_button_style;
@@ -840,6 +786,10 @@ static void settings_04_view(lv_obj_t * settings_04_view_page) {
     lv_obj_set_style_text_font(battery_serial_number, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
 
+#if 0
+    /* Just set a fake total list items value for now */
+    int ttl_battery_app_items = 5;
+
     /* Set the list_item_separator and entry_separator objects here */
     lv_obj_t * list_item_tail[ttl_battery_app_items];
 
@@ -848,18 +798,19 @@ static void settings_04_view(lv_obj_t * settings_04_view_page) {
     lv_obj_t * battery_description[ttl_battery_app_items];
     lv_obj_t * battery_item_overlay[ttl_battery_app_items];
 
-    // lv_obj_t * dual_battery_gauge;
+    lv_obj_t * dual_battery_gauge;
     lv_obj_t * battery_gauge_overlay;
 
-    // battery_gauge_overlay = lv_btn_create(image);
-    // lv_obj_set_size(battery_gauge_overlay, 342, 56);
-    // lv_obj_align(battery_gauge_overlay, LV_ALIGN_TOP_LEFT, SIMPLE_PAD_LEFT, 320);
-    // lv_obj_set_style_opa(battery_gauge_overlay, LV_OPA_0, LV_PART_MAIN);
+    battery_gauge_overlay = lv_btn_create(image);
+    lv_obj_set_size(battery_gauge_overlay, 342, 56);
+    lv_obj_align(battery_gauge_overlay, LV_ALIGN_TOP_LEFT, SIMPLE_PAD_LEFT, 320);
+    lv_obj_set_style_opa(battery_gauge_overlay, LV_OPA_0, LV_PART_MAIN);
 
-    // dual_battery_gauge = lv_img_create(image);
-    // lv_img_set_src(dual_battery_gauge, &Settings_Battery_1_2);
-    // lv_obj_align(dual_battery_gauge, LV_ALIGN_CENTER, 0, 125);
-    // lv_img_set_zoom(dual_battery_gauge, 125);
+    dual_battery_gauge = lv_img_create(image);
+    lv_img_set_src(dual_battery_gauge, &Settings_Battery_1_2);
+    lv_obj_align(dual_battery_gauge, LV_ALIGN_CENTER, 0, 125);
+    lv_img_set_zoom(dual_battery_gauge, 125);
+#endif
 }
 
 
@@ -883,8 +834,9 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
 
     /* Calculate total settings_05 -- system list */
     printf("\nCalculate settings_05 -- system list...\n");
-    for(system_app_item = 0; !is_end(settings_05_list[system_app_item].settings_id); system_app_item++) {
-        ttl_system_app_items = system_app_item+1;
+    int ttl_system_app_items = 0;
+    for(int system_app_item = 0; !is_end(settings_05_list[system_app_item].settings_id); system_app_item++) {
+        ttl_system_app_items++;
         printf("Item count: %d -- settings_id: %s\n",ttl_system_app_items,settings_05_list[system_app_item].settings_id);
     }
     printf("\nTotal Records: %d\n\n",ttl_system_app_items);
@@ -959,7 +911,8 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
     lv_obj_t * system_item_overlay[ttl_system_app_items];
 
     /* Add settings features as clickable buttons */
-    for(system_list_counter = 0; system_list_counter < ttl_system_app_items; system_list_counter++) {
+    int offset; 
+    for(int system_list_counter = 0; system_list_counter < ttl_system_app_items; system_list_counter++) {
         /* A row-by-row offset value to maintain spacing between clickable elements */
         offset = system_list_counter * 60;
 

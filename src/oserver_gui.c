@@ -134,7 +134,6 @@ void oserver_gui(void) {
  */
 void main_menu_init(void) {
 
-    lv_obj_t * main_page;
     lv_obj_t * lotus_page;
 
     uint32_t i;
