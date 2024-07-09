@@ -123,27 +123,27 @@ static lv_obj_t * top_of_list_items;
 
 /***  Contacts Specific Functions  ***/
 /* Scroll to the filesystem home screen as the final step in the filesytem app launch */
-static void scroll_to_home() {
+static __attribute__((unused)) void scroll_to_home() {
     // printf("EXEC :: scroll_to_home()\n\n");
     lv_obj_scroll_to_view(contact_objects[1], LV_ANIM_OFF);
 }
 
 /* Scroll to screen clicked in the clickback call */
-static void scroll_to_screen(lv_event_t* e) {
+static __attribute__((unused)) void scroll_to_screen(lv_event_t* e) {
     int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
     // printf("\nClicked Filesystem Element: %d\n\n",screen_index);
     lv_obj_scroll_to_view(contact_objects[screen_index], LV_ANIM_OFF);
     lv_event_stop_bubbling(e); // Stop event bubbling
 }
 
-static int calc_scroll_height(int ttl_rows) {
+static __attribute__((unused)) int calc_scroll_height(int ttl_rows) {
     // printf("\n\nCalc Scroll Rows: %d\n",ttl_rows);
     int ttl_height = ttl_rows * 52;
     // printf("Calc Scroll Height: %d\n",ttl_height);
     return ttl_height;
 }
 
-static int calc_scroll_offset(int ttl_rows) {
+static __attribute__((unused)) int calc_scroll_offset(int ttl_rows) {
     int ttl_offset;
     if(ttl_rows <= 10) {
         ttl_offset = 90;
@@ -154,7 +154,7 @@ static int calc_scroll_offset(int ttl_rows) {
     return ttl_offset;
 }
 
-static void image_click_event_cb(lv_event_t* e) {
+static __attribute__((unused)) void image_click_event_cb(lv_event_t* e) {
     lv_event_code_t code = lv_event_get_code(e);
     if (code == LV_EVENT_CLICKED) {
         // printf("\nScrolling panel has been clicked!\n");

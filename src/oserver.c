@@ -62,9 +62,9 @@ static lv_obj_t * top_of_list_items;
 static lv_obj_t ** trusted_device_btn_list;
 static lv_timer_t * sleeptimer;
 
-static void device_selected_cb(lv_event_t * e) { printf("Selected device for total control...\n"); }
+static void device_selected_cb(lv_event_t * e __attribute__((unused))) { printf("Selected device for total control...\n"); }
 
-static void total_control_cb(lv_event_t * e) {
+static __attribute__((unused)) void total_control_cb(lv_event_t * e) {
 
     printf("Enabling total control on device...\n");
     /*
@@ -81,7 +81,7 @@ static void total_control_cb(lv_event_t * e) {
  */
 static lv_obj_t * percent;
 
-static void update_percent(lv_timer_t * percent_timer) {
+static void update_percent(lv_timer_t * percent_timer __attribute__((unused))) {
     static int percent_done = 0;
     //lv_obj_t * oserver_page = percent_timer->user_data;
     // TODO: work needed here!

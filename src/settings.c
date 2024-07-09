@@ -160,14 +160,14 @@ static void quit_application() {
     exit(0);
 }
 
-static int calc_scroll_height(int ttl_rows, int base_offset) {
+static __attribute__((unused)) int calc_scroll_height(int ttl_rows, int base_offset) {
     printf("\n\nttl_rows: %d  --  base_offset: %d\n",ttl_rows,base_offset);
     int ttl_height = ttl_rows * base_offset;
     // printf("Calc Scroll Height: %d\n",ttl_height);
     return ttl_height;
 }
 
-static int calc_scroll_offset(int ttl_rows) {
+static __attribute__((unused)) int calc_scroll_offset(int ttl_rows) {
     int ttl_offset = 0;
     if(ttl_rows <= 10) {
         ttl_offset = 90;
@@ -178,8 +178,7 @@ static int calc_scroll_offset(int ttl_rows) {
     return ttl_offset;
 }
 
-/**** DEGGING ****/
-static void debug_click(lv_event_t* e) {
+static __attribute__((unused)) void debug_click(lv_event_t* e) {
     int screen_index = (int)lv_event_get_user_data(e); // Get the screen index from user data
     printf("\nEXEC :: clicked() [%d]\n",screen_index);
 }
@@ -416,7 +415,7 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
 
 
 /***  SCREEN 02 - Display page  ***/
-static void settings_02_view(lv_obj_t * settings_02_view_page) {
+static __attribute__((unused)) void settings_02_view(lv_obj_t * settings_02_view_page) {
     lv_obj_t * image = lv_img_create(settings_02_view_page);
 
     /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
