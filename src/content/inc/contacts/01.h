@@ -18,7 +18,7 @@
 */
 
 
-/* Create and initialize the Contacts_01 list */
+/* Create and initialize the Contacts_02 list */
 static contacts_item contacts_01_list[] = {
     {
         .contact_id = "0001",
@@ -258,6 +258,306 @@ static contacts_item contacts_01_list[] = {
         .contact_m_phone = "650.555.1212",
         .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
         .contact_company_name = "Yoyodyne Propulsion Systems",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0021",
+        .contact_name = "John Wood",
+        .contact_fname = "John",
+        .contact_lname = "Wood",
+        .contact_p_email = "John+Wood@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0022",
+        .contact_name = "John Camp",
+        .contact_fname = "John",
+        .contact_lname = "Camp",
+        .contact_p_email = "John+Camp@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0023",
+        .contact_name = "John Grim",
+        .contact_fname = "John",
+        .contact_lname = "Grim",
+        .contact_p_email = "John+Grim@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0024",
+        .contact_name = "John Many Jars",
+        .contact_fname = "John",
+        .contact_lname = "Manyjars",
+        .contact_p_email = "John+Manyjars@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0025",
+        .contact_name = "John Coyote",
+        .contact_fname = "John",
+        .contact_lname = "Coyote",
+        .contact_p_email = "John+Coyote@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0026",
+        .contact_name = "John Jones",
+        .contact_fname = "John",
+        .contact_lname = "Jones",
+        .contact_p_email = "John+Jones@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0027",
+        .contact_name = "John Chief Crier",
+        .contact_fname = "John",
+        .contact_lname = "ChiefCrier",
+        .contact_p_email = "John+ChiefCrier@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0028",
+        .contact_name = "John Rajneesh",
+        .contact_fname = "John",
+        .contact_lname = "Rajeesh",
+        .contact_p_email = "John+Rajeesh@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0029",
+        .contact_name = "John Littlejohn",
+        .contact_fname = "John",
+        .contact_lname = "Littlejohn",
+        .contact_p_email = "John+Littlejohn@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0030",
+        .contact_name = "John Starbird",
+        .contact_fname = "John",
+        .contact_lname = "Starbird",
+        .contact_p_email = "John+Starbird@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0031",
+        .contact_name = "John Smallberries",
+        .contact_fname = "John",
+        .contact_lname = "Smallberries",
+        .contact_p_email = "John+Smallberries@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0032",
+        .contact_name = "John Lee",
+        .contact_fname = "John",
+        .contact_lname = "Lee",
+        .contact_p_email = "John+Lee@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0033",
+        .contact_name = "John Kim Chi",
+        .contact_fname = "John",
+        .contact_lname = "KimChi",
+        .contact_p_email = "John+KimChi@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0034",
+        .contact_name = "John Fish",
+        .contact_fname = "John",
+        .contact_lname = "Fish",
+        .contact_p_email = "John+Fish@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0035",
+        .contact_name = "John Joseph",
+        .contact_fname = "John",
+        .contact_lname = "Joseph",
+        .contact_p_email = "John+Joseph@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0036",
+        .contact_name = "John Cooper",
+        .contact_fname = "John",
+        .contact_lname = "Cooper",
+        .contact_p_email = "John+Cooper@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0037",
+        .contact_name = "John Omar",
+        .contact_fname = "John",
+        .contact_lname = "Omar",
+        .contact_p_email = "John+Omar@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0038",
+        .contact_name = "John Fledgling",
+        .contact_fname = "John",
+        .contact_lname = "Fledgling",
+        .contact_p_email = "John+Fledgling@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0039",
+        .contact_name = "John Roberts",
+        .contact_fname = "John",
+        .contact_lname = "Roberts",
+        .contact_p_email = "John+Roberts@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0040",
+        .contact_name = "John Milton",
+        .contact_fname = "John",
+        .contact_lname = "Milton",
+        .contact_p_email = "John+Milton@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0041",
+        .contact_name = "John Barnett",
+        .contact_fname = "John",
+        .contact_lname = "Barnett",
+        .contact_p_email = "John+Barnett@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0042",
+        .contact_name = "John Nephew",
+        .contact_fname = "John",
+        .contact_lname = "Nephew",
+        .contact_p_email = "John+Nephew@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0043",
+        .contact_name = "John Guardian",
+        .contact_fname = "John",
+        .contact_lname = "Guardian",
+        .contact_p_email = "John+Guardian@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0044",
+        .contact_name = "John Yaya",
+        .contact_fname = "John",
+        .contact_lname = "Yaya",
+        .contact_p_email = "John+Yaya@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0045",
+        .contact_name = "John Two Horns",
+        .contact_fname = "John",
+        .contact_lname = "TwoHorns",
+        .contact_p_email = "John+TwoHorns@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0046",
+        .contact_name = "John Edwards",
+        .contact_fname = "John",
+        .contact_lname = "Edwards",
+        .contact_p_email = "John+Edwards@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0047",
+        .contact_name = "John Scott",
+        .contact_fname = "John",
+        .contact_lname = "Scott",
+        .contact_p_email = "John+Scott@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0048",
+        .contact_name = "John Gomez",
+        .contact_fname = "John",
+        .contact_lname = "Gomez",
+        .contact_p_email = "John+Gomez@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
+        .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
+    },
+    {
+        .contact_id = "0049",
+        .contact_name = "John Gant",
+        .contact_fname = "John",
+        .contact_lname = "Gant",
+        .contact_p_email = "John+Gant@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "Planet 10, Redwood City, CA 94063",
+        .contact_notes = "Organization Name, Planet 10, Organization Title, Pilot, Organization Department, Lectroid Flight Team"
+    },
+    {
+        .contact_id = "0050",
+        .contact_name = "John Careful Walker",
+        .contact_fname = "John",
+        .contact_lname = "Carefulwalker",
+        .contact_p_email = "John+Carefulwalker@gmail.com",
+        .contact_m_phone = "650.555.1212",
+        .contact_w_address = "8900 De Soto Ave, Canoga Park, CA 91304",
         .contact_notes = "Organization Name, Yoyodyne Propulsion Systems, Organization Title, , Organization Department, "
     },
     {

@@ -19,9 +19,11 @@ LV_IMG_DECLARE(Background_Menu_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Devices_Yellow);
 LV_IMG_DECLARE(Icon_Menu_O_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Files_Yellow);
+LV_IMG_DECLARE(Icon_Menu_Crypto_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Mail_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Contact_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Calendar_Yellow);
+LV_IMG_DECLARE(Icon_Menu_Crypto_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Text_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Music_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Settings_Yellow);
@@ -36,6 +38,7 @@ const lv_img_dsc_t * icon_images[OCO_PAGE_MAX] = {
     & Icon_Menu_Devices_Yellow,
     & Icon_Menu_O_Yellow,
     & Icon_Menu_Files_Yellow,
+    & Icon_Menu_Crypto_Yellow,
     & Icon_Menu_Mail_Yellow,
     & Icon_Menu_Contact_Yellow,
     & Icon_Menu_Calendar_Yellow,
@@ -50,6 +53,7 @@ menu_item main_menu_dispatch[OCO_PAGE_MAX] = {
     { .menu_pre = "De",     .menu_italic = "v",  .lx = -20, .mx = 0,  .rx = 26, .menu_post = "ices", .menu_vec = DEVICE_VEC,   .active = true },
     { .menu_pre = "O",      .menu_italic = "\0", .lx = 0,   .mx = 0,  .rx = 20, .menu_post = "\0",   .menu_vec = OSERVER_VEC,  .active = true },
     { .menu_pre = "Fil",    .menu_italic = "e",  .lx = -15, .mx = 2,  .rx = 13, .menu_post = "s",    .menu_vec = FILES_VEC,    .active = true },
+    { .menu_pre = "Cr",     .menu_italic = "y",  .lx = -21, .mx = -4, .rx = 21, .menu_post = "pto",  .menu_vec = CRYPTO_VEC,   .active = true },
     { .menu_pre = "E",      .menu_italic = "m",  .lx = -17, .mx = 0,  .rx = 21, .menu_post = "ail",  .menu_vec = EMAIL_VEC,    .active = true },
     { .menu_pre = "Conta",  .menu_italic = "c",  .lx = -21, .mx = 15, .rx = 30, .menu_post = "ts",   .menu_vec = CONTACTS_VEC, .active = true },
     { .menu_pre = "Cal",    .menu_italic = "e",  .lx = -26, .mx = -5, .rx = 23, .menu_post = "ndar", .menu_vec = CALENDAR_VEC, .active = true },
@@ -59,7 +63,7 @@ menu_item main_menu_dispatch[OCO_PAGE_MAX] = {
 };
 
 static uint16_t index_offset [OCO_PAGE_MAX] = {
-    40, 24, 10, 5, 2, 5, 10, 24, 40,
+    32, 21, 11, 5, 1, 1, 5, 11, 21, 32,
 };
 
 static void main_scroll_event_cb(lv_event_t * e) {
@@ -258,7 +262,7 @@ void main_menu_init(void) {
         lv_imgbtn_set_src(page_index[i], LV_IMGBTN_STATE_RELEASED, &teal_circle_selector, NULL, NULL);
         lv_imgbtn_set_src(page_index[i], LV_IMGBTN_STATE_PRESSED, &grey_dot_alt, NULL, NULL);
 
-        lv_obj_align(page_index[i], LV_ALIGN_CENTER, (i * 20) - 20, 245 - index_offset[i] * 0.6);
+        lv_obj_align(page_index[i], LV_ALIGN_CENTER, (i * 17) - 17, 245 - index_offset[i] * 0.6);
         lv_event_send(page_index[i], LV_EVENT_PRESSED, NULL);
         /* Initial state is first page activated */
         if (i == 0) {
@@ -271,6 +275,7 @@ void main_menu_init(void) {
     device_menu_setup();
     oserver_menu_setup();
     file_menu_setup();
+    crypto_menu_setup();
     email_menu_setup();
     contacts_menu_setup();
     calendar_menu_setup();

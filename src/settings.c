@@ -16,6 +16,7 @@
 #define LIST_SEPARATOR 30
 
 /* Padding definitions */
+#define BACK_BUTTON_PAD 25
 #define NARROW_PAD_LEFT 5
 #define SIMPLE_PAD_LEFT 20
 #define NORMAL_PAD_LEFT 30
@@ -26,6 +27,7 @@
 /* Color definitions */
 #define O_YELLOW_COLOR 0xD6B932
 #define O_GREY_COLOR 0xAEB2A1
+#define O_TEAL_COLOR 0x0AC1C1
 #define O_SCALE_GREY 0xC5C1B7
 #define O_SCALE_CREAM 0xD9DFC2
 #define O_SCALE_ORANGE 0xCB6D4D
@@ -73,6 +75,9 @@ LV_IMG_DECLARE(Linez);
 /* Contact Card - Contact Initials Background */
 LV_IMG_DECLARE(Icon_Contact_Initials_Background);
 
+/* Display app imagery iconography */
+LV_IMG_DECLARE(Button_Hollow);
+
 /* Storage gauge imagery iconography */
 LV_IMG_DECLARE(Settings_Storage_1);
 
@@ -87,8 +92,8 @@ LV_FONT_DECLARE(lv_font_montserrat_44);
 
 /***  Settings Specific Declarations  ***/
 
-/* Set total number of pages / screens -- this includes screen #1 which is the main filesystem screen to screen #7 which is the spreadsheets screen */
-#define NUM_SCREENS 5
+/* Set total number of pages / screens -- this includes screen #1 which is the main settings screen to screen #7 which is the spreadsheets screen */
+#define NUM_SCREENS 6
 
 /* Set the array to store the screen reference pointers */
 lv_obj_t * settings_objects[NUM_SCREENS];
@@ -102,8 +107,6 @@ static const int back_to_home = 0;
 /* Set style references */
 static lv_style_t reset_style_img;
 static lv_style_t power_off_style_img;
-// static lv_style_t settings_feature_bullet;
-// static lv_style_t settings_scale_bullet;
 static lv_style_t back_button_style;
 static lv_style_t name_style_20;
 static lv_style_t name_style_24;
@@ -160,6 +163,14 @@ static void quit_application() {
     exit(0);
 }
 
+/* Use this cb to test if the overlay screen to enable scrolling is positioned correctly over the entire area */
+static __attribute__((unused)) void image_click_event_cb(lv_event_t* e) {
+    lv_event_code_t code = lv_event_get_code(e);
+    if (code == LV_EVENT_CLICKED) {
+        printf("\nScrolling panel has been clicked!\n");
+    }
+}
+
 static __attribute__((unused)) int calc_scroll_height(int ttl_rows, int base_offset) {
     printf("\n\nttl_rows: %d  --  base_offset: %d\n",ttl_rows,base_offset);
     int ttl_height = ttl_rows * base_offset;
@@ -189,7 +200,7 @@ static void settings_00_view(lv_obj_t * settings_00_view_page) {
 
     /* Set the screen number counter to the first visible sub-screen for the settings app */
     int scr_nbr = 0;
-    printf("Settings page number: %d\n", scr_nbr);
+    // printf("Settings page number: %d\n", scr_nbr);
 
     /* Store the pointer to the current screen being viewed */
     settings_objects[0] = image;
@@ -294,7 +305,7 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
 
     /* Set the screen number counter to the first visible sub-screen for the connection app */
     int scr_nbr = 1;
-    printf("Settings page number: %d\n", scr_nbr);
+    // printf("Settings page number: %d\n", scr_nbr);
 
     /* Store the pointer to the current screen being viewed */
     settings_objects[scr_nbr] = image;
@@ -304,22 +315,22 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
     init_styles();
 
     /* Calculate total settings_01 -- main list */
-    printf("\nCalculate settings_01 -- connection list...\n");
+    // printf("\nCalculate settings_01 -- connection list...\n");
     int ttl_connection_app_items = 0;
     for(int connection_app_item = 0; !is_end(settings_01_list[connection_app_item].settings_id); connection_app_item++) {
         ttl_connection_app_items++;
-        printf("Item count: %d -- settings_id: %s\n",ttl_connection_app_items,settings_01_list[connection_app_item].settings_id);
+        // printf("Item count: %d -- settings_id: %s\n",ttl_connection_app_items,settings_01_list[connection_app_item].settings_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_connection_app_items);
+    // printf("\nTotal Records: %d\n\n",ttl_connection_app_items);
 
     /* Build the Connection record list for display */
-    printf("Building each settings_01 record for display\n");
+    // printf("Building each settings_01 record for display\n");
     for(int j = 0; j < ttl_connection_app_items; j++) {
         if(is_end(settings_01_list[j].settings_id)) {
-            printf("item: %d -- settings_name: %s\n",j,settings_01_list[j].settings_name);
+            // printf("item: %d -- settings_name: %s\n",j,settings_01_list[j].settings_name);
             break;
         } else {
-            printf("settings_id: %s -- settings_name: %s\n",settings_01_list[j].settings_id,settings_01_list[j].settings_name);
+            // printf("settings_id: %s -- settings_name: %s\n",settings_01_list[j].settings_id,settings_01_list[j].settings_name);
         }
     }
 
@@ -338,7 +349,7 @@ static void settings_01_view(lv_obj_t * settings_01_view_page) {
     /* Back button icon */
     lv_obj_t * back_image = lv_img_create(image);
     lv_img_set_src(back_image, &Icon_Back);
-    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
     lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
 
     /* Back button label text */
@@ -420,36 +431,15 @@ static void settings_02_view(lv_obj_t * settings_02_view_page) {
 
     /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
     lv_obj_set_size(image, lv_pct(100), lv_pct(100));
+    lv_obj_set_scroll_dir(image, LV_DIR_VER);
 
     /* Set the screen number counter to the first visible sub-screen for the connection app */
     int scr_nbr = 2;
-    printf("Settings page number: %d\n", scr_nbr);
+    // printf("Settings page number: %d\n", scr_nbr);
 
     /* Store the pointer to the current screen being viewed */
     settings_objects[scr_nbr] = image;
     lv_img_set_src(image, &Background);
-
-    /* Just set a fake total list items value for now */
-    int ttl_display_app_items = 3;  // ????
-
-    /* Calculate total settings_03 -- main list */
-    printf("\nCalculate settings_03 -- storage list...\n");
-    for(int display_app_item = 0; !is_end(settings_03_list[display_app_item].settings_id); display_app_item++) {
-        ttl_display_app_items = display_app_item+1;
-        printf("Item count: %d -- settings_id: %s\n",ttl_display_app_items,settings_03_list[display_app_item].settings_id);
-    }
-    printf("\nTotal Records: %d\n\n",ttl_display_app_items);
-
-    /* Build the Connection record list for display */
-    printf("Building each settings_03 record for display\n");
-    for(int j = 0; j < ttl_display_app_items; j++) {
-        if(is_end(settings_03_list[j].settings_id)) {
-            printf("item: %d -- settings_name: %s\n",j,settings_03_list[j].settings_name);
-            break;
-        } else {
-            printf("settings_id: %s -- settings_name: %s\n",settings_03_list[j].settings_id,settings_03_list[j].settings_name);
-        }
-    }
 
 /***  HEADING ELEMENTS  ***/
     static lv_style_t back_button_style;
@@ -459,15 +449,15 @@ static void settings_02_view(lv_obj_t * settings_02_view_page) {
     /* Back button overlay */
     back_to_settings[back_to_home] = lv_btn_create(image);
     lv_obj_set_size(back_to_settings[back_to_home], 130, 50);
-    lv_obj_align(back_to_settings[back_to_home], LV_ALIGN_TOP_LEFT, 20, 31);
     lv_obj_set_style_opa(back_to_settings[back_to_home], LV_OPA_0, LV_PART_MAIN);
     lv_obj_add_event_cb(back_to_settings[back_to_home], scroll_to_home, LV_EVENT_CLICKED, NULL);
+    lv_obj_align(back_to_settings[back_to_home], LV_ALIGN_TOP_LEFT, 20, 31);  // This is first object displayed on the screen
 
     /* Back button icon */
     lv_obj_t * back_image = lv_img_create(image);
     lv_img_set_src(back_image, &Icon_Back);
-    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
     lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
 
     /* Back button label text */
     lv_obj_t * back_label = lv_label_create(image);
@@ -488,6 +478,160 @@ static void settings_02_view(lv_obj_t * settings_02_view_page) {
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
 /***  MAIN LIST ITEMS  ***/
+    /* Set the objects for list item separators and overlay elements for each feature here */
+    lv_obj_t * list_item_tail[5];
+    lv_obj_t * display_feature_overlay;
+    int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
+    int ttl_overlay_height = 662;  // Set this to the last lv_obj_align() padding height minus 40
+
+    /* Display full screen height overlay to enable scrolling */
+    display_feature_overlay = lv_img_create(image);
+    lv_obj_set_size(display_feature_overlay, ttl_overlay_width, ttl_overlay_height);
+    lv_obj_set_style_opa(display_feature_overlay, LV_OPA_COVER, LV_PART_MAIN);
+    lv_obj_add_flag(display_feature_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(display_feature_overlay, LV_OBJ_FLAG_CLICKABLE);
+    // lv_obj_add_event_cb(display_feature_overlay, image_click_event_cb, LV_EVENT_CLICKED, NULL);  // Use this for debugging
+    lv_obj_align(display_feature_overlay, LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 94);
+
+    /*** MODE SECTION ***/
+    /* Display Mode Section Heading - Mode */
+    lv_obj_t * display_mode_heading = lv_label_create(image);
+    lv_label_set_recolor(display_mode_heading, true);
+    lv_label_set_text(display_mode_heading, "Mode");
+    lv_obj_set_style_text_color(display_mode_heading, lv_color_white(), 0);
+    lv_obj_set_style_text_font(display_mode_heading, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(display_mode_heading, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 94);
+
+    /* Display Mode Button Sun image */
+    lv_obj_t * mode_sun_grey = lv_img_create(image);
+    lv_img_set_src(mode_sun_grey, &Icon_Sun_Grey);
+    lv_obj_align(mode_sun_grey, LV_ALIGN_TOP_LEFT, 85, 180);
+
+    /* Display Mode Button Disabled label */
+    lv_obj_t * mode_disabled_label = lv_label_create(image);
+    lv_label_set_recolor(mode_disabled_label, true);
+    lv_label_set_text(mode_disabled_label, " Light\nmode");
+    lv_obj_set_style_text_color(mode_disabled_label, lv_color_hex(O_GREY_COLOR), 0);
+    lv_obj_set_style_text_font(mode_disabled_label, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(mode_disabled_label, LV_ALIGN_TOP_LEFT, 82, 238);
+
+    /* Display Mode Button Grey Bullet image */
+    lv_obj_t * mode_bullet_grey = lv_img_create(image);
+    lv_img_set_src(mode_bullet_grey, &Icon_Bullet_Grey);
+    lv_obj_align(mode_bullet_grey, LV_ALIGN_TOP_LEFT, 106, 304);
+
+    /* Display Mode Button Disabled image */
+    lv_obj_t * mode_button_disabled = lv_img_create(image);
+    lv_img_set_src(mode_button_disabled, &Icon_Mode_Button_Grey);
+    lv_obj_align(mode_button_disabled, LV_ALIGN_TOP_LEFT, 28, 138);
+
+    /* Display Mode Button Moon image */
+    lv_obj_t * mode_moon_yellow = lv_img_create(image);
+    lv_img_set_src(mode_moon_yellow, &Icon_Moon_Yellow);
+    lv_obj_align(mode_moon_yellow, LV_ALIGN_TOP_LEFT, 264, 184);
+
+    /* Display Mode Button Enabled label */
+    lv_obj_t * mode_enabled_label = lv_label_create(image);
+    lv_label_set_recolor(mode_enabled_label, true);
+    lv_label_set_text(mode_enabled_label, " Dark\nmode");
+    lv_obj_set_style_text_color(mode_enabled_label, lv_color_white(), 0);
+    lv_obj_set_style_text_font(mode_enabled_label, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(mode_enabled_label, LV_ALIGN_TOP_LEFT, 248, 238);
+
+    /* Display Mode Button Teal Bullet image */
+    lv_obj_t * mode_bullet_teal = lv_img_create(image);
+    lv_img_set_src(mode_bullet_teal, &Icon_Bullet_Teal);
+    lv_obj_align(mode_bullet_teal, LV_ALIGN_TOP_LEFT, 268, 296);
+
+    /* Display Mode Button Enabled image */
+    lv_obj_t * mode_button_enabled = lv_img_create(image);
+    lv_img_set_src(mode_button_enabled, &Icon_Mode_Button_Teal);
+    lv_obj_align(mode_button_enabled, LV_ALIGN_TOP_RIGHT, -28, 138);
+
+    /* Add a list item separator just beneath the mode button items */
+    list_item_tail[0] = lv_img_create(image);
+    lv_img_set_src(list_item_tail[0], &Linez);
+    lv_obj_align(list_item_tail[0], LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 370);
+
+    /*** TIME SECTION ***/
+    /* Display Mode Section Heading - Time */
+    lv_obj_t * display_time_heading = lv_label_create(image);
+    lv_label_set_recolor(display_time_heading, true);
+    lv_label_set_text(display_time_heading, "Time");
+    lv_obj_set_style_text_color(display_time_heading, lv_color_white(), 0);
+    lv_obj_set_style_text_font(display_time_heading, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(display_time_heading, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 396);
+
+    /* Display Time Off label */
+    lv_obj_t * time_off_label = lv_label_create(image);
+    lv_label_set_recolor(time_off_label, true);
+    lv_label_set_text(time_off_label, "Off");
+    lv_obj_set_style_text_color(time_off_label, lv_color_hex(O_GREY_COLOR), 0);
+    lv_obj_set_style_text_font(time_off_label, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(time_off_label, LV_ALIGN_TOP_LEFT, 68, 458);
+
+    /* Display Time Button - Off */
+    lv_obj_t * time_button_off = lv_img_create(image);
+    lv_img_set_src(time_button_off, &Icon_Hollow_Button_Grey_L);
+    lv_obj_align(time_button_off, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 437);
+
+    /* Display Time Analog label */
+    lv_obj_t * time_analog_label = lv_label_create(image);
+    lv_label_set_recolor(time_analog_label, true);
+    lv_label_set_text(time_analog_label, "Analog");
+    lv_obj_set_style_text_color(time_analog_label, lv_color_white(), 0);
+    lv_obj_set_style_text_font(time_analog_label, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(time_analog_label, LV_ALIGN_TOP_LEFT, 158, 458);
+
+    /* Display Time Button - Analog */
+    lv_obj_t * time_button_analog = lv_img_create(image);
+    lv_img_set_src(time_button_analog, &Icon_Hollow_Button_Teal);
+    lv_obj_align(time_button_analog, LV_ALIGN_TOP_MID, 0, 437);
+
+    /* Display Time Digital label */
+    lv_obj_t * time_digital_label = lv_label_create(image);
+    lv_label_set_recolor(time_digital_label, true);
+    lv_label_set_text(time_digital_label, "Digital");
+    lv_obj_set_style_text_color(time_digital_label, lv_color_hex(O_GREY_COLOR), 0);
+    lv_obj_set_style_text_font(time_digital_label, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(time_digital_label, LV_ALIGN_TOP_LEFT, 272, 458);
+
+    /* Display Time Button - Digital */
+    lv_obj_t * time_button_digital = lv_img_create(image);
+    lv_img_set_src(time_button_digital, &Icon_Hollow_Button_Grey_R);
+    lv_obj_align(time_button_digital, LV_ALIGN_TOP_RIGHT, NORMAL_PAD_RIGHT, 437);
+
+    /* Add a list item separator just beneath the time section */
+    list_item_tail[1] = lv_img_create(image);
+    lv_img_set_src(list_item_tail[1], &Linez);
+    lv_obj_align(list_item_tail[1], LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 535);
+
+    /*** BACKGROUND SECTION ***/
+    /* Display Mode Section Heading - Background */
+    lv_obj_t * display_background_heading = lv_label_create(image);
+    lv_label_set_recolor(display_background_heading, true);
+    lv_label_set_text(display_background_heading, "Background");
+    lv_obj_set_style_text_color(display_background_heading, lv_color_white(), 0);
+    lv_obj_set_style_text_font(display_background_heading, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(display_background_heading, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 564);
+
+    /* Upload Background Button */
+    lv_obj_t * background_upload_button = lv_img_create(image);
+    lv_img_set_src(background_upload_button, &Icon_Upload_Yellow);
+    lv_obj_align(background_upload_button, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 607);
+
+    /* Upload Background label */
+    lv_obj_t * background_upload_label = lv_label_create(image);
+    lv_label_set_recolor(background_upload_label, true);
+    lv_label_set_text(background_upload_label, "Upload an image");
+    lv_obj_set_style_text_color(background_upload_label, lv_color_white(), 0);
+    lv_obj_set_style_text_font(background_upload_label, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(background_upload_label, LV_ALIGN_TOP_LEFT, 112, 628);
+
+    /* Add a list item separator just beneath the time section */
+    list_item_tail[2] = lv_img_create(image);
+    lv_img_set_src(list_item_tail[2], &Linez);
+    lv_obj_align(list_item_tail[2], LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 702);
 }
 
 
@@ -500,7 +644,7 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
 
     /* Set the screen number counter to the first visible sub-screen for the connection app */
     int scr_nbr = 3;
-    printf("Settings page number: %d\n", scr_nbr);
+    // printf("Settings page number: %d\n", scr_nbr);
 
     /* Store the pointer to the current screen being viewed */
     settings_objects[scr_nbr] = image;
@@ -510,21 +654,21 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
     int ttl_storage_app_items = 3;
 
     /* Calculate total settings_03 -- main list */
-    printf("\nCalculate settings_03 -- storage list...\n");
+    // printf("\nCalculate settings_03 -- storage list...\n");
     for(int storage_app_item = 0; !is_end(settings_03_list[storage_app_item].settings_id); storage_app_item++) {
         ttl_storage_app_items = storage_app_item+1;
-        printf("Item count: %d -- settings_id: %s\n",ttl_storage_app_items,settings_03_list[storage_app_item].settings_id);
+        // printf("Item count: %d -- settings_id: %s\n",ttl_storage_app_items,settings_03_list[storage_app_item].settings_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_storage_app_items);
+    // printf("\nTotal Records: %d\n\n",ttl_storage_app_items);
 
     /* Build the Connection record list for display */
-    printf("Building each settings_03 record for display\n");
+    // printf("Building each settings_03 record for display\n");
     for(int j = 0; j < ttl_storage_app_items; j++) {
         if(is_end(settings_03_list[j].settings_id)) {
-            printf("item: %d -- settings_name: %s\n",j,settings_03_list[j].settings_name);
+            // printf("item: %d -- settings_name: %s\n",j,settings_03_list[j].settings_name);
             break;
         } else {
-            printf("settings_id: %s -- settings_name: %s\n",settings_03_list[j].settings_id,settings_03_list[j].settings_name);
+            // printf("settings_id: %s -- settings_name: %s\n",settings_03_list[j].settings_id,settings_03_list[j].settings_name);
         }
     }
 
@@ -543,7 +687,7 @@ static void settings_03_view(lv_obj_t * settings_03_view_page) {
     /* Back button icon */
     lv_obj_t * back_image = lv_img_create(image);
     lv_img_set_src(back_image, &Icon_Back);
-    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
     lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
 
     /* Back button label text */
@@ -676,7 +820,7 @@ static void settings_04_view(lv_obj_t * settings_04_view_page) {
 
     /* Set the screen number counter to the first visible sub-screen for the connection app */
     int scr_nbr = 4;
-    printf("Settings page number: %d\n", scr_nbr);
+    // printf("Settings page number: %d\n", scr_nbr);
 
     /* Store the pointer to the current screen being viewed */
     settings_objects[scr_nbr] = image;
@@ -697,7 +841,7 @@ static void settings_04_view(lv_obj_t * settings_04_view_page) {
     /* Back button icon */
     lv_obj_t * back_image = lv_img_create(image);
     lv_img_set_src(back_image, &Icon_Back);
-    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
     lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
 
     /* Back button label text */
@@ -783,33 +927,6 @@ static void settings_04_view(lv_obj_t * settings_04_view_page) {
     lv_label_set_text(battery_serial_number, "SR71_958-MC130_555");
     lv_obj_set_style_text_color(battery_serial_number, lv_color_hex(HEADING_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(battery_serial_number, &NeueHaasDisplayLight_24, LV_PART_MAIN);
-
-
-#if 0
-    /* Just set a fake total list items value for now */
-    int ttl_battery_app_items = 5;
-
-    /* Set the list_item_separator and entry_separator objects here */
-    lv_obj_t * list_item_tail[ttl_battery_app_items];
-
-    /* Icon and label objects here */
-    lv_obj_t * battery_label[ttl_battery_app_items];
-    lv_obj_t * battery_description[ttl_battery_app_items];
-    lv_obj_t * battery_item_overlay[ttl_battery_app_items];
-
-    lv_obj_t * dual_battery_gauge;
-    lv_obj_t * battery_gauge_overlay;
-
-    battery_gauge_overlay = lv_btn_create(image);
-    lv_obj_set_size(battery_gauge_overlay, 342, 56);
-    lv_obj_align(battery_gauge_overlay, LV_ALIGN_TOP_LEFT, SIMPLE_PAD_LEFT, 320);
-    lv_obj_set_style_opa(battery_gauge_overlay, LV_OPA_0, LV_PART_MAIN);
-
-    dual_battery_gauge = lv_img_create(image);
-    lv_img_set_src(dual_battery_gauge, &Settings_Battery_1_2);
-    lv_obj_align(dual_battery_gauge, LV_ALIGN_CENTER, 0, 125);
-    lv_img_set_zoom(dual_battery_gauge, 125);
-#endif
 }
 
 
@@ -822,7 +939,7 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
 
     /* Set the screen number counter to the first visible sub-screen for the connection app */
     int scr_nbr = 5;
-    printf("Settings page number: %d\n", scr_nbr);
+    // printf("Settings page number: %d\n", scr_nbr);
 
     /* Store the pointer to the current screen being viewed */
     settings_objects[scr_nbr] = image;
@@ -832,22 +949,22 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
     // init_styles();
 
     /* Calculate total settings_05 -- system list */
-    printf("\nCalculate settings_05 -- system list...\n");
+    // printf("\nCalculate settings_05 -- system list...\n");
     int ttl_system_app_items = 0;
     for(int system_app_item = 0; !is_end(settings_05_list[system_app_item].settings_id); system_app_item++) {
         ttl_system_app_items++;
-        printf("Item count: %d -- settings_id: %s\n",ttl_system_app_items,settings_05_list[system_app_item].settings_id);
+        // printf("Item count: %d -- settings_id: %s\n",ttl_system_app_items,settings_05_list[system_app_item].settings_id);
     }
-    printf("\nTotal Records: %d\n\n",ttl_system_app_items);
+    // printf("\nTotal Records: %d\n\n",ttl_system_app_items);
 
     /* Build the System record list for display */
-    printf("Building each settings_05 record for display\n");
+    // printf("Building each settings_05 record for display\n");
     for(int j = 0; j < ttl_system_app_items; j++) {
         if(is_end(settings_05_list[j].settings_id)) {
-            printf("item: %d -- settings_name: %s\n",j,settings_05_list[j].settings_name);
+            // printf("item: %d -- settings_name: %s\n",j,settings_05_list[j].settings_name);
             break;
         } else {
-            printf("settings_id: %s -- settings_name: %s\n",settings_05_list[j].settings_id,settings_05_list[j].settings_name);
+            // printf("settings_id: %s -- settings_name: %s\n",settings_05_list[j].settings_id,settings_05_list[j].settings_name);
         }
     }
 
@@ -866,7 +983,7 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
     /* Back button icon */
     lv_obj_t * back_image = lv_img_create(image);
     lv_img_set_src(back_image, &Icon_Back);
-    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, 25, 45);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
     lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
 
     /* Back button label text */
@@ -1000,8 +1117,7 @@ static void settings_05_view(lv_obj_t * settings_05_view_page) {
 
 
 /***  Settings App Initialization  ***/
-void settings_menu_setup(void)
-{
+void settings_menu_setup(void) {
     printf("SETTINGS MENU init...\n");
 
     lv_obj_t * settings_page = lv_obj_create(NULL);

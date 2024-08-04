@@ -22,17 +22,48 @@ extern "C" {
 #define LV_PRIu32 PRIu32
 
 /* Product specific definitions */
-#define OCO_PAGE_MAX 9
+#define OCO_PAGE_MAX 10
 #define OCO_CANVAS_WIDTH 385 /* match MONITOR_HOR_RES */
 #define OCO_CANVAS_HEIGHT 510 /* match MONITOR_VER_RES */
+
+/* Color Definitions */
+#define O_YELLOW_COLOR 0xD6B932
+#define O_GREY_COLOR 0xAEB2A1
+#define O_TEAL_COLOR 0x0AC1C1
+#define O_SCALE_GREY 0xC5C1B7
+#define O_SCALE_CREAM 0xD9DFC2
+#define O_SCALE_ORANGE 0xCB6D4D
+#define O_SCALE_RED 0xB7354B
+#define O_SCALE_LIGHT_TEAL 0xC5E7E7
+#define O_SCALE_LIGHT_YELLOW 0xDABC41
+#define HEADING_SUBDUED_COLOR 0xADB1A2
+#define RESET_COLOR 0x32D642
+#define POWER_OFF_COLOR 0xDD4949
+#define BATTERY_LEVEL_GREAT 0x32D642
+#define BATTERY_LEVEL_FAIR 0xFFFFFF
+#define BATTERY_LEVEL_LOW 0xDD4949
 
 #define MESSAGE_CONTENT_COLOR 0xADB1A2
 #define CONTACT_CONTENT_COLOR 0xADB1A2
 
 /* Include image resources */
 LV_IMG_DECLARE(Background);
+LV_IMG_DECLARE(Button_Hollow);
+LV_IMG_DECLARE(Dot_Enabled);
+LV_IMG_DECLARE(Moon_Yellow);
+LV_IMG_DECLARE(Sun_Grey);
+LV_IMG_DECLARE(Upload_Button);
 LV_IMG_DECLARE(Icon_Arrow_White);
 LV_IMG_DECLARE(Icon_Audio_Yellow);
+LV_IMG_DECLARE(Icon_Birthday);
+LV_IMG_DECLARE(Icon_Phone);
+LV_IMG_DECLARE(Icon_Empty_Dude);
+LV_IMG_DECLARE(Icon_Day_1);
+LV_IMG_DECLARE(Icon_Day_9);
+LV_IMG_DECLARE(Icon_Day_10);
+LV_IMG_DECLARE(Icon_Day_15);
+LV_IMG_DECLARE(Icon_Day_16);
+LV_IMG_DECLARE(Icon_Day_20);
 LV_IMG_DECLARE(Icon_Bluetooth_White);
 LV_IMG_DECLARE(Icon_Bullet_Item);
 LV_IMG_DECLARE(Icon_Bullet_Yellow);
@@ -60,6 +91,16 @@ LV_IMG_DECLARE(Icon_Menu_Mail_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Music_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Settings_Yellow);
 LV_IMG_DECLARE(Icon_Menu_Text_Yellow);
+LV_IMG_DECLARE(Icon_Bullet_Grey);
+LV_IMG_DECLARE(Icon_Bullet_Teal);
+LV_IMG_DECLARE(Icon_Hollow_Button_Grey_L);
+LV_IMG_DECLARE(Icon_Hollow_Button_Grey_R);
+LV_IMG_DECLARE(Icon_Hollow_Button_Teal);
+LV_IMG_DECLARE(Icon_Mode_Button_Grey);
+LV_IMG_DECLARE(Icon_Mode_Button_Teal);
+LV_IMG_DECLARE(Icon_Moon_Yellow);
+LV_IMG_DECLARE(Icon_Sun_Grey);
+LV_IMG_DECLARE(Icon_Upload_Yellow);
 LV_IMG_DECLARE(Icon_More_White);
 LV_IMG_DECLARE(Icon_Next_White);
 LV_IMG_DECLARE(Icon_NFC_White);
@@ -75,6 +116,12 @@ LV_IMG_DECLARE(Icon_Status_Disable);
 LV_IMG_DECLARE(Icon_Text_Unread_Yellow);
 LV_IMG_DECLARE(Icon_Video_Yellow);
 LV_IMG_DECLARE(Icon_WiFi_White);
+LV_IMG_DECLARE(Icon_Crypto_Bitcoin_Yellow);
+LV_IMG_DECLARE(Icon_Crypto_Ethereum_Yellow);
+LV_IMG_DECLARE(Icon_Crypto_Tether_Yellow);
+LV_IMG_DECLARE(Icon_Crypto_Binance_Yellow);
+LV_IMG_DECLARE(Icon_Crypto_Public_Key_Horizontal_Teal);
+LV_IMG_DECLARE(Icon_Crypto_Private_Key_Horizontal_Red);
 LV_IMG_DECLARE(Time);
 LV_IMG_DECLARE(Linez);
 LV_IMG_DECLARE(GreyHalo);
@@ -89,6 +136,11 @@ LV_IMG_DECLARE(Files_App_Heading_Title);
 LV_IMG_DECLARE(Devices_App_Heading_Title);
 LV_IMG_DECLARE(Text_App_Heading_Title);
 LV_IMG_DECLARE(Calendar_App_Heading_Title);
+LV_IMG_DECLARE(Calendar_4_Up);
+LV_IMG_DECLARE(Calendar_1_June_2024);
+LV_IMG_DECLARE(Calendar_2_July_2024);
+LV_IMG_DECLARE(Calendar_3_August_2024);
+LV_IMG_DECLARE(Calendar_4_September_2024);
 LV_IMG_DECLARE(Contacts_App_Heading_Title);
 LV_IMG_DECLARE(O_App_Heading_Title);
 LV_IMG_DECLARE(Page_Dot);
@@ -111,6 +163,7 @@ LV_IMG_DECLARE(ALICIA_KEYS_LARGE);
 
 LV_IMG_DECLARE(AMY_WINEHOUSE);
 LV_IMG_DECLARE(AMY_WINEHOUSE_LARGE);
+LV_IMG_DECLARE(Album_Dio_Holy_Diver);
 
 LV_IMG_DECLARE(Pause);
 LV_IMG_DECLARE(Play);

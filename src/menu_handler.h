@@ -120,6 +120,87 @@ typedef struct {
     int lx_offset;
     int mx_offset;
     int rx_offset;
+    char * crypto_id;
+    char * crypto_fname;
+    char * crypto_lname;
+    char * crypto_company_name;
+    char * crypto_company_initials;
+    char * crypto_private_key_hash;
+    char * crypto_private_key_qr;
+    char * crypto_public_key_hash;
+    char * crypto_public_key_qr;
+    char * crypto_ticker_symbol;
+    double crypto_balance;
+    double crypto_value;
+    double crypto_price;
+    char * crypto_type;
+    char * crypto_vendor;
+    char * crypto_notes;
+    const lv_img_dsc_t * crypto_icon_logo;
+    lv_font_t * crypto_font;
+    // lv_color_t * crypto_color;
+    void (* page_handler)(lv_obj_t *);
+    // lv_img_dsc_t * crypto_status;
+} crypto_item;
+
+typedef struct {
+    char * menu_pre;
+    char * menu_italic;
+    int lx_offset;
+    int mx_offset;
+    int rx_offset;
+    char * calendar_id;
+    char * calendar_title;
+    char * calendar_month;
+    char * calendar_day;
+    char * calendar_year;
+    char * calendar_time_start;
+    char * calendar_time_end;
+    char * calendar_time_duration;
+    char * calendar_time_period;
+    char * calendar_time_zone;
+    char * calendar_description;
+    char * calendar_location;
+    char * calendar_repeat;
+    char * calendar_alert;
+    char * calendar_show_as;
+    char * calendar_notes;
+    const lv_img_dsc_t * calendar_event_icon;
+    const lv_img_dsc_t * calendar_type_icon;
+    lv_font_t * calendar_font;
+    // lv_color_t * calendar_color;
+    void (* page_handler)(lv_obj_t *);
+    // lv_img_dsc_t * calendar_status;
+} calendar_item;
+
+typedef struct {
+    char * menu_pre;
+    char * menu_italic;
+    int lx_offset;
+    int mx_offset;
+    int rx_offset;
+    char * album_id;
+    char * album_name;
+    char * album_artist;
+    char * album_song_title;
+    char * album_song_length;
+    char * album_date;
+    char * album_genre;
+    char * album_era;
+    char * album_notes;
+    const lv_img_dsc_t * album_cover_icon;
+    const lv_img_dsc_t * album_song_icon;
+    void (* page_handler)(lv_obj_t *);
+    // bool active;
+} music_item;
+
+
+typedef struct {
+    char * menu_pre;
+    char * menu_italic;
+    int lx_offset;
+    int mx_offset;
+    int rx_offset;
     char * settings_id;
     char * settings_name;
     char * settings_admin;
@@ -161,6 +242,7 @@ enum menu_vector_index {
     DEVICE_VEC, // First Device menu
     OSERVER_VEC,
     FILES_VEC,
+    CRYPTO_VEC,
     EMAIL_VEC,
     CONTACTS_VEC,
     CALENDAR_VEC,
@@ -196,6 +278,7 @@ void home_screen_setup(void);
 void device_menu_setup(void);
 void oserver_menu_setup(void);
 void file_menu_setup(void);
+void crypto_menu_setup(void);
 void email_menu_setup(void);
 void contacts_menu_setup(void);
 void calendar_menu_setup(void);
