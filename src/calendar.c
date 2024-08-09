@@ -120,7 +120,7 @@ LV_FONT_DECLARE(NeueHaasDisplayLight_32);
 lv_obj_t * calendar_objects[NUM_SCREENS];
 
 /* Set the BACK-TO-HOME array to use in a custom back button for the filesystem app */
-static lv_obj_t * back_to_home_screen[NUM_SCREENS];
+static lv_obj_t * back_to_home_screen[NUM_SCREENS] __attribute__((unused));
 
 /* This is the primary "home page" element in the Settings app */
 static const int back_to_home = 0;
@@ -131,11 +131,11 @@ static int ttl_calendar_items = 0;
 static int cal_ttl;
 
 static int calendar_items_01;
-static int calendar_items_02;
-static int calendar_items_03;
-static int calendar_items_04;
-static int calendar_items_05;
-static int calendar_items_06;
+static int calendar_items_02 __attribute__((unused));
+static int calendar_items_03 __attribute__((unused));
+static int calendar_items_04 __attribute__((unused));
+static int calendar_items_05 __attribute__((unused));
+static int calendar_items_06 __attribute__((unused));
 
 
 static int cal_1 = 1;
@@ -171,7 +171,7 @@ static lv_style_t name_style_32;
 static lv_style_t label_style;
 static lv_style_t italic_style;
 
-static lv_style_t wrap_content_style;
+static lv_style_t wrap_content_style __attribute__((unused));
 
 /***  Init styles specific  ***/
 static void init_styles() {
@@ -232,7 +232,7 @@ static calendar_item * find_calendar_by_id(const char *id_to_find) {
     return NULL;  // Calendar item not found
 }
 
-static void display_appointment_event_cb(lv_event_t * e) {
+static __attribute__((unused)) void display_appointment_event_cb(lv_event_t * e) {
     const char *screen_index = (const char *)lv_event_get_user_data(e);
 
     calendar_item *found_appointment = find_calendar_by_id(screen_index);
@@ -268,7 +268,6 @@ static void calc_dataset_items() {
 }
 
 
-// static __attribute__((unused)) void image_click_event_cb(lv_event_t * e) {
 static void image_click_event_cb(lv_event_t * e) {
     int screen_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
     printf("EXEC :: image_click_event_cb() [%d]\n\n",screen_index);
@@ -281,8 +280,8 @@ static void image_click_event_cb(lv_event_t * e) {
 }
 
 static __attribute__((unused)) void event_handler(lv_event_t * e) {
-    lv_event_code_t code = lv_event_get_code(e);
-    lv_obj_t * obj = lv_event_get_target(e);
+    lv_event_code_t code __attribute__((unused)) = lv_event_get_code(e);
+    lv_obj_t * obj __attribute__((unused)) = lv_event_get_target(e);
     printf("calendar item clicked\n");
 
     // if(code == LV_EVENT_VALUE_CHANGED) {
@@ -351,8 +350,8 @@ static void calendar_00_view(lv_obj_t * calendar_00_view_page) {
 
 /***  MAIN LIST ITEMS  ***/
     /* Set the objects for list item separators and overlay elements for each feature here */
-    lv_obj_t * list_item_tail[5];
-    lv_obj_t * display_feature_overlay;
+    lv_obj_t * list_item_tail[5] __attribute__((unused));
+    lv_obj_t * display_feature_overlay __attribute__((unused));
 
     int calendar_item_overlay_width = 145;
     int calendar_item_overlay_height = 135;
@@ -455,7 +454,7 @@ static void calendar_01_view(lv_obj_t * calendar_01_view_page) {
 
 /***  MAIN LIST ITEMS  ***/
     /* Set the objects for list item separators and overlay elements for each feature here */
-    lv_obj_t * list_item_tail[5];
+    lv_obj_t * list_item_tail[5] __attribute__((unused));
     lv_obj_t * display_feature_overlay;
     int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
     int ttl_overlay_height = 602;  // Set this to the last lv_obj_align() padding height minus 40
@@ -470,7 +469,7 @@ static void calendar_01_view(lv_obj_t * calendar_01_view_page) {
     lv_obj_align(display_feature_overlay, LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 94);
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_calendar_items];
+    lv_obj_t * list_item_separator[ttl_calendar_items] __attribute__((unused));
 
     lv_obj_t * calendar_1 = lv_img_create(image);
     lv_img_set_src(calendar_1, &Calendar_1_June_2024);
@@ -535,7 +534,7 @@ static void calendar_02_view(lv_obj_t * calendar_02_view_page) {
 
 /***  MAIN LIST ITEMS  ***/
     /* Set the objects for list item separators and overlay elements for each feature here */
-    lv_obj_t * list_item_tail[5];
+    lv_obj_t * list_item_tail[5] __attribute__((unused));
     lv_obj_t * display_feature_overlay;
     int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
     int ttl_overlay_height = 602;  // Set this to the last lv_obj_align() padding height minus 40
@@ -550,7 +549,7 @@ static void calendar_02_view(lv_obj_t * calendar_02_view_page) {
     lv_obj_align(display_feature_overlay, LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 94);
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_calendar_items];
+    lv_obj_t * list_item_separator[ttl_calendar_items] __attribute__((unused));
 
     lv_obj_t * calendar_2 = lv_img_create(image);
     lv_img_set_src(calendar_2, &Calendar_2_July_2024);
@@ -615,7 +614,7 @@ static void calendar_03_view(lv_obj_t * calendar_03_view_page) {
 
 /***  MAIN LIST ITEMS  ***/
     /* Set the objects for list item separators and overlay elements for each feature here */
-    lv_obj_t * list_item_tail[5];
+    lv_obj_t * list_item_tail[5] __attribute__((unused));
     lv_obj_t * display_feature_overlay;
     int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
     int ttl_overlay_height = 602;  // Set this to the last lv_obj_align() padding height minus 40
@@ -631,7 +630,7 @@ static void calendar_03_view(lv_obj_t * calendar_03_view_page) {
     lv_obj_align(display_feature_overlay, LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 94);
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_calendar_items];
+    lv_obj_t * list_item_separator[ttl_calendar_items] __attribute__((unused));
 
     lv_obj_t * calendar_3 = lv_img_create(image);
     lv_img_set_src(calendar_3, &Calendar_3_August_2024);
@@ -696,7 +695,7 @@ static void calendar_04_view(lv_obj_t * calendar_04_view_page) {
 
 /***  MAIN LIST ITEMS  ***/
     /* Set the objects for list item separators and overlay elements for each feature here */
-    lv_obj_t * list_item_tail[5];
+    lv_obj_t * list_item_tail[5] __attribute__((unused));
     lv_obj_t * display_feature_overlay;
     int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
     int ttl_overlay_height = 602;  // Set this to the last lv_obj_align() padding height minus 40
@@ -712,7 +711,7 @@ static void calendar_04_view(lv_obj_t * calendar_04_view_page) {
     lv_obj_align(display_feature_overlay, LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 94);
 
     /* Set the list_item_separator object here */
-    lv_obj_t * list_item_separator[ttl_calendar_items];
+    lv_obj_t * list_item_separator[ttl_calendar_items] __attribute__((unused));
 
     lv_obj_t * calendar_4 = lv_img_create(image);
     lv_img_set_src(calendar_4, &Calendar_4_September_2024);
@@ -771,22 +770,22 @@ static void calendar_05_view(lv_obj_t * calendar_05_view_page) {
     lv_img_set_src(page_header, &Calendar_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    lv_coord_t offset = 0;
+    lv_coord_t offset __attribute__((unused)) = 0;
 
     static lv_style_t name_style;
     lv_style_init(&name_style);
 
     /* Set the list_item_separator and entry_separator objects here */
     lv_obj_t * list_item_tail[ttl_calendar_items];
-    lv_obj_t * display_feature_overlay;
-    int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
-    int ttl_overlay_height = 662;  // Set this to the last lv_obj_align() padding height minus 40
+    lv_obj_t * display_feature_overlay __attribute__((unused));
+    int ttl_overlay_width __attribute__((unused)) = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
+    int ttl_overlay_height __attribute__((unused)) = 662;  // Set this to the last lv_obj_align() padding height minus 40
 
     /* Icon and label objects here */
     lv_obj_t * calendar_event_label[ttl_calendar_items];
     lv_obj_t * calendar_event_start[ttl_calendar_items];
     lv_obj_t * calendar_event_icon[ttl_calendar_items];
-    lv_obj_t * calendar_event_next_icon[ttl_calendar_items];
+    lv_obj_t * calendar_event_next_icon[ttl_calendar_items] __attribute__((unused));
     lv_obj_t * calendar_event_item_overlay[ttl_calendar_items];
 
 /***  JULY CALENDAR ITEM LIST  ***/
@@ -898,7 +897,7 @@ static void calendar_06_view(lv_obj_t * calendar_06_view_page) {
     /* These keep the alignment settings evenly spaced when in a for loop */
     // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     // lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    lv_coord_t offset __attribute__((unused)) = 0;
 
     /* Set the list_item_separator object here */
     // lv_obj_t * list_item_separator[ttl_calendar_items];
@@ -907,15 +906,15 @@ static void calendar_06_view(lv_obj_t * calendar_06_view_page) {
     lv_style_init(&name_style);
 
     /* Set the list_item_separator and entry_separator objects here */
-    lv_obj_t * list_item_tail[ttl_calendar_items];
-    lv_obj_t * display_feature_overlay;
-    int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
-    int ttl_overlay_height = 662;  // Set this to the last lv_obj_align() padding height minus 40
+    lv_obj_t * list_item_tail[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * display_feature_overlay __attribute__((unused));
+    int ttl_overlay_width __attribute__((unused)) = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
+    int ttl_overlay_height __attribute__((unused)) = 662;  // Set this to the last lv_obj_align() padding height minus 40
 
     /* Icon and label objects here */
-    lv_obj_t * calendar_label[ttl_calendar_items];
-    lv_obj_t * calendar_icon[ttl_calendar_items];
-    lv_obj_t * calendar_item_overlay[ttl_calendar_items];
+    lv_obj_t * calendar_label[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_icon[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_item_overlay[ttl_calendar_items] __attribute__((unused));
 
     // lv_obj_t * month_name_heading = lv_label_create(image);
     // lv_label_set_recolor(month_name_heading, true);
@@ -1012,7 +1011,7 @@ static void calendar_07_view(lv_obj_t * calendar_07_view_page) {
     /* These keep the alignment settings evenly spaced when in a for loop */
     // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     // lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    lv_coord_t offset __attribute__((unused)) = 0;
 
     /* Set the list_item_separator object here */
     // lv_obj_t * list_item_separator[ttl_calendar_items];
@@ -1021,15 +1020,15 @@ static void calendar_07_view(lv_obj_t * calendar_07_view_page) {
     lv_style_init(&name_style);
 
     /* Set the list_item_separator and entry_separator objects here */
-    lv_obj_t * list_item_tail[ttl_calendar_items];
-    lv_obj_t * display_feature_overlay;
-    int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
-    int ttl_overlay_height = 662;  // Set this to the last lv_obj_align() padding height minus 40
+    lv_obj_t * list_item_tail[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * display_feature_overlay __attribute__((unused));
+    int ttl_overlay_width __attribute__((unused)) = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
+    int ttl_overlay_height __attribute__((unused)) = 662;  // Set this to the last lv_obj_align() padding height minus 40
 
     /* Icon and label objects here */
-    lv_obj_t * calendar_label[ttl_calendar_items];
-    lv_obj_t * calendar_icon[ttl_calendar_items];
-    lv_obj_t * calendar_item_overlay[ttl_calendar_items];
+    lv_obj_t * calendar_label[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_icon[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_item_overlay[ttl_calendar_items] __attribute__((unused));
 
 /***  SPETEMBER CALENDAR ITEM LIST  ***/
     // cal_ttl += calendar_items_04;
@@ -1063,7 +1062,7 @@ static void calendar_07_view(lv_obj_t * calendar_07_view_page) {
 
 
 /***  SCREEN 08 - Calendar - Events List page  ***/
-static void calendar_08_view(lv_obj_t * calendar_08_view_page) {
+static __attribute__((unused)) void calendar_08_view(lv_obj_t * calendar_08_view_page){
     lv_obj_t * image = lv_img_create(calendar_08_view_page);
 
     /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
@@ -1107,7 +1106,7 @@ static void calendar_08_view(lv_obj_t * calendar_08_view_page) {
     /* These keep the alignment settings evenly spaced when in a for loop */
     // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     // lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    lv_coord_t offset __attribute__((unused)) = 0;
 
     /* Set the list_item_separator object here */
     // lv_obj_t * list_item_separator[ttl_calendar_items];
@@ -1116,20 +1115,20 @@ static void calendar_08_view(lv_obj_t * calendar_08_view_page) {
     lv_style_init(&name_style);
 
     /* Set the list_item_separator and entry_separator objects here */
-    lv_obj_t * list_item_tail[ttl_calendar_items];
-    lv_obj_t * display_feature_overlay;
-    int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
-    int ttl_overlay_height = 662;  // Set this to the last lv_obj_align() padding height minus 40
+    lv_obj_t * list_item_tail[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * display_feature_overlay __attribute__((unused));
+    int ttl_overlay_width __attribute__((unused)) = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
+    int ttl_overlay_height __attribute__((unused)) = 662;  // Set this to the last lv_obj_align() padding height minus 40
 
     /* Icon and label objects here */
-    lv_obj_t * calendar_label[ttl_calendar_items];
-    lv_obj_t * calendar_icon[ttl_calendar_items];
-    lv_obj_t * calendar_item_overlay[ttl_calendar_items];
+    lv_obj_t * calendar_label[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_icon[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_item_overlay[ttl_calendar_items] __attribute__((unused));
 }
 
 
 /***  SCREEN 09 - Calendar - Events List page  ***/
-static void calendar_09_view(lv_obj_t * calendar_09_view_page) {
+static __attribute__((unused)) void calendar_09_view(lv_obj_t * calendar_09_view_page) {
     lv_obj_t * image = lv_img_create(calendar_09_view_page);
 
     /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
@@ -1173,7 +1172,7 @@ static void calendar_09_view(lv_obj_t * calendar_09_view_page) {
     /* These keep the alignment settings evenly spaced when in a for loop */
     // lv_point_t left = { LIST_LEFT_ALIGNED, -220};
     // lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
+    lv_coord_t offset __attribute__((unused)) = 0;
 
     /* Set the list_item_separator object here */
     // lv_obj_t * list_item_separator[ttl_calendar_items];
@@ -1182,15 +1181,15 @@ static void calendar_09_view(lv_obj_t * calendar_09_view_page) {
     lv_style_init(&name_style);
 
     /* Set the list_item_separator and entry_separator objects here */
-    lv_obj_t * list_item_tail[ttl_calendar_items];
-    lv_obj_t * display_feature_overlay;
-    int ttl_overlay_width = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
-    int ttl_overlay_height = 662;  // Set this to the last lv_obj_align() padding height minus 40
+    lv_obj_t * list_item_tail[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * display_feature_overlay __attribute__((unused));
+    int ttl_overlay_width __attribute__((unused)) = 360;   // Full screen is about 380, so, width should be 380 less pad left and pad right
+    int ttl_overlay_height __attribute__((unused)) = 662;  // Set this to the last lv_obj_align() padding height minus 40
 
     /* Icon and label objects here */
-    lv_obj_t * calendar_label[ttl_calendar_items];
-    lv_obj_t * calendar_icon[ttl_calendar_items];
-    lv_obj_t * calendar_item_overlay[ttl_calendar_items];
+    lv_obj_t * calendar_label[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_icon[ttl_calendar_items] __attribute__((unused));
+    lv_obj_t * calendar_item_overlay[ttl_calendar_items] __attribute__((unused));
 }
 
 

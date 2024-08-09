@@ -22,7 +22,7 @@
 
 
 /* Create and initialize the Calendar_00 list */
-static calendar_item calendar_05_list[] = {
+static calendar_item calendar_05_list[] __attribute__((unused)) = {
     {
         .calendar_id = "0018",
         .calendar_title = "Capitaine Ed Hocken meeting",
