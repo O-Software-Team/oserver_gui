@@ -45,6 +45,38 @@
 
 /* Contact list and contact ID variables */
 #define CONTACT_ID 0   // This is temporary until the second contacts list dataset is being accessed
+#define CONTACT_LIST_MAX 20
+// #define CONTACT_FOUND_MAX 0
+#define CONTACT_ID 0
+
+/* Contact screen alignment for Name, Phone, SMS, and Email separator lines */
+#define CONTACT_HEIGHT 290
+#define CONTACT_WIDTH 332
+#define CONTACT_MASK_WIDTH 332
+#define CONTACT_MASK_HEIGHT 100
+
+#define CONTACT_PAD_LEFT 30
+#define CONTACT_NOTES 120
+#define CONTACT_CONTENT 186
+#define CONTACT_LINE_SPACING 5.5
+
+#define LIST_LEFT_ALIGNED 25
+#define LIST_SEPARATOR 30
+#define LIST_CONTENT_ITEM 50
+
+/* Contact content attributes */
+#define CONTACT_CONTENT_COLOR 0xADB1A2
+
+/* Bottom of viewport attributes */
+#define OVERLAY_WIDTH 345
+#define OVERLAY_HEIGHT 70
+#define OVERLAY_POS_LEFT 20
+#define OVERLAY_POS_FROM_TOP 440
+#define OVERLAY_COLOR 0x0F0F0F
+
+#define LV_FONT_MONTSERRAT_44 1
+
+#define FONT_SIZE_WORKS 0 // Until it's figured out
 
 /* Main background and radio controls declared below */
 LV_IMG_DECLARE(Background);
