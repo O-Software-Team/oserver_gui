@@ -147,6 +147,7 @@ LV_IMG_DECLARE(Page_Dot);
 LV_IMG_DECLARE(Settings_App_Heading_Title);
 LV_IMG_DECLARE(Logo); // Metalic boot screen logo
 LV_IMG_DECLARE(teal_circle_selector);
+LV_IMG_DECLARE(B12230x385x510); // boot screen with winding road background
 
 /*
  * Album covers for the 'Music' player

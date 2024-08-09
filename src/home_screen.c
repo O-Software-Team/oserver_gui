@@ -194,6 +194,11 @@ void display_date(lv_obj_t * parent)
     lv_timer_set_repeat_count(periodic_time_update, -1);
 }
 
+void load_home_screen_cb(lv_event_t * e) {
+	main_menu_init();
+	display_home_screen();
+}
+
 /* The init routine for the 'home screen' page. (Screen saver) */
 void home_screen_setup(void)
 {
@@ -247,5 +252,4 @@ void display_home_screen(void)
     lv_obj_center(progress);
 
     lv_scr_load(home_screen);
-    //lv_obj_fade_out(home_screen, 1000, 500);
 }
