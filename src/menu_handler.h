@@ -39,12 +39,12 @@ typedef struct {
     int lx_offset;
     int mx_offset;
     int rx_offset;
-    int email_id;
+    char * email_id;
     char * email_message;
     char * email_from;
     char * email_subject;
-    // void (* page_handler)(lv_obj_t *);
-    const lv_img_dsc_t * email_status;
+    int email_status;
+    // const lv_img_dsc_t * email_status;
     // bool active;
 } email_item;
 
@@ -54,12 +54,12 @@ typedef struct {
     int lx_offset;
     int mx_offset;
     int rx_offset;
-    int txtmsg_id;
+    char * txtmsg_id;
     char * txtmsg_message;
     char * txtmsg_from;
     char * txtmsg_summary;
-    // void (* page_handler)(lv_obj_t *);
-    const lv_img_dsc_t * txtmsg_status;
+    int txtmsg_status;
+    // const lv_img_dsc_t * txtmsg_status;
     // bool active;
 } txtmsg_item;
 
@@ -217,9 +217,26 @@ typedef struct {
     lv_font_t * settings_font;
     // lv_color_t * settings_color;
     void (* page_handler)(lv_obj_t *);
-    // lv_img_dsc_t * txtmsg_status;
     // bool active;
 } settings_item;
+
+typedef struct {
+    char * device_id;
+    char * device_name;
+    char * device_perms;
+    char * device_control;
+    char * device_type;
+    const lv_img_dsc_t * device_type_icon;
+    const lv_img_dsc_t * device_enabled_icon;
+    const lv_img_dsc_t * device_disabled_icon;
+    char * device_baseline;
+    bool   device_state;
+#define PAIRING_STATE_ENABLED  true
+#define PAIRING_STATE_DISABLED false
+} device_pairing_item;
+
+/* Ensure all of the status info is available to any function requiring the device pairing status of a device */
+extern device_pairing_item device_00_list[];
 
 enum security {ADMIN = 0, FRIEND};
 

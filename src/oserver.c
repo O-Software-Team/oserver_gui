@@ -2,554 +2,915 @@
 #include "oserver_gui.h"
 #include "menu_handler.h"
 #include "utilities.h"
-
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
 
+/* Initialize/populate the Song list struct */
+#include "content/inc/devices/00.h"   /* Full Device List -and- State Machine Baseline */
+#include "content/inc/devices/01.h"   /* Device Control Items List */
 
-/* O App alignment for elements and Item separator lines */
-#define LIST_ITEM_TEXTAREA_HEIGHT 290
-#define LIST_ITEM_TEXTAREA_WIDTH 332
-#define LIST_ITEM_TEXTAREA_MASK_WIDTH 332
-#define LIST_ITEM_TEXTAREA_MASK_HEIGHT 100
-
-#define LIST_ITEM_PAD_LEFT 30
-#define LIST_ITEM_SUBJECT 120
-#define LIST_ITEM_CONTENT 186
-#define LIST_ITEM_LINE_SPACING 14.5
-#define LIST_LEFT_ALIGNED 25
+/* List separator line definitions */
 #define LIST_SEPARATOR 30
-#define LIST_CONTENT_ITEM 90
 
-/* Element content attributes */
-#define MAIN_CONTENT_COLOR 0xADB1A2
+/* Padding definitions */
+#define BACK_BUTTON_PAD 25
+#define NARROW_PAD_LEFT 5
+#define SIMPLE_PAD_LEFT 20
+#define NORMAL_PAD_LEFT 30
+#define NARROW_PAD_RIGHT -5
+#define SIMPLE_PAD_RIGHT -20
+#define NORMAL_PAD_RIGHT -30
+#define REGULAR_ICON_PAD_LEFT 85
 
-/* Bottom of viewport attributes */
-#define OVERLAY_WIDTH 345
-#define OVERLAY_HEIGHT 70
-#define OVERLAY_POS_LEFT 20
-#define OVERLAY_POS_FROM_TOP 440
-#define OVERLAY_COLOR 0x0F0F0F
+/* Color definitions */
+#define O_YELLOW_COLOR 0xD6B932
+#define O_GREY_COLOR 0xAEB2A1
+#define O_TEAL_COLOR 0x0AC1C1
+#define O_SCALE_GREY 0xC5C1B7
+#define O_SCALE_CREAM 0xD9DFC2
+#define O_SCALE_ORANGE 0xCB6D4D
+#define O_SCALE_RED 0xB7354B
+#define O_SCALE_LIGHT_TEAL 0xC5E7E7
+#define O_SCALE_LIGHT_YELLOW 0xDABC41
+#define HEADING_SUBDUED_COLOR 0xADB1A2
+#define RESET_COLOR 0x32D642
+#define POWER_OFF_COLOR 0xDD4949
+#define BATTERY_LEVEL_GREAT 0x32D642
+#define BATTERY_LEVEL_FAIR 0xFFFFFF
+#define BATTERY_LEVEL_LOW 0xDD4949
 
+/* Font definitions */
+#define LV_FONT_MONTSERRAT_44 1
+#define FONT_SIZE_WORKS 0
+
+/* Music list and song ID variables */
+#define DEVICE_ID 0   // This is temporary until the calendar list dataset is being accessed
+
+/***  Main background and radio controls declared below  ***/
 LV_IMG_DECLARE(Background);
+LV_IMG_DECLARE(Icon_Back);
+LV_IMG_DECLARE(Icon_WiFi_White);
+LV_IMG_DECLARE(Icon_Bluetooth_White);
+LV_IMG_DECLARE(Icon_NFC_White);
+LV_IMG_DECLARE(Icon_Add_Device);
 
 /* Main HEADING iconography */
 LV_IMG_DECLARE(O_App_Heading_Title);
 
-#undef DAN_CODE
+/* Declare the primary font here */
+LV_FONT_DECLARE(lv_font_montserrat_44);
+// LV_FONT_DECLARE(NeueHaasDisplayLight_32);
 
-/* Set variables to calculate and then truncate strings too wide for the viewport -- insert an ellipsis in place of the long string */
-static menu_item devices_active_info[] = {
-    {.menu_pre = "Kevin's Work iPhone",   .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
-    {.menu_pre = "Mark's iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-    {.menu_pre = "Alice's Macbook: Personal",  .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_MacBook},
-    {.menu_pre = "Ted's iPad",       .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPad},
-    {.menu_pre = "Office iPad",      .active = true,  .onboard = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-    {.menu_pre = "Mary's iPhone",    .active = false, .onboard = true,  .security_status = FRIEND, .icon = &Icon_iPhone},
-};
-static const int DEVICE_PAGE_MAX = sizeof(devices_active_info) / sizeof(menu_item);
+/* Main device configuration iconography */
+LV_IMG_DECLARE(Icon_Device_Configuration);
+LV_IMG_DECLARE(Icon_Device_Control_Total);
+LV_IMG_DECLARE(Icon_Device_Control_Neutral);
+LV_IMG_DECLARE(Icon_Device_Control_Synchronisation);
 
-static menu_item devices_found_info[] = {
-    {.menu_pre = "Bob's iPhone",   .active = false, .security_status = FRIEND, .icon = &Icon_iPhone},
-    {.menu_pre = "Marks iPad",     .active = true,  .security_status = ADMIN,  .icon = &Icon_iPad},
-    {.menu_pre = "Bob's Macbook",  .active = false, .security_status = FRIEND, .icon = &Icon_MacBook},
-    {.menu_pre = "Orna's iPad",    .active = false, .security_status = FRIEND, .icon = &Icon_iPad},
-};
+static int device_list_offset_value = 90;
+static int ttl_height = 0;
+static int ttl_calc_overlay_height = 0;
+static int ttl_calc_overlay_offset = 0;
 
-const char * device_name_string;
-int device_name_count;
-static lv_obj_t * top_of_list_items;
-static lv_obj_t ** trusted_device_btn_list;
-static lv_timer_t * sleeptimer;
+/* Set total number of pages / screens -- this includes screen #1 which is the main found devices list screen */
+#define NUM_SCREENS 5
 
-static void device_selected_cb(lv_event_t * e __attribute__((unused))) { printf("Selected device for total control...\n"); }
+/* Create elements to support the rolling 2FA 6-digit code screen */
+// #define NUM_2FA_DIGITS 6
+// #define UPDATE_INTERVAL_2FA 1000
+// #define ANIM_DURATION 3500
 
-static __attribute__((unused)) void total_control_cb(lv_event_t * e) {
+static lv_style_t roller_style;
+static lv_style_t selected_style;
+static lv_style_t item_style;
 
-    printf("Enabling total control on device...\n");
-    /*
-     * Scroll to the page with the devices seen in the local area
-     * This is where we add "Bob's Macbook" as "Friend".
-     */
-    lv_obj_t * target = lv_event_get_target(e);
-    lv_obj_t * oserver_page = lv_obj_get_user_data(target);
-    lv_obj_scroll_to_view(lv_obj_get_child(oserver_page, 1), LV_ANIM_ON);
+/* Set the array to store the screen reference pointers */
+lv_obj_t * o_objects[NUM_SCREENS];
+
+/* Set the BACK-TO-HOME array to use in a custom back button for this app */
+static lv_obj_t * back_to_home_screen[NUM_SCREENS];
+
+/* This is the primary "home page" element in this app */
+static const int back_to_home = 0;
+
+/* This is the main Device List screen showing all devices and their statuses */
+static const int permissions_screen = 1;
+
+/* This is the main iPhone Device Control screen */
+static const int iphone_control_screen = 2;
+
+/* This is the main iPhone Device Control screen */
+static const int ipad_control_screen = 3;
+
+/* This is the main iPhone Device Control screen */
+static const int mac_control_screen = 4;
+
+/* Place all container definitions here to ensure all data can be found throughout */
+lv_obj_t * oserver_device_list_container;
+lv_obj_t * device_permissions_view_container;
+lv_obj_t * iphone_config_container;
+lv_obj_t * frenchi_loco_mac_config_container;
+lv_obj_t * ipad_config_container;
+// lv_obj_t * disabled_pick_list_container;
+// lv_obj_t * pairing_container;
+
+/* Counters */
+static int ttl_items;
+static int ttl_device_pairing_items = 0;
+static int ttl_device_control_items = 8; // Fixed list from Guillaume so i am just gonna hard code for now
+
+/* Primary 2FA array to store the labels for each digit */
+// static lv_obj_t *digit_labels[NUM_2FA_DIGITS];
+// static lv_obj_t *digit_rollers[NUM_2FA_DIGITS];
+
+/* Set variables to determine total number of items per list */
+static int device_item;    /* 00.h */
+static int device_record;
+
+/* Icon and label objects here */
+static lv_obj_t * device_label[];
+static lv_obj_t * device_perms[];
+static lv_obj_t * device_config_icon[];
+static lv_obj_t * device_control_icon[];
+static lv_obj_t * device_icon[];
+static lv_obj_t * device_status[];
+static lv_obj_t * device_add[];
+static lv_obj_t * device_item_overlay[];
+static lv_obj_t * control_item_name[];
+static lv_obj_t * control_list_status[];
+static lv_obj_t * control_item_overlay[];
+
+/* Set variables for all the contacts content fields: ID, NAME, EMAIL, PHONE, etc */
+static lv_obj_t * list_item_tail[];
+static lv_obj_t * list_item_separator[];
+
+/* Set style references */
+static lv_style_t back_button_style;
+static lv_style_t name_style_20;
+// static lv_style_t name_style_24;
+static lv_style_t name_style_32;
+
+static lv_style_t label_style;
+static lv_style_t italic_style;
+
+// static lv_style_t wrap_content_style;
+
+/***  Init styles specific  ***/
+static void init_styles() {
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    lv_style_init(&name_style_20);
+    lv_style_set_text_font(&name_style_20, &NeueHaasDisplayLight_20);
+
+    // lv_style_init(&name_style_24);
+    // lv_style_set_text_font(&name_style_24, &NeueHaasDisplayLight_24);
+
+    lv_style_init(&name_style_32);
+    lv_style_set_text_font(&name_style_32, &NeueHaasDisplayLight_32);
+
+    lv_style_init(&label_style);
+    lv_style_init(&italic_style);
+
+    lv_style_set_text_font(&label_style, &NeueHaasDisplayLight_24);
+    lv_style_set_text_font(&italic_style, &SaolDisplayRegularItalic_26);
+
+    lv_style_init(&roller_style);
+    lv_style_init(&selected_style);
+    lv_style_init(&item_style);
 }
 
-/*
- * Used on the total transfer percent complete screen
- */
-static lv_obj_t * percent;
+static screen_scroll_overlay_cb(lv_event_t * e) {
+    int screen_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
+    printf("EXEC :: screen_scroll_overlay_cb() [%d]\n\n",screen_index);
+}
 
-static void update_percent(lv_timer_t * percent_timer __attribute__((unused))) {
-    static int percent_done = 0;
-    //lv_obj_t * oserver_page = percent_timer->user_data;
-    // TODO: work needed here!
-    if(percent_done++ < 100) {
-        lv_label_set_text_fmt(percent, "%i", percent_done);
+// static __attribute__((unused)) void image_click_event_cb(lv_event_t * e) {
+// // static void image_click_event_cb(lv_event_t * e) {
+
+//     // lv_obj_add_event_cb(calendar_1, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)cal_1);  // Use this for debugging
+//     int screen_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
+//     printf("EXEC :: scroll_to_screen() [%d]\n\n",screen_index);
+
+//     // lv_obj_t * img_to_update = (lv_obj_t *) lv_event_get_user_data(e);
+
+//     // lv_obj_add_event_cb(button_overlay[scr_nbr], scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)scr_nbr);
+//     // int list_item_number_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
+
+//     // int index = (int)(intptr_t) lv_obj_get_user_data(img_to_update);
+//     // printf("EXEC :: index [%d]\n\n",index);
+
+
+//     // const char *screen_index = (const char *)lv_event_get_user_data(e);
+//     // device_pairing_item * found_info = find_device_by_id(screen_index);
+//     // printf("clicked name: %s   id: %d\n", found_info->device_name, found_info->id);
+// }
+
+/* Scroll to the home screen as the final step in the settings app launch */
+static void scroll_to_home() {
+    printf("EXEC :: scroll_to_home()\n\n");
+    lv_obj_scroll_to_view(o_objects[back_to_home], LV_ANIM_OFF);
+}
+
+/* Scroll to screen clicked in the clickback call */
+static void scroll_to_screen(lv_event_t* e) {
+    int screen_index = (int)(size_t)lv_event_get_user_data(e); // Get the screen index from user data
+    printf("EXEC :: scroll_to_screen() [%d]\n\n",screen_index);
+    lv_obj_scroll_to_view(o_objects[screen_index], LV_ANIM_OFF);
+    lv_event_stop_bubbling(e); // Stop event bubbling
+}
+
+static void calc_dataset_items() {
+    /* Calculate total list items */
+    // printf("\nCalculate records...\n");
+    for(ttl_items = 0; !is_end(device_00_list[ttl_items].device_id); ttl_items++) {
+        ttl_device_pairing_items = ttl_items+1;
+        // printf("Item count: %d -- device_id: %s\n",ttl_device_pairing_items,device_00_list[ttl_items].device_id);
     }
-}
+    // printf("\nTotal Records: %d\n\n",ttl_device_pairing_items);
 
-static void switch_event_handler(lv_event_t * e)
-{
-    lv_event_code_t code = lv_event_get_code(e);
-    lv_obj_t * obj = lv_event_get_target(e);
-
-    if(code == LV_EVENT_VALUE_CHANGED) {
-        LV_LOG_USER("State: %s\n", lv_obj_has_state(obj, LV_STATE_CHECKED) ? "On" : "Off");
-        if(lv_obj_has_state(obj, LV_STATE_CHECKED)) {
-            lv_obj_t * oserver_page = lv_obj_get_user_data(obj);
-            lv_obj_scroll_to_view(lv_obj_get_child(oserver_page, 2), LV_ANIM_ON);
-
-            sleeptimer = lv_timer_create(update_percent, 700, oserver_page);
-            lv_timer_set_repeat_count(sleeptimer, 100);
+    /* Build the Calendar record list for display */
+    for(int j = 0; j < ttl_device_pairing_items; j++) {
+        if(is_end(device_00_list[j].device_id)) {
+            // printf("item: %d -- device_name: %s\n",j,device_00_list[j].device_name);
+            break;
+        } else {
+            // printf("device_id: %s -- device_name: %s\n",device_00_list[j].device_id,device_00_list[j].device_name);
+            int dev = NULL;
         }
     }
 }
 
-/* When a device is selected to be enquire about a trust relationship, this code page displays */
-void transfer_progress_init(lv_obj_t * oserver_page)
-{
-    int percent_done = 0;
-    int time_remaining = 12;
-
-    static lv_style_t heading_style;
-    lv_style_init(&heading_style);
-    lv_style_set_text_font(&heading_style, &NeueHaasDisplayRoman_20);
-
-    static lv_style_t min_remain_style;
-    lv_style_init(&min_remain_style);
-    lv_style_set_text_font(&min_remain_style, &NeueHaasDisplayRoman_20);
-
-#if ALL_SCROLL
-    lv_obj_t * image = lv_img_create(oserver_page);
-    lv_img_set_src(image, &Background);
-#else
-    lv_obj_t * image = lv_img_create(oserver_page);
-    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
-    lv_obj_center(image);
-#endif // ALL_SCROLL
-
-    /*
-     * The top middle grey circled cancel button with 'X'
-     */
-    lv_obj_t * grey_outline = lv_img_create(image);
-    lv_img_set_src(grey_outline, &Icon_Grey_Outline_Button);
-    lv_obj_align(grey_outline, LV_ALIGN_TOP_MID, 0, 30);
-
-    lv_obj_t * cancel = lv_img_create(image);
-    lv_img_set_src(cancel, &Icon_Close_White);
-    lv_obj_align(cancel, LV_ALIGN_TOP_MID, 0, 40);
-
-    /* The 'Cancel' button */
-    lv_obj_t * cancel_button = lv_btn_create(image);
-    lv_obj_set_size(cancel_button, 70, 50);
-    lv_obj_align(cancel_button, LV_ALIGN_TOP_MID, 0, 30);
-    lv_obj_add_event_cb(cancel_button, back_home_button_cb, LV_EVENT_CLICKED, 0);
-    lv_obj_set_user_data(cancel_button, lv_obj_get_parent(image));
-    lv_obj_set_style_opa(cancel_button, LV_OPA_0, LV_PART_MAIN);
-
-    /*
-     * The yellow progress page accent
-     */
-    lv_obj_t * progress = lv_img_create(image);
-    lv_img_set_src(progress, &Progress);
-    lv_obj_center(progress);
-
-    lv_obj_t * total_transfer = lv_label_create(image);
-    lv_label_set_text(total_transfer, "Total Transfer");
-    lv_label_set_recolor(total_transfer, true);
-    lv_obj_set_style_text_color(total_transfer, lv_color_lighten(lv_color_black(), 99), 0);
-    lv_obj_add_style(total_transfer, &heading_style, LV_PART_MAIN);
-    lv_obj_align(total_transfer, LV_ALIGN_DEFAULT, 140, 140);
-
-    lv_obj_t * percent_container = lv_img_create(image);
-    lv_obj_align(percent_container, LV_ALIGN_CENTER, 10, 0);
-    lv_obj_set_flex_flow(percent_container, LV_FLEX_FLOW_ROW);
-    lv_obj_set_style_pad_column(percent_container, 10, 0);
-
-    /* The percent progress */
-    static lv_style_t percent_style;
-    lv_style_init(&percent_style);
-    // persent is a global for now
-    percent = lv_label_create(percent_container);
-    lv_style_set_text_font(&percent_style, &NeueHaasDisplayXXThin_100);
-
-    lv_label_set_text_fmt(percent, "%d", percent_done);
-    lv_obj_set_style_text_color(percent, lv_color_lighten(lv_color_black(), 98), 0);
-    lv_obj_add_style(percent, &percent_style, LV_PART_MAIN);
-    lv_obj_align(percent, LV_ALIGN_CENTER, 0, 0);
-    lv_obj_set_style_text_color(percent, lv_color_white(), 0);
-
-    /* The smaller font percent symbol */
-    static lv_style_t percent_symbol_style;
-    lv_style_init(&percent_symbol_style);
-    lv_obj_t * percent_symbol = lv_label_create(percent_container);
-    lv_style_set_text_font(&percent_symbol_style, &NeueHaasDisplayXThin_58);
-
-    lv_label_set_text(percent_symbol, "%");
-    lv_obj_set_style_text_color(percent_symbol, lv_palette_main(LV_PALETTE_GREY), 0);
-    lv_obj_add_style(percent_symbol, &percent_symbol_style, LV_PART_MAIN);
-    lv_obj_align(percent_symbol, LV_ALIGN_DEFAULT, 0, 50);
-    
-    /* Tell them what to do with the displayed code */
-    lv_obj_t * remaining = lv_label_create(image);
-    lv_label_set_recolor(remaining, true);
-    lv_label_set_text_fmt(remaining, "%d  min remaining", time_remaining);
-    lv_obj_set_style_text_color(remaining, lv_color_lighten(lv_color_black(), 99), 0);
-    lv_obj_add_style(remaining, &min_remain_style, LV_PART_MAIN);
-    lv_obj_align(remaining, LV_ALIGN_DEFAULT, 130, 330);
-
-    /* Click herer to 'run in background' text */
-    lv_obj_t * background = lv_label_create(image);
-    lv_label_set_recolor(background, true);
-    lv_label_set_text(background, "        Run in\nBackground");
-    lv_obj_set_style_text_color(background, lv_color_darken(lv_color_white(), 80), 0);
-    lv_obj_add_style(background, &min_remain_style, LV_PART_MAIN);
-    lv_obj_align(background, LV_ALIGN_BOTTOM_MID, 10, -50);
-
-    /* Click here to run the transfer in background */
-    lv_obj_t * background_button = lv_btn_create(image);
-    lv_obj_set_size(background_button, 110, 60);
-    lv_obj_align(background_button, LV_ALIGN_BOTTOM_MID, 10, -40);
-    lv_obj_add_event_cb(background_button, back_home_button_cb, LV_EVENT_CLICKED, 0);
-    lv_obj_set_user_data(background_button, lv_obj_get_parent(image));
-    lv_obj_set_style_opa(background_button, LV_OPA_0, LV_PART_MAIN);
+static int calc_scroll_height(int ttl_rows) {
+    // printf("\n\nCalc Scroll Rows: %d\n",ttl_rows);
+    ttl_height = ttl_rows * device_list_offset_value;
+    // printf("Calc Scroll Height: %d\n",ttl_height);
+    return ttl_height;
 }
 
-/* Set up the screen that selectes what data to be transfered; Email, Contact, Calendar, etc. */
-void total_control_item_init(lv_obj_t * oserver_page) {
+static void populate_device_list_container(void) {
+/***  POPULATE :: oserver_00_view_page  ***/
 
-    int which_device = 1; // Meanwhile, for the show, magic
-    lv_obj_t * entry_separator[4];
+    /* Clear existing rows from the container first */
+    if (oserver_device_list_container != NULL) {
+        // printf("PICK LIST: is full\n");
+        lv_obj_clean(oserver_device_list_container);
+    } else {
+        // printf("PICK LIST: is empty\n");
+    }
 
-    static lv_style_t security_selection_style;
-    lv_style_init(&security_selection_style);
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_device_pairing_items);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
 
-    static lv_style_t header_style;
-    lv_style_init(&header_style);
+    /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
+    lv_obj_set_size(oserver_device_list_container, lv_pct(100), lv_pct(100));
+    lv_obj_set_scroll_dir(oserver_device_list_container, LV_DIR_VER);
 
-    static lv_style_t cancel_style;
-    lv_style_init(&cancel_style);
+    /* Set the screen number counter to the first visible sub-screen for the settings app */
+    int scr_nbr = 0;
+    // printf("Device page number: %d\n", scr_nbr);
 
-    lv_style_set_text_font(&security_selection_style, &NeueHaasDisplayLight_18);
-    lv_style_set_text_font(&header_style, &NeueHaasDisplayLight_22);
-    lv_style_set_text_font(&cancel_style, &NeueHaasDisplayLight_16);
+    /* Store the pointer to the current screen being viewed */
+    o_objects[scr_nbr] = oserver_device_list_container;
+    lv_obj_set_style_bg_img_src(oserver_device_list_container, &Background, 0);
 
-#if ALL_SCROLL
-    lv_obj_t * image = lv_img_create(oserver_page);
-    lv_img_set_src(image, &Background);
-#else
-    lv_obj_t * image = lv_img_create(oserver_page);
-    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
-    lv_obj_center(image);
-#endif // ALL_SCROLL
+/***  HEADING ELEMENTS  ***/
+    render_back_button(oserver_device_list_container, (back_button_cb_t)back_home_button_cb);
 
-    render_back_button(image, (back_button_cb_t)back_button_cb);
+    /* Add Device button overlay */
+    lv_obj_t * add_device_button_overlay = lv_btn_create(oserver_device_list_container);
+    lv_obj_set_size(add_device_button_overlay, 130, 50);
+    lv_obj_set_style_opa(add_device_button_overlay, LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(add_device_button_overlay, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)permissions_screen);
+    lv_obj_align(add_device_button_overlay, LV_ALIGN_TOP_MID, 120, 20);  // This is first object displayed on the screen
 
-    /* The 'Cancel' button graphic */
-    lv_obj_t * cancel = lv_label_create(image);
-    lv_label_set_recolor(cancel, true);
-    lv_label_set_text(cancel, "Cancel");
-    lv_obj_set_style_text_color(cancel, lv_color_white(), 0);
-    lv_obj_align(cancel, LV_ALIGN_DEFAULT, 300, 25);
-    lv_obj_add_style(cancel, &cancel_style, LV_PART_MAIN);
+    /* Add Device button */
+    lv_obj_t * add_device_image = lv_img_create(oserver_device_list_container);
+    lv_img_set_src(add_device_image, &Icon_Filter_Button);
+    lv_obj_align(add_device_image, LV_ALIGN_TOP_MID, 125, 30);
 
-    /* The 'Cancel' button */
-    lv_obj_t * cancel_button = lv_btn_create(image);
-    lv_obj_set_size(cancel_button, 70, 30);
-    lv_obj_align(cancel_button, LV_ALIGN_DEFAULT, 290, 20);
-    lv_obj_add_event_cb(cancel_button, back_home_button_cb, LV_EVENT_CLICKED, 0);
-    lv_obj_set_user_data(cancel_button, lv_obj_get_parent(image));
-    lv_obj_set_style_opa(cancel_button, LV_OPA_0, LV_PART_MAIN);
-
-    lv_obj_t * device_found = lv_label_create(image);
-    lv_label_set_recolor(device_found, true);
-    lv_label_set_text(device_found, devices_found_info[which_device].menu_pre);
-    lv_obj_set_style_text_color(device_found, lv_color_white(), 0);
-    lv_obj_align(device_found, LV_ALIGN_TOP_MID, 0, 20);
-    lv_obj_add_style(device_found, &header_style, LV_PART_MAIN);
-
-    /* Add the item List heading*/
-    lv_obj_t * list_name = lv_label_create(image);
-    lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_DEFAULT, 25, 85);
-    lv_label_set_text(list_name, "Configuration");
-    lv_obj_add_style(list_name, &header_style, LV_PART_MAIN);
-    lv_obj_set_style_text_color(list_name, lv_palette_main(LV_PALETTE_GREY), 0);
-
-    entry_separator[0] = lv_img_create(image);
-    lv_img_set_src(entry_separator[0], &Linez);
-    lv_obj_align(entry_separator[0], LV_ALIGN_DEFAULT, 25, 130);
-
-    lv_obj_t * email_label = lv_label_create(image);
-    lv_label_set_recolor(email_label, true);
-    lv_label_set_text(email_label, "Emails");
-    lv_obj_set_style_text_color(email_label, lv_color_white(), 0);
-
-    lv_obj_add_style(email_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(email_label, LV_ALIGN_LEFT_MID, 50, -90);
-
-    /*Create a switch to add 'Emails' to list of total-control */
-    lv_obj_t * sw1 = lv_switch_create(image);
-    lv_obj_align(sw1, LV_ALIGN_CENTER, 120, -90);
-    lv_obj_set_size(sw1, 45, 25);
-    lv_obj_set_style_opa(sw1, LV_OPA_20, 0);
-    lv_obj_set_style_bg_color(sw1, lv_color_lighten(lv_color_black(), 60), 0);
-    lv_obj_set_style_border_color(sw1, lv_color_white(), 0);
-    lv_obj_set_style_border_width(sw1, 1, 0);
-    lv_obj_set_user_data(sw1, oserver_page);
-    lv_obj_add_event_cb(sw1, switch_event_handler, LV_EVENT_ALL, NULL);
-
-    entry_separator[1] = lv_img_create(image);
-    lv_img_set_src(entry_separator[1], &Linez);
-    lv_obj_align(entry_separator[1], LV_ALIGN_DEFAULT, 25, 205);
-
-    lv_obj_t * contacts_label = lv_label_create(image);
-    lv_label_set_recolor(contacts_label, true);
-    lv_label_set_text(contacts_label, "Contacts");
-    lv_obj_set_style_text_color(contacts_label, lv_color_white(), 0);
-    lv_obj_add_style(contacts_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(contacts_label, LV_ALIGN_LEFT_MID, 50, -10);
-
-    /*Create a switch to add 'Contacts' to list of total-control */
-    lv_obj_t * sw2 = lv_switch_create(image);
-    lv_obj_align(sw2, LV_ALIGN_CENTER, 120, -15);
-    lv_obj_set_size(sw2, 45, 25);
-    lv_obj_set_style_opa(sw2, LV_OPA_20, 0);
-    lv_obj_set_style_bg_color(sw2, lv_color_lighten(lv_color_black(), 60), 0);
-    lv_obj_set_style_bg_color(sw2, lv_color_lighten(lv_color_black(), 0), LV_PART_INDICATOR);
-    
-    lv_obj_set_style_border_color(sw2, lv_color_white(), 0);
-    lv_obj_set_style_border_width(sw2, 1, 0);
-    lv_obj_set_user_data(sw2, oserver_page);
-    lv_obj_add_event_cb(sw2, switch_event_handler, LV_EVENT_ALL, NULL);
-
-    entry_separator[2] = lv_img_create(image);
-    lv_img_set_src(entry_separator[2], &Linez);
-    lv_obj_align(entry_separator[2], LV_ALIGN_DEFAULT, 25, 280);
-
-    lv_obj_t * text_label = lv_label_create(image);
-    lv_label_set_recolor(text_label, true);
-    lv_label_set_text(text_label, "Text");
-    lv_obj_set_style_text_color(text_label, lv_color_white(), 0);
-    lv_obj_add_style(text_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(text_label, LV_ALIGN_LEFT_MID, 50, 70);
-
-    /*Create a switch to add 'Text' to list of total-control */
-    lv_obj_t * sw3 = lv_switch_create(image);
-    lv_obj_align(sw3, LV_ALIGN_CENTER, 120, 66);
-    lv_obj_set_size(sw3, 45, 25);
-    lv_obj_set_style_opa(sw3, LV_OPA_20, 0);
-    lv_obj_set_style_border_color(sw3, lv_color_lighten(lv_color_white(), 30), 0);
-    lv_obj_set_style_border_width(sw3, 1, 0);
-    lv_obj_set_user_data(sw3, oserver_page);
-    lv_obj_add_event_cb(sw3, switch_event_handler, LV_EVENT_ALL, NULL);
-
-    entry_separator[3] = lv_img_create(image);
-    lv_img_set_src(entry_separator[3], &Linez);
-    lv_obj_align(entry_separator[3], LV_ALIGN_DEFAULT, 25, 360);
-
-    lv_obj_t * calendar_label = lv_label_create(image);
-    lv_label_set_recolor(calendar_label, true);
-    lv_label_set_text(calendar_label, "Calendar");
-    lv_obj_set_style_text_color(calendar_label, lv_color_white(), 0);
-    lv_obj_add_style(calendar_label, &security_selection_style, LV_PART_MAIN);
-    lv_obj_align(calendar_label, LV_ALIGN_LEFT_MID, 50, 155);
-
-    /*Create a switch to add 'Calendar' to list of total-control */
-    lv_obj_t * sw4 = lv_switch_create(image);
-    lv_obj_align(sw4, LV_ALIGN_CENTER, 120, 155);
-    lv_obj_set_size(sw4, 45, 25);
-    lv_obj_set_style_opa(sw4, LV_OPA_20, 0);
-    lv_obj_set_style_border_color(sw4, lv_color_lighten(lv_color_white(), 90), LV_PART_KNOB);
-    lv_obj_set_style_border_color(sw4, lv_color_lighten(lv_color_white(), 35), 0);
-    lv_obj_set_style_border_width(sw4, 1, 0);
-    lv_obj_set_user_data(sw4, oserver_page);
-    lv_obj_add_event_cb(sw4, NULL, LV_EVENT_ALL, NULL);
-}
-
-void devices_connected_init(lv_obj_t * device_page) {
-
-#if ALL_SCROLL
-    lv_obj_t * image = lv_img_create(device_page);
-    lv_img_set_src(image, &Background);
-#else
-    lv_obj_t * image = lv_img_create(device_page);
-    lv_obj_set_size(image, 385, 510); // Same as the simulator dislay
-    lv_obj_center(image);
-#endif // ALL_SCROLL
-
-    render_back_button(image, (back_button_cb_t)back_home_button_cb);
-
-    /* 'Filter' button to filter the Device items */
-    lv_obj_t * filter_image = lv_img_create(image);
-    lv_img_set_src(filter_image, &Icon_Filter_Button);
-    lv_obj_align(filter_image, LV_ALIGN_TOP_MID, 125, 30);
-
-    /* Add the Page header using iconography at the top */
-    lv_obj_t * page_header = lv_img_create(image);
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_img_create(oserver_device_list_container);
     lv_img_set_src(page_header, &O_App_Heading_Title);
     lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
 
-    /* Add the devices connected list heading */
-    lv_obj_t * list_name = lv_label_create(image);
+    /* Add the file list heading */
+    lv_obj_t * list_name = lv_label_create(oserver_device_list_container);
     lv_label_set_recolor(list_name, true);
-    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, LIST_LEFT_ALIGNED, 108);
-    lv_label_set_text(list_name, "Devices connected");
-    lv_obj_set_style_text_color(list_name, lv_color_hex(MAIN_CONTENT_COLOR), 0);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 112);
+    lv_label_set_text(list_name, "List of devices");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(HEADING_SUBDUED_COLOR), 0);
     lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
 
-    // Add a list item separator line above the list item set
-    top_of_list_items = lv_img_create(image);
-    lv_img_set_src(top_of_list_items, &Linez);
-    lv_obj_align(top_of_list_items, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 147);
+    /* The WiFi indicator */
+    lv_obj_t * wifi_symbol = lv_img_create(oserver_device_list_container);
+    lv_img_set_src(wifi_symbol, &Icon_WiFi_White);
+    lv_obj_align(wifi_symbol, LV_ALIGN_TOP_LEFT, 280, 112);
 
-    lv_point_t left = { LIST_LEFT_ALIGNED, -220};
-    lv_point_t right = { 290, -220};
-    lv_coord_t offset = 0;
-    lv_obj_t * list_item_separator[DEVICE_PAGE_MAX];
+    /* The Bluetooth indicator */
+    lv_obj_t * bt_symbol = lv_img_create(oserver_device_list_container);
+    lv_img_set_src(bt_symbol, &Icon_Bluetooth_White);
+    lv_obj_align(bt_symbol, LV_ALIGN_TOP_LEFT, 305, 112);
 
-    // Dan's items for list separator, etc
-    lv_obj_t * page_icon_list[DEVICE_PAGE_MAX];
-    lv_obj_t * label_name[DEVICE_PAGE_MAX];
-    lv_obj_t * security_status[DEVICE_PAGE_MAX];
-    lv_obj_t * status_active_icon[DEVICE_PAGE_MAX];
+    /* The NFC indicator */
+    lv_obj_t * nfc_symbol = lv_img_create(oserver_device_list_container);
+    lv_img_set_src(nfc_symbol, &Icon_NFC_White);
+    lv_obj_align(nfc_symbol, LV_ALIGN_TOP_LEFT, 330, 112);
+    lv_obj_set_style_opa(nfc_symbol, LV_OPA_40, LV_PART_MAIN);
 
-#ifdef DAN_CODE
-    static lv_style_t status_style;
-    lv_style_init(&status_style);
-    static lv_style_t name_style;
-    lv_style_init(&name_style);
-#endif // DAN_CODE
-    
-    /* Make the list of trusted device buttons if DNE */
-    if (!trusted_device_btn_list) {
-        trusted_device_btn_list = calloc(DEVICE_PAGE_MAX, sizeof(lv_obj_t *));
-    }
 
-    /* Add (simulated) devices entries as clickable buttons*/
-    for (int i = 0; i < DEVICE_PAGE_MAX; i++)
-    {
-        left.y = left.y + offset;
-        right.y = right.y + offset;
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_scroll_overlay = lv_img_create(oserver_device_list_container);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_TOP_LEFT, 10, 140);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_TRANSP, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, screen_scroll_overlay_cb, LV_EVENT_CLICKED, NULL);
 
-        offset =  -64 + (92 * i);
+    /* Set the list_item_separator and entry_separator objects here */
+    // lv_obj_t * list_item_tail[ttl_device_pairing_items];
+    list_item_tail[ttl_device_pairing_items];
 
-        /* Using this to calculate if the DEVICE NAME field is greater than or equal to 23 characters */
-        device_name_string = devices_active_info[i].menu_pre;
-        device_name_count = strlen(device_name_string);
+    int offset = 0;
+    int device_list_item = 0;
 
-        /* Device icon image on the left */
-        page_icon_list[i] = lv_img_create(image);
-        lv_img_set_src(page_icon_list[i], devices_active_info[i].icon);
-        lv_obj_align(page_icon_list[i], LV_ALIGN_CENTER, -140, offset);
-#ifndef DAN_CODE
-        /* Opaque button overlay of the device entry graphic */
-        trusted_device_btn_list[i] = lv_btn_create(image);
-        lv_obj_set_size(trusted_device_btn_list[i], 330, 70);
-        lv_obj_align(trusted_device_btn_list[i], LV_ALIGN_CENTER, 0, offset);
-        lv_obj_set_style_opa(trusted_device_btn_list[i], LV_OPA_0, LV_PART_MAIN);
-        lv_obj_add_event_cb(trusted_device_btn_list[i], device_selected_cb, LV_EVENT_CLICKED, 0);
-#endif // DAN_CODE
+    /* Populate the container with current data from device_items_00 struct */
+    for(device_list_item = 0; device_list_item < ttl_device_pairing_items; device_list_item++) {
+        /* A row-by-row offset value to maintain spacing between clickable elements */
+        offset = device_list_item * 90;
 
-        /* The label text with the device name */
-        label_name[i] = lv_label_create(image);
-        lv_label_set_recolor(label_name[i], true);
+        /* Add a list item separator just beneath the page label item */
+        lv_obj_t * list_item_separator = lv_img_create(oserver_device_list_container);
+        lv_img_set_src(list_item_separator, &Linez);
+        lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 150 + offset);
 
-        /* Calculate and then truncate if the DEVICE NAME field is greater than or equal to 23 characters; then insert an ellipsis in place of the long string */
-        if(device_name_count >= 23) {
-            lv_label_set_text(label_name[i], devices_active_info[i].menu_pre);
-            lv_label_cut_text(label_name[i],21,device_name_count);
-            lv_label_ins_text(label_name[i],23,"...");
+        /* Set the device_type_icon image */
+        device_icon[device_list_item] = lv_img_create(oserver_device_list_container);
+        lv_img_set_src(device_icon[device_list_item], device_00_list[device_list_item].device_type_icon);
+        if(device_00_list[device_list_item].device_type == "tablet" ) {
+            lv_obj_align(device_icon[device_list_item], LV_ALIGN_TOP_LEFT, 42, 176 + offset);
+        } else if(device_00_list[device_list_item].device_type == "phone") {
+            lv_obj_align(device_icon[device_list_item], LV_ALIGN_TOP_LEFT, 44, 176 + offset);
         } else {
-            lv_label_set_text(label_name[i], devices_active_info[i].menu_pre);
+            lv_obj_align(device_icon[device_list_item], LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 180 + offset);
         }
 
-        lv_obj_align(label_name[i], LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset - LIST_ITEM_LINE_SPACING);
-        lv_obj_set_style_text_color(label_name[i], lv_color_white(), 0);
-        lv_obj_set_style_text_font(label_name[i], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        /* Add the device name label */
+        device_label[device_list_item] = lv_label_create(oserver_device_list_container);
+        lv_label_set_recolor(device_label[device_list_item], true);
+        lv_label_set_text(device_label[device_list_item], device_00_list[device_list_item].device_name);
+        lv_obj_set_style_text_color(device_label[device_list_item], lv_color_white(), 0);
+        lv_obj_set_style_text_font(device_label[device_list_item], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(device_label[device_list_item], LV_ALIGN_TOP_LEFT, 102, 172 + offset);
 
-        /* The SECURITY STATUS text string */
-        security_status[i] = lv_label_create(image);
-        lv_label_set_recolor(security_status[i], true);
-        lv_obj_align(security_status[i], LV_ALIGN_LEFT_MID, LIST_CONTENT_ITEM, offset + LIST_ITEM_LINE_SPACING);
-        lv_label_set_text(security_status[i], devices_active_info[i].security_status == ADMIN ? "Admin":"Friend");
-        lv_obj_set_style_text_color(security_status[i], lv_color_hex(MAIN_CONTENT_COLOR), 0);
-        lv_obj_set_style_text_font(security_status[i], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        /* Add the device permissions / owner type label */
+        device_perms[device_list_item] = lv_label_create(oserver_device_list_container);
+        lv_label_set_recolor(device_perms[device_list_item], true);
+        lv_label_set_text(device_perms[device_list_item], device_00_list[device_list_item].device_perms);
+        lv_obj_set_style_text_color(device_perms[device_list_item], lv_color_hex(O_GREY_COLOR), 0);
+        lv_obj_set_style_text_font(device_perms[device_list_item], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(device_perms[device_list_item], LV_ALIGN_TOP_LEFT, 102, 200 + offset);
 
-        /* The DEVICE CONNECTION STATUS iconography */
-        status_active_icon[i] = lv_img_create(image);
-        lv_img_set_src(status_active_icon[i], devices_active_info[i].active ? &Icon_Status_Active: &Icon_Status_Disable);
-        lv_obj_align(status_active_icon[i], LV_ALIGN_CENTER, 155, offset);
+        /* Set the device_status image */
+        device_status[device_list_item] = lv_img_create(oserver_device_list_container);
 
-#ifdef DAN_CODE
-
-        entry_separator[i] = lv_img_create(image);
-        lv_img_set_src(entry_separator[i], &Linez);
-        lv_obj_align(entry_separator[i], LV_ALIGN_DEFAULT, 25, offset);
-
-        /* Device icon image on the left */
-        page_icon_list[i] = lv_img_create(image);
-        lv_img_set_src(page_icon_list[i], devices_active_info[i].icon);
-        lv_obj_align(page_icon_list[i], LV_ALIGN_CENTER, -130, offset - 225);
-        lv_obj_set_style_opa(page_icon_list[i], LV_OPA_70, LV_PART_MAIN);
-
-        /*this is the opaque button overlay of the device entry graphic*/
-        trusted_device_btn_list[i] = lv_btn_create(image);
-        lv_obj_set_size(trusted_device_btn_list[i], 330, 50);
-        lv_obj_align(trusted_device_btn_list[i], LV_ALIGN_CENTER, 0, offset - 225);
-        lv_obj_set_style_opa(trusted_device_btn_list[i], LV_OPA_0, LV_PART_MAIN);
-        lv_obj_add_event_cb(trusted_device_btn_list[i], device_selected_cb, LV_EVENT_CLICKED, 0);
-
-        /* The label text with the device name */
-        label_name[i] = lv_label_create(image);
-        lv_label_set_recolor(label_name[i], true);
-        lv_obj_align(label_name[i], LV_ALIGN_DEFAULT, 120, offset - 10 + 25);
-        lv_label_set_text(label_name[i], devices_active_info[i].menu_pre);
-        lv_style_set_text_font(&name_style, &NeueHaasDisplayRoman_16);
-        lv_obj_add_style(label_name[i], &name_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(label_name[i], lv_color_white(), 0);
-
-        security_status[i] = lv_label_create(image);
-        lv_label_set_recolor(security_status[i], true);
-        lv_obj_align(security_status[i], LV_ALIGN_DEFAULT, 120, offset + 10 + 25);
-        lv_label_set_text(security_status[i], devices_active_info[i].security_status == ADMIN ? "Admin":"Friend");
-        lv_style_set_text_font(&status_style, &NeueHaasDisplayLight_16);
-        lv_obj_add_style(security_status[i], &status_style, LV_PART_MAIN);
-        lv_obj_set_style_text_color(security_status[i], lv_palette_main(LV_PALETTE_GREY), 0);
-
-        status_active_icon[i] = lv_img_create(image);
-        lv_img_set_src(status_active_icon[i], devices_active_info[i].active ? &Icon_Status_Active: &Icon_Status_Disable);
-        lv_obj_align(status_active_icon[i], LV_ALIGN_CENTER, 130, offset - 225);
-
-#endif // DAN_CODE
-
-        // Add a list item separator line at the end of the list item
-        list_item_separator[i] = lv_img_create(image);
-        lv_img_set_src(list_item_separator[i], &Linez);
-        lv_obj_align(list_item_separator[i], LV_ALIGN_LEFT_MID, LIST_SEPARATOR, offset + 44);
-
+        /* When creating the list items, use the current status stored within the included device_00_list struct */
+        if(!device_00_list[device_list_item].device_state) {
+            lv_img_set_src(device_status[device_list_item], device_00_list[device_list_item].device_disabled_icon);
+            lv_obj_align(device_status[device_list_item], LV_ALIGN_TOP_RIGHT, NORMAL_PAD_RIGHT, 190 + offset);
+            lv_obj_set_style_opa(device_status[device_list_item], LV_OPA_90, LV_PART_MAIN);
+        } else {
+            lv_img_set_src(device_status[device_list_item], device_00_list[device_list_item].device_enabled_icon);
+            lv_obj_align(device_status[device_list_item], LV_ALIGN_TOP_RIGHT, -3, 162 + offset);
+        }
     }
 
-    /* Bottom of the viewport overlay to obscure the list to lead the user to scroll up */
-    lv_obj_t * bottom_viewport_overlay = lv_obj_create(image);
-    lv_obj_set_size(bottom_viewport_overlay, OVERLAY_WIDTH, OVERLAY_HEIGHT);
-    lv_obj_set_pos(bottom_viewport_overlay, OVERLAY_POS_LEFT, OVERLAY_POS_FROM_TOP);
-    lv_obj_set_style_border_width(bottom_viewport_overlay, 0, LV_PART_MAIN);
-    lv_obj_set_style_bg_grad_dir(bottom_viewport_overlay, LV_GRAD_DIR_VER, 0);
-    lv_obj_set_style_bg_grad_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
-    lv_obj_set_style_bg_color(bottom_viewport_overlay, lv_color_hex(OVERLAY_COLOR), 0);
-    lv_obj_set_style_bg_opa(bottom_viewport_overlay, 164, 0);
-    lv_obj_set_style_bg_grad_stop(bottom_viewport_overlay, 255, LV_PART_MAIN);
+    /* Add a list item separator line at the end of the list item */
+    list_item_tail[device_list_item] = lv_img_create(oserver_device_list_container);
+    lv_img_set_src(list_item_tail[device_list_item], &Linez);
+    lv_obj_align(list_item_tail[device_list_item], LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 246 + offset);
+
+}
+
+/***  SCREEN 00 - O Server Device List page  ***/
+static void oserver_00_view(lv_obj_t * oserver_00_view_page) {
+    // printf("Loading oserver_00_view page...\n");
+
+    /* Define the main container to hold all of the devices (enabled and disabled) */
+    oserver_device_list_container = lv_img_create(oserver_00_view_page);
+
+    /* Populate the container with the most up to date list of enabled and disabed devices */
+    populate_device_list_container();
+}
+
+/***  SCREEN 01 - Device permissions view page  ***/
+static void oserver_01_view(lv_obj_t * oserver_01_view_page) {
+    printf("Loading oserver_01_view page...\n");
+
+    device_permissions_view_container = lv_img_create(oserver_01_view_page);
+
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    ttl_calc_overlay_height = calc_scroll_height(ttl_device_pairing_items);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+
+    /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
+    lv_obj_set_size(device_permissions_view_container, lv_pct(100), lv_pct(100));
+    lv_obj_set_scroll_dir(device_permissions_view_container, LV_DIR_VER);
+
+    /* Set the screen number counter to the first visible sub-screen for the settings app */
+    int scr_nbr = 1;
+    // printf("Device page number: %d\n", scr_nbr);
+
+    /* Store the pointer to the current screen being viewed */
+    o_objects[scr_nbr] = device_permissions_view_container;
+    lv_obj_set_style_bg_img_src(device_permissions_view_container, &Background, 0);
+
+/***  HEADING ELEMENTS  ***/
+    // render_back_button(device_permissions_view_container, (back_button_cb_t)back_home_button_cb);
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    lv_obj_t * back_to_device_list = lv_btn_create(device_permissions_view_container);
+    lv_obj_set_size(back_to_device_list, 130, 50);
+    lv_obj_set_style_opa(back_to_device_list, LV_OPA_0, LV_PART_MAIN);
+    lv_obj_add_event_cb(back_to_device_list, scroll_to_home, LV_EVENT_CLICKED, NULL);
+    lv_obj_align(back_to_device_list, LV_ALIGN_TOP_LEFT, 20, 31);  // This is first object displayed on the screen
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(device_permissions_view_container);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(device_permissions_view_container);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Back");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_img_create(device_permissions_view_container);
+    lv_img_set_src(page_header, &O_App_Heading_Title);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the file list heading */
+    lv_obj_t * list_name = lv_label_create(device_permissions_view_container);
+    lv_label_set_recolor(list_name, true);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 112);
+    lv_label_set_text(list_name, "Devices connected");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(HEADING_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+
+    /* The WiFi indicator */
+    lv_obj_t * wifi_symbol = lv_img_create(device_permissions_view_container);
+    lv_img_set_src(wifi_symbol, &Icon_WiFi_White);
+    lv_obj_align(wifi_symbol, LV_ALIGN_TOP_LEFT, 280, 112);
+
+    /* The Bluetooth indicator */
+    lv_obj_t * bt_symbol = lv_img_create(device_permissions_view_container);
+    lv_img_set_src(bt_symbol, &Icon_Bluetooth_White);
+    lv_obj_align(bt_symbol, LV_ALIGN_TOP_LEFT, 305, 112);
+
+    /* The NFC indicator */
+    lv_obj_t * nfc_symbol = lv_img_create(device_permissions_view_container);
+    lv_img_set_src(nfc_symbol, &Icon_NFC_White);
+    lv_obj_align(nfc_symbol, LV_ALIGN_TOP_LEFT, 330, 112);
+    lv_obj_set_style_opa(nfc_symbol, LV_OPA_40, LV_PART_MAIN);
+
+    /* Full screen overlay to enable scolling the main page vertically */
+    lv_obj_t * screen_scroll_overlay = lv_img_create(device_permissions_view_container);
+    lv_obj_set_size(screen_scroll_overlay, 350, ttl_calc_overlay_height);
+    lv_obj_align(screen_scroll_overlay, LV_ALIGN_TOP_LEFT, 10, 140);
+    lv_obj_set_style_opa(screen_scroll_overlay, LV_OPA_TRANSP, LV_PART_MAIN);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_SCROLLABLE);
+    lv_obj_add_flag(screen_scroll_overlay, LV_OBJ_FLAG_CLICKABLE);
+    lv_obj_add_event_cb(screen_scroll_overlay, screen_scroll_overlay_cb, LV_EVENT_CLICKED, NULL);
+
+    /* Set the list_item_separator and entry_separator objects here */
+    // lv_obj_t * list_item_tail[ttl_device_pairing_items];
+    list_item_tail[ttl_device_pairing_items];
+
+    int offset = 0;
+    int device_list_item = 0;
+
+    /* Populate the container with current data from device_items_00 struct */
+    for(device_list_item = 0; device_list_item < ttl_device_pairing_items; device_list_item++) {
+        /* A row-by-row offset value to maintain spacing between clickable elements */
+        offset = device_list_item * 145;
+
+        /* Add a list item separator just beneath the page label item */
+        lv_obj_t * list_item_separator = lv_img_create(device_permissions_view_container);
+        lv_img_set_src(list_item_separator, &Linez);
+        lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 150 + offset);
+
+        /* View Device Configuration Screen button overlay */
+        lv_obj_t * view_device_config_button_overlay = lv_btn_create(device_permissions_view_container);
+        lv_obj_set_size(view_device_config_button_overlay, 320, 140);
+        lv_obj_set_style_opa(view_device_config_button_overlay, LV_OPA_0, LV_PART_MAIN);
+        lv_obj_align(view_device_config_button_overlay, LV_ALIGN_TOP_MID, NARROW_PAD_LEFT, 155 + offset);  // This is first object displayed on the screen
+
+        /* Set the device_type_icon image */
+        device_icon[device_list_item] = lv_img_create(device_permissions_view_container);
+        lv_img_set_src(device_icon[device_list_item], device_00_list[device_list_item].device_type_icon);
+        if(device_00_list[device_list_item].device_type == "tablet" ) {
+            lv_obj_align(device_icon[device_list_item], LV_ALIGN_TOP_LEFT, 42, 176 + offset);
+            lv_obj_add_event_cb(view_device_config_button_overlay, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)ipad_control_screen);
+        } else if(device_00_list[device_list_item].device_type == "phone") {
+            lv_obj_align(device_icon[device_list_item], LV_ALIGN_TOP_LEFT, 44, 176 + offset);
+            lv_obj_add_event_cb(view_device_config_button_overlay, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)iphone_control_screen);
+        } else {
+            lv_obj_align(device_icon[device_list_item], LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 180 + offset);
+            lv_obj_add_event_cb(view_device_config_button_overlay, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)mac_control_screen);
+        }
+
+        /* Add the device name label */
+        device_label[device_list_item] = lv_label_create(device_permissions_view_container);
+        lv_label_set_recolor(device_label[device_list_item], true);
+        lv_label_set_text(device_label[device_list_item], device_00_list[device_list_item].device_name);
+        lv_obj_set_style_text_color(device_label[device_list_item], lv_color_white(), 0);
+        lv_obj_set_style_text_font(device_label[device_list_item], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(device_label[device_list_item], LV_ALIGN_TOP_LEFT, 102, 172 + offset);
+
+        /* Add the device permissions / owner type label */
+        device_perms[device_list_item] = lv_label_create(device_permissions_view_container);
+        lv_label_set_recolor(device_perms[device_list_item], true);
+        lv_label_set_text(device_perms[device_list_item], device_00_list[device_list_item].device_perms);
+        lv_obj_set_style_text_color(device_perms[device_list_item], lv_color_hex(O_GREY_COLOR), 0);
+        lv_obj_set_style_text_font(device_perms[device_list_item], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(device_perms[device_list_item], LV_ALIGN_TOP_LEFT, 102, 200 + offset);
+
+        /* Set the device_type_icon image */
+        device_config_icon[device_list_item] = lv_img_create(device_permissions_view_container);
+        lv_img_set_src(device_config_icon[device_list_item], &Icon_Device_Configuration);
+        lv_obj_align(device_config_icon[device_list_item], LV_ALIGN_TOP_RIGHT, -25, 172 + offset);
+
+        /* Set the device_type_icon image */
+        device_control_icon[device_list_item] = lv_img_create(device_permissions_view_container);
+        if(device_00_list[device_list_item].device_control == "total") {
+            lv_img_set_src(device_control_icon[device_list_item], &Icon_Device_Control_Total);
+            lv_obj_align(device_control_icon[device_list_item], LV_ALIGN_TOP_RIGHT, -28, 232 + offset);
+        } else if(device_00_list[device_list_item].device_control == "neutral") {
+            lv_img_set_src(device_control_icon[device_list_item], &Icon_Device_Control_Neutral);
+            lv_obj_align(device_control_icon[device_list_item], LV_ALIGN_TOP_RIGHT, -28, 232 + offset);
+        } else {
+            lv_img_set_src(device_control_icon[device_list_item], &Icon_Device_Control_Synchronisation);
+            lv_obj_align(device_control_icon[device_list_item], LV_ALIGN_TOP_RIGHT, -28, 232 + offset);
+        }
+    }
+
+    /* Add a list item separator line at the end of the list item */
+    list_item_tail[device_list_item] = lv_img_create(device_permissions_view_container);
+    lv_img_set_src(list_item_tail[device_list_item], &Linez);
+    lv_obj_align(list_item_tail[device_list_item], LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 246 + offset);
+}
+
+/***  SCREEN 02 - iPhone configuration view page  ***/
+static void oserver_02_view(lv_obj_t * oserver_02_view_page) {
+    printf("Loading oserver_02_view page...\n");
+
+    iphone_config_container = lv_img_create(oserver_02_view_page);
+
+    /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
+    lv_obj_set_size(iphone_config_container, lv_pct(100), lv_pct(100));
+    lv_obj_set_scroll_dir(iphone_config_container, LV_DIR_VER);
+
+    /* Set the screen number counter to the first visible sub-screen for the settings app */
+    int scr_nbr = 2;
+    // printf("Device page number: %d\n", scr_nbr);
+
+    /* Store the pointer to the current screen being viewed */
+    o_objects[scr_nbr] = iphone_config_container;
+    lv_obj_set_style_bg_img_src(iphone_config_container, &Background, 0);
+
+/***  HEADING ELEMENTS  ***/
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    lv_obj_t * back_to_device_list = lv_btn_create(iphone_config_container);
+    lv_obj_set_size(back_to_device_list, 130, 50);
+    lv_obj_set_style_opa(back_to_device_list, LV_OPA_0, LV_PART_MAIN);
+    // lv_obj_add_event_cb(back_to_device_list, scroll_to_home, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(back_to_device_list, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)permissions_screen);
+    lv_obj_align(back_to_device_list, LV_ALIGN_TOP_LEFT, 20, 31);  // This is first object displayed on the screen
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(iphone_config_container);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(iphone_config_container);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Back");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_label_create(iphone_config_container);
+    lv_label_set_recolor(page_header, true);
+    lv_label_set_text(page_header, "iPhone Demo");
+    lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
+    lv_obj_set_style_text_font(page_header, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the file list heading */
+    lv_obj_t * list_name = lv_label_create(iphone_config_container);
+    lv_label_set_recolor(list_name, true);
+    lv_label_set_text(list_name, "Configuration");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(HEADING_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 112);
+
+    /* Set the list_item_separator and entry_separator objects here */
+    // lv_obj_t * list_item_tail[ttl_device_control_items];
+    // list_item_tail[ttl_device_control_items];
+
+    int offset = 0;
+    int device_list_item = 0;
+
+    /* Populate the container with current data from device_items_00 struct */
+    for(device_list_item = 0; device_list_item < ttl_device_control_items; device_list_item++) {
+        /* A row-by-row offset value to maintain spacing between clickable elements */
+        offset = device_list_item * 70;
+
+        /* Add a list item separator just beneath the page label item */
+        lv_obj_t * list_item_separator = lv_img_create(iphone_config_container);
+        lv_img_set_src(list_item_separator, &Linez);
+        lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 150 + offset);
+
+        /* Device control item overlay */
+        control_item_overlay[device_list_item] = lv_btn_create(iphone_config_container);
+        lv_obj_set_size(control_item_overlay[device_list_item], 350, 60);
+        lv_obj_set_style_opa(control_item_overlay[device_list_item], LV_OPA_0, LV_PART_MAIN);
+        lv_obj_add_event_cb(control_item_overlay[device_list_item], screen_scroll_overlay_cb, LV_EVENT_CLICKED, (void*)(size_t)device_list_item);
+        lv_obj_align(control_item_overlay[device_list_item], LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 155 + offset);  // This is first object displayed on the screen
+
+        /* Add the device control item label */
+        control_item_name[device_list_item] = lv_label_create(iphone_config_container);
+        lv_label_set_recolor(control_item_name[device_list_item], true);
+        lv_label_set_text(control_item_name[device_list_item], device_01_list[device_list_item].device_name);
+        lv_obj_set_style_text_color(control_item_name[device_list_item], lv_color_white(), 0);
+        lv_obj_set_style_text_font(control_item_name[device_list_item], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(control_item_name[device_list_item], LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 175 + offset);
+
+        control_list_status[device_list_item] = lv_img_create(iphone_config_container);
+        if(device_01_list[device_list_item].device_name == "Videos" || device_01_list[device_list_item].device_name == "Music" || device_01_list[device_list_item].device_name == "Files") {
+            lv_img_set_src(control_list_status[device_list_item], &Icon_Device_Control_Off);
+        } else {
+            lv_img_set_src(control_list_status[device_list_item], &Icon_Device_Control_On);
+        }
+        lv_obj_align(control_list_status[device_list_item], LV_ALIGN_TOP_RIGHT, NORMAL_PAD_RIGHT, 170 + offset);
+    }
+
+    /* Add a list item separator just beneath the last item in the list */
+    lv_obj_t * list_item_separator = lv_img_create(iphone_config_container);
+    lv_img_set_src(list_item_separator, &Linez);
+    lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 215 + offset);
+
+}
+
+/***  SCREEN 03 - iPad configuration view page  ***/
+static void oserver_03_view(lv_obj_t * oserver_03_view_page) {
+    printf("Loading oserver_03_view page...\n");
+
+    ipad_config_container = lv_img_create(oserver_03_view_page);
+
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    // ttl_calc_overlay_height = calc_scroll_height(ttl_device_pairing_items);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+
+    /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
+    lv_obj_set_size(ipad_config_container, lv_pct(100), lv_pct(100));
+    lv_obj_set_scroll_dir(ipad_config_container, LV_DIR_VER);
+
+    /* Set the screen number counter to the first visible sub-screen for the settings app */
+    int scr_nbr = 3;
+    // printf("Device page number: %d\n", scr_nbr);
+
+    /* Store the pointer to the current screen being viewed */
+    o_objects[scr_nbr] = ipad_config_container;
+    lv_obj_set_style_bg_img_src(ipad_config_container, &Background, 0);
+
+/***  HEADING ELEMENTS  ***/
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    lv_obj_t * back_to_device_list = lv_btn_create(ipad_config_container);
+    lv_obj_set_size(back_to_device_list, 130, 50);
+    lv_obj_set_style_opa(back_to_device_list, LV_OPA_0, LV_PART_MAIN);
+    // lv_obj_add_event_cb(back_to_device_list, scroll_to_home, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(back_to_device_list, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)permissions_screen);
+    lv_obj_align(back_to_device_list, LV_ALIGN_TOP_LEFT, 20, 31);  // This is first object displayed on the screen
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(ipad_config_container);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(ipad_config_container);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Back");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_label_create(ipad_config_container);
+    lv_label_set_recolor(page_header, true);
+    lv_label_set_text(page_header, "iPad Demo");
+    lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
+    lv_obj_set_style_text_font(page_header, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the file list heading */
+    lv_obj_t * list_name = lv_label_create(ipad_config_container);
+    lv_label_set_recolor(list_name, true);
+    lv_label_set_text(list_name, "Configuration");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(HEADING_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 112);
+
+    int offset = 0;
+    int device_list_item = 0;
+
+    /* Populate the container with current data from device_items_00 struct */
+    for(device_list_item = 0; device_list_item < ttl_device_control_items; device_list_item++) {
+        /* A row-by-row offset value to maintain spacing between clickable elements */
+        offset = device_list_item * 70;
+
+        /* Add a list item separator just beneath the page label item */
+        lv_obj_t * list_item_separator = lv_img_create(ipad_config_container);
+        lv_img_set_src(list_item_separator, &Linez);
+        lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 150 + offset);
+
+        /* Device control item overlay */
+        control_item_overlay[device_list_item] = lv_btn_create(ipad_config_container);
+        lv_obj_set_size(control_item_overlay[device_list_item], 350, 60);
+        lv_obj_set_style_opa(control_item_overlay[device_list_item], LV_OPA_0, LV_PART_MAIN);
+        lv_obj_add_event_cb(control_item_overlay[device_list_item], screen_scroll_overlay_cb, LV_EVENT_CLICKED, (void*)(size_t)device_list_item);
+        lv_obj_align(control_item_overlay[device_list_item], LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 155 + offset);  // This is first object displayed on the screen
+
+        /* Add the device control item label */
+        control_item_name[device_list_item] = lv_label_create(ipad_config_container);
+        lv_label_set_recolor(control_item_name[device_list_item], true);
+        lv_label_set_text(control_item_name[device_list_item], device_01_list[device_list_item].device_name);
+        lv_obj_set_style_text_color(control_item_name[device_list_item], lv_color_white(), 0);
+        lv_obj_set_style_text_font(control_item_name[device_list_item], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(control_item_name[device_list_item], LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 175 + offset);
+
+        control_list_status[device_list_item] = lv_img_create(ipad_config_container);
+        lv_img_set_src(control_list_status[device_list_item], &Icon_Device_Control_Off);
+        lv_obj_align(control_list_status[device_list_item], LV_ALIGN_TOP_RIGHT, NORMAL_PAD_RIGHT, 170 + offset);
+    }
+
+    /* Add a list item separator just beneath the last item in the list */
+    lv_obj_t * list_item_separator = lv_img_create(ipad_config_container);
+    lv_img_set_src(list_item_separator, &Linez);
+    lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 215 + offset);
+}
+
+/***  SCREEN 04 - Frenchi Loco Mac configuration view page  ***/
+static void oserver_04_view(lv_obj_t * oserver_04_view_page) {
+    printf("Loading oserver_04_view page...\n");
+
+    frenchi_loco_mac_config_container = lv_img_create(oserver_04_view_page);
+
+    /* Calculate the entire "screen height" and "screen offset" for the scroll-overlay */
+    // ttl_calc_overlay_height = calc_scroll_height(ttl_device_pairing_items);
+    // printf("\n\nCalc Scroll Height: %d\n",ttl_calc_overlay_height);
+
+    /* Use this to ensure the screen is in "full size" which then enables full-screen scrolling */
+    lv_obj_set_size(frenchi_loco_mac_config_container, lv_pct(100), lv_pct(100));
+    lv_obj_set_scroll_dir(frenchi_loco_mac_config_container, LV_DIR_VER);
+
+    /* Set the screen number counter to the first visible sub-screen for the settings app */
+    int scr_nbr = 4;
+    // printf("Device page number: %d\n", scr_nbr);
+
+    /* Store the pointer to the current screen being viewed */
+    o_objects[scr_nbr] = frenchi_loco_mac_config_container;
+    lv_obj_set_style_bg_img_src(frenchi_loco_mac_config_container, &Background, 0);
+
+/***  HEADING ELEMENTS  ***/
+    static lv_style_t back_button_style;
+    lv_style_init(&back_button_style);
+    lv_style_set_text_font(&back_button_style, &NeueHaasDisplayLight_20);
+
+    /* Back button overlay */
+    lv_obj_t * back_to_device_list = lv_btn_create(frenchi_loco_mac_config_container);
+    lv_obj_set_size(back_to_device_list, 130, 50);
+    lv_obj_set_style_opa(back_to_device_list, LV_OPA_0, LV_PART_MAIN);
+    // lv_obj_add_event_cb(back_to_device_list, scroll_to_home, LV_EVENT_CLICKED, NULL);
+    lv_obj_add_event_cb(back_to_device_list, scroll_to_screen, LV_EVENT_CLICKED, (void*)(size_t)permissions_screen);
+    lv_obj_align(back_to_device_list, LV_ALIGN_TOP_LEFT, 20, 31);  // This is first object displayed on the screen
+
+    /* Back button icon */
+    lv_obj_t * back_image = lv_img_create(frenchi_loco_mac_config_container);
+    lv_img_set_src(back_image, &Icon_Back);
+    lv_obj_set_style_text_color(back_image, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_image, LV_ALIGN_TOP_LEFT, BACK_BUTTON_PAD, 45);
+
+    /* Back button label text */
+    lv_obj_t * back_label = lv_label_create(frenchi_loco_mac_config_container);
+    lv_label_set_recolor(back_label, true);
+    lv_label_set_text(back_label, "Back");
+    lv_obj_add_style(back_label, &back_button_style, LV_PART_MAIN);
+    lv_obj_set_style_text_color(back_label, lv_color_hex(MESSAGE_CONTENT_COLOR), 0);
+    lv_obj_align(back_label, LV_ALIGN_DEFAULT, 43, 48);
+
+    /* Add the Page header at the top */
+    lv_obj_t * page_header = lv_label_create(frenchi_loco_mac_config_container);
+    lv_label_set_recolor(page_header, true);
+    lv_label_set_text(page_header, "Frenchi Loco Mac");
+    lv_obj_set_style_text_color(page_header, lv_color_white(), 0);
+    lv_obj_set_style_text_font(page_header, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(page_header, LV_ALIGN_TOP_MID, 0, 46);
+
+    /* Add the file list heading */
+    lv_obj_t * list_name = lv_label_create(frenchi_loco_mac_config_container);
+    lv_label_set_recolor(list_name, true);
+    lv_label_set_text(list_name, "Configuration");
+    lv_obj_set_style_text_color(list_name, lv_color_hex(HEADING_SUBDUED_COLOR), 0);
+    lv_obj_set_style_text_font(list_name, &NeueHaasDisplayLight_24, LV_PART_MAIN);
+    lv_obj_align(list_name, LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 112);
+
+    /* Set the list_item_separator and entry_separator objects here */
+    // lv_obj_t * list_item_tail[ttl_device_control_items];
+    // list_item_tail[ttl_device_control_items];
+
+    int offset = 0;
+    int device_list_item = 0;
+
+    /* Populate the container with current data from device_items_00 struct */
+    for(device_list_item = 0; device_list_item < ttl_device_control_items; device_list_item++) {
+        /* A row-by-row offset value to maintain spacing between clickable elements */
+        offset = device_list_item * 70;
+
+        /* Add a list item separator just beneath the page label item */
+        lv_obj_t * list_item_separator = lv_img_create(frenchi_loco_mac_config_container);
+        lv_img_set_src(list_item_separator, &Linez);
+        lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 150 + offset);
+
+        /* Device control item overlay */
+        control_item_overlay[device_list_item] = lv_btn_create(frenchi_loco_mac_config_container);
+        lv_obj_set_size(control_item_overlay[device_list_item], 350, 60);
+        lv_obj_set_style_opa(control_item_overlay[device_list_item], LV_OPA_0, LV_PART_MAIN);
+        lv_obj_add_event_cb(control_item_overlay[device_list_item], screen_scroll_overlay_cb, LV_EVENT_CLICKED, (void*)(size_t)device_list_item);
+        lv_obj_align(control_item_overlay[device_list_item], LV_ALIGN_TOP_LEFT, NARROW_PAD_LEFT, 155 + offset);  // This is first object displayed on the screen
+
+        /* Add the device control item label */
+        control_item_name[device_list_item] = lv_label_create(frenchi_loco_mac_config_container);
+        lv_label_set_recolor(control_item_name[device_list_item], true);
+        lv_label_set_text(control_item_name[device_list_item], device_01_list[device_list_item].device_name);
+        lv_obj_set_style_text_color(control_item_name[device_list_item], lv_color_white(), 0);
+        lv_obj_set_style_text_font(control_item_name[device_list_item], &NeueHaasDisplayLight_24, LV_PART_MAIN);
+        lv_obj_align(control_item_name[device_list_item], LV_ALIGN_TOP_LEFT, NORMAL_PAD_LEFT, 175 + offset);
+
+        control_list_status[device_list_item] = lv_img_create(frenchi_loco_mac_config_container);
+        if(device_01_list[device_list_item].device_name == "Gallery" || device_01_list[device_list_item].device_name == "Videos" || device_01_list[device_list_item].device_name == "Music" || device_01_list[device_list_item].device_name == "Files") {
+            lv_img_set_src(control_list_status[device_list_item], &Icon_Device_Control_On);
+        } else {
+            lv_img_set_src(control_list_status[device_list_item], &Icon_Device_Control_Off);
+        }
+        lv_obj_align(control_list_status[device_list_item], LV_ALIGN_TOP_RIGHT, NORMAL_PAD_RIGHT, 170 + offset);
+    }
+
+    /* Add a list item separator just beneath the last item in the list */
+    lv_obj_t * list_item_separator = lv_img_create(frenchi_loco_mac_config_container);
+    lv_img_set_src(list_item_separator, &Linez);
+    lv_obj_align(list_item_separator, LV_ALIGN_TOP_LEFT, LIST_SEPARATOR, 215 + offset);
+
+    /* Populate the container with the 2fa code */
+    // create_2fa_display();
+
+    /* Populate the container with the 2fa code */
+    // create_2fa_display();
 
 }
 
 void oserver_menu_setup(void) {
-
     printf("OSERVER MENU setup...\n");
 
-#if ALL_SCROLL
+    init_styles();
+
+    /* Set the ttl_items counter to match the number of elements in the struct */
+    calc_dataset_items();
+
     lv_obj_t * oserver_page = lv_obj_create(NULL);
     menu_dispatch_table[OSERVER_VEC] = oserver_page;
 
@@ -559,40 +920,31 @@ void oserver_menu_setup(void) {
     lv_obj_set_style_clip_corner(oserver_page, true, 3);
     lv_obj_set_scroll_dir(oserver_page, LV_DIR_HOR);
     lv_obj_set_scroll_snap_x(oserver_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(oserver_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+    lv_obj_set_scrollbar_mode(oserver_page, LV_OBJ_FLAG_SCROLLABLE | LV_SCROLLBAR_MODE_ON);
 
-    /* Store the content of this page for later display */
+    /* DEVICE VIEW: Display the device-specific permissions information for the devices paired with the o mini server */
+    printf("\nOSERVER_01_VIEW launch...\n");
+    oserver_01_view(oserver_page);
 
-    /* SUB-SCREEN 0: Create already connected (trusted) devices page add it to parent */
-    devices_connected_init(oserver_page);
+    /* DEVICE VIEW: Display the iPhone Configuration */
+    printf("\nOSERVER_02_VIEW launch...\n");
+    oserver_02_view(oserver_page);
 
-    /* SUB-SCREEN 1: The items from the selected device to be transferred and secured with total-control */
-    total_control_item_init(oserver_page);
+    /* DEVICE VIEW: Display the Frenchi Loco Mac Configuration screen */
+    printf("\nOSERVER_03_VIEW launch...\n");
+    oserver_03_view(oserver_page);
 
-    /* SUB-SCREEN 2: Once selected and started the total-control transfer progress is displayed by percent. */
-    transfer_progress_init(oserver_page);
-#else
-    lv_obj_t * lotus_root_page = lv_img_create(NULL);
-    menu_dispatch_table[OSERVER_VEC] = lotus_root_page;
+    /* DEVICE VIEW: Display the iPad Configuration screen */
+    printf("\nOSERVER_04_VIEW launch...\n");
+    oserver_04_view(oserver_page);
 
-    lv_obj_set_size(lotus_root_page, 385, 510); // Same as the simulator dislay
-    lv_obj_set_style_bg_color(lotus_root_page, lv_color_lighten(lv_color_black(), 50), 0);
-    lv_img_set_src(lotus_root_page, &Background);
-    lv_obj_set_flex_flow(lotus_root_page, LV_FLEX_FLOW_ROW);
-    lv_obj_set_scroll_dir(lotus_root_page, LV_DIR_HOR);
-    lv_obj_set_scroll_snap_x(lotus_root_page, LV_SCROLL_SNAP_CENTER);
-    lv_obj_set_scrollbar_mode(lotus_root_page, LV_OBJ_FLAG_SCROLL_ONE | LV_SCROLLBAR_MODE_OFF);
+    /* MAIN O SERVER DEVICE LIST VIEW: Display the Device List with each device loading from the entire device_00_view at the currently loaded state */
+    printf("\nOSERVER_00_VIEW launch...\n");
+    oserver_00_view(oserver_page);
 
-    /* Store the content of this page for later display */
+    // // Assign the callback
+    lv_obj_add_event_cb(oserver_page, populate_device_list_container, LV_EVENT_SCREEN_LOADED, NULL);
 
-    /* SUB-SCREEN 0: Create already connected (trusted) devices page add it to parent */
-    devices_connected_init(lotus_root_page);
+    scroll_to_home();
 
-    /* SUB-SCREEN 1: The items from the selected device to be transferred and secured with total-control */
-    total_control_item_init(lotus_root_page);
-
-    /* SUB-SCREEN 2: Once selected and started the total-control transfer progress is displayed by percent. */
-    transfer_progress_init(lotus_root_page);
-#endif // ALL_SCROLL
-    
 }

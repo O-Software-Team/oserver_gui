@@ -209,7 +209,7 @@ static crypto_item * find_crypto_by_id(const char *id_to_find) {
     return NULL;  // Item not found
 }
 
-/* This function wis used to display the appropriate crypto info based upon the line item the user clicks */
+/* This function is used to display the appropriate crypto info based upon the line item the user clicks */
 static void display_crypto_info_cb(lv_event_t * e) {
     const char *screen_index = (const char *)lv_event_get_user_data(e);
     crypto_item * found_info = find_crypto_by_id(screen_index);

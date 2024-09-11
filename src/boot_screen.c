@@ -28,6 +28,7 @@ void display_boot_screen(void)
     lv_obj_align(boot_screen, LV_ALIGN_TOP_MID, 0, 190);
     lv_obj_add_event_cb(boot_screen, load_home_screen_cb, LV_EVENT_SCREEN_LOADED, NULL);
 
-    lv_scr_load_anim(boot_screen, LV_SCR_LOAD_ANIM_FADE_IN, 10000, 0, true);
+    // lv_scr_load_anim(boot_screen, LV_SCR_LOAD_ANIM_FADE_IN, 10000, 0, true);
+    lv_scr_load_anim(boot_screen, LV_SCR_LOAD_ANIM_FADE_IN, 100, 0, true);
 
 }

@@ -13,6 +13,10 @@
 #include <inttypes.h>
 #include <stdio.h>
 
+/* Initialize/populate the Song list struct */
+#define DEFINE_DEVICE_LIST
+#include "content/inc/devices/00.h"   /* Full Device List -and- State Machine Baseline */
+
 #if LV_BUILD_EXAMPLES && LV_USE_FLEX
 
 LV_IMG_DECLARE(Background_Menu_Yellow);
@@ -128,8 +132,10 @@ static void main_scroll_event_cb(lv_event_t * e) {
 }
 
 void oserver_gui(void) {
-    lv_scr_load_anim(menu_dispatch_table[MAIN_MENU_VEC], LV_SCR_LOAD_ANIM_FADE_IN, 1000, 8000, false);
-    lv_obj_fade_in(lv_layer_top(), 1000, 8000);
+    // lv_scr_load_anim(menu_dispatch_table[MAIN_MENU_VEC], LV_SCR_LOAD_ANIM_FADE_IN, 1000, 8000, false);
+    lv_scr_load_anim(menu_dispatch_table[MAIN_MENU_VEC], LV_SCR_LOAD_ANIM_FADE_IN, 100, 100, false);
+    // lv_obj_fade_in(lv_layer_top(), 1000, 8000);
+    lv_obj_fade_in(lv_layer_top(), 100, 100);
 }
 
 /**
